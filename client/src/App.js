@@ -4,6 +4,15 @@ import useApplicationData from './hooks/useApplicationData';
 import './App.css';
 import { SET_USERS } from './reducers/dataReducer';
 
+//===========Nav Components=============
+import Logo from './components/Logo'
+import Nav from './components/Nav'
+import Menu from './components/Menu'
+//===========Main Page=============
+import MainPage from './components/Main/index'
+//===========User Shelf Page=============
+import UserShelf from './components/BookShelf/index'
+
 
 
 
@@ -24,6 +33,24 @@ function App() {
 
 
   return (<div className="App" >
+    <main>
+      <nav className="sidebar__menu">
+        <span>
+          <Logo />
+          <Nav />
+          <Menu />
+        </span>
+      </nav>
+      <MainPage />
+
+
+
+
+
+
+
+
+    </main>
 
     <h1> Users </h1>
 
