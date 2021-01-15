@@ -5,9 +5,11 @@ Might need to psql createdb final -O development
 
 # To start both fron and backend
 
-## In project root (final-project$)
+## to run Client / react
 
-`npm run back`
+## ./final-project/client$
+
+`npm start`
 
 #### Can also run in the backend folder
 
@@ -20,12 +22,6 @@ CREATE ROLE development WITH LOGIN PASSWORD 'development';
 GRANT ALL PRIVILEGES ON DATABASE final TO development;
 
 \c final development;
-
-## to run Client / react
-
-## ./final-project/client$
-
-`npm start`
 
 ### Checklist
 
