@@ -25,7 +25,7 @@ CREATE TABLE friends (
 );
 
 CREATE TABLE books (
-  "isbn" int PRIMARY KEY NOT NULL,
+  "isbn" VARCHAR(255) PRIMARY KEY NOT NULL,
   "title" VARCHAR(255) NOT NULL,
   "author_last" VARCHAR(255) NOT NULL,
   "author_first" VARCHAR(255) NOT NULL
@@ -34,12 +34,12 @@ CREATE TABLE books (
 CREATE TABLE future_books (
   "id" SERIAL PRIMARY KEY NOT NULL,
   "user_id" INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  "isbn" INTEGER REFERENCES books(isbn) ON DELETE CASCADE
+  "isbn" VARCHAR(255) REFERENCES books(isbn) ON DELETE CASCADE
 );
 
 CREATE TABLE book_club (
   "id" SERIAL PRIMARY KEY NOT NULL,
-  "current_isbn" INTEGER REFERENCES books(isbn) ON DELETE CASCADE,
+  "current_isbn" VARCHAR(255) REFERENCES books(isbn) ON DELETE CASCADE,
   "book_club_name" VARCHAR(255) NOT NULL
 );
 
@@ -52,7 +52,7 @@ CREATE TABLE user_book_clubs (
 CREATE TABLE users_books (
   "id" SERIAL PRIMARY KEY NOT NULL,
   "user_id" INTEGER REFERENCES users(id) ON DELETE CASCADE,
-  "isbn" INTEGER REFERENCES books(isbn) ON DELETE CASCADE,
+  "isbn" VARCHAR(255) NOT NULL,
   "date_read" DATE NOT NULL,
   "rating" int,
   "comments" text NOT NULL,
