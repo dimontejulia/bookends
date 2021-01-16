@@ -1,10 +1,24 @@
-// eslint-disable-next-line
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import useApplicationData from './hooks/useApplicationData';
 import './App.css';
 import { SET_USERS } from './reducers/dataReducer';
 
+<<<<<<< HEAD
+=======
+//===========Nav Components=============
+import Logo from './components/Logo'
+import Nav from './components/Nav'
+import Menu from './components/Menu'
+//===========Main Page=============
+import MainPage from './components/Main/index'
+//===========User Shelf Page=============
+import UserShelf from './components/BookShelf/index'
+
+
+
+
+>>>>>>> components
 function App() {
 
   const { state, dispatch } = useApplicationData();
@@ -17,12 +31,29 @@ function App() {
     })
       .then(result => dispatch({ type: SET_USERS, users: result.data }))
       .catch(err => console.log(err.message))
-    // eslint-disable-next-line
   }, [])
   const userList = state.users.map((user) => (<li key={user.id}> {user.first_name} {user.last_name} {user.email}</li>));
 
 
   return (<div className="App" >
+    <main>
+      <nav className="sidebar__menu">
+        <span>
+          <Logo />
+          <Nav />
+          <Menu />
+        </span>
+      </nav>
+      <MainPage />
+
+
+
+
+
+
+
+
+    </main>
 
     <h1> Users </h1>
 

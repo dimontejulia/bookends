@@ -20,6 +20,11 @@
 /register | get , post
 /login | get , post
 
+## Club Resources
+
+/api/clubs/
+/api/clubs/:id
+
 ### Views (React)
 
 /
