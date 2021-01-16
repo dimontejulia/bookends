@@ -21,8 +21,7 @@ export default function Details() {
       />
       <h3>{props.title}</h3>
       <h4>{props.author}</h4>
-      <h6>{props.published}</h6>
-      <Rating />
+      <span>{props.published}</span> | <Rating />
       <p>{props.description}</p>
     </div>
   );
