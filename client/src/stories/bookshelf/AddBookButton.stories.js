@@ -1,13 +1,13 @@
 import React from 'react';
-import BookButton from '../../components/BookShelf/BookButton';
+import AddBookButton from '../../components/BookShelf/AddBookButton';
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'Book Shelf/BookButton',
-  component: BookButton,
+  title: 'Book Shelf/AddBookButton',
+  component: AddBookButton,
 };
 
-const Template = () => <BookButton />;
+const Template = () => <AddBookButton />;
 
 export const Base = Template.bind({});
 
