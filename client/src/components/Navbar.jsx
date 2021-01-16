@@ -18,7 +18,7 @@ export default function NavBar() {
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
           <LinkContainer to="/">
-            <Nav.Link>Nav</Nav.Link>
+            <Nav.Link>Home</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/shelf">
             <Nav.Link>My Shelf</Nav.Link>
