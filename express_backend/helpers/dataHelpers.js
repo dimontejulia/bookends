@@ -22,6 +22,31 @@ const getPostsByUsers = (usersPosts) => {
   return Object.values(postsByUsers);
 };
 
+const getPostsByUser = (userPosts) => {
+  const postsByUser = {};
+
+  for (let post of userPosts) {
+    if (!postsByUser[post.user_id]) {
+      postsByUser[post.user_id] = {
+        userId: post.user_id,
+        firstName: post.first_name,
+        lastName: post.last_name,
+        email: post.email,
+        posts: [],
+      };
+    }
+
+    postsByUser[post.user_id].posts.push({
+      title: post.title,
+      content: post.content,
+    });
+
+  }
+
+  return Object.values(postsByUser);
+};
+
 module.exports = {
   getPostsByUsers,
+  getPostsByUser
 };

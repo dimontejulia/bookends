@@ -5,9 +5,6 @@ import useApplicationData from './hooks/useApplicationData';
 import './App.css';
 import { SET_USERS } from './reducers/dataReducer';
 
-
-
-
 function App() {
 
   const { state, dispatch } = useApplicationData();
