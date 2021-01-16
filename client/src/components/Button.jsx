@@ -1,20 +1,7 @@
 import React from 'react';
-import classnames from 'classnames';
-// import './Button.scss';
-
-export default function Button(props) {
-  const buttonClass = classnames('button', {
-    'button--confirm': props.confirm,
-    'button--danger': props.danger,
-  });
-
-  return (
-    <button
-      className={buttonClass}
-      onClick={props.onClick}
-      disabled={props.disabled}
-    >
-      {props.children}
-    </button>
-  );
+// Generic Btn
+function Button(props) {
+  return <button onClick={props.onClick}>{props.children || 'Button'}</button>;
 }
+
+export default Button;
