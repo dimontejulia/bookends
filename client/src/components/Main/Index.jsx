@@ -1,5 +1,5 @@
-import React from 'react';
-import BookCarosel from './BookCarosel';
+import React from "react";
+import BookCarosel from "./BookCarosel";
 
 export default function Index() {
   return (
