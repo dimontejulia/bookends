@@ -1,9 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import "./fontawesome";
+
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+
+import "./index.scss";
+import "./fontawesome";
 import "bootstrap/dist/css/bootstrap.css";
 
 ReactDOM.render(
