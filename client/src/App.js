@@ -11,7 +11,7 @@ import "./index.scss";
 
 //===========Nav Components=============
 import Logo from "./components/Logo";
-import Nav from "./components/Nav";
+import Navbar from "./components/Nav";
 import Menu from "./components/Menu";
 //===========Main Page=============
 import MainPage from "./components/Main/Index";
@@ -46,7 +46,7 @@ function App() {
           <nav className="sidebar__menu">
             <span>
               <Logo />
-              <Nav />
+              <Navbar />
               <Menu />
             </span>
           </nav>

@@ -3,53 +3,36 @@ import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import Login from "./Login";
 
-export default function Nav() {
+import { Navbar, Nav } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+
+export default function NavBar() {
   return (
-    <div>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <Logo />
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item active">
-              <Link className="naveBarLink" to="/">
-                Home <span class="sr-only">(current)</span>{" "}
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link className="naveBarLink" to="/shelf">
-                {" "}
-                My Shelf{" "}
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link className="naveBarLink" to="/social">
-                {" "}
-                Social{" "}
-              </Link>
-            </li>
-            <li class="nav-item">
-              <Link className="naveBarLink" to="/register">
-                {" "}
-                Register{" "}
-              </Link>
-            </li>
-          </ul>
-          <span class="navbar-text">
-            <Login />
-          </span>
-        </div>
-      </nav>
-    </div>
+    <Navbar bg="light" expand="lg">
+      <LinkContainer to="/">
+        <Navbar.Brand>
+          <Logo />
+        </Navbar.Brand>
+      </LinkContainer>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+        <Nav className="mr-auto">
+          <LinkContainer to="/">
+            <Nav.Link>Service</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/shelf">
+            <Nav.Link>My Shelf</Nav.Link>
+          </LinkContainer>
+
+          <LinkContainer to="/social">
+            <Nav.Link>Social</Nav.Link>
+          </LinkContainer>
+        </Nav>
+        <LinkContainer to="/register">
+          <Nav.Link>Register</Nav.Link>
+        </LinkContainer>
+        <Login />
+      </Navbar.Collapse>
+    </Navbar>
   );
 }
