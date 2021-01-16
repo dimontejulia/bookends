@@ -4,21 +4,18 @@ import useApplicationData from './hooks/useApplicationData';
 import './App.css';
 import { SET_USERS } from './reducers/dataReducer';
 
-<<<<<<< HEAD
-=======
 //===========Nav Components=============
 import Logo from './components/Logo'
 import Nav from './components/Nav'
 import Menu from './components/Menu'
 //===========Main Page=============
-import MainPage from './components/Main/index'
+import MainPage from './components/Main/Index'
 //===========User Shelf Page=============
-import UserShelf from './components/BookShelf/index'
+import UserShelf from './components/BookShelf/Index'
 
 
 
 
->>>>>>> components
 function App() {
 
   const { state, dispatch } = useApplicationData();
