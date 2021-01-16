@@ -7,7 +7,7 @@ import { SET_USERS } from "./reducers/dataReducer";
 
 // Bootstrap imports & style sheets
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../src/components/Nav.scss";
+import "./index.scss";
 
 //===========Nav Components=============
 import Logo from "./components/Logo";

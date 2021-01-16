@@ -1,10 +1,9 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 
-export default function Form(props) {
+export default function Login(props) {
   return (
     <main>
-      <h1>Login Form</h1>
       <form
         autoComplete="off"
         onSubmit={(e) => {

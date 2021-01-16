@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
+import Login from "./Login";
 
 export default function Nav() {
   return (
@@ -38,6 +39,9 @@ export default function Nav() {
               </Link>
             </li>
           </ul>
+          <span class="navbar-text">
+            <Login />
+          </span>
         </div>
       </nav>
     </div>
