@@ -1,4 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 import axios from 'axios';
 import useApplicationData from './hooks/useApplicationData';
 import './App.css';
@@ -32,16 +38,22 @@ function App() {
   const userList = state.users.map((user) => (<li key={user.id}> {user.first_name} {user.last_name} {user.email}</li>));
 
 
-  return (<div className="App" >
-    <main>
-      <nav className="sidebar__menu">
-        <span>
-          <Logo />
-          <Nav />
-          <Menu />
-        </span>
-      </nav>
-      <MainPage />
+  return (
+    <Router>
+      <div className="App" >
+        <main>
+          <nav className="sidebar__menu">
+            <span>
+              <Logo />
+              <Nav />
+              <Menu />
+            </span>
+          </nav>
+          <Switch>
+            <Route path="/shelf" component={UserShelf} />
+            <Route path="/" component={MainPage} exact />
+          </Switch>
+          {/* <MainPage /> */}
 
 
 
@@ -50,12 +62,13 @@ function App() {
 
 
 
-    </main>
+        </main>
 
-    <h1> Users </h1>
+        <h1> Users </h1>
 
-    <ul> {userList} </ul>
-  </div >
+        <ul> {userList} </ul>
+      </div >
+    </Router>
   );
 }
 
