@@ -1,5 +1,12 @@
 import React from 'react';
 
 export default function NewsFeed() {
-  return <h1>NewsFeed</h1>;
+  return (
+    <section>
+      <h1>NewsFeed</h1>
+      <h4>News</h4>
+      <h4>News</h4>
+      <h4>News</h4>
+    </section>
+  );
 }

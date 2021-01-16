@@ -1,5 +1,6 @@
 import React from 'react';
 
-export default function FriendListItem() {
-  return <h1>FriendListItem</h1>;
+export default function FriendListItem(props) {
+  let f1 = 'joe';
+  return <li>{f1}</li>;
 }

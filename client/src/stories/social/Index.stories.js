@@ -3,7 +3,7 @@ import Index from '../../components/Social/Index';
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'Main Page/Index',
+  title: 'Social/Index',
   component: Index,
 };
 

@@ -3,7 +3,7 @@ import FriendListItem from '../../components/Social/FriendListItem'
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'Main Page/Index',
+  title: 'Social/FriendListItem',
   component: FriendListItem,
 };
 
