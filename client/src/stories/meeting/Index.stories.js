@@ -1,16 +1,16 @@
 import React from 'react';
-import Nav from '../components/Nav';
+import Index from '../../components/Meeting/Index';
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'Navigation',
-  component: Nav,
+  title: 'Main Page/Index',
+  component: Index,
 };
 
-const Template = () => <Nav />;
+const Template = () => <Index />;
 
-export const FirstStory = Template.bind({});
+export const Base = Template.bind({});
 
-FirstStory.args = {
+Base.args = {
   /* the args you need here will depend on your component */
 };

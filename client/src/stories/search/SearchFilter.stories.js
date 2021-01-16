@@ -1,13 +1,13 @@
 import React from 'react';
-import Logo from '../components/Logo';
+import SearchFilter from '../../components/Search/SearchFilter';
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'Navbar/Logo',
-  component: Logo,
+  title: 'Main Page/Index',
+  component: SearchFilter,
 };
 
-const Template = () => <Logo />;
+const Template = () => <SearchFilter />;
 
 export const Base = Template.bind({});
 

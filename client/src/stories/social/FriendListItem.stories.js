@@ -1,13 +1,13 @@
 import React from 'react';
-import Logo from '../components/Logo';
+import FriendListItem from '../../components/Social/FriendListItem'
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'Navbar/Logo',
-  component: Logo,
+  title: 'Main Page/Index',
+  component: FriendListItem,
 };
 
-const Template = () => <Logo />;
+const Template = () => <FriendListItem />;
 
 export const Base = Template.bind({});
 

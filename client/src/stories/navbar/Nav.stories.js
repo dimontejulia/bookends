@@ -1,16 +1,16 @@
 import React from 'react';
-import Logo from '../components/Logo';
+import Nav from '../../components/Nav';
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'Navbar/Logo',
-  component: Logo,
+  title: 'Navbar/Nav',
+  component: Nav,
 };
 
-const Template = () => <Logo />;
+const Template = () => <Nav />;
 
-export const Base = Template.bind({});
+export const Story = Template.bind({});
 
-Base.args = {
+Story.args = {
   /* the args you need here will depend on your component */
 };

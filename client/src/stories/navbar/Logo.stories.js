@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from '../components/Logo';
+import Logo from '../../components/Logo';
 
 // This default export determines where your story goes in the story list
 export default {

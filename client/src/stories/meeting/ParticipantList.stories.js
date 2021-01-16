@@ -1,13 +1,13 @@
 import React from 'react';
-import Logo from '../components/Logo';
+import ParticipantList from '../../components/Meeting/ParticipantList';
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'Navbar/Logo',
-  component: Logo,
+  title: 'Main Page/Index',
+  component: ParticipantList,
 };
 
-const Template = () => <Logo />;
+const Template = () => <ParticipantList />;
 
 export const Base = Template.bind({});
 

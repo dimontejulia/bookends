@@ -1,13 +1,13 @@
 import React from 'react';
-import Logo from '../components/Logo';
+import BookButton from '../../components/BookShelf/BookButton';
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'Navbar/Logo',
-  component: Logo,
+  title: 'Book Shelf/BookButton',
+  component: BookButton,
 };
 
-const Template = () => <Logo />;
+const Template = () => <BookButton />;
 
 export const Base = Template.bind({});
 

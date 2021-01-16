@@ -1,13 +1,13 @@
 import React from 'react';
-import Logo from '../components/Logo';
+import Menu from '../../components/Menu';
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'Navbar/Logo',
-  component: Logo,
+  title: 'Navbar/Menu',
+  component: Menu,
 };
 
-const Template = () => <Logo />;
+const Template = () => <Menu />;
 
 export const Base = Template.bind({});
 
