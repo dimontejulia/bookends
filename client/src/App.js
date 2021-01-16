@@ -9,8 +9,11 @@ import { SET_USERS } from "./reducers/dataReducer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.scss";
 
-//===========Components=============
-import Nav from "./components/Nav";
+//===========Nav Components=============
+import Logo from "./components/Logo";
+import Navbar from "./components/Nav";
+import Menu from "./components/Menu";
+//===========Main Page=============
 import MainPage from "./components/Main/Index";
 import UserShelf from "./components/BookShelf/Index";
 import Social from "./components/Social/Index";
@@ -37,14 +40,13 @@ function App() {
     </li>
   ));
 
-
   return (
     <Router>
       <div className="App">
         <main>
           <nav className="sidebar__menu">
             <span>
-              <Nav />
+              <Navbar />
             </span>
           </nav>
           <Switch>
@@ -52,15 +54,16 @@ function App() {
             <Route path="/shelf" component={UserShelf} />
             <Route path="/social" component={Social} />
             <Route path="/register" component={Register} />
-            <Route path="/book/:id" render={(props) => {
-              //===============================ROUTE IS INCOMPLETE Not truely dynamic===========================
-              // Strips the id from the full url
-              let bookID = props.location.pathname.replace('/book/', '');
-              console.log("ROUTE>>Book id: ", bookID)
-              return (
-                <BookDetails />
-              )
-            }} />
+            <Route
+              path="/book/:id"
+              render={(props) => {
+                //===============================ROUTE IS INCOMPLETE Not truely dynamic===========================
+                // Strips the id from the full url
+                let bookID = props.location.pathname.replace("/book/", "");
+                console.log("ROUTE>>Book id: ", bookID);
+                return <BookDetails />;
+              }}
+            />
 
             <Route path="/" component={MainPage} exact />
           </Switch>
