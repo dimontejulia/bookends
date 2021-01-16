@@ -1,5 +1,15 @@
 import React from 'react';
 
 export default function VideoGrid() {
-  return <h1>WebRTC Video Grid</h1>;
+  return (
+    <section>
+      <h2>Book Club Meeting</h2>
+      <br />
+      <img src={'https://via.placeholder.com/150x200.png?text=Video'} />
+      <img src={'https://via.placeholder.com/150x200.png?text=Video'} />
+      <img src={'https://via.placeholder.com/150x200.png?text=Video'} />
+      <img src={'https://via.placeholder.com/150x200.png?text=Video'} />
+      <img src={'https://via.placeholder.com/150x200.png?text=Video'} />
+    </section>
+  );
 }

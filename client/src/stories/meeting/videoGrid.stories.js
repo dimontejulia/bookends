@@ -3,7 +3,7 @@ import VideoGrid from '../../components/Meeting/VideoGrid';
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'Main Page/Index',
+  title: 'Meeting/VideoGrid',
   component: VideoGrid,
 };
 

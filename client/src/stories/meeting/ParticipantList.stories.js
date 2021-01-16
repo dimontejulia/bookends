@@ -3,7 +3,7 @@ import ParticipantList from '../../components/Meeting/ParticipantList';
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'Main Page/Index',
+  title: 'Meeting/ParticipantList',
   component: ParticipantList,
 };
 

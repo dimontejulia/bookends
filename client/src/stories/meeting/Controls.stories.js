@@ -3,7 +3,7 @@ import Controls from '../../components/Meeting/Controls';
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'Main Page/Index',
+  title: 'Meeting/Controls',
   component: Controls,
 };
 
