@@ -11,7 +11,7 @@ import "./index.scss";
 
 //===========Nav Components=============
 import Logo from "./components/Logo";
-import Navbar from "./components/Nav";
+import Navbar from "./components/Navbar";
 import Menu from "./components/Menu";
 //===========Main Page=============
 import MainPage from "./components/Main/Index";
