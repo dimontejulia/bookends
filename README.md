@@ -1,3 +1,10 @@
+# Storybook
+
+To install
+`npx sb init`
+To Run
+`npm run storybook`
+
 # Make local PSQL DB
 
 createdb final -O development
