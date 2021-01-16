@@ -38,6 +38,12 @@ export default function Nav() {
                 Social{" "}
               </Link>
             </li>
+            <li class="nav-item">
+              <Link className="naveBarLink" to="/register">
+                {" "}
+                Register{" "}
+              </Link>
+            </li>
           </ul>
           <span class="navbar-text">
             <Login />

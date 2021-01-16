@@ -19,6 +19,7 @@ import MainPage from "./components/Main/Index";
 import UserShelf from "./components/BookShelf/Index";
 //===========Social Page=============
 import Social from "./components/Social/Index";
+import Register from "./components/Resiter";
 
 function App() {
   const { state, dispatch } = useApplicationData();
@@ -52,6 +53,7 @@ function App() {
           <Switch>
             <Route path="/shelf" component={UserShelf} />
             <Route path="/social" component={Social} />
+            <Route path="/register" component={Register} />
             <Route path="/" component={MainPage} exact />
           </Switch>
           {/* <MainPage /> */}
