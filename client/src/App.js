@@ -9,20 +9,20 @@ import { SET_USERS } from "./reducers/dataReducer";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../src/components/Nav.scss";
 
-//===========Nav Components=============
+//===========Components=============
 import Logo from "./components/Logo";
 import Nav from "./components/Nav";
 import Menu from "./components/Menu";
-//===========Main Page=============
 import MainPage from "./components/Main/Index";
-//===========User Shelf Page=============
 import UserShelf from "./components/BookShelf/Index";
-//===========Social Page=============
 import Social from "./components/Social/Index";
+import ClubsIndex from './components/Club/Index'
+//=====================================
 
 function App() {
   const { state, dispatch } = useApplicationData();
 
+  // Boilerplate users
   useEffect(() => {
     axios({
       method: "GET",
@@ -38,28 +38,24 @@ function App() {
     </li>
   ));
 
+
   return (
     <Router>
       <div className="App">
         <main>
           <nav className="sidebar__menu">
             <span>
-              <Logo />
               <Nav />
-              <Menu />
             </span>
           </nav>
           <Switch>
+            <Route path="/clubs" component={ClubsIndex} />
             <Route path="/shelf" component={UserShelf} />
             <Route path="/social" component={Social} />
+            <Route path="/register" component={Register} />
             <Route path="/" component={MainPage} exact />
           </Switch>
-          {/* <MainPage /> */}
         </main>
-
-        <h1> Users </h1>
-
-        <ul> {userList} </ul>
       </div>
     </Router>
   );
