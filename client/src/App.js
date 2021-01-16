@@ -4,7 +4,10 @@ import axios from "axios";
 import useApplicationData from "./hooks/useApplicationData";
 import "./App.css";
 import { SET_USERS } from "./reducers/dataReducer";
+
+// Bootstrap imports & style sheets
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../src/components/Nav.scss";
 
 //===========Nav Components=============
 import Logo from "./components/Logo";
