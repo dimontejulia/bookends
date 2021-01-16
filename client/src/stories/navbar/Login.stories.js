@@ -1,9 +1,9 @@
-import React from 'react';
-import Login from '../../components/Login/Index'
+import React from "react";
+import Login from "../../components/Login";
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'Login/Login page',
+  title: "Navbar/Login",
   component: Login,
 };
 

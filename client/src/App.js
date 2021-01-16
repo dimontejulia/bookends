@@ -7,7 +7,7 @@ import { SET_USERS } from "./reducers/dataReducer";
 
 // Bootstrap imports & style sheets
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../src/components/Nav.scss";
+import "./index.scss";
 
 //===========Components=============
 import Logo from "./components/Logo";
@@ -16,8 +16,8 @@ import Menu from "./components/Menu";
 import MainPage from "./components/Main/Index";
 import UserShelf from "./components/BookShelf/Index";
 import Social from "./components/Social/Index";
-import ClubsIndex from './components/Club/Index'
-//=====================================
+import ClubsIndex from "./components/Club/Index";
+import Register from "./components/Register";
 
 function App() {
   const { state, dispatch } = useApplicationData();
