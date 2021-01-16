@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function BookListItem(props) {
   props = {
@@ -15,13 +16,15 @@ export default function BookListItem(props) {
 
   return (
     <article>
-      <img
-        src={'https://via.placeholder.com/150x200.png?text=Book'}
-        alt={'Add Book to Shelf'}
-      />
-      <p>
-        {props.title} by {props.author}
-      </p>
+      <Link to={`/book/${props.id}`}>
+        <img
+          src={'https://via.placeholder.com/150x200.png?text=Book'}
+          alt={'Add Book to Shelf'}
+        />
+        <p>
+          {props.title} by {props.author}
+        </p>
+      </Link>
     </article>
   );
 }

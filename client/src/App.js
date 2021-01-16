@@ -10,14 +10,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.scss";
 
 //===========Components=============
-import Logo from "./components/Logo";
 import Nav from "./components/Nav";
-import Menu from "./components/Menu";
 import MainPage from "./components/Main/Index";
 import UserShelf from "./components/BookShelf/Index";
 import Social from "./components/Social/Index";
 import ClubsIndex from "./components/Club/Index";
 import Register from "./components/Register";
+import BookDetails from "./components/Book/Index";
 
 function App() {
   const { state, dispatch } = useApplicationData();
@@ -53,6 +52,15 @@ function App() {
             <Route path="/shelf" component={UserShelf} />
             <Route path="/social" component={Social} />
             <Route path="/register" component={Register} />
+            <Route path="/book/:id" render={(props) => {
+              // Strips the id from the full url
+              let bookID = props.location.pathname.replace('/book/', '');
+              console.log("ROUTE>>Book id: ", bookID)
+              return (
+                <BookDetails />
+              )
+            }} />
+
             <Route path="/" component={MainPage} exact />
           </Switch>
         </main>
