@@ -8,6 +8,7 @@
 /api/users/:id/clubs | get , post, delete
 /api/users/:id/friends | get , post, delete
 /api/users/:id/wishlist | get , post, delete
+/api/users/:id/posts | get, post, delete
 
 ## Books Resource | Methods
 
