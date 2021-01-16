@@ -53,6 +53,7 @@ function App() {
             <Route path="/social" component={Social} />
             <Route path="/register" component={Register} />
             <Route path="/book/:id" render={(props) => {
+              //===============================ROUTE IS INCOMPLETE Not truely dynamic===========================
               // Strips the id from the full url
               let bookID = props.location.pathname.replace('/book/', '');
               console.log("ROUTE>>Book id: ", bookID)
