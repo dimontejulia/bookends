@@ -1,13 +1,13 @@
 import React from 'react';
-import Nav from '../../components/Nav';
+import Navbar from '../../components/Navbarbar';
 
 // This default export determines where your story goes in the story list
 export default {
-  title: 'Navbar/Nav',
-  component: Nav,
+  title: 'Navbarbar/Navbar',
+  component: Navbar,
 };
 
-const Template = () => <Nav />;
+const Template = () => <Navbar />;
 
 export const Story = Template.bind({});
 
