@@ -1,104 +1,146 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { createUser } from '../actions';
 
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Col from "react-bootstrap/Col";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Col from 'react-bootstrap/Col';
 
 const Register = ({ users, onCreatePressed }) => {
-  const [inputValue, setUser] = useState('');
+  const [state, setState] = useState({
+    userData: {},
+    bookData: {},
+    clubData: {},
+  });
 
   const registrationHandler = (event) => {
+    console.log('=========State@start=========', state.userData);
     const target = event.target;
     const value = target.value;
-    console.log("=========TARGET=========", target)
-    console.log("=========VALUE=========", value)
+    console.log('=========TARGET=========', target);
+    console.log('=========VALUE=========', value);
     const name = target.name;
+    //prev User Data
+    let currUserData = state.userData;
 
-    setUser(prevState => ({
-      name: {
-        ...prevState.name,
-        value
-      }
-    }));
-  }
+    setState({
+      ...state,
+      userData: { ...currUserData, [target.name]: value, test: 11 },
+    });
+    // setUser((prevState) => ({
+    //   name: {
+    //     ...prevState,
+    //     value,
+    //   },
+    // }));
+  };
 
   return (
     <main>
       <Form>
         <h1>Registration</h1>
         <Form.Row>
-          <Form.Group as={Col} controlId="formGridFirstName">
+          <Form.Group as={Col} controlId='formGridFirstName'>
             <Form.Label>First Name</Form.Label>
-            <Form.Control name="firstName" placeholder="First name" onChange={registrationHandler}/>
+            <Form.Control
+              name='firstName'
+              placeholder='First name'
+              onChange={registrationHandler}
+            />
           </Form.Group>
-          <Form.Group as={Col} controlId="formGridLastName">
+          <Form.Group as={Col} controlId='formGridLastName'>
             <Form.Label>Last Name</Form.Label>
-            <Form.Control name="lastName" placeholder="Last Name" onChange={registrationHandler}/>
+            <Form.Control
+              name='lastName'
+              placeholder='Last Name'
+              onChange={registrationHandler}
+            />
           </Form.Group>
         </Form.Row>
 
-        <Form.Group controlId="formBasicEmail">
+        <Form.Group controlId='formBasicEmail'>
           <Form.Label>Email address</Form.Label>
-          <Form.Control name="email" type="email" placeholder="Enter email" onChange={registrationHandler}/>
+          <Form.Control
+            name='email'
+            type='email'
+            placeholder='Enter email'
+            onChange={registrationHandler}
+          />
         </Form.Group>
 
         <Form.Row>
-          <Form.Group as={Col} controlId="formBasicPassword">
+          <Form.Group as={Col} controlId='formBasicPassword'>
             <Form.Label>Password</Form.Label>
-            <Form.Control name="password" type="password" placeholder="Password" onChange={registrationHandler}/>
+            <Form.Control
+              name='password'
+              type='password'
+              placeholder='Password'
+              onChange={registrationHandler}
+            />
           </Form.Group>
-          <Form.Group as={Col} controlId="formBasicPassword">
+          <Form.Group as={Col} controlId='formBasicPassword'>
             <Form.Label>Confirm Password</Form.Label>
-            <Form.Control name="passwordConfirmation" type="password" placeholder="Password" onChange={registrationHandler}/>
+            <Form.Control
+              name='passwordConfirmation'
+              type='password'
+              placeholder='Password'
+              onChange={registrationHandler}
+            />
           </Form.Group>
         </Form.Row>
 
         <Form.Row>
-          <Form.Group as={Col} controlId="formGridAge">
+          <Form.Group as={Col} controlId='formGridAge'>
             <Form.Label>Age</Form.Label>
-            <Form.Control name="age" onChange={registrationHandler}/>
+            <Form.Control name='age' onChange={registrationHandler} />
           </Form.Group>
 
-          <Form.Group as={Col} controlId="formGridGender">
+          <Form.Group as={Col} controlId='formGridGender'>
             <Form.Label>Gender</Form.Label>
-            <Form.Control name="gender"  onChange={registrationHandler} 
-              as="select" defaultValue="Choose...">
+            <Form.Control
+              name='gender'
+              onChange={registrationHandler}
+              as='select'
+              defaultValue='Choose...'
+            >
               <option>Choose...</option>
               <option>Male</option>
               <option>Female</option>
-              <option>Prefer not to say</option>                    
+              <option>Prefer not to say</option>
             </Form.Control>
           </Form.Group>
         </Form.Row>
 
-        <Button name="submitRegister" variant="primary" value='submit' type="submit" onClick={(e) => {
-            e.preventDefault()
-            onCreatePressed(inputValue)
-          } 
-        }>
+        <Button
+          name='submitRegister'
+          variant='primary'
+          value='submit'
+          type='submit'
+          onClick={(e) => {
+            e.preventDefault();
+            onCreatePressed(state);
+          }}
+        >
           Submit
         </Button>
       </Form>
     </main>
   );
-}
+};
 
-
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   users: state.users,
 });
 
-const mapDispatchToProps = dispatch => ({
-  onCreatePressed: text => dispatch(createUser(text)),
+const mapDispatchToProps = (dispatch) => ({
+  onCreatePressed: (text) => dispatch(createUser(text)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);
 
-//=============================== 
+//===============================
 //vvvv reference from video vvvvv
-//=============================== 
+//===============================
 
 // import React, { useState } from 'react';
 // import { connect } from 'react-redux';

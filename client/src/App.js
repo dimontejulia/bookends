@@ -18,7 +18,7 @@ import Social from "./components/Social/Index";
 import ClubsIndex from "./components/Club/Index";
 import Register from "./components/Register";
 import BookDetails from "./components/Book/Index";
-import todos from "./components/todos/TodoList"
+// import todos from "./components/todos/TodoList"
 
 function App() {
   const { state, dispatch } = useApplicationData();
@@ -49,7 +49,7 @@ function App() {
             </span>
           </nav>
           <Switch>
-          <Route path="/todos" component={todos} />
+            {/* <Route path="/todos" component={todos} /> */}
             <Route path="/clubs" component={ClubsIndex} />
             <Route path="/shelf" component={UserShelf} />
             <Route path="/social" component={Social} />
