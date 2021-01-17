@@ -10,6 +10,12 @@ export const removeBook = text => ({
   payload: { text }
 });
 
+export const CREATE_USER = 'CREATE_USER';
+export const createUser = newUser => ({
+  type: CREATE_USER,
+  payload: { newUser }
+});
+
 export const SET_USERS = 'SET_USERS';
 export const setUsers = id => ({
   type: SET_USERS,

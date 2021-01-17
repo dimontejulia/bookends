@@ -1,4 +1,4 @@
-import { ADD_BOOK, REMOVE_BOOK, SET_USERS } from './actions';
+import { ADD_BOOK, CREATE_USER, REMOVE_BOOK, SET_USERS } from './actions';
 
 export const books = (state = [], action) => {
   const { type, payload } = action;
@@ -23,10 +23,17 @@ export const books = (state = [], action) => {
   }
 };
 
-export const users = (state, action) => {
+export const users = (state = [], action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case CREATE_USER: {
+      const { newUser } = payload;
+      const createUser = {
+        newUser
+      };
+      return state.concat(createUser);
+    }
     case SET_USERS: {
       return {
         ...state,

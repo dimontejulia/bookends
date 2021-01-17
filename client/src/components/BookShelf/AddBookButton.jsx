@@ -1,4 +1,5 @@
 import React from 'react';
+// import {connect} from 'react-redux';
 
 export default function AddBookButton() {
   return (
@@ -7,4 +8,12 @@ export default function AddBookButton() {
       alt={'Add Book to Shelf'}
     />
   );
-}
+};
+
+// const mapStateToProps = (state) => ({
+//     books: state.book
+// })
+
+// const mapDispatchToProps = dispatch => ({
+//   onCreatePressed: text => dispatch(addBook(text)),
+// });

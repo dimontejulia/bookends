@@ -1,9 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
+import { connect } from 'react-redux';
+import { createUser } from '../actions';
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 
-export default function Register(props) {
+const Register = ({ users, onCreatePressed }) => {
+  const [inputValue, setUser] = useState('');
+
+  const registrationHandler = (event) => {
+    const target = event.target;
+    const value = target.value;
+    console.log("=========TARGET=========", target)
+    console.log("=========VALUE=========", value)
+    const name = target.name;
+
+    setUser(prevState => ({
+      name: {
+        ...prevState.name,
+        value
+      }
+    }));
+  }
+
   return (
     <main>
       <Form>
@@ -11,51 +31,113 @@ export default function Register(props) {
         <Form.Row>
           <Form.Group as={Col} controlId="formGridFirstName">
             <Form.Label>First Name</Form.Label>
-            <Form.Control placeholder="First name" />
+            <Form.Control name="firstName" placeholder="First name" onChange={registrationHandler}/>
           </Form.Group>
           <Form.Group as={Col} controlId="formGridLastName">
             <Form.Label>Last Name</Form.Label>
-            <Form.Control placeholder="Last Name" />
+            <Form.Control name="lastName" placeholder="Last Name" onChange={registrationHandler}/>
           </Form.Group>
         </Form.Row>
 
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" />
+          <Form.Control name="email" type="email" placeholder="Enter email" onChange={registrationHandler}/>
         </Form.Group>
 
         <Form.Row>
           <Form.Group as={Col} controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
+            <Form.Control name="password" type="password" placeholder="Password" onChange={registrationHandler}/>
           </Form.Group>
           <Form.Group as={Col} controlId="formBasicPassword">
             <Form.Label>Confirm Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" />
+            <Form.Control name="passwordConfirmation" type="password" placeholder="Password" onChange={registrationHandler}/>
           </Form.Group>
         </Form.Row>
 
         <Form.Row>
           <Form.Group as={Col} controlId="formGridAge">
             <Form.Label>Age</Form.Label>
-            <Form.Control />
+            <Form.Control name="age" onChange={registrationHandler}/>
           </Form.Group>
 
           <Form.Group as={Col} controlId="formGridGender">
             <Form.Label>Gender</Form.Label>
-            <Form.Control as="select" defaultValue="Choose...">
+            <Form.Control name="gender"  onChange={registrationHandler} 
+              as="select" defaultValue="Choose...">
               <option>Choose...</option>
               <option>Male</option>
               <option>Female</option>
-              <option>Prefer not to say</option>
+              <option>Prefer not to say</option>                    
             </Form.Control>
           </Form.Group>
         </Form.Row>
 
-        <Button variant="primary" type="submit">
+        <Button name="submitRegister" variant="primary" value='submit' type="submit" onClick={(e) => {
+            e.preventDefault()
+            onCreatePressed(inputValue)
+          } 
+        }>
           Submit
         </Button>
       </Form>
     </main>
   );
 }
+
+
+const mapStateToProps = state => ({
+  users: state.users,
+});
+
+const mapDispatchToProps = dispatch => ({
+  onCreatePressed: text => dispatch(createUser(text)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
+
+//=============================== 
+//vvvv reference from video vvvvv
+//=============================== 
+
+// import React, { useState } from 'react';
+// import { connect } from 'react-redux';
+// import { createTodo } from './actions';
+// import './NewTodoForm.css';
+
+// const NewTodoForm = ({ todos, onCreatePressed }) => {
+//     const [inputValue, setInputValue] = useState('');
+
+//     return (
+//         <div className="new-todo-form">
+//             <input
+//                 className="new-todo-input"
+//                 type="text"
+//                 placeholder="Type your new todo here"
+//                 value={inputValue}
+//                 onChange={e => setInputValue(e.target.value)} />
+//             <button
+//                 onClick={() => {
+//                     const isDuplicateText =
+//                         todos.some(todo => todo.text === inputValue);
+//                     if (!isDuplicateText) {
+//                         onCreatePressed(inputValue);
+//                         setInputValue('');
+//                     }
+//                 }}
+//                 className="new-todo-button">
+//                 Create Todo
+//             </button>
+//         </div>
+//     );
+// };
+
+// const mapStateToProps = state => ({
+//     todos: state.todos,
+// });
+
+// const mapDispatchToProps = dispatch => ({
+//     onCreatePressed: text => dispatch(createTodo(text)),
+// });
+
+// export default connect(mapStateToProps, mapDispatchToProps)(NewTodoForm);

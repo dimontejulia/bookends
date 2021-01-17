@@ -12,11 +12,9 @@ import "./fontawesome";
 import "bootstrap/dist/css/bootstrap.css";
 
 ReactDOM.render(
-  <React.StrictMode>
     <Provider store={configureStore()}>
       <App />
-    </Provider>
-  </React.StrictMode>,
+    </Provider>,
   document.getElementById("root")
 );
 
