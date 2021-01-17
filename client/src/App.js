@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
+import useApplicationData from './hooks/useApplicationData'
 
 // Bootstrap imports & style sheets
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -18,9 +19,8 @@ import Register from "./components/Register";
 import BookDetails from "./components/Book/Index";
 
 function App() {
-  const { state, setState } = useState({})
-
-
+  const [state, setState] = useState()
+  console.log(">>>>>>>>>STATE>>>>>>>", state)
 
   return (
     <Router>
@@ -36,6 +36,12 @@ function App() {
             <Route path="/shelf" component={UserShelf} />
             <Route path="/social" component={Social} />
             <Route path="/register" component={Register} />
+            <Route
+              path="/myshelf/"
+              render={() => {
+                return <UserShelf />;
+              }}
+            />
             <Route
               path="/book/:id"
               render={(props) => {

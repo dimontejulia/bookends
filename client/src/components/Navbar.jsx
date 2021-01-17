@@ -1,34 +1,36 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import Logo from "./Logo";
-import Login from "./Login";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Logo from './Logo';
+import Login from './Login';
 
-import { Navbar, Nav } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import { Navbar, Nav } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 export default function NavBar() {
+  const { state, setState } = useState();
   return (
-    <Navbar bg="light" expand="lg">
-      <LinkContainer to="/">
+    <Navbar bg='light' expand='lg'>
+      <LinkContainer to='/'>
         <Navbar.Brand>
           <Logo />
+          <div>{state ? state : 'No ID'}</div>
         </Navbar.Brand>
       </LinkContainer>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <LinkContainer to="/">
+      <Navbar.Toggle aria-controls='basic-navbar-nav' />
+      <Navbar.Collapse id='basic-navbar-nav'>
+        <Nav className='mr-auto'>
+          <LinkContainer to='/'>
             <Nav.Link>Home</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/shelf">
+          <LinkContainer to='/shelf'>
             <Nav.Link>My Shelf</Nav.Link>
           </LinkContainer>
 
-          <LinkContainer to="/social">
+          <LinkContainer to='/social'>
             <Nav.Link>Social</Nav.Link>
           </LinkContainer>
         </Nav>
-        <LinkContainer to="/register">
+        <LinkContainer to='/register'>
           <Nav.Link>Register</Nav.Link>
         </LinkContainer>
         <Login />
