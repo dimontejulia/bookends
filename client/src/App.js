@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
-import useApplicationData from "./hooks/useApplicationData";
 import "./App.css";
-import { SET_USERS } from "./reducers/dataReducer";
 
 // Bootstrap imports & style sheets
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -20,23 +18,9 @@ import Register from "./components/Register";
 import BookDetails from "./components/Book/Index";
 
 function App() {
-  const { state, dispatch } = useApplicationData();
+  const { state, setState } = useState({})
 
-  // Boilerplate users
-  useEffect(() => {
-    axios({
-      method: "GET",
-      url: "/api/users",
-    })
-      .then((result) => dispatch({ type: SET_USERS, users: result.data }))
-      .catch((err) => console.log(err.message));
-  }, []);
-  const userList = state.users.map((user) => (
-    <li key={user.id}>
-      {" "}
-      {user.first_name} {user.last_name} {user.email}
-    </li>
-  ));
+
 
   return (
     <Router>
