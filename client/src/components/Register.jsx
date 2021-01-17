@@ -25,7 +25,7 @@ const Register = ({ users, onCreatePressed }) => {
 
     setState({
       ...state,
-      userData: { ...currUserData, [target.name]: value, test: 11 },
+      userData: { ...currUserData, [target.name]: value },
     });
     // setUser((prevState) => ({
     //   name: {
