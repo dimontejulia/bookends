@@ -1,12 +1,12 @@
 import React from 'react';
+import NewsList from '../List';
+import NewsListItem from '../ListItem';
 
 export default function NewsFeed() {
+  const testList = ['Joaae', 'Saraaa', 'Beaath'];
   return (
     <section>
-      <h1>NewsFeed</h1>
-      <h4>News</h4>
-      <h4>News</h4>
-      <h4>News</h4>
+      <NewsList list={testList} listName='News Feed' />
     </section>
   );
 }

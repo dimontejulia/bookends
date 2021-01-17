@@ -2,16 +2,15 @@ import React from 'react';
 import ListItem from './ListItem';
 
 export default function List(props) {
-  props = {
-    listname: "Friends",
-    item: 'Joe',
-  };
+  const { listName, list } = props;
+
+  const parsedList =
+    list && list.map((listItem) => <ListItem item={listItem} />);
+
   return (
     <section>
-      <h1>{props.listname} List</h1>
-      <ul>
-        <ListItem item={props.item} />
-      </ul>
+      <h1>{listName}</h1>
+      <ul>{parsedList}</ul>
     </section>
   );
 }

@@ -1,7 +1,4 @@
-import {
-  useEffect,
-  useReducer
-} from 'react';
+import { useEffect, useReducer } from 'react';
 
 import dataReducer, { SET_USERS } from '../reducers/dataReducer';
 
@@ -12,19 +9,15 @@ const useApplicationData = () => {
     users: [],
     loading: true,
   });
+
   useEffect(() => {
     axios({
       method: 'GET',
       url: '/api/users',
     })
-      .then(({
-        data
-      }) => {
+      .then(({ data }) => {
         console.log(data);
-        dispatch({
-          type: SET_USERS,
-          users: data
-        });
+        dispatch({ type: SET_USERS, users: data });
       })
       .catch((err) => console.log(err));
   }, []);
@@ -33,6 +26,7 @@ const useApplicationData = () => {
     state,
     dispatch,
   };
+
 };
 
 export default useApplicationData;

@@ -5,12 +5,15 @@ export default function FriendList(props) {
   props = {
     friends: ['Joe', 'Sara', 'Beth'],
   };
+  const { friends } = props;
+
+  const parsedList =
+    friends && friends.map((friend) => <FriendListItem friend={friend} />);
+
   return (
     <section>
       <h1>FriendList</h1>
-      <ul>
-        <FriendListItem friends={props.friends} />
-      </ul>
+      <ul>{parsedList}</ul>
     </section>
   );
 }
