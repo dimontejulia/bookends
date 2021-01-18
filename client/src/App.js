@@ -25,8 +25,8 @@ function App() {
   const [friends, setFriends] = useState('');
   const [news, setNews] = useState('');
   const [userData, setUserData] = useState('');
-  const [clubs, setClubs] = useState('');
-  const [clubsBook, setClubsBook] = useState('');
+  const [club, setClub] = useState('');
+  const [clubAdmin, setClubAdmin] = useState('');
 
   const initialize = () => {
     setUser('2131')
@@ -38,6 +38,21 @@ function App() {
       readDate: '2019-05-07',
       notes: "These are book notes"
     })
+    setClub({
+      name: "John's Club",
+      avatar: "https://image.flaticon.com/icons/png/512/69/69589.png",
+      description: "Basic book club description goes here",
+      currentBook: {
+        cover: "https://dynamic.indigoimages.ca/books/0735211299.jpg?scaleup=true&width=614&maxheight=614&quality=85&lang=en",
+        title: "Atomic Habits",
+        author: "James Clear",
+        published: "October 16, 2018",
+        description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day. James Clear, one of the world''s leading experts on habit formation, reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results."
+      }
+    });
+    setClubAdmin({
+      user
+    });
   }
 
   useEffect(() => { initialize() }, [])
@@ -46,7 +61,9 @@ function App() {
     books,
     user,
     friends,
-    news
+    news,
+    club,
+    clubAdmin
   }
 
   console.log(">>>>>>BOOKS", books)
@@ -70,7 +87,7 @@ function App() {
             </span>
           </nav>
           <Switch>
-            <Route path="/clubs"><ClubsIndex clubs={clubs} clubsBook={clubsBook} setClubs={setClubs} setClubsBook={setClubsBook} /></Route>
+            <Route path="/clubs"><ClubsIndex user={user} clubAdmin={clubAdmin} setClubAdmin={setClubAdmin} club={club} setClub={setClub} /></Route>
             <Route path="/register" render={() => { return <Register user={user} setUser={setUser} /> }} />
             {/* <Route path="/register" > <Register user={user} setUser={setUser} /> </Route> */}
             <Route path="/social"> <Social friends={friends} news={news} setFriends={setFriends} /> </Route>

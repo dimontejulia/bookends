@@ -1,8 +1,8 @@
 import React from 'react';
 import ClubInfo from './ClubInfo';
 
-export default function Index() {
+export default function Index(props) {
   return (
-    <ClubInfo />
+    <ClubInfo club={props.club} />
   );
 }
