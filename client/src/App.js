@@ -26,6 +26,7 @@ function App() {
   const [userData, setUserData] = useState('');
   const [club, setClub] = useState('');
   const [clubAdmin, setClubAdmin] = useState('');
+  const [currBook, setCurrBook] = useState({});
 
   const initialize = () => {
     setUser({ id: '', firstName: '' })
@@ -36,7 +37,7 @@ function App() {
       status: 'READ | Reading | On list?',
       readDate: '2019-05-07',
       notes: "These are my notes on this book... I like books",
-      rating: 3,
+      rating: 5,
       friendsWhoReadIt: ['Abby', 'Carl', 'Linda']
     })
     setClub({
@@ -54,6 +55,7 @@ function App() {
     setClubAdmin({
       user
     });
+    setCurrBook({ id: 'OL365902M' })
   }
 
   useEffect(() => { initialize() }, [])
@@ -64,10 +66,61 @@ function App() {
     friends,
     news,
     club,
-    clubAdmin
+    clubAdmin,
+    currBook
   }
 
   console.log(">>>>>>everyState", everyState)
+
+  //==============Functions========
+
+  const fetchBookDetails = (OLBookID) => {
+    let book = {
+      id: OLBookID,
+      title: '',
+      author: '',
+      published: '',
+      description: '',
+      subjects: null,
+      works: null,
+      coverLink: `https://covers.openlibrary.org/b/olid/${OLBookID}-L.jpg`,
+    }
+    if (OLBookID) {
+      //Fetch Book Details
+      axios.get(`https://openlibrary.org/books/${OLBookID}.json`)
+        .then((res) => {
+          book = {
+            ...book,
+            title: res.data.title,
+            published: res.data.publish_date,
+            author: res.data.authors[0].key,
+            works: res.data.works[0].key
+          }
+        })
+        .then(() => {
+          //Fetch Works (Description / subjects)
+          if (book.works) {
+            axios.get(`https://openlibrary.org${book.works}.json`)
+              .then((res) => {
+                book.subjects = res.data.subjects
+                book.description = res.data.description.value
+              })
+          }
+        })
+        .then(() => {
+          //Fetch Author Name
+          if (book.author) {
+            axios.get(`https://openlibrary.org${book.author}.json`)
+              .then((res) => {
+                book.author = res.data.name
+                setCurrBook(book)
+              })
+          }
+        })
+        .catch(e => console.log("Error: axios get book details ", e))
+    }
+  };
+  useEffect(() => { fetchBookDetails(currBook.id) }, [currBook.id])
 
   return (
     <Router>
@@ -90,7 +143,7 @@ function App() {
               render={(props) => {
                 // Strips the id from the full url
                 let bookID = props.location.pathname.replace("/book/", "");
-                return <BookDetails bookID={bookID} userBookData={userData} />;
+                return <BookDetails currBook={currBook} userBookData={userData} fetchData={fetchBookDetails} />;
               }}
             />
 
