@@ -58,7 +58,7 @@ function App() {
     setClubAdmin({
       user,
     });
-    setCurrBook({ ...currBook, id: 'OL365902M' })
+    setCurrBook({ ...currBook, id: '1' })
   }
   //OL365902M  Rainbow Six
   useEffect(() => { initialize() }, [])
@@ -116,10 +116,10 @@ function App() {
             axios.get(`https://openlibrary.org${book.author}.json`)
               .then((res) => {
                 book.author = res.data.name
+                setCurrBook(book)
               })
           }
         })
-        .then(() => setCurrBook(book))
         .catch(e => console.log("Error: axios get book details ", e))
     }
   };
@@ -142,34 +142,10 @@ function App() {
             <h1 onClick={() => setCurrBook({ id: 'OL365902M' })}>TEST</h1>
           </nav>
           <Switch>
-            <Route path="/clubs">
-              <ClubsIndex
-                user={user}
-                clubAdmin={clubAdmin}
-                setClubAdmin={setClubAdmin}
-                club={club}
-                setClub={setClub}
-              />
-            </Route>
-            <Route
-              path="/register"
-              render={() => {
-                return <Register user={user} setUser={setUser} />;
-              }}
-            />
-            {/* <Route path="/register" > <Register user={user} setUser={setUser} /> </Route> */}
-            <Route path="/social">
-              {" "}
-              <Social
-                friends={friends}
-                news={news}
-                setFriends={setFriends}
-              />{" "}
-            </Route>
-            <Route path="/shelf/">
-              {" "}
-              <UserShelf books={userBooks} setBooks={setUserBooks} />
-            </Route>
+            <Route path="/clubs"><ClubsIndex user={user} clubAdmin={clubAdmin} setClubAdmin={setClubAdmin} club={club} setClub={setClub} /></Route>
+            <Route path="/register" render={() => { return <Register user={user} setUser={setUser} />; }} />
+            <Route path="/social">{" "}<Social friends={friends} news={news} setFriends={setFriends} />{" "}</Route>
+            <Route path="/shelf/">{" "}<UserShelf books={userBooks} setBooks={setUserBooks} /></Route>
             <Route
               path="/book/:id"
               //Route is not fully setup
@@ -194,9 +170,7 @@ function App() {
               }}
             />
 
-            <Route path="/" exact>
-              <MainPage />
-            </Route>
+            <Route path="/" exact><MainPage /></Route>
           </Switch>
         </main>
       </div>
