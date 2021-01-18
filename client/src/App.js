@@ -19,8 +19,11 @@ import Register from "./components/Register";
 import BookDetails from "./components/Book/Index";
 
 function App() {
-  const [state, setState] = useState()
+  const [state, setState] = useState();
   const [user, setUser] = useState("");
+  const [book, setBook] = useState("");
+  const [search, setSearch] = useState("");
+  const [friends, setFriends] = useState("");
   const testCall = () => {
     setState("This is state")
   }

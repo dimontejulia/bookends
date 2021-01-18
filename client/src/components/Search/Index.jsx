@@ -1,9 +1,9 @@
-import React from "react";
-import BooksList from "./BooksList";
-import SearchBar from "./SearchBar";
+import React from 'react';
+import BooksList from './BooksList';
+import SearchBar from './SearchBar';
 
-export default function Index() {
-  state = { books: [], isFetching: false, query: "", numFound: 0 };
+export default function Index(props) {
+  state = { books: [], isFetching: false, query: '', numFound: 0 };
 
   onSearch = async (e) => {
     e.preventDefault();
