@@ -3,9 +3,7 @@ import NewsList from '../List';
 import NewsListItem from '../ListItem';
 
 export default function NewsFeed(props) {
-  // const [state, setState] = useState();
   let userID = props.id;
-  // console.log('>>>>>>>>>STATE>>>>>>>', state);
   const testList = ['Joaae', 'Saraaa', 'Beaath'];
   return (
     <section>

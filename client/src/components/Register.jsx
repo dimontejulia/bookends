@@ -1,21 +1,10 @@
-import React, { useState } from 'react';
-
-//import { registerUser } from '../hooks/useApplicationData';
+import React from 'react';
 
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 
 export default function Register(props) {
-  // const [state, setState] = useState({
-  //   userID: '',
-  //   firstName: '',
-  //   lastName: '',
-  //   email: '',
-  //   password: '',
-  //   age: '',
-  //   gender: '',
-  // });
   const handleChange = (e) => {
     const { id, value } = e.target;
     props.setUser((prevState) => ({
@@ -23,33 +12,14 @@ export default function Register(props) {
       [id]: value,
     }));
   };
+
   const handleSubmitClick = (e) => {
     e.preventDefault();
     props.setUser((prevState) => ({
       ...prevState,
       userID: 123,
     }));
-    // if (state.password === state.confirmPassword) {
-    //   //registerUser();
-    // } else {
-    //   props.showError('Passwords do not match');
-    // }
   };
-
-  // const registrationHandler = (event) => {
-  //   console.log('=========State@start=========', state.userData);
-  //   const target = event.target;
-  //   const value = target.value;
-  //   console.log('=========TARGET=========', target);
-  //   console.log('=========VALUE=========', value);
-  //   const name = target.name;
-  //   //prev User Data
-  //   let currUserData = state.userData;
-
-  //   setState({
-  //     ...state,
-  //     userData: { ...currUserData, [target.name]: value },
-  //   });
 
   return (
     <main>
