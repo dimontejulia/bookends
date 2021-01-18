@@ -25,6 +25,8 @@ function App() {
   const [friends, setFriends] = useState('');
   const [news, setNews] = useState('');
   const [userData, setUserData] = useState('');
+  const [clubs, setClubs] = useState('');
+  const [clubsBook, setClubsBook] = useState('');
 
   const initialize = () => {
     setUser('2131')
@@ -68,7 +70,7 @@ function App() {
             </span>
           </nav>
           <Switch>
-            <Route path="/clubs"><ClubsIndex /></Route>
+            <Route path="/clubs"><ClubsIndex clubs={clubs} clubsBook={clubsBook} setClubs={setClubs} setClubsBook={setClubsBook} /></Route>
             <Route path="/register" render={() => { return <Register user={user} setUser={setUser} /> }} />
             {/* <Route path="/register" > <Register user={user} setUser={setUser} /> </Route> */}
             <Route path="/social"> <Social friends={friends} news={news} setFriends={setFriends} /> </Route>
