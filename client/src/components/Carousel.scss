@@ -1,18 +1,41 @@
 .carousel__covers {
-  display: flex;
   overflow-y: hidden;
   overflow-x: scroll;
+  padding: 20px;
 }
 
-.carousel__cover { 
-	object-fit: contain;
-	width:100%;
-  max-height: 250px;
+.carousel__covers::-webkit-scrollbar {
+  display: none;
+}
+
+
+.carousel__container { 
+  text-align: left;
+  display: flex;
+  flex-direction: row;
+  flex-flow: row nowrap;
+  align-items: stretch;
   transition: transform 450ms;
   margin-right: 10px;
-
   &:hover {
     transform: scale(1.08);
   }
-}
 
+  .carousel__content {
+    display: flex;
+
+    .carousel__book-cover { 
+      object-fit: contain;
+      width:50%;
+      max-height: 250px;
+      transition: transform 450ms;
+      margin-right: 10px;
+    }
+    
+    .carousel__info {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+  }
+}
