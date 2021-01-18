@@ -26,7 +26,7 @@ function App() {
   const [userData, setUserData] = useState('');
   const [club, setClub] = useState('');
   const [clubAdmin, setClubAdmin] = useState('');
-  const [currBook, setCurrBook] = useState({});
+  const [currBook, setCurrBook] = useState('');
 
   const initialize = () => {
     setUser({ id: '', firstName: '' })
@@ -55,9 +55,9 @@ function App() {
     setClubAdmin({
       user
     });
-    setCurrBook({ id: 'OL365902M' })
+    setCurrBook({ ...currBook, id: 'OL365902M' })
   }
-
+  //OL365902M  Rainbow Six
   useEffect(() => { initialize() }, [])
 
   const everyState = {
@@ -113,15 +113,21 @@ function App() {
             axios.get(`https://openlibrary.org${book.author}.json`)
               .then((res) => {
                 book.author = res.data.name
-                setCurrBook(book)
               })
           }
         })
+        .then(() => setCurrBook(book))
         .catch(e => console.log("Error: axios get book details ", e))
     }
   };
-  useEffect(() => { fetchBookDetails(currBook.id) }, [currBook.id])
+  //Watch for currBook to change and load Details into state
+  useEffect(() => {
+    console.log("useEffect for Details")
+    fetchBookDetails(currBook.id)
+  }, [currBook.id])
 
+
+  //==================Rendering =============
   return (
     <Router>
       <div className="App">
@@ -130,20 +136,22 @@ function App() {
             <span>
               <Navbar user={user} />
             </span>
+            <h1 onClick={() => setCurrBook({ id: 'OL365902M' })}>TEST</h1>
           </nav>
           <Switch>
             <Route path="/clubs"><ClubsIndex user={user} clubAdmin={clubAdmin} setClubAdmin={setClubAdmin} club={club} setClub={setClub} /></Route>
             <Route path="/register" render={() => { return <Register user={user} setUser={setUser} /> }} />
-            {/* <Route path="/register" > <Register user={user} setUser={setUser} /> </Route> */}
             <Route path="/social"> <Social friends={friends} news={news} setFriends={setFriends} /> </Route>
             <Route path="/shelf/"> <UserShelf books={books} setBooks={setBooks} /></Route>
             <Route
-              path="/book/:id"
               //Route is not fully setup 
+              path="/book/:id"
               render={(props) => {
                 // Strips the id from the full url
-                let bookID = props.location.pathname.replace("/book/", "");
-                return <BookDetails currBook={currBook} userBookData={userData} fetchData={fetchBookDetails} />;
+                const paramBookId = props.location.pathname.replace("/book/", "");
+                console.log("PARAM", paramBookId)
+                // setCurrBook(paramBookId)
+                return <BookDetails currBook={currBook} userBookData={userData} />;
               }}
             />
 
