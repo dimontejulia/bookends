@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import Login from './Login';
@@ -7,13 +7,11 @@ import { Navbar, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 export default function NavBar() {
-  const { state, setState } = useState();
   return (
     <Navbar bg='light' expand='lg'>
       <LinkContainer to='/'>
         <Navbar.Brand>
           <Logo />
-          <div>{state ? state : 'No ID'}</div>
         </Navbar.Brand>
       </LinkContainer>
       <Navbar.Toggle aria-controls='basic-navbar-nav' />

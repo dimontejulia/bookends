@@ -6,7 +6,7 @@ export default function Index(props) {
   return (
     <div>
       <FriendList />
-      <NewsFeed />
+      <NewsFeed id={props.test} />
     </div>
   );
 }

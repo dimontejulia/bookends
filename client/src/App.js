@@ -20,28 +20,32 @@ import BookDetails from "./components/Book/Index";
 
 function App() {
   const [state, setState] = useState()
-  console.log(">>>>>>>>>STATE>>>>>>>", state)
+  const [user, setUser] = useState("");
+  const testCall = () => {
+    setState("This is state")
+  }
+  useEffect(() => { testCall() }, [])
 
+
+  // state = "Another Test"
+  console.log(">>>>>>>>>STATE>>>>>>>", state)
+  console.log(">>>>>>>>>STATE USER>>>>>>>", user)
+  let myTest = user.userID
   return (
     <Router>
       <div className="App">
         <main>
           <nav className="sidebar__menu">
             <span>
-              <Navbar />
+              <Navbar test={'testNav'} />
             </span>
           </nav>
           <Switch>
             <Route path="/clubs" component={ClubsIndex} />
             <Route path="/shelf" component={UserShelf} />
-            <Route path="/social" component={Social} />
-            <Route path="/register" component={Register} />
-            <Route
-              path="/myshelf/"
-              render={() => {
-                return <UserShelf />;
-              }}
-            />
+            <Route path="/social" render={() => { return <Social test={myTest} /> }} />
+            <Route path="/register" render={() => { return <Register user={user} setUser={setUser} /> }} />
+            <Route path="/myshelf/" render={() => { return <UserShelf test={'testShelf'} /> }} />
             <Route
               path="/book/:id"
               render={(props) => {
