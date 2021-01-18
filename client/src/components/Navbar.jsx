@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import Login from "./Login";
 
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 export default function NavBar(props) {
@@ -24,14 +24,16 @@ export default function NavBar(props) {
           <LinkContainer to="/shelf">
             <Nav.Link>My Shelf</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/search">
-            <Nav.Link>Search Books</Nav.Link>
-          </LinkContainer>
           <LinkContainer to="/social">
             <Nav.Link>Social</Nav.Link>
           </LinkContainer>
           <LinkContainer to="/clubs">
             <Nav.Link>Clubs</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/search">
+            <Nav.Link>
+              <Button variant="outline-info">Search Books</Button>{" "}
+            </Nav.Link>
           </LinkContainer>
         </Nav>
         {props.user.id ? `User : ${userFirstName}` : null}
