@@ -8,16 +8,15 @@ import useApplicationData from "./hooks/useApplicationData";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.scss";
 
-//===========Nav Components=============
+//===========Components Import =============
 import Navbar from "./components/Navbar";
-//===========Main Page=============
 import MainPage from "./components/Main/Index";
 import UserShelf from "./components/BookShelf/Index";
 import Social from "./components/Social/Index";
 import ClubsIndex from "./components/Club/Index";
 import Register from "./components/Register";
 import BookDetails from "./components/Book/Index";
-
+//============================================
 function App() {
   const [user, setUser] = useState('');
   const [books, setBooks] = useState('');
@@ -68,16 +67,7 @@ function App() {
     clubAdmin
   }
 
-  console.log(">>>>>>BOOKS", books)
   console.log(">>>>>>everyState", everyState)
-  const testArray = 'OL362125M'
-  const newsList = ['News 1', 'News 2', 'News 3'];
-  const friendList = ['Joe', 'Sara', 'Beth'];
-  const testData = {
-    status: 'read',
-    readDate: '2019-05-07',
-    notes: "These are book notes"
-  };
 
   return (
     <Router>
