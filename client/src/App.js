@@ -16,6 +16,7 @@ import Social from "./components/Social/Index";
 import ClubsIndex from "./components/Club/Index";
 import Register from "./components/Register";
 import BookDetails from "./components/Book/Index";
+import SearchIndex from "./components/Search/SearchIndex";
 //============================================
 function App() {
   const [user, setUser] = useState({});
@@ -120,9 +121,21 @@ function App() {
                 return <BookDetails bookID={bookID} userBookData={userData} />;
               }}
             />
+            <Route
+              path="/search"
+              //Route is not fully setup
+              render={(props) => {
+                return (
+                  <SearchIndex
+                    userBooks={userBooks}
+                    setUserBooks={setUserBooks}
+                  />
+                );
+              }}
+            />
 
             <Route path="/" exact>
-              <MainPage userBooks={userBooks} setUserBooks={setUserBooks} />
+              <MainPage />
             </Route>
           </Switch>
         </main>

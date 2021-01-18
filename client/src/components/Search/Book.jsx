@@ -15,8 +15,8 @@ const Book = ({ book, ...props }) => {
 
   const handleSubmitClick = (e) => {
     e.preventDefault();
-
-    props.setUserBooks((prevState) => [...prevState, key]);
+    const bookKey = key.split("/works/")[1];
+    props.setUserBooks((prevState) => [...prevState, bookKey]);
   };
 
   return (
