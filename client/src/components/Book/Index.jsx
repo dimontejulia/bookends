@@ -12,7 +12,7 @@ export default function Index(props) {
       <Details bookID={bookID} />
       <Rating userRating={userBookData.rating} />
       <UserNotes userBookData={userBookData} />
-      <AlsoReadList />
+      <AlsoReadList friendsWhoRead={userBookData.friendsWhoReadIt} />
     </div>
   );
 }

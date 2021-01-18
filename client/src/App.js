@@ -34,10 +34,11 @@ function App() {
     setFriends(['Joe', 'Sara'])
     setNews(['News 1', 'News 2'])
     setUserData({
-      status: 'read',
+      status: 'READ | Reading | On list?',
       readDate: '2019-05-07',
       notes: "These are my notes on this book... I like books",
-      rating: 3
+      rating: 3,
+      friendsWhoReadIt: ['Abby', 'Carl', 'Linda']
     })
     setClub({
       name: "John's Club",

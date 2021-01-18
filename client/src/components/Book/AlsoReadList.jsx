@@ -1,13 +1,15 @@
 // Friends who also read the book
 
 import React from 'react';
-import FriendList from '../Social/FriendList';
+import FriendsWhoReadList from '../List';
 
-export default function AlsoReadList() {
+export default function AlsoReadList(props) {
   return (
     <div>
-      Friends who also read this book:
-      <FriendList />
+      <FriendsWhoReadList
+        list={props.friendsWhoRead}
+        listName='Friends who also read this book...'
+      />
     </div>
   );
 }

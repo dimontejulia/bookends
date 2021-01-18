@@ -7,7 +7,11 @@ export default function UserNotes(props) {
   return (
     <div>
       <div>
-        <p>Status: (ref user read date/ reading / Add to List...etc)</p>
+        <p>
+          (ref user read date/ reading / Add to List...etc)
+          <br />
+          Status: {status}
+        </p>
         <span>
           <Button>Add to list</Button>
           <Button>Reading</Button>
