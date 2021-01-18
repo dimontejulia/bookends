@@ -18,7 +18,7 @@ import Register from "./components/Register";
 import BookDetails from "./components/Book/Index";
 //============================================
 function App() {
-  const [user, setUser] = useState('');
+  const [user, setUser] = useState({});
   const [books, setBooks] = useState('');
   // const [search, setSearch] = useState("");
   const [friends, setFriends] = useState('');
@@ -28,7 +28,7 @@ function App() {
   const [clubAdmin, setClubAdmin] = useState('');
 
   const initialize = () => {
-    setUser('2131')
+    setUser({ id: '', firstName: '' })
     setBooks(['State Books', 'OL25428864M', 'OL15501024M', 'OL4424220M'])
     setFriends(['Joe', 'Sara'])
     setNews(['News 1', 'News 2'])
@@ -75,7 +75,7 @@ function App() {
         <main>
           <nav className="sidebar__menu">
             <span>
-              <Navbar userName={user} />
+              <Navbar user={user} />
             </span>
           </nav>
           <Switch>

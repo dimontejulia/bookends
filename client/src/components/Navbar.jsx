@@ -7,6 +7,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
 export default function NavBar(props) {
+  const userFirstName = props.user.firstName;
   return (
     <Navbar bg='light' expand='lg'>
       <LinkContainer to='/'>
@@ -30,7 +31,7 @@ export default function NavBar(props) {
             <Nav.Link>Clubs</Nav.Link>
           </LinkContainer>
         </Nav>
-        User: {props.userName}
+        {props.user.id ? `User : ${userFirstName}` : null}
         <LinkContainer to='/register'>
           <Nav.Link>Register</Nav.Link>
         </LinkContainer>

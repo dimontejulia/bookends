@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 
 export default function Register(props) {
+  const { user, setUser } = props;
+  console.log('User>>>', user);
   const handleChange = (e) => {
     const { id, value } = e.target;
     props.setUser((prevState) => ({
@@ -17,7 +19,7 @@ export default function Register(props) {
     e.preventDefault();
     props.setUser((prevState) => ({
       ...prevState,
-      userID: 123,
+      id: 123,
     }));
   };
 
@@ -37,7 +39,7 @@ export default function Register(props) {
           <Form.Group as={Col} controlId='formGridLastName'>
             <Form.Label>Last Name</Form.Label>
             <Form.Control
-              id='lastNam'
+              id='lastName'
               onChange={handleChange}
               placeholder='Last Name'
             />
