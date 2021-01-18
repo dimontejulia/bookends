@@ -1,6 +1,5 @@
 import React from "react";
-import Spinner from "./Spinner";
-import Book from "./Book";
+import Book from "./Book.jsx";
 
 const BooksList = ({ loading = false, books = [], count = 0 }) => {
   return (
@@ -18,7 +17,8 @@ const BooksList = ({ loading = false, books = [], count = 0 }) => {
             results.
           </p>
         )}
-        {books.map((book) => (
+        {/* take out slice operator if we want more than 5 results */}
+        {books.slice(0, 5).map((book) => (
           <Book book={book} key={book.key} />
         ))}
       </div>
