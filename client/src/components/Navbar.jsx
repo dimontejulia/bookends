@@ -23,9 +23,11 @@ export default function NavBar(props) {
           <LinkContainer to='/shelf'>
             <Nav.Link>My Shelf</Nav.Link>
           </LinkContainer>
-
           <LinkContainer to='/social'>
             <Nav.Link>Social</Nav.Link>
+          </LinkContainer>
+          <LinkContainer to='/clubs'>
+            <Nav.Link>Clubs</Nav.Link>
           </LinkContainer>
         </Nav>
         User: {props.userName}

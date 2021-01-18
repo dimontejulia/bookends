@@ -2,9 +2,12 @@ import React from 'react';
 import classnames from 'classnames';
 import Button from '../Button';
 import Details from '../Book/Details';
+import ClubRegular from './ClubRegular';
+import ClubAdmin from './ClubAdmin';
 
 export default function ClubInfo() {
   const props = {
+    isAdmin: true,
     name: "John's Club",
     avatar: "https://image.flaticon.com/icons/png/512/69/69589.png",
     description: "Basic book club description goes here",
@@ -29,8 +32,7 @@ export default function ClubInfo() {
         <br/>
         <h1>{props.name}</h1>
         <h3>{props.description}</h3>
-        <Button>Club Call</Button>
-        <Button>Add Post</Button>
+        {!props.isAdmin ? <ClubRegular /> : <ClubAdmin />}
       </section>
       <section className="book-club__content">
         <h3>Current Book</h3>

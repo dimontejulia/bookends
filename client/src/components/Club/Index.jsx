@@ -1,5 +1,8 @@
 import React from 'react';
+import ClubInfo from './ClubInfo';
 
 export default function Index() {
-  return <h1>Clubs Index</h1>;
+  return (
+    <ClubInfo />
+  );
 }

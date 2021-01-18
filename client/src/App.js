@@ -68,7 +68,7 @@ function App() {
             </span>
           </nav>
           <Switch>
-            <Route path="/clubs" component={ClubsIndex} />
+            <Route path="/clubs"><ClubsIndex /></Route>
             <Route path="/register" render={() => { return <Register user={user} setUser={setUser} /> }} />
             {/* <Route path="/register" > <Register user={user} setUser={setUser} /> </Route> */}
             <Route path="/social"> <Social friends={friends} news={news} setFriends={setFriends} /> </Route>
