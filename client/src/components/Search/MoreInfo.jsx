@@ -1,17 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import axios from "axios";
 
-const MoreInfo = ({ book, props }) => {
-  const {
-    title,
-    author_name,
-    id_goodreads = [],
-    key,
-    first_publish_year,
-    cover_edition_key,
-  } = book;
+import * as client from "./OpenLibraryClient.jsx";
 
+const MoreInfo = ({ book, key, ...props }) => {
   return (
     <Modal
       {...props}
@@ -20,15 +14,18 @@ const MoreInfo = ({ book, props }) => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">{title}</Modal.Title>
+        <Modal.Title id="contained-modal-title-vcenter">
+          {book.title}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <h4>Centered Modal</h4>
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </p>
+        <h4>Author: {book.author_name}</h4>
+        <p>Description:</p>
+        <p>First published: {book.first_publish_year}</p>
+        <a href={`https://openlibrary.org${book.key}`}>Show on Open Library</a>
+        <a href={`https://www.goodreads.com/book/show/${book.id_goodreads[0]}`}>
+          Show on Goodreads
+        </a>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
