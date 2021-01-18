@@ -36,7 +36,8 @@ function App() {
     setUserData({
       status: 'read',
       readDate: '2019-05-07',
-      notes: "These are book notes"
+      notes: "These are my notes on this book... I like books",
+      rating: 3
     })
     setClub({
       name: "John's Club",

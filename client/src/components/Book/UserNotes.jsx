@@ -2,7 +2,8 @@ import React from 'react';
 import Button from '../Button';
 import Rating from './Rating';
 
-export default function UserNotes() {
+export default function UserNotes(props) {
+  let { status, readDate, notes } = props.userBookData;
   return (
     <div>
       <div>
@@ -15,7 +16,7 @@ export default function UserNotes() {
             type='date'
             id='read'
             name='read-date'
-            value='2021-01-01'
+            value={readDate ? readDate : '2021-01-01'}
             max='2021-04-01'
           />
           <Button>Edit Date</Button>
@@ -29,6 +30,7 @@ export default function UserNotes() {
         rows='15'
         cols='75'
         placeholder='Any notes about the book? Write them here...'
+        value={notes ? notes : ''}
       ></textarea>
       <br />
       <Button>Save Notes</Button>
