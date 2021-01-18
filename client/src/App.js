@@ -31,7 +31,7 @@ function App() {
 
   const initialize = () => {
     setUser({ id: "", firstName: "" });
-    setUserBooks(["User Books", "OL25428864M", "OL15501024M", "OL4424220M"]);
+    setUserBooks(["OL365902M", "OL24489092M", "OL7503861M"]);
     setFriends(["Joe", "Sara"]);
     setNews(["News 1", "News 2"]);
     setUserData({
@@ -145,7 +145,7 @@ function App() {
             <Route path="/clubs"><ClubsIndex user={user} clubAdmin={clubAdmin} setClubAdmin={setClubAdmin} club={club} setClub={setClub} /></Route>
             <Route path="/register" render={() => { return <Register user={user} setUser={setUser} />; }} />
             <Route path="/social">{" "}<Social friends={friends} news={news} setFriends={setFriends} />{" "}</Route>
-            <Route path="/shelf/">{" "}<UserShelf books={userBooks} setBooks={setUserBooks} /></Route>
+            <Route path="/shelf/">{" "}<UserShelf books={userBooks} setBooks={setUserBooks} setCurrBook={setCurrBook} /></Route>
             <Route
               path="/book/:id"
               //Route is not fully setup

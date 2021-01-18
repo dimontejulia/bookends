@@ -1,14 +1,16 @@
 import React from 'react';
-import BookList from '../List';
+import BookList from './BookList';
 
 export default function Index(props) {
-  // const [books, setBook] = props;
-  console.log('Books INDEX', props);
-  // let books = ['OL362125M', 'OL25428864M', 'OL15501024M', 'OL4424220M'];
+  const { books, setUserBooks, setCurrBook } = props;
   return (
     <div>
       <p>User books will go here</p>
-      <BookList list={props.books} listName='My List' />
+      <BookList
+        books={books}
+        setUserBooks={setUserBooks}
+        setCurrBook={setCurrBook}
+      />
     </div>
   );
 }
