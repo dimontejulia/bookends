@@ -1,5 +1,7 @@
 import React from "react";
 
+import Card from "react-bootstrap/Card";
+
 const Book = ({ book }) => {
   const {
     title,
@@ -7,31 +9,31 @@ const Book = ({ book }) => {
     id_goodreads = [],
     key,
     first_publish_year,
-    edition_count,
+    cover_edition_key,
   } = book;
 
   return (
-    <div className="card is-block" style={{ marginBottom: "50px" }}>
-      <div className="card-content">
-        <p className="title">{title}</p>
-        {author_name && <p className="subtitle">by {author_name.join(", ")}</p>}
-        <p>First published: {first_publish_year}</p>
-        <p>Editions: {edition_count}</p>
-      </div>
-      <footer className="card-footer">
-        <a href={`https://openlibrary.org${key}`} className="card-footer-item">
+    <Card style={{ width: "20rem" }}>
+      <Card.Img
+        variant="top"
+        src={`http://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg`}
+      />
+      <Card.Body>
+        <Card.Title>{title}</Card.Title>
+        <Card.Subtitle className="mb-2 text-muted">
+          {author_name.join(", ")}
+        </Card.Subtitle>
+        <Card.Text>First published: {first_publish_year}</Card.Text>
+        <Card.Link href={`https://openlibrary.org${key}`}>
           Show on Open Library
-        </a>
-        {id_goodreads.length > 0 && (
-          <a
-            href={`https://www.goodreads.com/book/show/${id_goodreads[0]}`}
-            className="card-footer-item"
-          >
-            Show on Goodreads
-          </a>
-        )}
-      </footer>
-    </div>
+        </Card.Link>
+        <Card.Link
+          href={`https://www.goodreads.com/book/show/${id_goodreads[0]}`}
+        >
+          Show on Goodreads
+        </Card.Link>
+      </Card.Body>
+    </Card>
   );
 };
 

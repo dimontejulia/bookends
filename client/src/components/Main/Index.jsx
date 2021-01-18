@@ -1,12 +1,12 @@
 import React from "react";
-import SearchBar from "../Search/SearchBar";
+import SearchIndex from "../Search/SearchIndex.jsx";
 import BookCarosel from "./BookCarosel";
 
-export default function Index() {
+export default function Index(props) {
   return (
     <div>
       <h1>MainPage</h1>
-      <SearchBar />
+      <SearchIndex />
       <h3>Trending</h3>
       <BookCarosel />
       <h3>Latest Books...</h3>
