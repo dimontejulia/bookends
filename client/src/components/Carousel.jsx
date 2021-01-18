@@ -78,7 +78,6 @@ export default function Carousel() {
       <div className="carousel__covers">
         {props.books.map((book) => (
           <div className="carousel__container">
-            <div className="carousel__content">
               <img
                 key={book.id}
                 className="carousel__book-cover"
@@ -90,7 +89,6 @@ export default function Carousel() {
                 <h5 className="carousel__book-author">by {book.author}</h5>
                 <span className="carousel__book-description">{book.description}</span>
               </span>
-            </div>
           </div>
         ))}
       </div>
