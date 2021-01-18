@@ -24,8 +24,8 @@ export default function Carousel() {
         {props.books.map((book) => (
           <img
             className="carousel__cover"
-            src={`${props.book.cover_path}`}
-            alt={props.book.name}
+            src={`${book.cover_path}`}
+            alt={book.name}
           />
         ))}
       </div>
