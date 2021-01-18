@@ -1,8 +1,9 @@
 import React from "react";
 
 import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
-const Book = ({ book }) => {
+const Book = ({ book, ...props }) => {
   const {
     title,
     author_name,
@@ -11,6 +12,12 @@ const Book = ({ book }) => {
     first_publish_year,
     cover_edition_key,
   } = book;
+
+  const handleSubmitClick = (e) => {
+    e.preventDefault();
+
+    props.setUserBooks((prevState) => [...prevState, key]);
+  };
 
   return (
     <Card style={{ width: "20rem" }}>
@@ -32,6 +39,7 @@ const Book = ({ book }) => {
         >
           Show on Goodreads
         </Card.Link>
+        <Button onClick={handleSubmitClick}>Add to shelf</Button>
       </Card.Body>
     </Card>
   );

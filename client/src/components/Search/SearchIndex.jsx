@@ -3,7 +3,7 @@ import * as client from "./OpenLibraryClient.jsx";
 import BooksList from "./BooksList.jsx";
 import SearchForm from "./SearchForm.jsx";
 
-const SearchIndex = () => {
+const SearchIndex = (props) => {
   const [isFetching, setIsFetching] = useState(false);
   const [books, setBooks] = useState([]);
   const [numFound, setNumFound] = useState(0);
@@ -38,7 +38,13 @@ const SearchIndex = () => {
         onSearch={onSearch}
         query={query}
       />
-      <BooksList loading={isFetching} books={books} count={numFound} />
+      <BooksList
+        loading={isFetching}
+        books={books}
+        count={numFound}
+        userBooks={props.userBooks}
+        setUserBooks={props.setUserBooks}
+      />
     </Fragment>
   );
 };
