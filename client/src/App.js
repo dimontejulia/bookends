@@ -27,6 +27,7 @@ function App() {
   const [userData, setUserData] = useState("");
   const [club, setClub] = useState("");
   const [clubAdmin, setClubAdmin] = useState("");
+  const [currBook, setCurrBook] = useState("");
 
   const initialize = () => {
     setUser({ id: "", firstName: "" });
