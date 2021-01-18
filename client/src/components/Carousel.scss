@@ -1,6 +1,18 @@
+.carousel__covers {
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: scroll;
+}
+
 .carousel__cover { 
 	object-fit: contain;
 	width:100%;
-	max-height: 300px;
+  max-height: 250px;
+  transition: transform 450ms;
+  margin-right: 10px;
+
+  &:hover {
+    transform: scale(1.08);
+  }
 }
 
