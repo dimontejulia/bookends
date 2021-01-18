@@ -6,7 +6,7 @@ import Login from './Login';
 import { Navbar, Nav } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
-export default function NavBar() {
+export default function NavBar(props) {
   return (
     <Navbar bg='light' expand='lg'>
       <LinkContainer to='/'>
@@ -28,6 +28,7 @@ export default function NavBar() {
             <Nav.Link>Social</Nav.Link>
           </LinkContainer>
         </Nav>
+        User: {props.userName}
         <LinkContainer to='/register'>
           <Nav.Link>Register</Nav.Link>
         </LinkContainer>

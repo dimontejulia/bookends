@@ -19,69 +19,75 @@ import Register from "./components/Register";
 import BookDetails from "./components/Book/Index";
 
 function App() {
-  const [state, setState] = useState();
-  const [user, setUser] = useState("");
-  const [book, setBook] = useState("");
-  const [search, setSearch] = useState("");
-  const [friends, setFriends] = useState("");
+  const [user, setUser] = useState('');
+  const [books, setBooks] = useState('');
+  // const [search, setSearch] = useState("");
+  const [friends, setFriends] = useState('');
+  const [news, setNews] = useState('');
+  const [userData, setUserData] = useState('');
 
-  const testCall = () => {
-    setState("This is state");
+  const initialize = () => {
+    setUser('2131')
+    setBooks(['State Books', 'OL25428864M', 'OL15501024M', 'OL4424220M'])
+    setFriends(['Joe', 'Sara'])
+    setNews(['News 1', 'News 2'])
+    setUserData({
+      status: 'read',
+      readDate: '2019-05-07',
+      notes: "These are book notes"
+    })
+  }
+
+  useEffect(() => { initialize() }, [])
+
+  const everyState = {
+    books,
+    user,
+    friends,
+    news
+  }
+
+  console.log(">>>>>>BOOKS", books)
+  console.log(">>>>>>everyState", everyState)
+  const testArray = 'OL362125M'
+  const newsList = ['News 1', 'News 2', 'News 3'];
+  const friendList = ['Joe', 'Sara', 'Beth'];
+  const testData = {
+    status: 'read',
+    readDate: '2019-05-07',
+    notes: "These are book notes"
   };
-  useEffect(() => {
-    testCall();
-  }, []);
 
-  // state = "Another Test"
-  console.log(">>>>>>>>>STATE>>>>>>>", state);
-  console.log(">>>>>>>>>STATE USER>>>>>>>", user);
-  let myTest = user.userID;
   return (
     <Router>
       <div className="App">
         <main>
           <nav className="sidebar__menu">
             <span>
-              <Navbar test={"testNav"} />
+              <Navbar userName={user} />
             </span>
           </nav>
           <Switch>
             <Route path="/clubs" component={ClubsIndex} />
-            <Route path="/shelf" component={UserShelf} />
-            <Route
-              path="/social"
-              render={() => {
-                return <Social test={myTest} />;
-              }}
-            />
-            <Route
-              path="/register"
-              render={() => {
-                return <Register user={user} setUser={setUser} />;
-              }}
-            />
-            <Route
-              path="/myshelf/"
-              render={() => {
-                return <UserShelf test={"testShelf"} />;
-              }}
-            />
+            <Route path="/register" render={() => { return <Register user={user} setUser={setUser} /> }} />
+            {/* <Route path="/register" > <Register user={user} setUser={setUser} /> </Route> */}
+            <Route path="/social"> <Social friends={friends} news={news} setFriends={setFriends} /> </Route>
+            <Route path="/shelf/"> <UserShelf books={books} setBooks={setBooks} /></Route>
             <Route
               path="/book/:id"
+              //Route is not fully setup 
               render={(props) => {
-                //===============================ROUTE IS INCOMPLETE Not truely dynamic===========================
                 // Strips the id from the full url
                 let bookID = props.location.pathname.replace("/book/", "");
-                console.log("ROUTE>>Book id: ", bookID);
-                return <BookDetails />;
+                return <BookDetails bookID={bookID} userBookData={userData} />;
               }}
             />
 
             <Route path="/" component={MainPage} exact />
           </Switch>
         </main>
-      </div>
-    </Router>
+      </div >
+    </Router >
   );
 }
 
