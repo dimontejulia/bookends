@@ -27,12 +27,24 @@ function App() {
   const [userData, setUserData] = useState("");
   const [club, setClub] = useState("");
   const [clubAdmin, setClubAdmin] = useState("");
-  const [currBook, setCurrBook] = useState("");
+  const [currBook, setCurrBook] = useState({ id: 'initial' });
 
   const initialize = () => {
     setUser({ id: "", firstName: "" });
-    setUserBooks(["OL365902M", "OL26455544M", "OL24222441M"]);
-    setFriends(["Joe", "Sara"]);
+    // setUserBooks(["OL365902M", "OL26455544M", "OL24222441M"]); //org... id only
+    setUserBooks([
+      { id: "OL365902M", title: 'Rainbow Six', author: 'Tom Clancy' },
+      { id: "OL26455544M", title: 'Dangerous Lies', author: 'B Fitz' },
+      { id: "OL26455544M", title: 'Dangerous Lies', author: 'B Fitz' },
+      { id: "OL26455544M", title: 'Dangerous Lies', author: 'B Fitz' },
+      { id: "OL26455544M", title: 'Dangerous Lies', author: 'B Fitz' },
+      { id: "OL365902M", title: 'Rainbow Six', author: 'Tom Clancy' },
+      { id: "OL365902M", title: 'Rainbow Six', author: 'Tom Clancy' },
+      { id: "OL365902M", title: 'Rainbow Six', author: 'Tom Clancy' },
+      { id: "OL365902M", title: 'Rainbow Six', author: 'Tom Clancy' },
+      { id: "OL24222441M", title: 'Trojan Odyssey', author: 'C Cussler' },
+    ]);
+    setFriends(["uid100", "uid200"]);
     setNews(["News 1", "News 2"]);
     setUserData({
       status: "READ | Reading | On list?",
@@ -58,7 +70,7 @@ function App() {
     setClubAdmin({
       user,
     });
-    setCurrBook({ ...currBook, id: '1' })
+    // setCurrBook({ ...currBook, id: '1' })
   }
   //OL365902M  Rainbow Six
   useEffect(() => { initialize() }, [])
