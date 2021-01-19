@@ -63,6 +63,18 @@ module.exports = (db) => {
         .catch(err => err);
   
     }
+
+    const authenticateUser = (email, password) => {
+      const query = {
+        text: `SELECT * FROM users WHERE email = $1 and password =$2`,
+        values: [email, password]
+      }
+      return db
+        .query(query)
+        .then(result => result.rows)
+        .catch(err => err);
+
+    }
   
     return {
       getUsers,
