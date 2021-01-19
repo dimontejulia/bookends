@@ -8,7 +8,7 @@ import Col from "react-bootstrap/Col";
 
 export default function Register(props) {
   const { user, setUser } = props;
-  console.log("User>>>", user);
+  console.log('User>>>', user);
   const handleChange = (e) => {
     const { id, value } = e.target;
     props.setUser((prevState) => ({
@@ -19,34 +19,10 @@ export default function Register(props) {
 
   const handleSubmitClick = (e) => {
     e.preventDefault();
-    registerUser();
-    // props.setUser((prevState) => ({
-    //   ...prevState,
-    //   id: 123,
-    // }));
-  };
-
-  const registerUser = () => {
-    const userInfo = {
-      first_name: "testFirst",
-      last_name: "testLast",
-      email: "test@email.com",
-      password: "123password",
-    };
-    const URL = `/register`;
-    axios
-      .post(`${URL}`, userInfo)
-      .then(function (response) {
-        if (response.status === 200) {
-          console.log("userInfo =====", userInfo);
-          props.setUser((prevState) => [...prevState, userInfo]);
-        } else {
-          console.log("error!");
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    props.setUser((prevState) => ({
+      ...prevState,
+      id: 123,
+    }));
   };
 
   return (
