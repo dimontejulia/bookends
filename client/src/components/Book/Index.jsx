@@ -5,11 +5,10 @@ import UserNotes from './UserNotes';
 import AlsoReadList from './AlsoReadList';
 
 export default function Index(props) {
-  const { bookID, userBookData } = props;
+  const { currBook, userBookData } = props;
   return (
     <div>
-      <h1>Book Details</h1>
-      <Details bookID={bookID} />
+      <Details book={currBook} />
       <Rating userRating={userBookData.rating} />
       <UserNotes userBookData={userBookData} />
       <AlsoReadList friendsWhoRead={userBookData.friendsWhoReadIt} />

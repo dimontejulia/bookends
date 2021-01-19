@@ -5,6 +5,10 @@ import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 
 export default function Rating(props) {
   const numberToStarRating = (rating) => {
+    if (!rating) {
+      rating = 0;
+    }
+    console.log('RATING', rating);
     const emptyStars = 5 - rating;
     let starRating = [];
     //Add Solid Stars to Array

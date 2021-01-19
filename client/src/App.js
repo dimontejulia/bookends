@@ -27,17 +27,18 @@ function App() {
   const [userData, setUserData] = useState("");
   const [club, setClub] = useState("");
   const [clubAdmin, setClubAdmin] = useState("");
+  const [currBook, setCurrBook] = useState("");
 
   const initialize = () => {
     setUser({ id: "", firstName: "" });
-    setUserBooks(["User Books", "OL25428864M", "OL15501024M", "OL4424220M"]);
+    setUserBooks(["OL365902M", "OL26455544M", "OL24222441M"]);
     setFriends(["Joe", "Sara"]);
     setNews(["News 1", "News 2"]);
     setUserData({
       status: "READ | Reading | On list?",
       readDate: "2019-05-07",
       notes: "These are my notes on this book... I like books",
-      rating: 3,
+      rating: 0,
       friendsWhoReadIt: ["Abby", "Carl", "Linda"],
     });
     setClub({
@@ -57,11 +58,10 @@ function App() {
     setClubAdmin({
       user,
     });
-  };
-
-  useEffect(() => {
-    initialize();
-  }, []);
+    setCurrBook({ ...currBook, id: '1' })
+  }
+  //OL365902M  Rainbow Six
+  useEffect(() => { initialize() }, [])
 
   const everyState = {
     userBooks,
@@ -70,10 +70,79 @@ function App() {
     news,
     club,
     clubAdmin,
+    currBook
   };
 
   console.log(">>>>>>everyState", everyState);
 
+  //==============Functions========
+
+  const fetchBookDetails = (OLBookID) => {
+    let book = {
+      id: OLBookID,
+      title: '',
+      author: '',
+      published: '',
+      description: '',
+      subjects: null,
+      works: null,
+      coverLink: `https://covers.openlibrary.org/b/olid/${OLBookID}-L.jpg`,
+    }
+    if (OLBookID) {
+      //Fetch Book Details
+      axios.get(`https://openlibrary.org/books/${OLBookID}.json`)
+        .then((res) => {
+          book = {
+            ...book,
+            title: res.data.title,
+            published: res.data.publish_date,
+            author: res.data.authors[0].key,
+            works: res.data.works[0].key
+          }
+        })
+        .then(() => {
+          //Fetch Works (Description / subjects)
+          if (book.works) {
+            axios.get(`https://openlibrary.org${book.works}.json`)
+              .then((res) => {
+                book.subjects = res.data.subjects
+                const descType = typeof res.data.description
+                console.log("RES DESC>>>>", res.data)
+                if (res.data.description) {
+                  if (descType !== 'string') {
+                    book.description = res.data.description.value
+                  } else {
+                    book.description = res.data.description
+                  }
+                } else {
+                  book.description = "No Description Found"
+                }
+
+
+              })
+          }
+        })
+        .then(() => {
+          //Fetch Author Name
+          if (book.author) {
+            axios.get(`https://openlibrary.org${book.author}.json`)
+              .then((res) => {
+                book.author = res.data.name
+                setCurrBook(book)
+              })
+          }
+        })
+        .catch(e => console.log("Error: axios get book details ", e))
+    }
+  };
+  //Watch for currBook to change and load Details into state
+  useEffect(() => {
+    console.log("useEffect for Details")
+    fetchBookDetails(currBook.id)
+  }, [currBook.id])
+
+
+  //==================Rendering =============
   return (
     <Router>
       <div className="App">
@@ -84,41 +153,19 @@ function App() {
             </span>
           </nav>
           <Switch>
-            <Route path="/clubs">
-              <ClubsIndex
-                user={user}
-                clubAdmin={clubAdmin}
-                setClubAdmin={setClubAdmin}
-                club={club}
-                setClub={setClub}
-              />
-            </Route>
-            <Route
-              path="/register"
-              render={() => {
-                return <Register user={user} setUser={setUser} />;
-              }}
-            />
-            {/* <Route path="/register" > <Register user={user} setUser={setUser} /> </Route> */}
-            <Route path="/social">
-              {" "}
-              <Social
-                friends={friends}
-                news={news}
-                setFriends={setFriends}
-              />{" "}
-            </Route>
-            <Route path="/shelf/">
-              {" "}
-              <UserShelf books={userBooks} setBooks={setUserBooks} />
-            </Route>
+            <Route path="/clubs"><ClubsIndex user={user} clubAdmin={clubAdmin} setClubAdmin={setClubAdmin} club={club} setClub={setClub} /></Route>
+            <Route path="/register" render={() => { return <Register user={user} setUser={setUser} />; }} />
+            <Route path="/social">{" "}<Social friends={friends} news={news} setFriends={setFriends} />{" "}</Route>
+            <Route path="/shelf/">{" "}<UserShelf books={userBooks} setBooks={setUserBooks} setCurrBook={setCurrBook} /></Route>
             <Route
               path="/book/:id"
               //Route is not fully setup
               render={(props) => {
                 // Strips the id from the full url
-                let bookID = props.location.pathname.replace("/book/", "");
-                return <BookDetails bookID={bookID} userBookData={userData} />;
+                const paramBookId = props.location.pathname.replace("/book/", "");
+                console.log("PARAM", paramBookId)
+                // setCurrBook(paramBookId)
+                return <BookDetails currBook={currBook} userBookData={userData} />;
               }}
             />
             <Route
@@ -129,14 +176,14 @@ function App() {
                   <SearchIndex
                     userBooks={userBooks}
                     setUserBooks={setUserBooks}
+                    currBook={currBook}
+                    setCurrBook={setCurrBook}
                   />
                 );
               }}
             />
 
-            <Route path="/" exact>
-              <MainPage />
-            </Route>
+            <Route path="/" exact><MainPage /></Route>
           </Switch>
         </main>
       </div>
