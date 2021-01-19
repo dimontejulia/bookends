@@ -20,7 +20,7 @@ CREATE TABLE users (
 
 CREATE TABLE friends (
   "id" SERIAL PRIMARY KEY NOT NULL,
-  "user_id" INTEGER REFERENCES users(id) ON DELETE CASCADE
+  "user_id" INTEGER REFERENCES users(id) ON DELETE CASCADE,
   "users_friend" INTEGER NOT NULL
 );
 
