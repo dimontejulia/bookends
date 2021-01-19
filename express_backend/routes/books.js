@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { getPostsByUsers } = require("../helpers/dataHelpers");
 
-module.exports = ({ getBooks, addBookToUser }) => {
+module.exports = ({ getBooks, addBookToUser, getSpecificBook }) => {
   // books
   router.get("/", (req, res) => {
     getBooks()
@@ -13,19 +13,19 @@ module.exports = ({ getBooks, addBookToUser }) => {
   // books/:id
   router
     .get("/:id", (req, res) => {
-      getUsers()
-        .then((users) => res.json(users))
+      getSpecificBook(req.params.id)
+        .then((book) => res.json(book))
         .catch((err) => res.json({ msg: err.message }));
     })
     .put("/:id", (req, res) => {
-      if (process.env.TEST_ERROR) {
-        setTimeout(() => response.status(500).json({}), 1000);
-        return;
-      }
-
-      const { user_id, book_id } = req.body.book;
-      addBookToUser(user_id, book_id)
-        .then((book) => res.json(book))
+      const { book_id } = req.body;
+      console.log("PUT BOOK TO USER START");
+      addBookToUser(book_id)
+        .then((book) => {
+          console.log("PUT BOOK TO USER FINISH");
+          console.log("BOOK", book);
+          res.json(book);
+        })
         .catch((err) => res.json({ msg: err.message }));
     })
     .delete("/:id", (req, res) => {
