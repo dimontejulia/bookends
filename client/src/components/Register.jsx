@@ -1,12 +1,14 @@
-import React from 'react';
+import React from "react";
 
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
+import axios from "axios";
+
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
 
 export default function Register(props) {
   const { user, setUser } = props;
-  console.log('User>>>', user);
+  console.log("User>>>", user);
   const handleChange = (e) => {
     const { id, value } = e.target;
     props.setUser((prevState) => ({
@@ -17,10 +19,34 @@ export default function Register(props) {
 
   const handleSubmitClick = (e) => {
     e.preventDefault();
-    props.setUser((prevState) => ({
-      ...prevState,
-      id: 123,
-    }));
+    registerUser();
+    // props.setUser((prevState) => ({
+    //   ...prevState,
+    //   id: 123,
+    // }));
+  };
+
+  const registerUser = () => {
+    const userInfo = {
+      first_name: "testFirst",
+      last_name: "testLast",
+      email: "test@email.com",
+      password: "123password",
+    };
+    const URL = `/register`;
+    axios
+      .post(`${URL}`, userInfo)
+      .then(function (response) {
+        if (response.status === 200) {
+          console.log("userInfo =====", userInfo);
+          props.setUser((prevState) => [...prevState, userInfo]);
+        } else {
+          console.log("error!");
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   return (
@@ -28,68 +54,68 @@ export default function Register(props) {
       <Form>
         <h1>Registration</h1>
         <Form.Row>
-          <Form.Group as={Col} controlId='formGridFirstName'>
+          <Form.Group as={Col} controlId="formGridFirstName">
             <Form.Label>First Name</Form.Label>
             <Form.Control
-              id='firstName'
+              id="firstName"
               onChange={handleChange}
-              placeholder='First name'
+              placeholder="First name"
             />
           </Form.Group>
-          <Form.Group as={Col} controlId='formGridLastName'>
+          <Form.Group as={Col} controlId="formGridLastName">
             <Form.Label>Last Name</Form.Label>
             <Form.Control
-              id='lastName'
+              id="lastName"
               onChange={handleChange}
-              placeholder='Last Name'
+              placeholder="Last Name"
             />
           </Form.Group>
         </Form.Row>
 
-        <Form.Group controlId='formBasicEmail'>
+        <Form.Group controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
           <Form.Control
             onChange={handleChange}
-            id='email'
-            type='email'
-            placeholder='Enter email'
+            id="email"
+            type="email"
+            placeholder="Enter email"
           />
         </Form.Group>
 
         <Form.Row>
-          <Form.Group as={Col} controlId='formBasicPassword'>
+          <Form.Group as={Col} controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
               onChange={handleChange}
-              id='password'
-              type='password'
-              placeholder='Password'
+              id="password"
+              type="password"
+              placeholder="Password"
             />
           </Form.Group>
-          <Form.Group as={Col} controlId='formBasicPassword'>
+          <Form.Group as={Col} controlId="formBasicPassword">
             <Form.Label>Confirm Password</Form.Label>
             <Form.Control
               onChange={handleChange}
-              id='confirmPassword'
-              type='password'
-              placeholder='Password'
+              id="confirmPassword"
+              type="password"
+              placeholder="Password"
             />
           </Form.Group>
         </Form.Row>
 
         <Form.Row>
-          <Form.Group as={Col} controlId='formGridAge'>
+          <Form.Group as={Col} controlId="formGridAge">
             <Form.Label>Age</Form.Label>
-            <Form.Control onChange={handleChange} id='age' />
+            <Form.Control onChange={handleChange} id="age" />
           </Form.Group>
 
-          <Form.Group as={Col} controlId='formGridGender'>
+          <Form.Group as={Col} controlId="formGridGender">
             <Form.Label>Gender</Form.Label>
             <Form.Control
-              as='select'
-              defaultValue='Choose...'
+              as="select"
+              defaultValue="Choose..."
               onChange={handleChange}
-              id='gender'
+              id="gender"
             >
               <option>Choose...</option>
               <option>Male</option>
@@ -99,7 +125,7 @@ export default function Register(props) {
           </Form.Group>
         </Form.Row>
 
-        <Button variant='primary' type='submit' onClick={handleSubmitClick}>
+        <Button variant="primary" type="submit" onClick={handleSubmitClick}>
           Submit
         </Button>
       </Form>

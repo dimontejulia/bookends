@@ -27,31 +27,35 @@ function App() {
   const [userData, setUserData] = useState("");
   const [club, setClub] = useState("");
   const [clubAdmin, setClubAdmin] = useState("");
-  const [currBook, setCurrBook] = useState({ id: 'initial' });
+  const [currBook, setCurrBook] = useState({ id: "initial" });
 
   const initialize = () => {
     setUser({ id: "", firstName: "" });
     // setUserBooks(["OL365902M", "OL26455544M", "OL24222441M"]); //org... id only
     setUserBooks([
-      { id: "OL365902M", title: 'Rainbow Six', author: 'Tom Clancy' },
-      { id: "OL26455544M", title: 'Dangerous Lies', author: 'B Fitz' },
-      { id: "OL26455544M", title: 'Dangerous Lies', author: 'B Fitz' },
-      { id: "OL26455544M", title: 'Dangerous Lies', author: 'B Fitz' },
-      { id: "OL26455544M", title: 'Dangerous Lies', author: 'B Fitz' },
-      { id: "OL365902M", title: 'Rainbow Six', author: 'Tom Clancy' },
-      { id: "OL365902M", title: 'Rainbow Six', author: 'Tom Clancy' },
-      { id: "OL365902M", title: 'Rainbow Six', author: 'Tom Clancy' },
-      { id: "OL365902M", title: 'Rainbow Six', author: 'Tom Clancy' },
-      { id: "OL24222441M", title: 'Trojan Odyssey', author: 'C Cussler' },
+      { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
+      { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
+      { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
+      { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
+      { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
+      { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
+      { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
+      { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
+      { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
+      { id: "OL24222441M", title: "Trojan Odyssey", author: "C Cussler" },
     ]);
+    //add first name & last name to user id as an object
     setFriends(["uid100", "uid200"]);
+    //id, post
     setNews(["News 1", "News 2"]);
+    //userBookData
+
     setUserData({
       status: "READ | Reading | On list?",
       readDate: "2019-05-07",
       notes: "These are my notes on this book... I like books",
       rating: 0,
-      friendsWhoReadIt: ["Abby", "Carl", "Linda"],
+      friendsWhoReadIt: ["uid100", "Carl", "Linda"],
     });
     setClub({
       name: "John's Club",
@@ -71,9 +75,11 @@ function App() {
       user,
     });
     // setCurrBook({ ...currBook, id: '1' })
-  }
+  };
   //OL365902M  Rainbow Six
-  useEffect(() => { initialize() }, [])
+  useEffect(() => {
+    initialize();
+  }, []);
 
   const everyState = {
     userBooks,
@@ -82,7 +88,7 @@ function App() {
     news,
     club,
     clubAdmin,
-    currBook
+    currBook,
   };
 
   console.log(">>>>>>everyState", everyState);
@@ -92,67 +98,67 @@ function App() {
   const fetchBookDetails = (OLBookID) => {
     let book = {
       id: OLBookID,
-      title: '',
-      author: '',
-      published: '',
-      description: '',
+      title: "",
+      author: "",
+      published: "",
+      description: "",
       subjects: null,
       works: null,
       coverLink: `https://covers.openlibrary.org/b/olid/${OLBookID}-L.jpg`,
-    }
+    };
     if (OLBookID) {
       //Fetch Book Details
-      axios.get(`https://openlibrary.org/books/${OLBookID}.json`)
+      axios
+        .get(`https://openlibrary.org/books/${OLBookID}.json`)
         .then((res) => {
           book = {
             ...book,
             title: res.data.title,
             published: res.data.publish_date,
             author: res.data.authors[0].key,
-            works: res.data.works[0].key
-          }
+            works: res.data.works[0].key,
+          };
         })
         .then(() => {
           //Fetch Works (Description / subjects)
           if (book.works) {
-            axios.get(`https://openlibrary.org${book.works}.json`)
+            axios
+              .get(`https://openlibrary.org${book.works}.json`)
               .then((res) => {
-                book.subjects = res.data.subjects
-                const descType = typeof res.data.description
-                console.log("RES DESC>>>>", res.data)
+                book.subjects = res.data.subjects;
+                const descType = typeof res.data.description;
+                console.log("RES DESC>>>>", res.data);
                 if (res.data.description) {
-                  if (descType !== 'string') {
-                    book.description = res.data.description.value
+                  if (descType !== "string") {
+                    book.description = res.data.description.value;
                   } else {
-                    book.description = res.data.description
+                    book.description = res.data.description;
                   }
                 } else {
-                  book.description = "No Description Found"
+                  book.description = "No Description Found";
                 }
-
-
-              })
+              });
           }
         })
         .then(() => {
           //Fetch Author Name
           if (book.author) {
-            axios.get(`https://openlibrary.org${book.author}.json`)
+            axios
+              .get(`https://openlibrary.org${book.author}.json`)
               .then((res) => {
-                book.author = res.data.name
-                setCurrBook(book)
-              })
+                book.author = res.data.name;
+                setCurrBook(book);
+              });
           }
         })
-        .catch(e => console.log("Error: axios get book details ", e))
+        .catch((e) => console.log("Error: axios get book details ", e));
     }
   };
   //Watch for currBook to change and load Details into state
   useEffect(() => {
-    console.log("useEffect for Details")
-    fetchBookDetails(currBook.id)
-  }, [currBook.id])
-
+    console.log("useEffect for Details");
+    fetchBookDetails(currBook.id);
+  }, [currBook.id]);
 
   //==================Rendering =============
   return (
@@ -165,19 +171,51 @@ function App() {
             </span>
           </nav>
           <Switch>
-            <Route path="/clubs"><ClubsIndex user={user} clubAdmin={clubAdmin} setClubAdmin={setClubAdmin} club={club} setClub={setClub} /></Route>
-            <Route path="/register" render={() => { return <Register user={user} setUser={setUser} />; }} />
-            <Route path="/social">{" "}<Social friends={friends} news={news} setFriends={setFriends} />{" "}</Route>
-            <Route path="/shelf/">{" "}<UserShelf books={userBooks} setBooks={setUserBooks} setCurrBook={setCurrBook} /></Route>
+            <Route path="/clubs">
+              <ClubsIndex
+                user={user}
+                clubAdmin={clubAdmin}
+                setClubAdmin={setClubAdmin}
+                club={club}
+                setClub={setClub}
+              />
+            </Route>
+            <Route
+              path="/register"
+              render={() => {
+                return <Register user={user} setUser={setUser} />;
+              }}
+            />
+            <Route path="/social">
+              {" "}
+              <Social
+                friends={friends}
+                news={news}
+                setFriends={setFriends}
+              />{" "}
+            </Route>
+            <Route path="/shelf/">
+              {" "}
+              <UserShelf
+                books={userBooks}
+                setBooks={setUserBooks}
+                setCurrBook={setCurrBook}
+              />
+            </Route>
             <Route
               path="/book/:id"
               //Route is not fully setup
               render={(props) => {
                 // Strips the id from the full url
-                const paramBookId = props.location.pathname.replace("/book/", "");
-                console.log("PARAM", paramBookId)
+                const paramBookId = props.location.pathname.replace(
+                  "/book/",
+                  ""
+                );
+                console.log("PARAM", paramBookId);
                 // setCurrBook(paramBookId)
-                return <BookDetails currBook={currBook} userBookData={userData} />;
+                return (
+                  <BookDetails currBook={currBook} userBookData={userData} />
+                );
               }}
             />
             <Route
@@ -195,7 +233,9 @@ function App() {
               }}
             />
 
-            <Route path="/" exact><MainPage /></Route>
+            <Route path="/" exact>
+              <MainPage />
+            </Route>
           </Switch>
         </main>
       </div>
