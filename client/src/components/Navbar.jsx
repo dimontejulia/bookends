@@ -7,6 +7,7 @@ import { LinkContainer } from "react-router-bootstrap";
 
 export default function NavBar(props) {
   const userFirstName = props.user.firstName;
+
   return (
     <Navbar bg="light" expand="lg">
       <LinkContainer to="/">
@@ -39,7 +40,7 @@ export default function NavBar(props) {
         <LinkContainer to="/register">
           <Nav.Link>Register</Nav.Link>
         </LinkContainer>
-        <Login />
+        <Login user={props.user} setUser={props.setUser}/>
       </Navbar.Collapse>
     </Navbar>
   );

@@ -30,7 +30,7 @@ function App() {
   const [currBook, setCurrBook] = useState({ id: "initial" });
 
   const initialize = () => {
-    setUser({ id: "", firstName: "" });
+    setUser({ });
     // setUserBooks(["OL365902M", "OL26455544M", "OL24222441M"]); //org... id only
     setUserBooks([
       { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
@@ -167,7 +167,7 @@ function App() {
         <main>
           <nav className="sidebar__menu">
             <span>
-              <Navbar user={user} />
+              <Navbar user={user} setUser={setUser} />
             </span>
           </nav>
           <Switch>
