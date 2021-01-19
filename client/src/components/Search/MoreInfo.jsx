@@ -1,31 +1,30 @@
-import React, { useState } from "react";
-import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
-import axios from "axios";
+import React, { useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 
-import * as client from "./OpenLibraryClient.jsx";
+import * as client from './OpenLibraryClient.jsx';
 
-const MoreInfo = ({ book, key, ...props }) => {
+const MoreInfo = ({ book, key, description, ...props }) => {
   return (
     <Modal
       {...props}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
+      size='lg'
+      aria-labelledby='contained-modal-title-vcenter'
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
+        <Modal.Title id='contained-modal-title-vcenter'>
           {book.title}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <h4>Author: {book.author_name}</h4>
-        <p>Description:</p>
+        <p>Description: {description}</p>
         <p>First published: {book.first_publish_year}</p>
         <a href={`https://openlibrary.org${book.key}`}>Show on Open Library</a>
-        <a href={`https://www.goodreads.com/book/show/${book.id_goodreads[0]}`}>
+        {/* <a href={`https://www.goodreads.com/book/show/${book.id_goodreads[0]}`}>
           Show on Goodreads
-        </a>
+        </a> */}
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>

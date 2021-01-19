@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import * as client from "./OpenLibraryClient.jsx";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import * as client from './OpenLibraryClient.jsx';
 
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import MoreInfo from "./MoreInfo";
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import MoreInfo from './MoreInfo';
 
 const Book = ({ book, ...props }) => {
   const {
@@ -14,35 +15,43 @@ const Book = ({ book, ...props }) => {
     first_publish_year,
     cover_edition_key,
   } = book;
-
+  const { currBook, setCurrBook } = props;
   const [modalShow, setModalShow] = useState(false);
 
   const handleSubmitClick = (e) => {
     e.preventDefault();
-    const bookKey = key.split("/works/")[1];
+    const bookKey = key.split('/works/')[1];
     props.setUserBooks((prevState) => [...prevState, bookKey]);
   };
 
   return (
-    <Card style={{ width: "20rem" }}>
+    <Card style={{ width: '20rem' }}>
       <Card.Img
-        variant="top"
+        variant='top'
         src={`http://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg`}
       />
       <Card.Body>
         <Card.Title>{title}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">
-          {author_name.join(", ")}
+        <Card.Subtitle className='mb-2 text-muted'>
+          {/* {author_name.join(', ')} */}
+          {author_name}
         </Card.Subtitle>
 
         <Button onClick={handleSubmitClick}>Add to shelf</Button>
-        <Button variant="primary" onClick={() => setModalShow(true)}>
+        <Button
+          variant='primary'
+          onClick={() => {
+            setCurrBook({ id: book.text[0] });
+            setModalShow(true);
+          }}
+        >
           More Info
         </Button>
 
         <MoreInfo
           book={book}
           key={book.key}
+          description={currBook.description}
           show={modalShow}
           onHide={() => setModalShow(false)}
         />

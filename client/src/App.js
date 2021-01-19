@@ -31,14 +31,14 @@ function App() {
 
   const initialize = () => {
     setUser({ id: "", firstName: "" });
-    setUserBooks(["OL365902M", "OL24489092M", "OL7503861M"]);
+    setUserBooks(["OL365902M", "OL26455544M", "OL24222441M"]);
     setFriends(["Joe", "Sara"]);
     setNews(["News 1", "News 2"]);
     setUserData({
       status: "READ | Reading | On list?",
       readDate: "2019-05-07",
       notes: "These are my notes on this book... I like books",
-      rating: 3,
+      rating: 0,
       friendsWhoReadIt: ["Abby", "Carl", "Linda"],
     });
     setClub({
@@ -106,7 +106,19 @@ function App() {
             axios.get(`https://openlibrary.org${book.works}.json`)
               .then((res) => {
                 book.subjects = res.data.subjects
-                book.description = res.data.description.value
+                const descType = typeof res.data.description
+                console.log("RES DESC>>>>", res.data)
+                if (res.data.description) {
+                  if (descType !== 'string') {
+                    book.description = res.data.description.value
+                  } else {
+                    book.description = res.data.description
+                  }
+                } else {
+                  book.description = "No Description Found"
+                }
+
+
               })
           }
         })
@@ -139,7 +151,6 @@ function App() {
             <span>
               <Navbar user={user} />
             </span>
-            <h1 onClick={() => setCurrBook({ id: 'OL365902M' })}>TEST</h1>
           </nav>
           <Switch>
             <Route path="/clubs"><ClubsIndex user={user} clubAdmin={clubAdmin} setClubAdmin={setClubAdmin} club={club} setClub={setClub} /></Route>
@@ -165,6 +176,8 @@ function App() {
                   <SearchIndex
                     userBooks={userBooks}
                     setUserBooks={setUserBooks}
+                    currBook={currBook}
+                    setCurrBook={setCurrBook}
                   />
                 );
               }}

@@ -5,7 +5,6 @@ export default function Index(props) {
   const { books, setUserBooks, setCurrBook } = props;
   return (
     <div>
-      <p>User books will go here</p>
       <BookList
         books={books}
         setUserBooks={setUserBooks}
