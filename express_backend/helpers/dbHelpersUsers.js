@@ -105,7 +105,7 @@ module.exports = (db) => {
 
     const getFriends = (id) => {
       const query = {
-        text: `SELECT users_friend from friends where user_id = $1`,
+        text: `SELECT users_friend FROM friends WHERE user_id = $1`,
         values: [id]
       }
       return db.query(query)
@@ -114,11 +114,11 @@ module.exports = (db) => {
   
     }
     const addBook = (user_id, userBooks) => {
-      const{ id, title, author, subject } = userBooks
+      const { id, title, author, subject } = userBooks
 
       const query = {
         text: `INSERT INTO books (id, title, author, subject) VALUES ($1, $2, $3, $4) RETURNING *`,
-        values: [id, title, author, subject],
+        values: [id, title, author[0], subject],
       };
       
       return db

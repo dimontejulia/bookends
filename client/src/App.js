@@ -172,15 +172,8 @@ const updateDBUserBooks = () => {
   axios
     .post(`/api/users/${user.id}/books`,  dataToSend)
     .then((res) => {
-      console.log("data to be added to users_books)=========", dataToSend)
-      console.log("user id", user.id)
-      console.log("RES.DATA======", res.data)
-      //const userData = res.data[0];
-      //If reseponse good (UserID)
-      // update cookie here
-      //Update userState
-      // Book list friends (Later)
-      // props.setUser(userData);
+      // Need Saved MSg ELSE Error Message
+      console.log('Book added to shelf!')
       
     })
     .catch(err => console.log(err))
