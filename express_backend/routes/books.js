@@ -18,17 +18,17 @@ module.exports = ({ getBooks, addBookToUser, getSpecificBook }) => {
         .then((book) => res.json(book))
         .catch((err) => res.json({ msg: err.message }));
     })
-    .put("/:id", (req, res) => {
-      const { book_id } = req.body;
-      console.log("PUT BOOK TO USER START");
-      addBookToUser(book_id)
-        .then((book) => {
-          console.log("PUT BOOK TO USER FINISH");
-          console.log("BOOK", book);
-          res.json(book);
-        })
-        .catch((err) => res.json({ msg: err.message }));
-    })
+    // .put("/:id", (req, res) => {
+    //   const { book_id } = req.body;
+    //   console.log("PUT BOOK TO USER START");
+    //   addBookToUser(book_id)
+    //     .then((book) => {
+    //       console.log("PUT BOOK TO USER FINISH");
+    //       console.log("BOOK", book);
+    //       res.json(book);
+    //     })
+    //     .catch((err) => res.json({ msg: err.message }));
+    // })
     .delete("/:id", (req, res) => {
       getUsers()
         .then((users) => res.json(users))

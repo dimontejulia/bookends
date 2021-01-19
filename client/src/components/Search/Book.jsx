@@ -21,29 +21,34 @@ const Book = ({ book, ...props }) => {
     e.preventDefault();
     const bookKey = key.split('/works/')[1];
     //props.setUserBooks((prevState) => [...prevState, bookKey]);
-    addBook();
+    props.setUserBooks((prevState) => [
+      ...prevState,
+      { id: cover_edition_key, title: title, author: author_name },
+    ]);
+    //addBook();
   };
 
   const addBook = () => {
-    const bookKey = key.split('/works/')[1];
-    const URL = `/api/books/`;
-    axios
-      .put(`${URL}${bookKey}`, { book_id: bookKey })
-      .then(function (response) {
-        if (response.status === 200) {
-          props.setUserBooks((prevState) => [
-            ...prevState,
-            { id: cover_edition_key, title: title, author: author_name },
-          ]);
-          console.log('success', props, cover_edition_key);
-          // props.showError(null);
-        } else {
-          console.log('error');
-        }
-      })
-      .catch(function (error) {
-        console.log('Search.Book ERROR: ', error);
-      });
+  
+    // const bookKey = key.split('/works/')[1];
+    // const URL = `/api/books/`;
+    // axios
+    //   .put(`${URL}${bookKey}`, { book_id: bookKey })
+    //   .then(function (response) {
+    //     if (response.status === 200) {
+    //       props.setUserBooks((prevState) => [
+    //         ...prevState,
+    //         { id: cover_edition_key, title: title, author: author_name },
+    //       ]);
+    //       console.log('success', props, cover_edition_key);
+    //       // props.showError(null);
+    //     } else {
+    //       console.log('error');
+    //     }
+    //   })
+    //   .catch(function (error) {
+    //     console.log('Search.Book ERROR: ', error);
+    //   });
   };
 
   return (

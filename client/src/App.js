@@ -43,13 +43,14 @@ function App() {
     //   { id: "OL24222441M", title: "Trojan Odyssey", author: "C Cussler" },
     // ]);
   
-    axios.get(`api/users/${user.id}/books`)
-    .then((res)=>{
-      console.log("RES", res)
-      setUserBooks(res.data)
-      setUserData(res.data)
-    })
-    .catch((e)=> console.log(e));
+    axios
+      .get(`api/users/${user.id}/books`)
+      .then((res)=>{
+        console.log("RES", res)
+        setUserBooks(res.data)
+        setUserData(res.data)
+      })
+      .catch((e)=> console.log(e));
 
     //add first name & last name to user id as an object
     setFriends(["uid100", "uid200"]);
@@ -127,15 +128,6 @@ function App() {
             author: res.data.authors[0].key,
             works: res.data.works[0].key,
           };
-
-          // if (typeof res.data.authors === "array") {
-          //   book.author = res.data.authors[0].key
-          // } else {
-          //   book.author = res.data.author
-          // }
-          // if (typeof res.data.authors === "array") {
-          //   book.author = res.data.authors[0].key
-          // };
         })
         .then(() => {
           //Fetch Works (Description / subjects)
@@ -171,11 +163,42 @@ function App() {
         .catch((e) => console.log("Error: axios get book details ", e));
     }
   };
+
+const updateDBUserBooks = () => {
+  const dataToSend = {
+    userBooks: userBooks, 
+    userBookData: userData
+  }
+  axios
+    .post(`/api/users/${user.id}/books`,  dataToSend)
+    .then((res) => {
+      console.log("data to be added to users_books)=========", dataToSend)
+      console.log("user id", user.id)
+      console.log("RES.DATA======", res.data)
+      //const userData = res.data[0];
+      //If reseponse good (UserID)
+      // update cookie here
+      //Update userState
+      // Book list friends (Later)
+      // props.setUser(userData);
+      
+    })
+    .catch(err => console.log(err))
+
+};
+
+
+
   //Watch for currBook to change and load Details into state
   useEffect(() => {
     console.log("useEffect for Details");
     fetchBookDetails(currBook.id);
   }, [currBook.id]);
+
+  useEffect(() => {
+    console.log("useEffect for UserBooks");
+    updateDBUserBooks(userBooks);
+  }, [userBooks]);
 
   //==================Rendering =============
   return (

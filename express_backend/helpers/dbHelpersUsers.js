@@ -102,6 +102,42 @@ module.exports = (db) => {
         .catch(err => err);
   
     }
+
+    const getFriends = (id) => {
+      const query = {
+        text: `SELECT users_friend from friends where user_id = $1`,
+        values: [id]
+      }
+      return db.query(query)
+        .then(result => result.rows)
+        .catch(err => err);
+  
+    }
+    const addBookToUsersBooks = (user_id, userBooks) => {
+      const{book_id, title, author, subject} = userBooks
+      const query = {
+        text: `INSERT INTO users_books (user_id, book_id, date_read, rating, comments, status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+        values: [user_id, book_id, date_read, rating, comments, status],
+      };
+  
+      const query2 = {
+        text: `INSERT INTO books (id, title, author, subject) VALUES ($1, $2, $3, $4) RETURNING *`,
+        values: [book_id, title, author, subject],
+      };
+  
+      return db
+        .query(query1)
+        .then((result) => {
+          console.log("result.rows ------>>>>>", result.rows);
+          return result.rows;
+        })
+        .query(query2)
+        .then((result) => {
+          
+        })
+        .catch((err) => err);
+    };
+  
   
     return {
       getUsers,
@@ -111,5 +147,7 @@ module.exports = (db) => {
       authenticateUser,
       getUsersPosts,
       getOneUsersPosts,
+      getFriends,
+      addBookToUsersBooks
     };
   };

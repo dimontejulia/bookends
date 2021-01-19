@@ -2,46 +2,25 @@ const express = require('express');
 const router = express.Router();
 const { getPostsByUsers} = require('../helpers/dataHelpers');
 
-module.exports = ({ getUsers, getUserBooks }) => {
-
-  // users
-  router.get('/', function (req, res) {
-    getUsers()
-      .then(users => res.json(users))
-      .catch(err => res.json({ msg: err.message }))
-  });
-
-  // users/:id
-  router
-    .get('/:id', (req, res) => {
-      getUsers()
-        .then(users => res.json(users))
-        .catch(err => res.json({ msg: err.message }))
-    })
-    .post('/:id', (req, res) => {
-      getUsers()
-        .then(users => res.json(users))
-        .catch(err => res.json({ msg: err.message }))
-    })
-    .delete('/:id', (req, res) => {
-      getUsers()
-        .then(users => res.json(users))
-        .catch(err => res.json({ msg: err.message }))
-    });
+module.exports = ({ getUsers, getUserBooks, addBookToUsersBooks }) => {
 
   // users/:id/books
   router
     .get('/:id/books', (req, res) => {
       getUserBooks(req.params.id)
         .then(books => {
-          console.log('BOOKS ->>>>',books);
           res.json(books);
         })
         .catch(err => res.json({ msg: err.message }))
     })
     .post('/:id/books', (req, res) => {
-      getUsers()
-        .then(users => res.json(users))
+      console.log("req.body>>>>>>>>>>", req.body)
+      const { userBooks } = req.body;
+      console.log("userBooks=========", userBooks.slice(-1).pop());
+      addBookToUsersBooks(req.params.id, userBooks.slice(-1).pop())
+        .then(users => {
+          console.log('RX BOOKS ->>>>',books);
+          res.json(users)})
         .catch(err => res.json({ msg: err.message }))
     })
     .delete('/:id/books', (req, res) => {
@@ -130,6 +109,32 @@ module.exports = ({ getUsers, getUserBooks }) => {
       .catch((err) => res.json({
         error: err.message
       }));
+
+  // users/:id
+  router
+  .get('/:id', (req, res) => {
+    getUsers()
+      .then(users => res.json(users))
+      .catch(err => res.json({ msg: err.message }))
+  })
+  .post('/:id', (req, res) => {
+    getUsers()
+      .then(users => res.json(users))
+      .catch(err => res.json({ msg: err.message }))
+  })
+  .delete('/:id', (req, res) => {
+    getUsers()
+      .then(users => res.json(users))
+      .catch(err => res.json({ msg: err.message }))
+  });
+
+  // users
+  router
+    .get('/', (req, res) => {
+      getUsers()
+        .then(users => res.json(users))
+        .catch(err => res.json({ msg: err.message }))
+    });
   });
 
   return router;
