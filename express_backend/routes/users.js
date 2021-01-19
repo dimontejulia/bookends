@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { getPostsByUsers} = require('../helpers/dataHelpers');
 
-module.exports = ({ getUsers, getUserBooks, addBookToUsersBooks }) => {
+module.exports = ({ getUsers, getUserBooks, addBook }) => {
 
   // users/:id/books
   router
@@ -14,10 +14,12 @@ module.exports = ({ getUsers, getUserBooks, addBookToUsersBooks }) => {
         .catch(err => res.json({ msg: err.message }))
     })
     .post('/:id/books', (req, res) => {
-      console.log("req.body>>>>>>>>>>", req.body)
+      
       const { userBooks } = req.body;
-      console.log("userBooks=========", userBooks.slice(-1).pop());
-      addBookToUsersBooks(req.params.id, userBooks.slice(-1).pop())
+      const userBook = userBooks.slice(-1).pop();
+      console.log("userBook", userBook);
+      console.log("user", req.params.id);
+      addBook(req.params.id, userBook)
         .then(users => {
           console.log('RX BOOKS ->>>>',books);
           res.json(users)})

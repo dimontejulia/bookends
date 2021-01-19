@@ -113,32 +113,42 @@ module.exports = (db) => {
         .catch(err => err);
   
     }
-    const addBookToUsersBooks = (user_id, userBooks) => {
-      const{book_id, title, author, subject} = userBooks
+    const addBook = (user_id, userBooks) => {
+      const{id, title, author, subject} = userBooks
+
       const query = {
-        text: `INSERT INTO users_books (user_id, book_id, date_read, rating, comments, status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-        values: [user_id, book_id, date_read, rating, comments, status],
-      };
-  
-      const query2 = {
         text: `INSERT INTO books (id, title, author, subject) VALUES ($1, $2, $3, $4) RETURNING *`,
-        values: [book_id, title, author, subject],
+        values: [id, title, "SOMEONE", "subject"],
       };
-  
+      
       return db
-        .query(query1)
+        .query(query)
         .then((result) => {
-          console.log("result.rows ------>>>>>", result.rows);
           return result.rows;
         })
-        .query(query2)
-        .then((result) => {
-          
-        })
-        .catch((err) => err);
+        .then((result) => addToUsersBooks(user_id, userBooks))
+        .catch((err) =>console.log("DBERROR:>>>>",err));
     };
-  
-  
+
+    const addToUsersBooks = (user_id, userBooks) => {
+      console.log("userBooks>>>>>", userBooks)
+      const{id, title, author, subject} = userBooks
+      console.log("id", id);
+
+      const query = {
+        text: `INSERT INTO users_books (user_id, book_id, date_read, rating, comments, status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
+        values: [1, id, "2021-10-10", 4, "comments", "status"],
+      };
+      
+      console.log("ADD TO DB FUNCTION!!!!!")
+      return db
+        .query(query)
+        .then((result) => {
+          return (result.rows)
+        })
+        .catch((err) =>console.log("DBERROR from users books:>>>>",err));
+    };
+    
     return {
       getUsers,
       getUserByEmail,
@@ -148,6 +158,6 @@ module.exports = (db) => {
       getUsersPosts,
       getOneUsersPosts,
       getFriends,
-      addBookToUsersBooks
+      addBook
     };
   };
