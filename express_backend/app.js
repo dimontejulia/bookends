@@ -23,9 +23,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
+
+// check if user is authenticated before giving access
 app.use("/api/users", usersRouter(dbHelpersUsers));
 app.use("/api/books", booksRouter(dbHelpersBooks));
+app.use("/", indexRouter(dbHelpersUsers));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

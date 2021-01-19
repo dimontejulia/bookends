@@ -33,6 +33,21 @@ module.exports = (db) => {
         .then(result => result.rows[0])
         .catch(err => err);
     }
+
+    const authenticateUser = (email, password) => {
+      const query = {
+        text: `SELECT * FROM users WHERE email = $1 and password =$2`,
+        values: [email, password]
+      }
+
+      return db
+        .query(query)
+        .then(result => {
+          console.log("DB Authenticate Results:", result)
+         return result.rows})
+        .catch(err => err);
+
+    }
   
     const getUsersPosts = () => {
       const query = {
@@ -63,24 +78,13 @@ module.exports = (db) => {
         .catch(err => err);
   
     }
-
-    const authenticateUser = (email, password) => {
-      const query = {
-        text: `SELECT * FROM users WHERE email = $1 and password =$2`,
-        values: [email, password]
-      }
-      return db
-        .query(query)
-        .then(result => result.rows)
-        .catch(err => err);
-
-    }
   
     return {
       getUsers,
       getUserByEmail,
       addUser,
+      authenticateUser,
       getUsersPosts,
-      getOneUsersPosts
+      getOneUsersPosts,
     };
   };

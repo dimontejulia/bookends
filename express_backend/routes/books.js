@@ -4,11 +4,12 @@ const { getPostsByUsers } = require("../helpers/dataHelpers");
 
 module.exports = ({ getBooks, addBookToUser, getSpecificBook }) => {
   // books
-  router.get("/", (req, res) => {
-    getBooks()
-      .then((books) => res.json(books))
-      .catch((err) => res.json({ msg: err.message }));
-  });
+  router
+    .get("/", (req, res) => {
+      getBooks()
+        .then((books) => res.json(books))
+        .catch((err) => res.json({ msg: err.message }));
+    });
 
   // books/:id
   router
