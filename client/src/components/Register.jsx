@@ -5,6 +5,7 @@ import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
+import { Redirect } from "react-router-dom";
 
 export default function Register(props) {
   const { user, setUser } = props;
@@ -19,10 +20,20 @@ export default function Register(props) {
 
   const handleSubmitClick = (e) => {
     e.preventDefault();
-    props.setUser((prevState) => ({
-      ...prevState,
-      id: 123,
-    }));
+    axios
+      .post('/register',  props.user)
+      .then((res)=>{
+        console.log("AXIOS USER", props.user)
+        const userData = res.data[0];
+        //If reseponse good (UserID)
+        // update cookie here
+        //Update userState
+        // Book list friends (Later)
+        props.setUser(userData);
+        
+      })
+      .then(<Redirect to="/" />)
+      .catch(err => console.log(err))
   };
 
   return (
@@ -33,7 +44,7 @@ export default function Register(props) {
           <Form.Group as={Col} controlId="formGridFirstName">
             <Form.Label>First Name</Form.Label>
             <Form.Control
-              id="firstName"
+              id="first_name"
               onChange={handleChange}
               placeholder="First name"
             />
@@ -41,7 +52,7 @@ export default function Register(props) {
           <Form.Group as={Col} controlId="formGridLastName">
             <Form.Label>Last Name</Form.Label>
             <Form.Control
-              id="lastName"
+              id="last_name"
               onChange={handleChange}
               placeholder="Last Name"
             />

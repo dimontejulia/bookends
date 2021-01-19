@@ -17,10 +17,10 @@ module.exports = ({ addUser, authenticateUser }) => {
 
   router
     .post("/register", function (req, res, next) {
-      const { first_name, last_name, email, password } = req.body;
-      console.log("REGISTER",first_name, last_name, email, password);
+      const { first_name, last_name, email, password, age, gender } = req.body;
+      console.log("REGISTER",first_name, last_name, email, password, age, gender);
       console.log(">>>>")
-      addUser(first_name, last_name, email, password)
+      addUser(first_name, last_name, email, password, age, gender)
         .then((user) => {
           console.log("<<<<", user)
           res.json(user);

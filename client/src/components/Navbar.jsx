@@ -6,7 +6,29 @@ import { Navbar, Nav, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 export default function NavBar(props) {
-  const userFirstName = props.user.firstName;
+  const userId = props.user.id;
+
+  const loggedIn = function (id){
+    if (!id){
+      return (
+        <div>
+          <LinkContainer to="/register">
+            <Nav.Link>Register</Nav.Link>
+          </LinkContainer>
+          <Login user={props.user} setUser={props.setUser}/>   
+        </div> 
+      )
+    } else {
+     return  (
+        <span>
+          {`User: ${props.user.first_name}`}
+          <Button variant="primary" type="submit">
+            Logout
+          </Button>
+        </span>
+     )
+    }
+  }
 
   return (
     <Navbar bg="light" expand="lg">
@@ -36,11 +58,8 @@ export default function NavBar(props) {
             </Nav.Link>
           </LinkContainer>
         </Nav>
-        {props.user.id ? `User : ${userFirstName}` : null}
-        <LinkContainer to="/register">
-          <Nav.Link>Register</Nav.Link>
-        </LinkContainer>
-        <Login user={props.user} setUser={props.setUser}/>
+        {loggedIn(userId)}
+        
       </Navbar.Collapse>
     </Navbar>
   );

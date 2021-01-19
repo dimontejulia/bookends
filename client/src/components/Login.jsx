@@ -17,13 +17,12 @@ export default function Login(props) {
   const handleSubmitClick = (e) => {
     e.preventDefault();
     console.log("USER STATE", props.user);
-
     
     axios
       .post('/login',  props.user)
       .then((res)=>{
         console.log("AXIOS USER", props.user)
-        const userData = res.data[0]
+        const userData = res.data[0];
         //If reseponse good (UserID)
         // update cookie here
         //Update userState
