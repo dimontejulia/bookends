@@ -15,7 +15,7 @@ CREATE TABLE users (
   "password" VARCHAR(255) NOT NULL,
   "age" INT,
   "gender" VARCHAR(255),
-  "created_at" DATE NOT NULL
+  "created_at" DATE NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE friends (

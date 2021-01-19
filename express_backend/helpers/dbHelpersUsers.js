@@ -30,8 +30,11 @@ module.exports = (db) => {
       }
   
       return db.query(query)
-        .then(result => result.rows[0])
-        .catch(err => err);
+      .then(result => {
+        console.log("Add user:", result)
+        return result.rows
+      })
+        .catch(err => console.log("SQLError",err));
     }
 
     const authenticateUser = (email, password) => {
@@ -44,7 +47,8 @@ module.exports = (db) => {
         .query(query)
         .then(result => {
           console.log("DB Authenticate Results:", result)
-         return result.rows})
+          return result.rows
+        })
         .catch(err => err);
 
     }

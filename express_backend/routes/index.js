@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-module.exports = ({ authenticateUser }) => {
+module.exports = ({ addUser, authenticateUser }) => {
   router
     .post('/login', function(req, res, next) {
       console.log ("POST /LOGIN")
@@ -19,8 +19,10 @@ module.exports = ({ authenticateUser }) => {
     .post("/register", function (req, res, next) {
       const { first_name, last_name, email, password } = req.body;
       console.log("REGISTER",first_name, last_name, email, password);
+      console.log(">>>>")
       addUser(first_name, last_name, email, password)
         .then((user) => {
+          console.log("<<<<", user)
           res.json(user);
         })
         .catch((err) => res.json({ msg: err.message }));
