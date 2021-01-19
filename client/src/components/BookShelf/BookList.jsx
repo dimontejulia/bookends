@@ -18,7 +18,6 @@ export default function BookList(props) {
 
   return (
     <section>
-      <h1>My Books</h1>
       <CardColumns>
         {/* <AddBookButton /> */}
         {parsedList}

@@ -112,6 +112,8 @@ function App() {
       works: null,
       coverLink: `https://covers.openlibrary.org/b/olid/${OLBookID}-L.jpg`,
     };
+
+
     if (OLBookID) {
       //Fetch Book Details
       axios
@@ -124,6 +126,15 @@ function App() {
             author: res.data.authors[0].key,
             works: res.data.works[0].key,
           };
+
+          // if (typeof res.data.authors === "array") {
+          //   book.author = res.data.authors[0].key
+          // } else {
+          //   book.author = res.data.author
+          // }
+          // if (typeof res.data.authors === "array") {
+          //   book.author = res.data.authors[0].key
+          // };
         })
         .then(() => {
           //Fetch Works (Description / subjects)
@@ -132,10 +143,9 @@ function App() {
               .get(`https://openlibrary.org${book.works}.json`)
               .then((res) => {
                 book.subjects = res.data.subjects;
-                const descType = typeof res.data.description;
                 console.log("RES DESC>>>>", res.data);
                 if (res.data.description) {
-                  if (descType !== "string") {
+                  if (typeof res.data.description !== "string") {
                     book.description = res.data.description.value;
                   } else {
                     book.description = res.data.description;
