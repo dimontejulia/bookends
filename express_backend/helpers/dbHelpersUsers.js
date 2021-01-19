@@ -105,7 +105,11 @@ module.exports = (db) => {
 
     const getFriends = (id) => {
       const query = {
-        text: `SELECT users_friend FROM friends WHERE user_id = $1`,
+        text: `
+          SELECT first_name, last_name
+          FROM friends f
+          JOIN users u ON f.users_friend = u.id
+          WHERE f.user_id =$1;`,
         values: [id]
       }
       return db.query(query)

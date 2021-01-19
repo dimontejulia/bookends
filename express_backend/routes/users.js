@@ -31,6 +31,25 @@ module.exports = ({ getUsers, getUserBooks, addBook }) => {
         .catch(err => res.json({ msg: err.message }))
     });
 
+    // api/users/:id/friends
+    router
+      .get('/:id/friends', (req, res) => {
+        getUsers()
+          .then(users => res.json(users))
+          .catch(err => res.json({ msg: err.message }))
+      })
+      .post('/:id/friends', (req, res) => {
+        getUsers()
+          .then(users => res.json(users))
+          .catch(err => res.json({ msg: err.message }))
+      })
+      .delete('/:id/friends', (req, res) => {
+        getUsers()
+          .then(users => res.json(users))
+          .catch(err => res.json({ msg: err.message }))
+      });
+  
+
   // users/:id/clubs
   router
     .get('/:id/clubs', (req, res) => {
@@ -44,23 +63,6 @@ module.exports = ({ getUsers, getUserBooks, addBook }) => {
         .catch(err => res.json({ msg: err.message }))
     })
     .delete('/:id/clubs', (req, res) => {
-      getUsers()
-        .then(users => res.json(users))
-        .catch(err => res.json({ msg: err.message }))
-    });
-
-  router
-    .get('/:id/friends', (req, res) => {
-      getUsers()
-        .then(users => res.json(users))
-        .catch(err => res.json({ msg: err.message }))
-    })
-    .post('/:id/friends', (req, res) => {
-      getUsers()
-        .then(users => res.json(users))
-        .catch(err => res.json({ msg: err.message }))
-    })
-    .delete('/:id/friends', (req, res) => {
       getUsers()
         .then(users => res.json(users))
         .catch(err => res.json({ msg: err.message }))
