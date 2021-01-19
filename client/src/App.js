@@ -19,10 +19,10 @@ import BookDetails from "./components/Book/Index";
 import SearchIndex from "./components/Search/SearchIndex";
 //============================================
 function App() {
-  const [user, setUser] = useState({id:1});
+  const [user, setUser] = useState({ id: 1 });
   const [userBooks, setUserBooks] = useState("");
   // const [search, setSearch] = useState("");
-  const [friends, setFriends] = useState("");
+  const [friends, setFriends] = useState([]);
   const [news, setNews] = useState("");
   const [userData, setUserData] = useState({});
   const [club, setClub] = useState("");
@@ -42,15 +42,21 @@ function App() {
     //   { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
     //   { id: "OL24222441M", title: "Trojan Odyssey", author: "C Cussler" },
     // ]);
-  
+
+    //GET FRIENDS
+    axios.get(`api/users/${user.id}/friends`).then((res) => {
+      console.log("RES", res);
+      setFriends(res.data);
+    });
+    // GET BOOKS
     axios
       .get(`api/users/${user.id}/books`)
-      .then((res)=>{
-        console.log("RES", res)
-        setUserBooks(res.data)
-        setUserData(res.data)
+      .then((res) => {
+        console.log("RES", res);
+        setUserBooks(res.data);
+        setUserData(res.data);
       })
-      .catch((e)=> console.log(e));
+      .catch((e) => console.log(e));
 
     //add first name & last name to user id as an object
     setFriends(["uid100", "uid200"]);
@@ -115,7 +121,6 @@ function App() {
       coverLink: `https://covers.openlibrary.org/b/olid/${OLBookID}-L.jpg`,
     };
 
-
     if (OLBookID) {
       //Fetch Book Details
       axios
@@ -164,23 +169,19 @@ function App() {
     }
   };
 
-const updateDBUserBooks = () => {
-  const dataToSend = {
-    userBooks: userBooks, 
-    userBookData: userData
-  }
-  axios
-    .post(`/api/users/${user.id}/books`,  dataToSend)
-    .then((res) => {
-      // Need Saved MSg ELSE Error Message
-      console.log('Book added to shelf!')
-      
-    })
-    .catch(err => console.log(err))
-
-};
-
-
+  const updateDBUserBooks = () => {
+    const dataToSend = {
+      userBooks: userBooks,
+      userBookData: userData,
+    };
+    axios
+      .post(`/api/users/${user.id}/books`, dataToSend)
+      .then((res) => {
+        // Need Saved MSg ELSE Error Message
+        console.log("Book added to shelf!");
+      })
+      .catch((err) => console.log(err));
+  };
 
   //Watch for currBook to change and load Details into state
   useEffect(() => {
@@ -192,6 +193,11 @@ const updateDBUserBooks = () => {
     console.log("useEffect for UserBooks");
     updateDBUserBooks(userBooks);
   }, [userBooks]);
+
+  // useEffect(() => {
+  //   console.log("useEffect for Details");
+  //   // fetchBookDetails(currBook.id);
+  // }, [friends]);
 
   //==================Rendering =============
   return (
