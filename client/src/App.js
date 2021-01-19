@@ -47,6 +47,7 @@ function App() {
     .then((res)=>{
       console.log("RES", res)
       setUserBooks(res.data)
+      setUserData(res.data)
     })
     .catch((e)=> console.log(e));
 
@@ -56,13 +57,13 @@ function App() {
     setNews(["News 1", "News 2"]);
     //userBookData
 
-    setUserData({
-      status: "READ | Reading | On list?",
-      readDate: "2019-05-07",
-      notes: "These are my notes on this book... I like books",
-      rating: 0,
-      friendsWhoReadIt: ["uid100", "Carl", "Linda"],
-    });
+    // setUserData({
+    //   status: "READ | Reading | On list?",
+    //   readDate: "2019-05-07",
+    //   notes: "These are my notes on this book... I like books",
+    //   rating: 0,
+    //   friendsWhoReadIt: ["uid100", "Carl", "Linda"],
+    // });
     setClub({
       name: "John's Club",
       avatar: "https://image.flaticon.com/icons/png/512/69/69589.png",
