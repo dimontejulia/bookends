@@ -7,12 +7,10 @@ router.get('/', function(req, res, next) {
 });
 
 router
-  .get('/login', function(req, res, next) {
-    console.log('login get test');
-  })
   .post('/login', function(req, res, next) {
-    // res.render('register', { title: 'Register' });
-    console.log('login post test');
+    authenticateUser()
+      .then((user) = res.json(user))
+      .catch((err) => res.json(console.log('error authenticating user')));
   });
 
 router
