@@ -34,15 +34,11 @@ function App() {
     // setUserBooks(["OL365902M", "OL26455544M", "OL24222441M"]); //org... id only
     setUserBooks([
       { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
-      { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
-      { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
-      { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
-      { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
       { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
-      { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
-      { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
-      { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
+      { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
       { id: "OL24222441M", title: "Trojan Odyssey", author: "C Cussler" },
+      { id: "OL22596889M", title: "Harry Potter and the Chabmer...", author: "J Row" },
+      { id: "OL47724M", title: "Harry Potter and prisoner of azkabaz...", author: "J Row" },
     ]);
     //add first name & last name to user id as an object
     setFriends(["uid100", "uid200"]);
@@ -106,6 +102,8 @@ function App() {
       works: null,
       coverLink: `https://covers.openlibrary.org/b/olid/${OLBookID}-L.jpg`,
     };
+
+
     if (OLBookID) {
       //Fetch Book Details
       axios
@@ -118,6 +116,15 @@ function App() {
             author: res.data.authors[0].key,
             works: res.data.works[0].key,
           };
+
+          // if (typeof res.data.authors === "array") {
+          //   book.author = res.data.authors[0].key
+          // } else {
+          //   book.author = res.data.author
+          // }
+          // if (typeof res.data.authors === "array") {
+          //   book.author = res.data.authors[0].key
+          // };
         })
         .then(() => {
           //Fetch Works (Description / subjects)
@@ -126,10 +133,9 @@ function App() {
               .get(`https://openlibrary.org${book.works}.json`)
               .then((res) => {
                 book.subjects = res.data.subjects;
-                const descType = typeof res.data.description;
                 console.log("RES DESC>>>>", res.data);
                 if (res.data.description) {
-                  if (descType !== "string") {
+                  if (typeof res.data.description !== "string") {
                     book.description = res.data.description.value;
                   } else {
                     book.description = res.data.description;
