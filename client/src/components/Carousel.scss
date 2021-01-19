@@ -36,5 +36,29 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+
+    .carousel__book-title {
+      font-weight: 700;
+    }
+    
+    .carousel__book-subjects {
+      padding: 10px 0;
+
+      .carousel__subject-badge {
+        margin-right: 10px;
+      }
+    }
+    
+    .carousel__buttons {
+      display: flex;
+      flex-direction: row;
+      padding: 10px 0;
+
+      .carousel__book-button {
+        margin-right: 10px;
+      }
+
+    }
+
   }
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 import './Carousel.scss';
+import Badge from 'react-bootstrap/Badge';
+import Button from 'react-bootstrap/Button';
 
 export default function Carousel() {
   
@@ -88,6 +90,15 @@ export default function Carousel() {
                 <h3 className="carousel__book-title">{book.name}</h3>
                 <h5 className="carousel__book-author">by {book.author}</h5>
                 <span className="carousel__book-description">{book.description}</span>
+                <span className="carousel__book-subjects">
+                  <Badge className="carousel__subject-badge" variant="dark">Non Fiction</Badge>
+                  <Badge className="carousel__subject-badge" variant="dark">Motivational</Badge>
+                  <Badge className="carousel__subject-badge" variant="dark">Self-help</Badge>
+                </span>
+                <span className="carousel__buttons">
+                  <Button className="carousel__book-button" >Add to Shelf</Button>
+                  <Button className="carousel__book-button" >Share Book</Button>
+                </span>
               </span>
           </div>
         ))}
