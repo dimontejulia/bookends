@@ -28,7 +28,7 @@ CREATE TABLE books (
   "id" VARCHAR(255) PRIMARY KEY NOT NULL,
   "title" VARCHAR(255) NOT NULL, 
   "author" VARCHAR(255) NOT NULL, 
-  "subject" VARCHAR NOT NULL
+  "subject" VARCHAR 
 );
 
 CREATE TABLE future_books (
@@ -59,7 +59,7 @@ CREATE TABLE users_books (
   "id" SERIAL PRIMARY KEY NOT NULL,
   "user_id" INTEGER REFERENCES users(id) ON DELETE CASCADE,
   "book_id" VARCHAR(255) REFERENCES books(id) ON DELETE CASCADE,
-  "date_read" DATE NOT NULL,
+  "date_read" DATE,
   "rating" INTEGER,
   "comments" TEXT,
   "status" VARCHAR(255)

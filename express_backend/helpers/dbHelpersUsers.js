@@ -114,11 +114,11 @@ module.exports = (db) => {
   
     }
     const addBook = (user_id, userBooks) => {
-      const{id, title, author, subject} = userBooks
+      const{ id, title, author, subject } = userBooks
 
       const query = {
         text: `INSERT INTO books (id, title, author, subject) VALUES ($1, $2, $3, $4) RETURNING *`,
-        values: [id, title, "SOMEONE", "subject"],
+        values: [id, title, author, subject],
       };
       
       return db
@@ -131,13 +131,11 @@ module.exports = (db) => {
     };
 
     const addToUsersBooks = (user_id, userBooks) => {
-      console.log("userBooks>>>>>", userBooks)
-      const{id, title, author, subject} = userBooks
-      console.log("id", id);
+      const{ id } = userBooks
 
       const query = {
-        text: `INSERT INTO users_books (user_id, book_id, date_read, rating, comments, status) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-        values: [1, id, "2021-10-10", 4, "comments", "status"],
+        text: `INSERT INTO users_books (user_id, book_id) VALUES ($1, $2) RETURNING *`,
+        values: [user_id, id],
       };
       
       console.log("ADD TO DB FUNCTION!!!!!")
