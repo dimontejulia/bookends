@@ -1,16 +1,4 @@
 module.exports = (db) => {
-  const getUserBooks = (userID) => {
-    const query = {
-      text: `SELECT * FROM users_books WHERE user_id = $1`,
-      values: [userID],
-    };
-
-    return db
-      .query(query)
-      .then((result) => result.rows)
-      .catch((err) => err);
-  };
-
   const addBookToUser = (book_id) => {
     const query = {
       text: `INSERT INTO books (id, title, subject) VALUES ($1, $2, $3) RETURNING *`,
@@ -52,7 +40,6 @@ module.exports = (db) => {
   return {
     getBooks,
     getSpecificBook,
-    getUserBooks,
     addBookToUser,
   };
 };

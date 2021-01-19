@@ -9,6 +9,26 @@ module.exports = (db) => {
         .then((result) => result.rows)
         .catch((err) => err);
     };
+
+    const getUserBooks = (userID) => {
+      const query = {
+        text: `
+          SELECT book_id as id, date_read as dateRead, rating, comments, status, title, author, subject
+          FROM users_books
+          JOIN books ON books.id = users_books.book_id
+          WHERE user_id = $1
+          `,
+        values: [userID],
+      };
+
+      return db
+        .query(query)
+        .then((result) => {
+          console.log('result.rows>>>>>>>',result.rows);
+          return result.rows;
+        })
+        .catch((err) => err);
+    };
   
     const getUserByEmail = email => {
   
@@ -87,6 +107,7 @@ module.exports = (db) => {
       getUsers,
       getUserByEmail,
       addUser,
+      getUserBooks,
       authenticateUser,
       getUsersPosts,
       getOneUsersPosts,

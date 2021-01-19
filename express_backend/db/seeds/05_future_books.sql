@@ -1,6 +1,4 @@
  insert into future_books (user_id, book_id) 
  values
-  (1, 'OL5735363W'),
-  (1, 'OL5735360W')
-
-
+  (1, 'OL24222441M'),
+  (1, 'OL26455544M')

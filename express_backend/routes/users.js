@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const {getPostsByUsers} = require('../helpers/dataHelpers');
+const { getPostsByUsers} = require('../helpers/dataHelpers');
 
-module.exports = ({ getUsers, findUserByEmail, addUser,
-  getUsersPosts, getOneUsersPosts }) => {
+module.exports = ({ getUsers, getUserBooks }) => {
 
   // users
   router.get('/', function (req, res) {
@@ -33,8 +32,11 @@ module.exports = ({ getUsers, findUserByEmail, addUser,
   // users/:id/books
   router
     .get('/:id/books', (req, res) => {
-      getUsers()
-        .then(users => res.json(users))
+      getUserBooks(req.params.id)
+        .then(books => {
+          console.log('BOOKS ->>>>',books);
+          res.json(books);
+        })
         .catch(err => res.json({ msg: err.message }))
     })
     .post('/:id/books', (req, res) => {

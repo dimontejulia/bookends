@@ -19,31 +19,37 @@ import BookDetails from "./components/Book/Index";
 import SearchIndex from "./components/Search/SearchIndex";
 //============================================
 function App() {
-  const [user, setUser] = useState({});
+  const [user, setUser] = useState({id:1});
   const [userBooks, setUserBooks] = useState("");
   // const [search, setSearch] = useState("");
   const [friends, setFriends] = useState("");
   const [news, setNews] = useState("");
-  const [userData, setUserData] = useState("");
+  const [userData, setUserData] = useState({});
   const [club, setClub] = useState("");
   const [clubAdmin, setClubAdmin] = useState("");
   const [currBook, setCurrBook] = useState({ id: "initial" });
 
   const initialize = () => {
-    setUser({ });
-    // setUserBooks(["OL365902M", "OL26455544M", "OL24222441M"]); //org... id only
-    setUserBooks([
-      { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
-      { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
-      { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
-      { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
-      { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
-      { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
-      { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
-      { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
-      { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
-      { id: "OL24222441M", title: "Trojan Odyssey", author: "C Cussler" },
-    ]);
+    // setUserBooks([
+    //   { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
+    //   { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
+    //   { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
+    //   { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
+    //   { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
+    //   { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
+    //   { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
+    //   { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
+    //   { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
+    //   { id: "OL24222441M", title: "Trojan Odyssey", author: "C Cussler" },
+    // ]);
+  
+    axios.get(`api/users/${user.id}/books`)
+    .then((res)=>{
+      console.log("RES", res)
+      setUserBooks(res.data)
+    })
+    .catch((e)=> console.log(e));
+
     //add first name & last name to user id as an object
     setFriends(["uid100", "uid200"]);
     //id, post
