@@ -174,10 +174,6 @@ module.exports = (db) => {
     getOneUsersPosts,
     getFriends,
     addBook,
-<<<<<<< HEAD
-    getUserClubs
-=======
     getClubDetails,
->>>>>>> 6c500e0140db1f3a6e61f6d8eea441a5e7c1d973
   };
 };
