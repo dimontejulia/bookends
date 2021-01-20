@@ -2,11 +2,24 @@ import React from 'react';
 import Button from '../Button';
 
 export default function UserActions(props) {
+  const { userBookData, setUserBookData, currBookID } = props;
   let readDate = null;
+  const handleInput = (event) => {
+    setUserBookData((prev) => ({
+      ...prev,
+      [currBookID]: { ...prev[currBookID], status: event.target.value },
+    }));
+  };
+
+  const handleCal = (event) => {
+    setUserBookData((prev) => ({
+      ...prev,
+      [currBookID]: { ...prev[currBookID], dateread: event.target.value },
+    }));
+  };
   const formatDate = (rawDate) => {
     return rawDate.slice(0, 10);
   };
-  const { userBookData } = props;
   if (userBookData) {
     readDate = formatDate(userBookData.dateread);
   }
@@ -20,6 +33,7 @@ export default function UserActions(props) {
         Status: {userBookData ? userBookData.status : null}
         <br />
         <select
+          onChange={handleInput}
           name='status'
           id='status'
           value={userBookData ? userBookData.status : null}
@@ -30,6 +44,7 @@ export default function UserActions(props) {
         </select>
         <label htmlFor='read'>Read: </label>
         <input
+          onChange={handleCal}
           type='date'
           id='read'
           name='read-date'

@@ -21,13 +21,18 @@ export default function Index(props) {
       <Details book={currBook} />
       <br />
       <Rating userRating={bookData ? bookData.rating : 0} />
-      <UserActions userBookData={bookData} />
+      <UserActions
+        currBookID={currBook.id}
+        userBookData={bookData}
+        setUserBookData={setUserBookData}
+      />
       <UserNotes
         currBookID={currBook.id}
         comments={bookData ? bookData.comments : null}
         setUserBookData={setUserBookData}
       />
-      <Button onClick={setUserBookData(userBookData)}>Save</Button>
+      {/* SAVE BUTTON WILL HAVE TO TRIGGER A SAVE TO DB HOOK */}
+      <Button>Save</Button>
       <br />
       <AlsoReadList friendsWhoRead={userBookData.friendsWhoReadIt} />
     </div>
