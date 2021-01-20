@@ -195,6 +195,16 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  const deleteUserBook = (bookId) => {
+    const userId = user.id;
+    axios
+      .delete(`/api/users/${userId}/books/${bookId}`)
+      .then((res) => {
+        console.log("book removed from shelf!");
+      })
+      .catch((err) => err);
+  };
+
   //Watch for currBook to change and load Details into state
   useEffect(() => {
     console.log("useEffect for Details");
@@ -296,7 +306,11 @@ function App() {
                 console.log("PARAM", paramBookId);
                 // setCurrBook(paramBookId)
                 return (
-                  <BookDetails currBook={currBook} userBookData={userData} />
+                  <BookDetails
+                    currBook={currBook}
+                    userBookData={userData}
+                    deleteUserBook={deleteUserBook}
+                  />
                 );
               }}
             />
