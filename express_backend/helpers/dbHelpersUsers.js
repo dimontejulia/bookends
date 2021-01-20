@@ -10,14 +10,17 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const getUserClubs = (id) => {
+  const getClubDetails = (clubID) => {
     const query = {
-      text: "SELECT * FROM users",
+      text: `SELECT * FROM book_club WHERE id = $1`,
+      values: [clubID],
     };
-
+    console.log("checking DB");
     return db
       .query(query)
-      .then((result) => result.rows)
+      .then((result) => {
+        return result.rows[0];
+      })
       .catch((err) => err);
   };
 
@@ -171,6 +174,10 @@ module.exports = (db) => {
     getOneUsersPosts,
     getFriends,
     addBook,
+<<<<<<< HEAD
     getUserClubs
+=======
+    getClubDetails,
+>>>>>>> 6c500e0140db1f3a6e61f6d8eea441a5e7c1d973
   };
 };

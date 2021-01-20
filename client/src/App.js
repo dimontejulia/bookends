@@ -25,7 +25,7 @@ function App() {
   const [friends, setFriends] = useState([]);
   const [news, setNews] = useState("");
   const [userData, setUserData] = useState({});
-  const [club, setClub] = useState("");
+  const [club, setClub] = useState({});
   const [clubAdmin, setClubAdmin] = useState("");
   const [currBook, setCurrBook] = useState({ id: "initial" });
 
@@ -49,12 +49,16 @@ function App() {
       setFriends(res.data);
     });
     // GET BOOKS
+    axios.get(`api/users/${user.id}/books`).then((res) => {
+      console.log("RES", res);
+      setUserBooks(res.data);
+      setUserData(res.data);
+    });
     axios
-      .get(`api/users/${user.id}/books`)
+      .get(`/clubs/1`)
       .then((res) => {
-        console.log("RES", res);
-        setUserBooks(res.data);
-        setUserData(res.data);
+        console.log("RES", res.data);
+        setClub(res.data);
       })
       .catch((e) => console.log(e));
 
