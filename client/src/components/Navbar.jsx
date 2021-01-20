@@ -43,22 +43,22 @@ export default function NavBar(props) {
       .catch((err) => err);
   };
 
-  const handleClubClick = (e) => {
-    e.preventDefault();
+  // const handleClubClick = (e) => {
+  //   e.preventDefault();
 
-    const clubIdList =
-      clubIds &&
-      clubIds.map((club) => {
-        return <NavDropdown.Item>Club {club.book_club_id}</NavDropdown.Item>;
-      });
+  //   const clubIdList =
+  //     clubIds &&
+  //     clubIds.map((club) => {
+  //       return <NavDropdown.Item>Club {club.book_club_id}</NavDropdown.Item>;
+  //     });
 
-    axios
-      .get(`/api/users/${userId}/club`)
-      .then((res) => {
-        console.log("USERS/ID/CLUBS >>>>>>", res.data);
-      })
-      .catch((err) => console.log(err));
-  };
+  //   axios
+  //     .get(`/api/users/${userId}/club`)
+  //     .then((res) => {
+  //       console.log("USERS/ID/CLUBS >>>>>>", res.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   return (
     <Navbar bg="light" expand="lg">

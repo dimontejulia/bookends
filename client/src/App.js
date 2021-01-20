@@ -29,6 +29,7 @@ function App() {
   const [clubAdmin, setClubAdmin] = useState("");
   const [currBook, setCurrBook] = useState({ id: "initial" });
   const [cBooks, setCBooks] = useState([]);
+  const [currClub, setCurrClub] = useState({});
 
   //  let cBooks = [
 
@@ -106,6 +107,7 @@ function App() {
     club,
     clubAdmin,
     currBook,
+    currClub,
   };
 
   console.log(">>>>>>everyState", everyState);
@@ -222,11 +224,12 @@ function App() {
                 );
                 return (
                   <ClubsIndex
-                    user={user}
+                    clubId={paramClubId}
                     clubAdmin={clubAdmin}
                     setClubAdmin={setClubAdmin}
                     club={club}
                     setClub={setClub}
+                    currClub={currClub}
                   />
                 );
               }}
@@ -255,6 +258,7 @@ function App() {
                 setFriends={setFriends}
                 clubs={club}
                 setClub={setClub}
+                setCurrClub={setCurrClub}
               />{" "}
             </Route>
             <Route path="/shelf/">

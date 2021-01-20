@@ -13,9 +13,6 @@ export default function Index(props) {
   });
   const clubs = props.clubs;
   console.log("clubs======", clubs);
-  // const clubList = clubs.map((club) => {
-  //   return `${club.book_club_id}`;
-  // });
 
   const clubIdList =
     clubs &&
@@ -37,7 +34,12 @@ export default function Index(props) {
         <Button variant="outline-primary">Add Friend</Button>
       </Form>
       <FriendList list={friendList} listName="Friends" />
-      <ClubList list={clubIdList} listName="Clubs" />
+      <ClubList
+        setCurrClub={props.setCurrClub}
+        currClub={props.currClub}
+        list={clubIdList}
+        listName="Clubs"
+      />
       <NewsFeed list={props.news} listName="News" />
     </div>
   );

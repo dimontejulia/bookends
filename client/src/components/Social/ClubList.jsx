@@ -6,22 +6,23 @@ import { Link } from "react-router-dom";
 
 export default function ClubList(props) {
   console.log("props ========", props);
-  const { listName, list } = props;
+  const { listName, list, setCurrClub } = props;
 
-  const handleClubClick = (clubId) => {
+  const currentClub = (clubID) => {
     axios
-      .get(`/api/clubs/${clubId}`)
+      .get(`/api/clubs/${clubID}`)
       .then((res) => {
-        console.log("CLUBS/ID >>>>>>", res.data);
+        console.log("RESDATA /API/CLUBS/ID ->>>>", res.data);
+        setCurrClub(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => err);
   };
 
   const parsedList =
     list &&
     list.map((clubId) => (
       <Link to={`/clubs/${clubId}`}>
-        <Button onClick={() => handleClubClick(clubId)}>Club {clubId}</Button>
+        <Button onClick={() => currentClub(clubId)}>Club {clubId}</Button>
       </Link>
     ));
 
@@ -33,27 +34,3 @@ export default function ClubList(props) {
     </section>
   );
 }
-
-// export default function ClubList(props) {
-//   const { clubs } = props;
-
-//   const usersClubs = (clubId) => {
-//     axios
-//       .get(`/api/club/${clubId}`)
-//       .then((res) => {
-//         console.log("RESDATA /API/CLUBS/ID ->>>>", res.data);
-//       })
-//       .catch((err) => err);
-//   };
-
-//
-
-//   const parsedList = clubs && clubs.map((club) => <ClubListItem club={club} />);
-
-//   return (
-//     <section>
-//       <h1>ClubList</h1>
-//       <ul>{parsedList}</ul>
-//     </section>
-//   );
-// }

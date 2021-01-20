@@ -6,30 +6,19 @@ import ClubRegular from "./ClubRegular";
 import ClubAdmin from "./ClubAdmin";
 
 export default function ClubInfo(props) {
-  const placeholderBook = {
-    id: "ID",
-    title: "Not Dynamic Prop yet",
-    author: "That Author",
-    published: "1999",
-    description: "A book",
-    subjects: null,
-    works: null,
-    coverLink: `https://covers.openlibrary.org/b/olid/OL365902M-L.jpg`,
-  };
+  console.log("club info>>>>>", props);
 
-  /*
-  {
-    "id": 1,
-    "current_book": "OL7353617M",
-    "admin_id": 1,
-    "book_club_name": "Lighthouse Learners",
-    "date_read": "2020-07-20T04:00:00.000Z",
-    "rating": 4,
-    "comments": "A fun read with friends!",
-    "status": "finished",
-    "avatar": "https://picsum.photos/200"
-}
-  */
+  const placeholderBook = {
+    id: 1,
+    current_book: "OL7353617M",
+    admin_id: 1,
+    book_club_name: "Lighthouse Learners",
+    date_read: "2020-07-20T04:00:00.000Z",
+    rating: 4,
+    comments: "A fun read with friends!",
+    status: "finished",
+    avatar: "https://picsum.photos/200",
+  };
 
   return (
     <div>
