@@ -9,7 +9,6 @@ import { Redirect } from "react-router-dom";
 
 export default function Register(props) {
   const { user, setUser } = props;
-  console.log("User>>>", user);
   const handleChange = (e) => {
     const { id, value } = e.target;
     props.setUser((prevState) => ({
@@ -23,7 +22,6 @@ export default function Register(props) {
     axios
       .post("/register", props.user)
       .then((res) => {
-        console.log("AXIOS USER", props.user);
         const userData = res.data[0];
         //If reseponse good (UserID)
         // update cookie here

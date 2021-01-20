@@ -50,7 +50,7 @@ export default function Index(props) {
         list={clubIdList}
         listName="Clubs"
       />
-      <NewPostForm />
+      <NewPostForm userId={props.user.id} />
       <NewsFeed newsList={newsList} listName="News" />
     </div>
   );
