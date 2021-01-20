@@ -40,7 +40,20 @@ function App() {
     axios.get(`/api/users/${user.id}/friends`).then((res) => { setFriends(res.data); });
     // GET BOOKS
     axios.get(`/api/users/${user.id}/books`).then((res) => {
-      setUserBooks(res.data);
+      console.log("RES FOR USER BOOKS", res.data)
+
+
+      const convertArrayToObject = (array, key) => {
+        const initialValue = {};
+        return array.reduce((obj, item) => {
+          return {
+            ...obj,
+            [item[key]]: item,
+          };
+        }, initialValue);
+      };
+      const newObj = convertArrayToObject(res.data, 'id')
+      setUserBooks(newObj);
       // setUserBookData(res.data);
     });
     //Get Club Details
@@ -230,7 +243,7 @@ function App() {
                 console.log("PARAM", paramBookId);
                 // setCurrBook(paramBookId)
                 return (
-                  <BookDetails currBook={currBook} userBookData={userBooks} />
+                  <BookDetails currBook={currBook} userBookData={userBooks} setUserBookData={setUserBooks} />
                 );
               }}
             />

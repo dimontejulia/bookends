@@ -5,9 +5,11 @@ import CardColumns from 'react-bootstrap/CardColumns';
 
 export default function BookList(props) {
   const { books, setUserBooks, setCurrBook } = props;
+  //books is object of objects (indv Books)
+
   const parsedList =
     books &&
-    books.map((book) => (
+    Object.values(books).map((book) => (
       <BookListItem
         title={book.title}
         author={book.author}
@@ -18,10 +20,7 @@ export default function BookList(props) {
 
   return (
     <section>
-      <CardColumns>
-        {/* <AddBookButton /> */}
-        {parsedList}
-      </CardColumns>
+      <CardColumns>{parsedList}</CardColumns>
     </section>
   );
 }
