@@ -56,9 +56,6 @@ export default function NavBar(props) {
           <LinkContainer to="/">
             <Nav.Link>Home</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/shelf">
-            <Nav.Link>My Shelf</Nav.Link>
-          </LinkContainer>
           <LinkContainer to="/social">
             <Nav.Link>Social</Nav.Link>
           </LinkContainer>
