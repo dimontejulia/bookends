@@ -1,5 +1,4 @@
 module.exports = (db) => {
- 
   const getBooks = () => {
     const query = {
       text: "SELECT * FROM users_books",
@@ -10,7 +9,6 @@ module.exports = (db) => {
       .then((result) => result.rows)
       .catch((err) => err);
   };
-
 
   const getSpecificBook = (book_id) => {
     const query = {
@@ -32,7 +30,7 @@ module.exports = (db) => {
         JOIN home_page_books hp ON books.id = hp.book_id
         WHERE category = $1
       `,
-      values: [category]
+      values: [category],
     };
 
     console.log("checking DB...");
@@ -46,6 +44,6 @@ module.exports = (db) => {
   return {
     getBooks,
     getSpecificBook,
-    getCarouselBooks
+    getCarouselBooks,
   };
 };

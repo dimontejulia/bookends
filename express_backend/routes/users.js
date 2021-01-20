@@ -6,6 +6,7 @@ module.exports = ({
   getUsers,
   getUserBooks,
   addBook,
+  deleteBook,
   getFriends,
   getUserClubs,
   getWishlist,
@@ -31,9 +32,13 @@ module.exports = ({
         })
         .catch((err) => res.json({ msg: err.message }));
     })
-    .delete("/:id/books", (req, res) => {
-      getUsers()
-        .then((users) => res.json(users))
+    .delete("/:userId/books/:bookId", (req, res) => {
+      const { userId, bookId } = req.params;
+      console.log("req.params from delete ---", { userId, bookId });
+      deleteBook(bookId, userId)
+        .then((book) => {
+          res.json(book);
+        })
         .catch((err) => res.json({ msg: err.message }));
     });
 

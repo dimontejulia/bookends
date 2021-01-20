@@ -186,6 +186,20 @@ module.exports = (db) => {
       .catch((err) => console.log("DBERROR from users books:>>>>", err));
   };
 
+  const deleteBook = (bookId, userId) => {
+    const query = {
+      text: `DELETE FROM users_books WHERE book_id = $1 AND user_id = $2`,
+      values: [bookId, userId],
+    };
+
+    console.log("before query test");
+
+    return db
+      .query(query)
+      .then((result) => result.rows)
+      .catch((err) => err);
+  };
+
   return {
     getUsers,
     getUserByEmail,
@@ -197,6 +211,7 @@ module.exports = (db) => {
     getOneUsersPosts,
     getFriends,
     addBook,
+    deleteBook,
     getWishlist,
   };
 };
