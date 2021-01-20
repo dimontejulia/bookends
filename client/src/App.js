@@ -20,7 +20,7 @@ import SearchIndex from "./components/Search/SearchIndex";
 //============================================
 function App() {
   const [user, setUser] = useState({ id: 1 });
-  const [userBooks, setUserBooks] = useState("");
+  const [userBooks, setUserBooks] = useState([]);
   // const [search, setSearch] = useState("");
   const [friends, setFriends] = useState([]);
   const [news, setNews] = useState("");
@@ -29,20 +29,14 @@ function App() {
   const [clubAdmin, setClubAdmin] = useState("");
   const [currBook, setCurrBook] = useState({ id: "initial" });
 
-  const initialize = () => {
-    // setUserBooks([
-    //   { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
-    //   { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
-    //   { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
-    //   { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
-    //   { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz" },
-    //   { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
-    //   { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
-    //   { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
-    //   { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy" },
-    //   { id: "OL24222441M", title: "Trojan Odyssey", author: "C Cussler" },
-    // ]);
+  
+   const cBooks = [
+      { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy",  description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL365902M-L.jpg`},
+      { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz", description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL26455544M-L.jpg` },
+      { id: "OL24222441M", title: "Trojan Odyssey", author: "C Cussler", description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL24222441M-L.jpg` },
+    ];
 
+    const initialize = () => {
     //GET FRIENDS
     axios.get(`api/users/${user.id}/friends`).then((res) => {
       console.log("RES", res);
@@ -277,7 +271,7 @@ function App() {
             />
 
             <Route path="/" exact>
-              <MainPage />
+              <MainPage carouselTitle={'Trending Now'} setUserBooks={setUserBooks} carouselBooks={cBooks} />
             </Route>
           </Switch>
         </main>
