@@ -6,7 +6,7 @@ export default function Index(props) {
   return (
     <div>
       <h1>MainPage</h1>
-      <Carousel />
+      <Carousel carouselTitle={props.carouselTitle} setUserBooks={props.setUserBooks} carouselBooks={props.carouselBooks}/>
       {/* <h3>Latest Books...</h3>
       <BookCarosel /> */}
     </div>
