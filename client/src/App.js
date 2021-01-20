@@ -308,6 +308,8 @@ function App() {
                   <SearchIndex
                     userBooks={userBooks}
                     setUserBooks={setUserBooks}
+                    wishlist={wishlist}
+                    setWishlist={setWishlist}
                     currBook={currBook}
                     setCurrBook={setCurrBook}
                   />
