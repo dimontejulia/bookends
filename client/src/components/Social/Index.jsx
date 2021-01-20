@@ -1,5 +1,9 @@
 import React from "react";
-import FriendList from "../List";
+import FriendList from "./FriendList";
+import ClubList from "./ClubList";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
 import NewsFeed from "../List";
 
 export default function Index(props) {
@@ -7,10 +11,30 @@ export default function Index(props) {
   const friendList = friends.map((friend) => {
     return `${friend.firstname} ${friend.lastname}`;
   });
-  const test = ["Randi Buzza", "Liuka B..."];
+  const clubs = props.clubs;
+  console.log("clubs======", clubs);
+  // const clubList = clubs.map((club) => {
+  //   return `${club.book_club_id}`;
+  // });
+
+  const clubIdList =
+    clubs &&
+    clubs.map((club) => {
+      return `${club.book_club_id}`;
+    });
+
   return (
     <div>
+      <Form inline>
+        <FormControl
+          type="text"
+          placeholder="Search by name or email"
+          className="mr-sm-2"
+        />
+        <Button variant="outline-primary">Add Friend</Button>
+      </Form>
       <FriendList list={friendList} listName="Friends" />
+      <ClubList list={clubs} listName="Friends" />
       <NewsFeed list={props.news} listName="News" />
     </div>
   );

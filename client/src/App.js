@@ -25,7 +25,7 @@ function App() {
   const [friends, setFriends] = useState([]);
   const [news, setNews] = useState("");
   const [userData, setUserData] = useState({});
-  const [club, setClub] = useState({});
+  const [club, setClub] = useState([]);
   const [clubAdmin, setClubAdmin] = useState("");
   const [currBook, setCurrBook] = useState({ id: "initial" });
   const [cBooks, setCBooks] = useState([]);
@@ -51,10 +51,11 @@ function App() {
       setUserBooks(res.data);
       setUserData(res.data);
     });
+
     axios
-      .get(`/clubs/1`)
+      .get(`/api/users/${user.id}/clubs`)
       .then((res) => {
-        console.log("RES", res.data);
+        console.log("RES CLUBS >>>>>>>> ", res.data);
         setClub(res.data);
       })
       .catch((e) => console.log(e));
@@ -207,7 +208,7 @@ function App() {
         <main>
           <nav className="sidebar__menu">
             <span>
-              <Navbar user={user} setUser={setUser} />
+              <Navbar user={user} setUser={setUser} clubs={club} />
             </span>
           </nav>
           <Switch>
@@ -232,6 +233,8 @@ function App() {
                 friends={friends}
                 news={news}
                 setFriends={setFriends}
+                clubs={club}
+                setClub={setClub}
               />{" "}
             </Route>
             <Route path="/shelf/">

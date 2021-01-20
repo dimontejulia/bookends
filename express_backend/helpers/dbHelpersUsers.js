@@ -10,22 +10,8 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const getClubDetails = (clubID) => {
-    const query = {
-      text: `SELECT * FROM book_club WHERE id = $1`,
-      values: [clubID],
-    };
-    
-    return db
-      .query(query)
-      .then((result) => {
-        return result.rows[0];
-      })
-      .catch((err) => err);
-  };
-
   const getUserBooks = (userID) => {
-    console.log("DB GetUSER BOOKS", userID)
+    console.log("DB GetUSER BOOKS", userID);
     const query = {
       text: `
           SELECT book_id as id, date_read as dateRead, rating, comments, status, title, author, subject
@@ -165,16 +151,31 @@ module.exports = (db) => {
       .catch((err) => console.log("DBERROR from users books:>>>>", err));
   };
 
+  const getUserClubs = (user_id) => {
+    const query = {
+      text: `SELECT book_club_id from user_book_clubs WHERE user_id = $1;`,
+      values: [user_id],
+    };
+
+    console.log("ADD TO DB FUNCTION!!!!!");
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERROR from users books:>>>>", err));
+  };
+
   return {
     getUsers,
     getUserByEmail,
     addUser,
     getUserBooks,
+    getUserClubs,
     authenticateUser,
     getUsersPosts,
     getOneUsersPosts,
     getFriends,
     addBook,
-    getClubDetails,
   };
 };

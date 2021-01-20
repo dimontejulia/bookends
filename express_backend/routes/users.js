@@ -2,7 +2,13 @@ const express = require("express");
 const router = express.Router();
 const { getPostsByUsers } = require("../helpers/dataHelpers");
 
-module.exports = ({ getUsers, getUserBooks, addBook, getFriends }) => {
+module.exports = ({
+  getUsers,
+  getUserBooks,
+  addBook,
+  getFriends,
+  getUserClubs,
+}) => {
   // users/:id/books
   router
     .get("/:id/books", (req, res) => {
@@ -51,8 +57,10 @@ module.exports = ({ getUsers, getUserBooks, addBook, getFriends }) => {
   // users/:id/clubs
   router
     .get("/:id/clubs", (req, res) => {
-      getUsers()
-        .then((users) => res.json(users))
+      getUserClubs(req.params.id)
+        .then((clubs) => {
+          res.json(clubs);
+        })
         .catch((err) => res.json({ msg: err.message }));
     })
     .post("/:id/clubs", (req, res) => {
