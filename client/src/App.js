@@ -28,7 +28,7 @@ function App() {
   const [club, setClub] = useState({});
   const [clubAdmin, setClubAdmin] = useState("");
   const [currBook, setCurrBook] = useState({ id: "initial" });
-  const [ cBooks, setCBooks ] = useState([]);
+  const [cBooks, setCBooks] = useState([]);
 
   //  let cBooks = [
 
@@ -37,26 +37,20 @@ function App() {
   //     { id: "OL24222441M", title: "Trojan Odyssey", author: "C Cussler", description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL24222441M-L.jpg` },
   //   ];
 
-    const initialize = () => {
+  const initialize = () => {
     //Carousel 1
-    axios
-      .get(`/api/books/category/awardWinning`)
-      .then((res) => {
-        setCBooks(res.data);
-      });
+    axios.get(`/api/books/category/awardWinning`).then((res) => {
+      setCBooks(res.data);
+    });
     //GET FRIENDS
-    axios
-      .get(`/api/users/${user.id}/friends`)
-      .then((res) => {
-        setFriends(res.data);
-      });
+    axios.get(`/api/users/${user.id}/friends`).then((res) => {
+      setFriends(res.data);
+    });
     // GET BOOKS
-    axios
-      .get(`/api/users/${user.id}/books`)
-      .then((res) => {
-        setUserBooks(res.data);
-        setUserData(res.data);
-      });
+    axios.get(`/api/users/${user.id}/books`).then((res) => {
+      setUserBooks(res.data);
+      setUserData(res.data);
+    });
     axios
       .get(`/clubs/1`)
       .then((res) => {
@@ -280,7 +274,11 @@ function App() {
             />
 
             <Route path="/" exact>
-              <MainPage carouselTitle={'Trending Now'} setUserBooks={setUserBooks} carouselBooks={cBooks} />
+              <MainPage
+                carouselTitle={"Trending Now"}
+                setUserBooks={setUserBooks}
+                carouselBooks={cBooks}
+              />
             </Route>
           </Switch>
         </main>
