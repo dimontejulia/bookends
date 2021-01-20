@@ -1,6 +1,6 @@
 import React from "react";
-import FriendList from "./FriendList";
-import ClubList from "./ClubList";
+import FriendList from "../List";
+import ClubList from "../List";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
@@ -20,8 +20,11 @@ export default function Index(props) {
   const clubIdList =
     clubs &&
     clubs.map((club) => {
-      return `${club.book_club_id}`;
+      console.log(club.book_club_id);
+      return club.book_club_id;
     });
+
+  console.log("clubIdList}}}}}}}}}}}", clubIdList);
 
   return (
     <div>
@@ -34,7 +37,7 @@ export default function Index(props) {
         <Button variant="outline-primary">Add Friend</Button>
       </Form>
       <FriendList list={friendList} listName="Friends" />
-      <ClubList list={clubs} listName="Friends" />
+      <ClubList list={clubIdList} listName="Clubs" />
       <NewsFeed list={props.news} listName="News" />
     </div>
   );

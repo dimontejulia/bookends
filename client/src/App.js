@@ -56,6 +56,7 @@ function App() {
       .get(`/api/users/${user.id}/clubs`)
       .then((res) => {
         console.log("RES CLUBS >>>>>>>> ", res.data);
+        // [ {},{}]
         setClub(res.data);
       })
       .catch((e) => console.log(e));
@@ -73,20 +74,20 @@ function App() {
     //   rating: 0,
     //   friendsWhoReadIt: ["uid100", "Carl", "Linda"],
     // });
-    setClub({
-      name: "John's Club",
-      avatar: "https://image.flaticon.com/icons/png/512/69/69589.png",
-      description: "Basic book club description goes here",
-      currentBook: {
-        cover:
-          "https://dynamic.indigoimages.ca/books/0735211299.jpg?scaleup=true&width=614&maxheight=614&quality=85&lang=en",
-        title: "Atomic Habits",
-        author: "James Clear",
-        published: "October 16, 2018",
-        description:
-          "No matter your goals, Atomic Habits offers a proven framework for improving--every day. James Clear, one of the world''s leading experts on habit formation, reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.",
-      },
-    });
+    // setClub({
+    //   name: "John's Club",
+    //   avatar: "https://image.flaticon.com/icons/png/512/69/69589.png",
+    //   description: "Basic book club description goes here",
+    //   currentBook: {
+    //     cover:
+    //       "https://dynamic.indigoimages.ca/books/0735211299.jpg?scaleup=true&width=614&maxheight=614&quality=85&lang=en",
+    //     title: "Atomic Habits",
+    //     author: "James Clear",
+    //     published: "October 16, 2018",
+    //     description:
+    //       "No matter your goals, Atomic Habits offers a proven framework for improving--every day. James Clear, one of the world''s leading experts on habit formation, reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.",
+    //   },
+    // });
     setClubAdmin({
       user,
     });
