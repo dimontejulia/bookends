@@ -10,6 +10,17 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
+  const getUserClubs = (id) => {
+    const query = {
+      text: "SELECT * FROM users",
+    };
+
+    return db
+      .query(query)
+      .then((result) => result.rows)
+      .catch((err) => err);
+  };
+
   const getUserBooks = (userID) => {
     const query = {
       text: `
@@ -160,5 +171,6 @@ module.exports = (db) => {
     getOneUsersPosts,
     getFriends,
     addBook,
+    getUserClubs
   };
 };
