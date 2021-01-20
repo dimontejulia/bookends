@@ -192,8 +192,6 @@ module.exports = (db) => {
       values: [bookId, userId],
     };
 
-    console.log("before query test");
-
     return db
       .query(query)
       .then((result) => result.rows)

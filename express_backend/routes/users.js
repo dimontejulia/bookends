@@ -34,7 +34,6 @@ module.exports = ({
     })
     .delete("/:userId/books/:bookId", (req, res) => {
       const { userId, bookId } = req.params;
-      console.log("req.params from delete ---", { userId, bookId });
       deleteBook(bookId, userId)
         .then((book) => {
           res.json(book);
