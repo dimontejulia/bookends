@@ -1,10 +1,5 @@
  insert into books (id, title, author, subject) 
  values
-  ('OL7353617M', 'Fantastic Mr. Fox','Roald Dahl', 'adventure, children'),
-  ('OL365902M', 'We Shall Not Sleep','Anne Perry', 'historical, fiction'),
-  ('OL24222441M', 'The Hunger Games', 'Suzanne Collins', 'adventure, women in literature'),
-  ('OL26455544M', 'Catching Fire (The Hunger Games #2)', 'Suzanne Collins', 'sequel, adventure'),
-
   ('OL26501179M','Pride and Prejudice','Jane Austen', 'feelings, young ladies, domestic fiction, love stories, marriage, wealth, class, manners, Englisch, Roman, Pride and prejudice (Austen, Jane), Sisters, Young women, Courtship, Social classes, Fiction, Social life and customs, Mate selection, Sociala klasser i litteraturen, Gentry, Manners and customs, Prophecies, Bible, History of Biblical events, Families, Great Britain, Reading Level-Grade 7'),
   ('OL27071765M','The Lord of the Rings','J.R.R. Tolkien',' The Lord of the Rings, Fiction, Ficción, English Fantasy fiction, Ficción fantástica inglesa, Fantasy fiction, Fiction in English, Open Library Staff Picks, Middle Earth (Imaginary place), Fiction, fantasy, epic, Middle earth (imaginary place), fiction, Baggins, frodo (fictitious character), fiction, Gandalf (fictitious character), fiction, British and irish fiction (fictional works by one author), English'),
   ('OL6492763M', 'Jane Eyre', 'Charlotte Brontë',' Man-woman relationships, Carnegie Endowment for International Peace, Charity-schools, Married people in fiction, American Jewish Congress, Country homes, Country homes in fiction, Fathers and daughters in fiction, Faculty, Open Library Staff Picks, Orphans in fiction, Young women, Married men in fiction, New York times, Correspondence, Mentally ill women, Vietnam War, 1961-1975,'),
