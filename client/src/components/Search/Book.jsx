@@ -6,7 +6,6 @@ import Button from "react-bootstrap/Button";
 import MoreInfo from "./MoreInfo";
 
 const Book = ({ book, ...props }) => {
-  console.log("BOOK PROPS", props);
   const {
     title,
     author_name,
@@ -43,10 +42,7 @@ const Book = ({ book, ...props }) => {
       />
       <Card.Body>
         <Card.Title>{title}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">
-          {/* {author_name.join(', ')} */}
-          {author_name}
-        </Card.Subtitle>
+        <Card.Subtitle className="mb-2 text-muted">{author_name}</Card.Subtitle>
 
         <Button onClick={clickShelf}>Add to shelf</Button>
         <Button onClick={clickWishlist}>Add to wishlist</Button>
