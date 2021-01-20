@@ -6,7 +6,7 @@ import Book from './Search/Book';
 
 export default function Carousel(props) {
   const books = props.carouselBooks;
-
+  // newBook (Functions)
   const handleAddToShelf = (input) => {
     props.setUserBooks((prevState) => ({
       ...prevState,
@@ -16,6 +16,10 @@ export default function Carousel(props) {
         author: input.author,
       },
     }));
+  };
+
+  const handleClick = (input) => {
+    props.newBook(input);
   };
 
   return (
@@ -50,7 +54,7 @@ export default function Carousel(props) {
               <span className='carousel__buttons'>
                 <Button
                   className='carousel__book-button'
-                  onClick={() => handleAddToShelf(book)}
+                  onClick={() => handleClick(book)}
                 >
                   Add to Shelf
                 </Button>

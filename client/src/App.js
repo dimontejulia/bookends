@@ -199,12 +199,44 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  const newBook = function (bookData) {
+    //New Appointment
+    // const appointment = {
+    //   ...state.appointments[id],
+    //   interview: { ...interview }
+    // };
+
+    const book = {
+      id: bookData.id,
+      title: bookData.title,
+      author: bookData.author,
+      subject: bookData.subject
+    }
+
+    const newState = {
+      ...userBooks,
+      [bookData.id]: book
+    }
+    console.log("((((((((", book, newState, bookData)
+    //NEW STATE Appts: Add New Appt to copy of State
+    // const appointments = {
+    //   ...state.appointments,
+    //   [id]: appointment
+    // };
+    // return axios.put((API.appointments + id), appointment)
+    //   .then((res) => {
+    //     setState({ ...state, appointments });
+    //   }).then(() => fetchUpdateSpots());
+    //Then carried on in index.js (Appointment Component) 
+
+  }
+
   const saveBookDataToDB = () => {
     const dataToSend = userBooks[currBook.id]
     axios
       .post(`/api/users/${user.id}/books/${currBook.id}`, dataToSend)
       .then((res) => {
-        console.log(`Book ${currBook.id}Data Updated`);
+        console.log(`Book ${currBook.id} Data Updated`);
       })
       .catch((err) => console.log('Book Index, Save ERROR:', err));
   };
@@ -216,7 +248,7 @@ function App() {
 
   // useEffect(() => {
   //   updateDBUserBooks(userBooks);
-  // }, [];  // Array of their books
+  // }, []);  // Array of their books
   // userBooks  watcher for userBooks is firing everytime that data is changed (since consolidated)
 
   //==================Rendering ======================================================
@@ -274,6 +306,7 @@ function App() {
                 carouselTitle={"Trending Now"}
                 setUserBooks={setUserBooks}
                 carouselBooks={cBooks}
+                newBook={newBook}
               />
             </Route>
           </Switch>
