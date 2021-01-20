@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { getPostsByUsers } = require("../helpers/dataHelpers");
 
-module.exports = ({ getBooks, addBookToUser, getSpecificBook }) => {
+module.exports = ({ getBooks, addBookToUser, getSpecificBook, getCarouselBooks }) => {
   // books
   router
     .get("/", (req, res) => {
@@ -14,6 +14,7 @@ module.exports = ({ getBooks, addBookToUser, getSpecificBook }) => {
   // books/:id
   router
     .get("/:id", (req, res) => {
+      console.log("book/:ID")
       getSpecificBook(req.params.id)
         .then((book) => res.json(book))
         .catch((err) => res.json({ msg: err.message }));
@@ -35,21 +36,13 @@ module.exports = ({ getBooks, addBookToUser, getSpecificBook }) => {
         .catch((err) => res.json({ msg: err.message }));
     });
 
-  // books/trending
+  // api/books/:category
   router
-    .get("/trending", (req, res) => {
-      getUsers()
-        .then((users) => res.json(users))
-        .catch((err) => res.json({ msg: err.message }));
-    })
-    .post("/trending", (req, res) => {
-      getUsers()
-        .then((users) => res.json(users))
-        .catch((err) => res.json({ msg: err.message }));
-    })
-    .delete("/trending", (req, res) => {
-      getUsers()
-        .then((users) => res.json(users))
+    .get("/category/:category", (req, res) => {
+      getCarouselBooks(req.params.category)
+        .then((books) => {
+          res.json(books);
+        })
         .catch((err) => res.json({ msg: err.message }));
     });
 

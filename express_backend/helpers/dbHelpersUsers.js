@@ -15,7 +15,7 @@ module.exports = (db) => {
       text: `SELECT * FROM book_club WHERE id = $1`,
       values: [clubID],
     };
-    console.log("checking DB");
+    
     return db
       .query(query)
       .then((result) => {
@@ -25,6 +25,7 @@ module.exports = (db) => {
   };
 
   const getUserBooks = (userID) => {
+    console.log("DB GetUSER BOOKS", userID)
     const query = {
       text: `
           SELECT book_id as id, date_read as dateRead, rating, comments, status, title, author, subject
