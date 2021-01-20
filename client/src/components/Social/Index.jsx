@@ -1,6 +1,6 @@
 import React from "react";
 import FriendList from "../List";
-import ClubList from "../List";
+import ClubList from "./ClubList";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";

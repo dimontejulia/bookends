@@ -1,6 +1,6 @@
-import { parse } from 'query-string';
-import React from 'react';
-import ListItem from './ListItem';
+import { parse } from "query-string";
+import React from "react";
+import ListItem from "./ListItem";
 
 export default function List(props) {
   const { listName, list } = props;

@@ -213,7 +213,25 @@ function App() {
             </span>
           </nav>
           <Switch>
-            <Route path="/clubs">
+            <Route
+              path="/clubs/:id"
+              render={(props) => {
+                const paramClubId = props.location.pathname.replace(
+                  "/clubs/",
+                  ""
+                );
+                return (
+                  <ClubsIndex
+                    user={user}
+                    clubAdmin={clubAdmin}
+                    setClubAdmin={setClubAdmin}
+                    club={club}
+                    setClub={setClub}
+                  />
+                );
+              }}
+            />
+            {/* <Route path="/clubs">
               <ClubsIndex
                 user={user}
                 clubAdmin={clubAdmin}
@@ -221,7 +239,7 @@ function App() {
                 club={club}
                 setClub={setClub}
               />
-            </Route>
+            </Route> */}
             <Route
               path="/register"
               render={() => {
@@ -231,6 +249,7 @@ function App() {
             <Route path="/social">
               {" "}
               <Social
+                user={user}
                 friends={friends}
                 news={news}
                 setFriends={setFriends}
