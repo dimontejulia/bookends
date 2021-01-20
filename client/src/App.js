@@ -24,54 +24,48 @@ function App() {
   // const [search, setSearch] = useState("");
   const [friends, setFriends] = useState([]);
   const [news, setNews] = useState("");
-  const [userData, setUserData] = useState({});
+  const [userBookData, setUserBookData] = useState({});
   const [club, setClub] = useState({});
   const [clubAdmin, setClubAdmin] = useState("");
   const [currBook, setCurrBook] = useState({ id: "initial" });
   const [cBooks, setCBooks] = useState([]);
 
-  //  let cBooks = [
 
-  //     { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy",  description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL365902M-L.jpg`},
-  //     { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz", description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL26455544M-L.jpg` },
-  //     { id: "OL24222441M", title: "Trojan Odyssey", author: "C Cussler", description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL24222441M-L.jpg` },
-  //   ];
 
   const initialize = () => {
+    //Need PROMISE.ALL for the initial request...
     //Carousel 1
-    axios.get(`/api/books/category/movie`).then((res) => {
-      setCBooks(res.data);
-    });
+    axios.get(`/api/books/category/movie`).then((res) => { setCBooks(res.data); });
     //GET FRIENDS
-    axios.get(`/api/users/${user.id}/friends`).then((res) => {
-      setFriends(res.data);
-    });
+    axios.get(`/api/users/${user.id}/friends`).then((res) => { setFriends(res.data); });
     // GET BOOKS
     axios.get(`/api/users/${user.id}/books`).then((res) => {
       setUserBooks(res.data);
-      setUserData(res.data);
+      // setUserBookData(res.data);
     });
-    axios
-      .get(`/clubs/1`)
-      .then((res) => {
-        console.log("RES", res.data);
-        setClub(res.data);
-      })
+    //Get Club Details
+    axios.get(`/clubs/1`)
+      .then((res) => { setClub(res.data); })
       .catch((e) => console.log(e));
 
+    //
+    setUserBookData({
+      OL7353617M: {
+        bookId: "OL7353617M",
+        status: "READ",
+        readDate: "1992-05-07",
+        notes: "I liked this book, good read about ...",
+        rating: 5,
+        friendsWhoReadIt: ["uid100",],
+      },
+    });
     //add first name & last name to user id as an object
     setFriends(["uid100", "uid200"]);
     //id, post
     setNews(["News 1", "News 2"]);
     //userBookData
 
-    // setUserData({
-    //   status: "READ | Reading | On list?",
-    //   readDate: "2019-05-07",
-    //   notes: "These are my notes on this book... I like books",
-    //   rating: 0,
-    //   friendsWhoReadIt: ["uid100", "Carl", "Linda"],
-    // });
+
     setClub({
       name: "John's Club",
       avatar: "https://image.flaticon.com/icons/png/512/69/69589.png",
@@ -89,9 +83,7 @@ function App() {
     setClubAdmin({
       user,
     });
-    // setCurrBook({ ...currBook, id: '1' })
   };
-  //OL365902M  Rainbow Six
   useEffect(() => {
     initialize();
   }, []);
@@ -142,7 +134,6 @@ function App() {
               .get(`https://openlibrary.org${book.works}.json`)
               .then((res) => {
                 book.subjects = res.data.subjects;
-                console.log("RES DESC>>>>", res.data);
                 if (res.data.description) {
                   if (typeof res.data.description !== "string") {
                     book.description = res.data.description.value;
@@ -173,7 +164,7 @@ function App() {
   const updateDBUserBooks = () => {
     const dataToSend = {
       userBooks: userBooks,
-      userBookData: userData,
+      userBookData: userBookData,
     };
     axios
       .post(`/api/users/${user.id}/books`, dataToSend)
@@ -184,23 +175,31 @@ function App() {
       .catch((err) => console.log(err));
   };
 
-  //Watch for currBook to change and load Details into state
+  const updateDBUserBookData = () => {
+    //only updates existing books data
+    console.log("FIRES UPDATE DB")
+  };
+
+  //==============Watchers that update state =================================
   useEffect(() => {
-    console.log("useEffect for Details");
     fetchBookDetails(currBook.id);
-  }, [currBook.id]);
+  }, [currBook.id]); //The book they are looking at (can be search or their own)
 
   useEffect(() => {
-    console.log("useEffect for UserBooks");
     updateDBUserBooks(userBooks);
-  }, [userBooks]);
+  }, [userBooks]);  // Array of their books
+
+
+  useEffect(() => {
+    updateDBUserBookData()
+  }, []); //Users Notes, status etc for each of their books
 
   // useEffect(() => {
   //   console.log("useEffect for Details");
   //   // fetchBookDetails(currBook.id);
   // }, [friends]);
 
-  //==================Rendering =============
+  //==================Rendering ======================================================
   return (
     <Router>
       <div className="App">
@@ -212,49 +211,26 @@ function App() {
           </nav>
           <Switch>
             <Route path="/clubs">
-              <ClubsIndex
-                user={user}
-                clubAdmin={clubAdmin}
-                setClubAdmin={setClubAdmin}
-                club={club}
-                setClub={setClub}
-              />
+              <ClubsIndex user={user} clubAdmin={clubAdmin} setClubAdmin={setClubAdmin} club={club} setClub={setClub} />
             </Route>
-            <Route
-              path="/register"
-              render={() => {
-                return <Register user={user} setUser={setUser} />;
-              }}
-            />
+            <Route path="/register" render={() => { return <Register user={user} setUser={setUser} />; }} />
             <Route path="/social">
               {" "}
-              <Social
-                friends={friends}
-                news={news}
-                setFriends={setFriends}
-              />{" "}
+              <Social friends={friends} news={news} setFriends={setFriends} />{" "}
             </Route>
             <Route path="/shelf/">
               {" "}
-              <UserShelf
-                books={userBooks}
-                setBooks={setUserBooks}
-                setCurrBook={setCurrBook}
-              />
+              <UserShelf books={userBooks} setBooks={setUserBooks} setCurrBook={setCurrBook} />
             </Route>
-            <Route
-              path="/book/:id"
+            <Route path="/book/:id"
               //Route is not fully setup
               render={(props) => {
                 // Strips the id from the full url
-                const paramBookId = props.location.pathname.replace(
-                  "/book/",
-                  ""
-                );
+                const paramBookId = props.location.pathname.replace("/book/", "");
                 console.log("PARAM", paramBookId);
                 // setCurrBook(paramBookId)
                 return (
-                  <BookDetails currBook={currBook} userBookData={userData} />
+                  <BookDetails currBook={currBook} userBookData={userBooks} />
                 );
               }}
             />
