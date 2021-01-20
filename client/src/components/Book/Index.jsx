@@ -20,7 +20,11 @@ export default function Index(props) {
     <div>
       <Details book={currBook} />
       <br />
-      <Rating userRating={bookData ? bookData.rating : 0} />
+      <Rating
+        currBookID={currBook.id}
+        userRating={bookData ? bookData.rating : 0}
+        setUserBookData={setUserBookData}
+      />
       <UserActions
         currBookID={currBook.id}
         userBookData={bookData}
