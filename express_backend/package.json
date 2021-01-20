@@ -16,7 +16,8 @@
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
     "pg": "^8.4.1",
-    "pg-native": "^3.0.0"
+    "pg-native": "^3.0.0",
+    "chalk": "^4.1.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
