@@ -18,7 +18,9 @@ export default function UserActions(props) {
     }));
   };
   const formatDate = (rawDate) => {
-    return rawDate.slice(0, 10);
+    if (rawDate) {
+      return rawDate.slice(0, 10);
+    }
   };
   if (userBookData) {
     readDate = formatDate(userBookData.dateread);

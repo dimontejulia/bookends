@@ -174,16 +174,27 @@ function App() {
     }
   };
 
-  const updateDBUserBooks = () => {
-    const dataToSend = {
-      userBooks: userBooks,
-      userBookData: userBookData,
-    };
+  const updateUserBooks = (bookData) => {
+    console.log("Top func", bookData)
+    //Build Book Object
+    const newUserBooks = {
+      ...userBooks,
+      [bookData.id]: {
+        id: bookData.id,
+        title: bookData.title,
+        author: bookData.author,
+        subject: bookData.subject,
+      }
+    }
+    setUserBooks(newUserBooks);
+    //Send to DB
     axios
-      .post(`/api/users/${user.id}/books`, dataToSend)
+      .post(`/api/users/${user.id}/books`, newUserBooks)
       .then((res) => {
         // Need Saved MSg ELSE Error Message
         console.log("Book added to shelf!");
+        //Update state w. latest copy
+
       })
       .catch((err) => console.log(err));
   };
@@ -203,15 +214,10 @@ function App() {
     fetchBookDetails(currBook.id);
   }, [currBook.id]); //The book they are looking at (can be search or their own)
 
-  useEffect(() => {
-    updateDBUserBooks(userBooks);
-  }, []);  // Array of their books
+  // useEffect(() => {
+  //   updateDBUserBooks(userBooks);
+  // }, [];  // Array of their books
   // userBooks  watcher for userBooks is firing everytime that data is changed (since consolidated)
-
-  useEffect(() => {
-    console.log("%%%%%%%USFDFDFDFFD")
-    saveBookDataToDB()
-  }, []);
 
   //==================Rendering ======================================================
   return (

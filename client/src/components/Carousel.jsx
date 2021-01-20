@@ -10,7 +10,11 @@ export default function Carousel(props) {
   const handleAddToShelf = (input) => {
     props.setUserBooks((prevState) => ({
       ...prevState,
-      [input.id]: { id: input.id, title: input.title, author: input.author },
+      [input.id]: {
+        id: input.id,
+        title: input.title,
+        author: input.author,
+      },
     }));
   };
 
