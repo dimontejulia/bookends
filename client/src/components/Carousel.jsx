@@ -23,7 +23,7 @@ export default function Carousel(props) {
               <img
                 key={book.id}
                 className="carousel__book-cover"
-                src={`${book.coverLink}`}
+                src={`https://covers.openlibrary.org/b/olid/${book.id}-L.jpg`}
                 alt={book.title}
               />
               <span className="carousel__info">

@@ -28,26 +28,35 @@ function App() {
   const [club, setClub] = useState({});
   const [clubAdmin, setClubAdmin] = useState("");
   const [currBook, setCurrBook] = useState({ id: "initial" });
+  const [ cBooks, setCBooks ] = useState([]);
 
-  
-   const cBooks = [
-      { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy",  description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL365902M-L.jpg`},
-      { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz", description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL26455544M-L.jpg` },
-      { id: "OL24222441M", title: "Trojan Odyssey", author: "C Cussler", description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL24222441M-L.jpg` },
-    ];
+  //  let cBooks = [
+
+  //     { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy",  description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL365902M-L.jpg`},
+  //     { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz", description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL26455544M-L.jpg` },
+  //     { id: "OL24222441M", title: "Trojan Odyssey", author: "C Cussler", description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL24222441M-L.jpg` },
+  //   ];
 
     const initialize = () => {
+    //Carousel 1
+    axios
+      .get(`/api/books/category/awardWinning`)
+      .then((res) => {
+        setCBooks(res.data);
+      });
     //GET FRIENDS
-    axios.get(`api/users/${user.id}/friends`).then((res) => {
-      console.log("RES", res);
-      setFriends(res.data);
-    });
+    axios
+      .get(`/api/users/${user.id}/friends`)
+      .then((res) => {
+        setFriends(res.data);
+      });
     // GET BOOKS
-    axios.get(`api/users/${user.id}/books`).then((res) => {
-      console.log("RES", res);
-      setUserBooks(res.data);
-      setUserData(res.data);
-    });
+    axios
+      .get(`/api/users/${user.id}/books`)
+      .then((res) => {
+        setUserBooks(res.data);
+        setUserData(res.data);
+      });
     axios
       .get(`/clubs/1`)
       .then((res) => {
