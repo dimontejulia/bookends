@@ -10,6 +10,20 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
+  const getClubDetails = (clubID) => {
+    const query = {
+      text: `SELECT * FROM book_club WHERE id = $1`,
+      values: [clubID],
+    };
+    console.log("checking DB");
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows[0];
+      })
+      .catch((err) => err);
+  };
+
   const getUserBooks = (userID) => {
     const query = {
       text: `
@@ -160,5 +174,6 @@ module.exports = (db) => {
     getOneUsersPosts,
     getFriends,
     addBook,
+    getClubDetails,
   };
 };
