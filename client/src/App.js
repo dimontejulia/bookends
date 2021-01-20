@@ -39,7 +39,7 @@ function App() {
 
   const initialize = () => {
     //Carousel 1
-    axios.get(`/api/books/category/awardWinning`).then((res) => {
+    axios.get(`/api/books/category/movie`).then((res) => {
       setCBooks(res.data);
     });
     //GET FRIENDS
