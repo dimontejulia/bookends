@@ -166,6 +166,26 @@ module.exports = (db) => {
       .catch((err) => console.log("DBERROR from users books:>>>>", err));
   };
 
+  const getWishlist = (user_id) => {
+    const query = {
+      text: `
+      SELECT book_id as id, title, author, subject
+        FROM books
+        JOIN future_books fb ON books.id = fb.book_id
+        WHERE fb.user_id = $1
+      `,
+      values: [user_id],
+    };
+
+    console.log("GET WISHLIST");
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERROR from users books:>>>>", err));
+  };
+
   return {
     getUsers,
     getUserByEmail,
@@ -177,5 +197,6 @@ module.exports = (db) => {
     getOneUsersPosts,
     getFriends,
     addBook,
+    getWishlist,
   };
 };

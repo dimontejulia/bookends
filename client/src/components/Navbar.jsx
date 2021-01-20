@@ -43,23 +43,6 @@ export default function NavBar(props) {
       .catch((err) => err);
   };
 
-  // const handleClubClick = (e) => {
-  //   e.preventDefault();
-
-  //   const clubIdList =
-  //     clubIds &&
-  //     clubIds.map((club) => {
-  //       return <NavDropdown.Item>Club {club.book_club_id}</NavDropdown.Item>;
-  //     });
-
-  //   axios
-  //     .get(`/api/users/${userId}/club`)
-  //     .then((res) => {
-  //       console.log("USERS/ID/CLUBS >>>>>>", res.data);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
   return (
     <Navbar bg="light" expand="lg">
       <LinkContainer to="/">
@@ -79,17 +62,14 @@ export default function NavBar(props) {
           <LinkContainer to="/social">
             <Nav.Link>Social</Nav.Link>
           </LinkContainer>
-          {/* <NavDropdown
-            onClick={handleClubClick}
-            title="Book Clubs"
-            id="nav-dropdown"
-          >
-            <NavDropdown.Item eventKey="4.1">Action</NavDropdown.Item>
-            <NavDropdown.Item eventKey="4.2">Another action</NavDropdown.Item>
-            <NavDropdown.Item eventKey="4.3">
-              Something else here
-            </NavDropdown.Item>
-          </NavDropdown> */}
+          <NavDropdown title="My Books" id="nav-dropdown">
+            <LinkContainer to="/shelf">
+              <Nav.Link>My Shelf</Nav.Link>
+            </LinkContainer>
+            <LinkContainer to="/wishlist">
+              <Nav.Link>My Wishlist</Nav.Link>
+            </LinkContainer>
+          </NavDropdown>
           <LinkContainer to="/search">
             <Nav.Link>
               <Button variant="outline-info">Search Books</Button>{" "}

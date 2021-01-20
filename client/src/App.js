@@ -23,6 +23,7 @@ function App() {
   const [userBooks, setUserBooks] = useState([]);
   // const [search, setSearch] = useState("");
   const [friends, setFriends] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
   const [news, setNews] = useState("");
   const [userData, setUserData] = useState({});
   const [club, setClub] = useState([]);
@@ -51,6 +52,12 @@ function App() {
     axios.get(`/api/users/${user.id}/books`).then((res) => {
       setUserBooks(res.data);
       setUserData(res.data);
+    });
+
+    // GET WISHLIST
+    axios.get(`/api/users/${user.id}/wishlist`).then((res) => {
+      console.log("wishlist", res.data);
+      setWishlist(res.data);
     });
 
     axios
@@ -266,6 +273,14 @@ function App() {
               <UserShelf
                 books={userBooks}
                 setBooks={setUserBooks}
+                setCurrBook={setCurrBook}
+              />
+            </Route>
+            <Route path="/wishlist/">
+              {" "}
+              <UserShelf
+                books={wishlist}
+                setBooks={setWishlist}
                 setCurrBook={setCurrBook}
               />
             </Route>
