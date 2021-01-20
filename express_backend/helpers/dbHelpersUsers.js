@@ -15,7 +15,7 @@ module.exports = (db) => {
       text: `SELECT * FROM book_club WHERE id = $1`,
       values: [clubID],
     };
-    
+
     return db
       .query(query)
       .then((result) => {
@@ -165,6 +165,30 @@ module.exports = (db) => {
       .catch((err) => console.log("DBERROR from users books:>>>>", err));
   };
 
+  const UpdateUsersBooks = (userId, bookId, bookData) => {
+    const { id, dateread, rating, comments, status } = bookData;
+
+    const query = {
+      text: `
+        UPDATE users_books
+        SET date_read= $3,
+        rating= $4,
+        comments = $5,
+        status = $6
+        WHERE user_id = $1 AND book_id = $2
+        RETURNING *;
+      `,
+      values: [userId, id, dateread, rating, comments, status],
+    };
+
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERR", err));
+  };
+
   return {
     getUsers,
     getUserByEmail,
@@ -176,5 +200,6 @@ module.exports = (db) => {
     getFriends,
     addBook,
     getClubDetails,
+    UpdateUsersBooks,
   };
 };

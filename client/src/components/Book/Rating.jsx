@@ -14,12 +14,6 @@ export default function Rating(props) {
       [currBookID]: { ...prev[currBookID], rating: newRating },
     }));
   };
-  //Onclick of start retun array posn  (Position in span)
-  const returnPosnInSpan = () => {
-    //Parent Span
-    const span = document.querySelector('#rating');
-    console.log('************', span);
-  };
 
   const numberToStarRating = (rating) => {
     let count = 0;

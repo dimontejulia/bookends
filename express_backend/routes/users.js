@@ -2,10 +2,25 @@ const express = require("express");
 const router = express.Router();
 const { getPostsByUsers } = require("../helpers/dataHelpers");
 
-module.exports = ({ getUsers, getUserBooks, addBook, getFriends }) => {
+module.exports = ({ getUsers, getUserBooks, addBook, getFriends, UpdateUsersBooks }) => {
+  //users/:userId/books/:bookId
+  router
+    .post("/:id/books/:bookId", (req, res) => {
+      const userId = req.params.id;
+      const bookId = req.params.bookId;
+      const bookData = req.body;
+      UpdateUsersBooks(userId, bookId, bookData)
+        .then((ack) => {
+          res.json("Success");
+        })
+        .catch((err) => res.json({ msg: err.message }));
+    });
+
+
   // users/:id/books
   router
     .get("/:id/books", (req, res) => {
+      //Join from user Books & User Books Data
       getUserBooks(req.params.id)
         .then((books) => {
           res.json(books);

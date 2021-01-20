@@ -188,9 +188,14 @@ function App() {
       .catch((err) => console.log(err));
   };
 
-  const updateDBUserBookData = () => {
-    //only updates existing books data
-    console.log("FIRES UPDATE DB")
+  const saveBookDataToDB = () => {
+    const dataToSend = userBooks[currBook.id]
+    axios
+      .post(`/api/users/${user.id}/books/${currBook.id}`, dataToSend)
+      .then((res) => {
+        console.log(`Book ${currBook.id}Data Updated`);
+      })
+      .catch((err) => console.log('Book Index, Save ERROR:', err));
   };
 
   //==============Watchers that update state =================================
@@ -200,17 +205,12 @@ function App() {
 
   useEffect(() => {
     updateDBUserBooks(userBooks);
-  }, [userBooks]);  // Array of their books
-
+  }, []);  // Array of their books
+  // userBooks  watcher for userBooks is firing everytime that data is changed (since consolidated)
 
   useEffect(() => {
-    updateDBUserBookData()
-  }, []); //Users Notes, status etc for each of their books
-
-  // useEffect(() => {
-  //   console.log("useEffect for Details");
-  //   // fetchBookDetails(currBook.id);
-  // }, [friends]);
+    saveBookDataToDB()
+  }, []);
 
   //==================Rendering ======================================================
   return (
@@ -243,7 +243,7 @@ function App() {
                 console.log("PARAM", paramBookId);
                 // setCurrBook(paramBookId)
                 return (
-                  <BookDetails currBook={currBook} userBookData={userBooks} setUserBookData={setUserBooks} />
+                  <BookDetails currBook={currBook} userBookData={userBooks} setUserBookData={setUserBooks} saveToDB={saveBookDataToDB} />
                 );
               }}
             />

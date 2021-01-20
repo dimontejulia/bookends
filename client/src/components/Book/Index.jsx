@@ -5,16 +5,14 @@ import UserNotes from './UserNotes';
 import UserActions from './userActions';
 import AlsoReadList from './AlsoReadList';
 import Button from '../Button';
+import axios from 'axios';
 
 export default function Index(props) {
-  const { currBook, userBookData, setUserBookData } = props;
-  console.log('PROPS', props);
+  const { currBook, userBookData, setUserBookData, saveToDB } = props;
 
   const bookData =
     userBookData &&
     Object.values(userBookData).find((bookObj) => bookObj.id === currBook.id);
-
-  console.log('BookData', bookData);
 
   return (
     <div>
@@ -36,7 +34,7 @@ export default function Index(props) {
         setUserBookData={setUserBookData}
       />
       {/* SAVE BUTTON WILL HAVE TO TRIGGER A SAVE TO DB HOOK */}
-      <Button>Save</Button>
+      <Button onClick={saveToDB}>Save</Button>
       <br />
       <AlsoReadList friendsWhoRead={userBookData.friendsWhoReadIt} />
     </div>
