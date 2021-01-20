@@ -16,6 +16,7 @@ export default function Index(props) {
   return (
     <div>
       <Details book={currBook} />
+      <br />
       <Rating userRating={bookData ? bookData.rating : 0} />
       <UserActions userBookData={bookData} />
       <UserNotes

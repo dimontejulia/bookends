@@ -9,7 +9,8 @@ export default function UserActions(props) {
   if (userBookData) {
     readDate = userBookData.dateread;
   }
-
+  //Need to format readDate to 2050-01-01
+  //from  dateread: "2018-07-20T00:00:00.000Z"
   return (
     <div>
       <p>
@@ -19,10 +20,14 @@ export default function UserActions(props) {
       <span>
         <Button>Add to list</Button>
         <br />
-        <select name='status' id='status'>
-          <option value='reading'>Reading</option>
-          <option value='read'>Read</option>
-          <option value='wantTo'>Want to read</option>
+        <select
+          name='status'
+          id='status'
+          value={userBookData ? userBookData.status : null}
+        >
+          <option value='onList'>On my list</option>
+          <option value='in_progress'>Reading</option>
+          <option value='finished'>Read</option>
         </select>
         <label htmlFor='read'>Read: </label>
         <input
