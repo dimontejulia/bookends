@@ -38,7 +38,7 @@ export default function UserActions(props) {
           type='date'
           id='read'
           name='read-date'
-          placeholder={userBookData ? readDate : null}
+          value={userBookData ? readDate : null}
         />
       </span>
     </div>
