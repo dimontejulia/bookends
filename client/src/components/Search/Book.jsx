@@ -20,16 +20,22 @@ const Book = ({ book, ...props }) => {
   const handleSubmitClick = (e) => {
     e.preventDefault();
     const bookKey = key.split('/works/')[1];
-    //props.setUserBooks((prevState) => [...prevState, bookKey]);
-    props.setUserBooks((prevState) => [
+    props.setUserBooks((prevState) => ({
       ...prevState,
-      { id: cover_edition_key, title: title, author: author_name },
-    ]);
-    //addBook();
+      [cover_edition_key]: {
+        id: cover_edition_key,
+        title: title,
+        author: author_name,
+      },
+    }));
+
+    // setUserBookData((prev) => ({
+    //   ...prev,
+    //   [currBookID]: { ...prev[currBookID], comments: event.target.value },
+    // }));
   };
 
   const addBook = () => {
-  
     // const bookKey = key.split('/works/')[1];
     // const URL = `/api/books/`;
     // axios

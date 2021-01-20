@@ -209,6 +209,7 @@ function App() {
   // userBooks  watcher for userBooks is firing everytime that data is changed (since consolidated)
 
   useEffect(() => {
+    console.log("%%%%%%%USFDFDFDFFD")
     saveBookDataToDB()
   }, []);
 
