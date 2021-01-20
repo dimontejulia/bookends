@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../Button";
 import Rating from "./Rating";
+import { Link } from "react-router-dom";
 
 export default function UserNotes(props) {
   let { status, readDate, notes } = props.userBookData;
@@ -26,9 +27,13 @@ export default function UserNotes(props) {
           />
           <Button>Edit Date</Button>
           <Button>Send Book to Friend</Button>
-          <Button onClick={() => props.deleteUserBook(props.currBook.id)}>
-            Remove Book from Shelf
-          </Button>
+
+          {/* needs to rerender shelf list */}
+          <Link to={`/shelf`}>
+            <Button onClick={() => props.deleteUserBook(props.currBook.id)}>
+              Remove Book from Shelf
+            </Button>
+          </Link>
         </span>
       </div>
       <h3>Notes</h3>
