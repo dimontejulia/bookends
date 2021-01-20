@@ -64,3 +64,9 @@ CREATE TABLE users_books (
   "comments" TEXT,
   "status" VARCHAR(255)
 );
+
+CREATE TABLE home_page_books (
+  "id" SERIAL PRIMARY KEY NOT NULL,
+  "category" VARCHAR(255) NOT NULL,
+  "book_id" VARCHAR(255) REFERENCES books(id) ON DELETE CASCADE
+);
