@@ -4,16 +4,18 @@ import ClubList from "./ClubList";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
-import NewsFeed from "../List";
+import NewsFeed from "./NewsFeed";
+import NewPostForm from "./NewPostForm";
 
 export default function Index(props) {
+  console.log("SOCIAL INDEX PROPS ======", props);
+
   const friends = props.friends;
   const friendList = friends.map((friend) => {
     return `${friend.firstname} ${friend.lastname}`;
   });
-  const clubs = props.clubs;
-  console.log("clubs======", clubs);
 
+  const clubs = props.clubs;
   const clubIdList =
     clubs &&
     clubs.map((club) => {
@@ -21,7 +23,15 @@ export default function Index(props) {
       return club.book_club_id;
     });
 
-  console.log("clubIdList}}}}}}}}}}}", clubIdList);
+  const news = props.news;
+  console.log("posts======", news);
+
+  const newsList =
+    news &&
+    news.map((post) => {
+      return post;
+    });
+  console.log("postList}}}}}}}}}}}", newsList);
 
   return (
     <div>
@@ -40,7 +50,8 @@ export default function Index(props) {
         list={clubIdList}
         listName="Clubs"
       />
-      <NewsFeed list={props.news} listName="News" />
+      <NewPostForm />
+      <NewsFeed newsList={newsList} listName="News" />
     </div>
   );
 }

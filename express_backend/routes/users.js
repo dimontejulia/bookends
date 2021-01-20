@@ -9,6 +9,7 @@ module.exports = ({
   getFriends,
   getUserClubs,
   getWishlist,
+  getPosts,
 }) => {
   // users/:id/books
   router
@@ -95,8 +96,8 @@ module.exports = ({
   // users/:id/posts
   router
     .get("/:id/posts", (req, res) => {
-      getUsers()
-        .then((users) => res.json(users))
+      getPosts(req.params.id)
+        .then((posts) => res.json(posts))
         .catch((err) => res.json({ msg: err.message }));
     })
     .post("/:id/posts", (req, res) => {
