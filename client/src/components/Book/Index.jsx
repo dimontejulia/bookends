@@ -4,6 +4,7 @@ import Rating from './Rating';
 import UserNotes from './UserNotes';
 import UserActions from './userActions';
 import AlsoReadList from './AlsoReadList';
+import Button from '../Button';
 
 export default function Index(props) {
   const { currBook, userBookData } = props;
@@ -19,10 +20,9 @@ export default function Index(props) {
       <br />
       <Rating userRating={bookData ? bookData.rating : 0} />
       <UserActions userBookData={bookData} />
-      <UserNotes
-        setUserBooks={console.log('Click')}
-        comments={bookData ? bookData.comments : null}
-      />
+      <UserNotes comments={bookData ? bookData.comments : null} />
+      <Button>Save</Button>
+      <br />
       <AlsoReadList friendsWhoRead={userBookData.friendsWhoReadIt} />
     </div>
   );

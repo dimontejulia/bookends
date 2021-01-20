@@ -15,8 +15,6 @@ export default function UserNotes(props) {
         placeholder='Any notes about the book? Write them here...'
         value={comments ? comments : ''}
       ></textarea>
-      <br />
-      <Button>Save Notes</Button>
     </div>
   );
 }

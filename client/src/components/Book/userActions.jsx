@@ -4,21 +4,25 @@ import Button from '../Button';
 export default function UserActions(props) {
   console.log('!!!!!!%%%%%%%%', props);
   let readDate = null;
+  const formatDate = (rawDate) => {
+    //from  dateread: "2018-07-20T00:00:00.000Z"
+    return rawDate.slice(0, 10);
+    //Need to format readDate to 2050-01-01
+  };
   const { userBookData } = props;
   console.log('%%%%%%%%', userBookData);
   if (userBookData) {
-    readDate = userBookData.dateread;
+    readDate = formatDate(userBookData.dateread);
   }
-  //Need to format readDate to 2050-01-01
-  //from  dateread: "2018-07-20T00:00:00.000Z"
+  console.log('DATE', readDate);
   return (
     <div>
       <p>
         <br />
-        Status: {userBookData ? userBookData.status : null}
+        <Button>Add to list</Button>
       </p>
       <span>
-        <Button>Add to list</Button>
+        Status: {userBookData ? userBookData.status : null}
         <br />
         <select
           name='status'
@@ -34,8 +38,7 @@ export default function UserActions(props) {
           type='date'
           id='read'
           name='read-date'
-          value={userBookData ? readDate : '2050-01-01'}
-          max='2021-04-01'
+          placeholder={userBookData ? readDate : null}
         />
       </span>
     </div>
