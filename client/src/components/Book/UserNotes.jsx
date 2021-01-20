@@ -3,12 +3,13 @@ import Button from '../Button';
 
 export default function UserNotes(props) {
   const { comments, setUserBookData, currBookID } = props;
-
-  // const bookData =
-  //   userBookData && userBookData.find((bookObj) => bookObj.id === currBook.id);
-  // [{}, {}];
+  console.log(props);
+  // [...prev, (comments: event.target.value)]
   const handleInput = (event) => {
-    setUserBookData((prev) => [...prev, (comments: event.target.value)]);
+    setUserBookData((prev) => ({
+      ...prev,
+      [currBookID]: { ...prev[currBookID], comments: event.target.value },
+    }));
   };
 
   return (
@@ -26,3 +27,8 @@ export default function UserNotes(props) {
     </div>
   );
 }
+
+// userBookData:{
+// OL365902M: {id: "OL365902M", dateread: "2018-09-01T00:00:00.000Z", rating: 2, comments: "Nunc rhoncus dui vel sem. Sed sagittis. Nam congue…libero quis orci. Nullam molestie nibh in lectus.", status: "finished", …}
+// OL7353617M: {id: "OL7353617M", dateread: "2018-07-20T00:00:00.000Z", rating: 1, comments: "Etiam justo. Etiam pretium iaculis justo. In hac h…asse platea dictumst. Etiam faucibus cursus urna.", status: "in_progress", …}
+// }
