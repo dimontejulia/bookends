@@ -2,7 +2,7 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 
 export default function NewsFeedItem(props) {
-  const date = props.item.timestamp.toLocaleString();
+  const date = props.item.timestamp;
   console.log("PROPS IN ITEM", props);
   return (
     <section>
