@@ -12,7 +12,9 @@ module.exports = (db) => {
 
   const getSpecificClub = (clubID) => {
     const query = {
-      text: `SELECT * FROM book_club WHERE id = $1`,
+      text: `SELECT * FROM book_club 
+      JOIN books ON book_club.current_book = books.id
+      WHERE book_club.id = $1`,
       values: [clubID],
     };
 

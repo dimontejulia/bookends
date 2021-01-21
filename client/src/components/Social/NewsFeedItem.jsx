@@ -3,7 +3,6 @@ import Card from "react-bootstrap/Card";
 
 export default function NewsFeedItem(props) {
   const date = props.item.timestamp;
-  console.log("PROPS IN ITEM", props);
   return (
     <section>
       <Card className="text-center" style={{ width: "60%" }}>

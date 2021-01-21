@@ -5,15 +5,15 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
 export default function ClubList(props) {
-  console.log("props ========", props);
-  const { listName, list, setCurrClub } = props;
+  const { listName, list, setCurrClub, setCurrBook } = props;
 
   const currentClub = (clubID) => {
     axios
       .get(`/api/clubs/${clubID}`)
       .then((res) => {
-        console.log("RESDATA /API/CLUBS/ID ->>>>", res.data);
+        console.log("res data", res.data);
         setCurrClub(res.data);
+        setCurrBook({ id: res.data.current_book });
       })
       .catch((err) => err);
   };

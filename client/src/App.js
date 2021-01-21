@@ -13,7 +13,7 @@ import Navbar from "./components/Navbar";
 import MainPage from "./components/Main/Index";
 import UserShelf from "./components/BookShelf/Index";
 import Social from "./components/Social/Index";
-import ClubsIndex from "./components/Club/Index";
+import ClubsInfo from "./components/Club/ClubInfo";
 import Register from "./components/Register";
 import BookDetails from "./components/Book/Index";
 import SearchIndex from "./components/Search/SearchIndex";
@@ -87,7 +87,6 @@ function App() {
     axios
       .get(`/api/users/${user.id}/posts`)
       .then((res) => {
-        console.log("RES DATA", res.data);
         setNews(res.data);
       })
       .catch((e) => console.log(e));
@@ -275,13 +274,14 @@ function App() {
                   ""
                 );
                 return (
-                  <ClubsIndex
+                  <ClubsInfo
                     clubId={paramClubId}
                     clubAdmin={clubAdmin}
                     setClubAdmin={setClubAdmin}
-                    club={club}
+                    club={currClub}
                     setClub={setClub}
                     currClub={currClub}
+                    currBook={currBook}
                   />
                 );
               }}
@@ -311,6 +311,8 @@ function App() {
                 clubs={club}
                 setClub={setClub}
                 setCurrClub={setCurrClub}
+                setCurrBook={setCurrBook}
+                currBook={currBook}
                 news={news}
                 setNews={setNews}
               />{" "}

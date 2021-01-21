@@ -8,6 +8,18 @@ import ClubAdmin from "./ClubAdmin";
 export default function ClubInfo(props) {
   console.log("club info>>>>>", props);
 
+  const bookDetails = props.currBook;
+
+  //   admin_id: 1
+  // avatar: "https://i.pinimg.com/originals/15/fb/10/15fb10a831772d082c8a344b03bd75e8.jpg"
+  // book_club_name: "Lighthouse Learners"
+  // comments: "A fun read with friends!"
+  // current_book: "OL16165161M"
+  // date_read: "2020-07-20T04:00:00.000Z"
+  // id: 1
+  // rating: 4
+  // status: "in_progress"
+
   const placeholderBook = {
     id: 1,
     current_book: "OL7353617M",
@@ -36,7 +48,7 @@ export default function ClubInfo(props) {
       </section>
       <section className="book-club__content">
         <h3>Current Book:</h3>
-        <Details book={placeholderBook} />
+        <Details book={bookDetails ? bookDetails : null} />
       </section>
     </div>
   );

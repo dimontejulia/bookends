@@ -8,8 +8,6 @@ import NewsFeed from "./NewsFeed";
 import NewPostForm from "./NewPostForm";
 
 export default function Index(props) {
-  console.log("SOCIAL INDEX PROPS ======", props);
-
   const friends = props.friends;
   const friendList = friends.map((friend) => {
     return `${friend.firstname} ${friend.lastname}`;
@@ -29,7 +27,6 @@ export default function Index(props) {
     news.map((post) => {
       return post;
     });
-  console.log("postList}}}}}}}}}}}", newsList);
 
   return (
     <div>
@@ -45,6 +42,7 @@ export default function Index(props) {
       <ClubList
         setCurrClub={props.setCurrClub}
         currClub={props.currClub}
+        setCurrBook={props.setCurrBook}
         list={clubIdList}
         listName="Clubs"
       />
