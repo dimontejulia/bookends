@@ -1,6 +1,6 @@
-import React from 'react';
-import Button from '../Button';
-import { Link } from 'react-router-dom';
+import React from "react";
+import Button from "../Button";
+import { Link } from "react-router-dom";
 
 export default function UserActions(props) {
   const { userBookData, setUserBookData, currBookID } = props;
@@ -37,20 +37,20 @@ export default function UserActions(props) {
         <br />
         <select
           onChange={handleInput}
-          name='status'
-          id='status'
+          name="status"
+          id="status"
           value={userBookData ? userBookData.status : null}
         >
-          <option value='onList'>On my list</option>
-          <option value='in_progress'>Reading</option>
-          <option value='finished'>Read</option>
+          <option value="onList">On my list</option>
+          <option value="in_progress">Reading</option>
+          <option value="finished">Read</option>
         </select>
-        <label htmlFor='read'>Read: </label>
+        <label htmlFor="read">Read: </label>
         <input
           onChange={handleCal}
-          type='date'
-          id='read'
-          name='read-date'
+          type="date"
+          id="read"
+          name="read-date"
           value={userBookData ? readDate : null}
         />
       </span>
