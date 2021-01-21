@@ -6,16 +6,16 @@ module.exports = ({
   getUsers,
   getUserBooks,
   addBook,
-  deleteBook,
+  deleteBookUserShelf,
+  deleteBookWishList,
   getFriends,
   getUserClubs,
   getWishlist,
   getPosts,
   addPost,
   updateUsersBooks,
-  addBookToUser
+  addBookToUser,
 }) => {
-
   // users/:id/books
   router
     .get("/:id/books", (req, res) => {
@@ -27,7 +27,7 @@ module.exports = ({
         .catch((err) => res.json({ msg: err.message }));
     })
     .post("/:id/books", (req, res) => {
-      console.log("POST>>>\n\n", req.body, "\n\n===================")
+      console.log("POST>>>\n\n", req.body, "\n\n===================");
       addBookToUser(req.params.id, req.body)
         .then((book) => {
           console.log("RX BOOKS ->>>>", book);
@@ -40,7 +40,7 @@ module.exports = ({
     })
     .delete("/:userId/books/:bookId", (req, res) => {
       const { userId, bookId } = req.params;
-      deleteBook(bookId, userId)
+      deleteBookUserShelf(bookId, userId)
         .then((book) => {
           res.json(book);
         })
@@ -48,17 +48,16 @@ module.exports = ({
     });
 
   //users/:userId/books/:bookId
-  router
-    .put("/:id/books/:bookId", (req, res) => {
-      const userId = req.params.id;
-      const bookId = req.params.bookId;
-      const bookData = req.body;
-      updateUsersBooks(userId, bookId, bookData)
-        .then((res) => {
-          res.json("Success");
-        })
-        .catch((err) => res.json({ msg: err.message }));
-    });
+  router.put("/:id/books/:bookId", (req, res) => {
+    const userId = req.params.id;
+    const bookId = req.params.bookId;
+    const bookData = req.body;
+    updateUsersBooks(userId, bookId, bookData)
+      .then((res) => {
+        res.json("Success");
+      })
+      .catch((err) => res.json({ msg: err.message }));
+  });
 
   // api/users/:id/friends
   router
@@ -109,9 +108,10 @@ module.exports = ({
         .then((users) => res.json(users))
         .catch((err) => res.json({ msg: err.message }));
     })
-    .delete("/:id/wishlist", (req, res) => {
-      getUsers()
-        .then((users) => res.json(users))
+    .delete("/:userId/wishlist/:bookId", (req, res) => {
+      const { userId, bookId } = req.params;
+      deleteBookWishList(userId, bookId)
+        .then((book) => res.json(book))
         .catch((err) => res.json({ msg: err.message }));
     });
 
