@@ -10,6 +10,7 @@ module.exports = ({
   getUserClubs,
   getWishlist,
   getPosts,
+  addPost,
 }) => {
   // users/:id/books
   router
@@ -23,8 +24,6 @@ module.exports = ({
     .post("/:id/books", (req, res) => {
       const { userBooks } = req.body;
       const userBook = userBooks.slice(-1).pop();
-      console.log("userBook", userBook);
-      console.log("user", req.params.id);
       addBook(req.params.id, userBook)
         .then((users) => {
           console.log("RX BOOKS ->>>>", books);
@@ -101,13 +100,14 @@ module.exports = ({
         .catch((err) => res.json({ msg: err.message }));
     })
     .post("/:id/posts", (req, res) => {
-      getUsers()
-        .then((users) => res.json(users))
+      console.log("req.body", req.body);
+      addPost(req.params.id, req.body)
+        .then((posts) => res.json(posts))
         .catch((err) => res.json({ msg: err.message }));
     })
     .delete("/:id/posts", (req, res) => {
       getUsers()
-        .then((users) => res.json(users))
+        .then((posts) => res.json(posts))
         .catch((err) => res.json({ msg: err.message }));
     });
 

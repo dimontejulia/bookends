@@ -18,18 +18,10 @@ export default function NewsFeed(props) {
   const handleSubmitClick = (e) => {
     e.preventDefault();
     console.log("post", post);
-    // axios
-    //   .post("/register", props.user)
-    //   .then((res) => {
-    //     const userData = res.data[0];
-    //     //If reseponse good (UserID)
-    //     // update cookie here
-    //     //Update userState
-    //     // Book list friends (Later)
-    //     props.setUser(userData);
-    //   })
-    //   .then(<Redirect to="/" />)
-    //   .catch((err) => console.log(err));
+    axios
+      .post(`/api/users/${userId}/posts`, post)
+      .then(props.setNews((prevState) => [...prevState, post]))
+      .catch((err) => console.log("errorroroor", err));
   };
 
   return (

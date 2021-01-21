@@ -193,6 +193,7 @@ module.exports = (db) => {
         FROM newsfeed_posts
         JOIN users usersTable ON newsfeed_posts.user_id = usersTable.id
         WHERE usersTable.id = $1
+        ORDER BY timestamp asc
       `,
       values: [user_id],
     };
@@ -205,6 +206,24 @@ module.exports = (db) => {
         return result.rows;
       })
       .catch((err) => console.log("DBERROR from users books:>>>>", err));
+  };
+
+  const addPost = (user_id, post) => {
+    console.log("in add post");
+    const { title, body } = post;
+    console.log("post details", post);
+
+    const query = {
+      text: `INSERT INTO newsfeed_posts (user_id, title, body) VALUES ($1, $2, $3) RETURNING *`,
+      values: [user_id, title, body],
+    };
+
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERROR:>>>>", err));
   };
 
   return {
@@ -220,5 +239,6 @@ module.exports = (db) => {
     addBook,
     getWishlist,
     getPosts,
+    addPost,
   };
 };

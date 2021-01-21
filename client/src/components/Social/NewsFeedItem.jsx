@@ -15,9 +15,7 @@ export default function NewsFeedItem(props) {
             </footer>
           </blockquote>
         </Card.Body>
-        <Card.Footer className="text-muted">
-          {props.item.timestamp.slice(0, 10)}
-        </Card.Footer>
+        <Card.Footer className="text-muted">{props.item.timestamp}</Card.Footer>
       </Card>
     </section>
   );
