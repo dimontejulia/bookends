@@ -17,6 +17,7 @@ import ClubsIndex from "./components/Club/Index";
 import Register from "./components/Register";
 import BookDetails from "./components/Book/Index";
 import SearchIndex from "./components/Search/SearchIndex";
+import { faUserLock } from "@fortawesome/free-solid-svg-icons";
 //============================================
 function App() {
   const [user, setUser] = useState({ id: 1 });
@@ -199,7 +200,7 @@ function App() {
       .catch((err) => console.log(err));
   };
 
-  const newBook = function (bookData) {
+  const newBook = (bookData) => {
     //New Appointment
     // const appointment = {
     //   ...state.appointments[id],
@@ -218,13 +219,19 @@ function App() {
       [bookData.id]: newBook
     }
     console.log("((((((((", newBook, newState, bookData)
+
+    //This should be in the THEN of axios but getting 500 error cause Ukn
+    // debug later...
+    setUserBooks(newState)
+
     axios
       .post(`/api/users/${user.id}/books`, newBook)
       .then((res) => {
+
+        console.log("Book added to shelf!");
         // Need Saved MSg ELSE Error Message
         //Update state w. latest copy
-        setUserBooks(newState)
-        console.log("Book added to shelf!");
+
       })
       .catch((err) => console.log(err));
 

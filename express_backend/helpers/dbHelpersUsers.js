@@ -133,6 +133,7 @@ module.exports = (db) => {
 
 
   const addBookToUser = (userId, usersNewBook) => {
+    console.log(">>>>1")
     const { id, title, author, subject } = usersNewBook;
     const bookCheckQuery = {
       text: `SELECT count(*) FROM books WHERE id = $1`,
@@ -157,11 +158,12 @@ module.exports = (db) => {
     // if it is in user_books table send message back to userstating that the book is already
     // on specific users shelf
     // if book is not in books table or users_books table add book to books table and user_books table
-
-    Promise.all([
-      db.query(bookCheckQuery),
-      db.query(userBookCheckQuery)
-    ])
+    console.log(">>>>2")
+    Promise.all(
+      [
+        db.query(bookCheckQuery),
+        db.query(userBookCheckQuery)
+      ])
       .then(([bookInDbCheck, userHasBookCheck]) => {
         const bookCheck = Number(bookInDbCheck.rows[0].count);
         const userBookCheck = Number(userHasBookCheck.rows[0].count);
@@ -181,7 +183,6 @@ module.exports = (db) => {
       })
       .catch((err) => console.log("LAST DBERROR:>>>>", err));
   };
-
 
   const addToUsersBooks = (userId, userBooks) => {
     const { id } = userBooks;
