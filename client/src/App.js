@@ -24,7 +24,7 @@ function App() {
   // const [search, setSearch] = useState("");
   const [friends, setFriends] = useState([]);
   const [wishlist, setWishlist] = useState([]);
-  const [news, setNews] = useState("");
+  const [news, setNews] = useState([]);
   const [userData, setUserData] = useState({});
   const [club, setClub] = useState([]);
   const [clubAdmin, setClubAdmin] = useState("");
@@ -56,23 +56,26 @@ function App() {
 
     // GET WISHLIST
     axios.get(`/api/users/${user.id}/wishlist`).then((res) => {
-      console.log("wishlist", res.data);
       setWishlist(res.data);
     });
 
+    //GET USERS CLUBS
     axios
       .get(`/api/users/${user.id}/clubs`)
       .then((res) => {
-        console.log("RES CLUBS >>>>>>>> ", res.data);
         // [ {},{}]
         setClub(res.data);
       })
       .catch((e) => console.log(e));
 
-    //add first name & last name to user id as an object
-    setFriends(["uid100", "uid200"]);
-    //id, post
-    setNews(["News 1", "News 2"]);
+    // GET POSTS
+    axios
+      .get(`/api/users/${user.id}/posts`)
+      .then((res) => {
+        setNews(res.data);
+      })
+      .catch((e) => console.log(e));
+
     //userBookData
 
     // setUserData({
@@ -276,6 +279,8 @@ function App() {
                 clubs={club}
                 setClub={setClub}
                 setCurrClub={setCurrClub}
+                news={news}
+                setNews={setNews}
               />{" "}
             </Route>
             <Route path="/shelf/">
