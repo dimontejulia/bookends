@@ -16,13 +16,17 @@ export default function UserActions(props) {
         Are you sure that you would like to <strong>delete</strong> this book?
         <br />
         <br />
-        <Button variant="light">Cancel</Button>
-        <Button
-          variant="danger"
-          onClick={() => props.deleteUserBook(props.currBookID)}
-        >
-          Delete
+        <Button variant="light" onClick={() => document.body.click()}>
+          Cancel
         </Button>
+        <Link to={`/shelf`}>
+          <Button
+            variant="danger"
+            onClick={() => props.deleteUserBook(props.currBookID)}
+          >
+            Delete
+          </Button>
+        </Link>
       </Popover.Content>
     </Popover>
   );
@@ -80,12 +84,12 @@ export default function UserActions(props) {
         />
       </span>
       {/* needs to rerender shelf list */}
-      {/* <Link to={`/shelf`}>
-        <Button onClick={() => props.deleteUserBook(props.currBookID)}>
-          Remove Book from Shelf
-        </Button>
-      </Link> */}
-      <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+      <OverlayTrigger
+        rootClose={true}
+        trigger="click"
+        placement="right"
+        overlay={popover}
+      >
         <Button variant="danger">Delete Book</Button>
       </OverlayTrigger>
     </div>
