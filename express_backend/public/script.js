@@ -1,7 +1,7 @@
-const socket = io("/video");
+const socket = io("/");
 const videoGrid = document.getElementById("video-grid");
 const myPeer = new Peer(undefined, {
-  host: "/video",
+  host: "/",
   port: "3001",
 });
 const myVideo = document.createElement("video");
@@ -16,6 +16,7 @@ navigator.mediaDevices
     addVideoStream(myVideo, stream);
 
     myPeer.on("call", (call) => {
+      console.log("call");
       call.answer(stream);
       const video = document.createElement("video");
       call.on("stream", (userVideoStream) => {

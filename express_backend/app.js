@@ -30,9 +30,9 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/users", usersRouter(dbHelpersUsers));
 app.use("/api/books", booksRouter(dbHelpersBooks));
 app.use("/api/clubs", clubsRouter(dbHelpersClubs));
-app.use("/", indexRouter(dbHelpersUsers));
+// app.use("/", indexRouter(dbHelpersUsers));
 
-app.get("/video", (req, res) => {
+app.get("/", (req, res) => {
   res.redirect(`/${uuidV4()}`);
 });
 app.get("/:room", (req, res) => {
