@@ -8,7 +8,13 @@ import Button from '../Button';
 import axios from 'axios';
 
 export default function Index(props) {
-  const { currBook, userBookData, setUserBookData, saveToDB } = props;
+  const {
+    currBook,
+    userBookData,
+    setUserBookData,
+    saveToDB,
+    deleteUserBook,
+  } = props;
 
   const bookData =
     userBookData &&
