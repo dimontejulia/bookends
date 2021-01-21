@@ -6,6 +6,17 @@ import CardColumns from 'react-bootstrap/CardColumns';
 export default function BookList(props) {
   const { books, setUserBooks, setCurrBook } = props;
   //books is object of objects (indv Books)
+  console.log('AAAAA', props);
+  const formatStatus = (inputStatus) => {
+    switch (inputStatus) {
+      case 'in_progress':
+        return 'Reading';
+
+      case 'finished':
+        return 'Read it';
+        break;
+    }
+  };
 
   const parsedList =
     books &&
@@ -14,6 +25,7 @@ export default function BookList(props) {
         title={book.title}
         author={book.author}
         bookID={book.id}
+        bookStatus={formatStatus(book.status)}
         setCurrBook={setCurrBook}
       />
     ));
