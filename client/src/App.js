@@ -199,16 +199,6 @@ function App() {
       .catch((err) => err);
   };
 
-  const deleteFutureBook = (bookId) => {
-    const userId = user.id;
-    axios
-      .delete(`/api/users/${userId}/wishlist/${bookId}`)
-      .then((res) => {
-        console.log("book removed from shelf!");
-      })
-      .catch((err) => err);
-  };
-
   const newBook = (bookData) => {
     //New Appointment
     // const appointment = {

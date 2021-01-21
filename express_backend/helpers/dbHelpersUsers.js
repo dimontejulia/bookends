@@ -1,4 +1,5 @@
 const { getSpecificBook } = require("./dataHelpers");
+const chalk = require("chalk");
 
 module.exports = (db) => {
   const getUsers = () => {
@@ -259,6 +260,38 @@ module.exports = (db) => {
       .catch((err) => console.log("DBERROR from users books:>>>>", err));
   };
 
+  const deleteBook = (bookId, userId) => {
+    const checkWishList = {
+      text: `SELECT count(*) FROM future_books WHERE book_id = $1 AND user_id = $2`,
+      values: [bookId, userId],
+    };
+
+    const checkUserShelf = {
+      text: `SELECT count(*) FROM users_books WHERE book_id = $1 AND user_id = $2`,
+      values: [bookId, userId],
+    };
+
+    Promise.all([db.query(checkWishList), db.query(checkUserShelf)])
+      .then(([checkWishList, checkUserShelf]) => {
+        const wishListCount = Number(checkWishList.rows[0].count);
+        const userShelfCount = Number(checkUserShelf.rows[0].count);
+        console.log(
+          "wishListCount ->",
+          wishListCount,
+          "userShelfCount ->",
+          userShelfCount
+        );
+        if (!userShelfCount && wishListCount) {
+          console.log(chalk.yellow("WishList Item Delete"));
+          deleteBookWishList(bookId, userId);
+        } else if (userShelfCount) {
+          console.log(chalk.yellow("UserShelf Item Delete"));
+          deleteBookUserShelf(bookId, userId);
+        }
+      })
+      .catch((err) => console.log("DELETE BOOK DB CATCH ->", err));
+  };
+
   const deleteBookUserShelf = (bookId, userId) => {
     const query = {
       text: `DELETE FROM users_books WHERE book_id = $1 AND user_id = $2`,
@@ -333,8 +366,7 @@ module.exports = (db) => {
     getUsersPosts,
     getOneUsersPosts,
     getFriends,
-    deleteBookUserShelf,
-    deleteBookWishList,
+    deleteBook,
     getWishlist,
     getPosts,
     addPost,
