@@ -26,8 +26,12 @@ const BooksList = ({ loading = false, books = [], count = 0, ...props }) => {
             setUserBooks={props.setUserBooks}
             currBook={props.currBook}
             setCurrBook={props.setCurrBook}
+<<<<<<< HEAD
             wishlist={props.wishlist}
             setWishlist={props.setWishlist}
+=======
+            newBook={props.newBook}
+>>>>>>> feature/bookNotes
           />
         ))}
       </div>

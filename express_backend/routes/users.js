@@ -12,10 +12,14 @@ module.exports = ({
   getWishlist,
   getPosts,
   addPost,
+  updateUsersBooks,
+  addBookToUser
 }) => {
+
   // users/:id/books
   router
     .get("/:id/books", (req, res) => {
+      //Join from user Books & User Books Data
       getUserBooks(req.params.id)
         .then((books) => {
           res.json(books);
@@ -23,20 +27,35 @@ module.exports = ({
         .catch((err) => res.json({ msg: err.message }));
     })
     .post("/:id/books", (req, res) => {
-      const { userBooks } = req.body;
-      const userBook = userBooks.slice(-1).pop();
-      addBook(req.params.id, userBook)
-        .then((users) => {
-          console.log("RX BOOKS ->>>>", books);
-          res.json(users);
+      console.log("POST>>>\n\n", req.body, "\n\n===================")
+      addBookToUser(req.params.id, req.body)
+        .then((book) => {
+          console.log("RX BOOKS ->>>>", book);
+          res.json(book);
         })
-        .catch((err) => res.json({ msg: err.message }));
+        .catch((err) => {
+          console.log("AAFKJDNFLKJHD");
+          res.json({ msg: err.message });
+        });
     })
     .delete("/:userId/books/:bookId", (req, res) => {
       const { userId, bookId } = req.params;
       deleteBook(bookId, userId)
         .then((book) => {
           res.json(book);
+        })
+        .catch((err) => res.json({ msg: err.message }));
+    });
+
+  //users/:userId/books/:bookId
+  router
+    .put("/:id/books/:bookId", (req, res) => {
+      const userId = req.params.id;
+      const bookId = req.params.bookId;
+      const bookData = req.body;
+      updateUsersBooks(userId, bookId, bookData)
+        .then((res) => {
+          res.json("Success");
         })
         .catch((err) => res.json({ msg: err.message }));
     });

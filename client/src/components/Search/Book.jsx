@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import MoreInfo from "./MoreInfo";
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import MoreInfo from './MoreInfo';
 
 const Book = ({ book, ...props }) => {
   const {
@@ -14,17 +14,25 @@ const Book = ({ book, ...props }) => {
     first_publish_year,
     cover_edition_key,
   } = book;
+
+  const buttonBook = {
+    id: cover_edition_key,
+    title,
+    author: author_name,
+    description: book.description,
+  };
+
   const { currBook, setCurrBook } = props;
   const [modalShow, setModalShow] = useState(false);
 
-  const clickShelf = (e) => {
-    e.preventDefault();
-    const bookKey = key.split("/works/")[1];
-    props.setUserBooks((prevState) => [
-      ...prevState,
-      { id: cover_edition_key, title: title, author: author_name },
-    ]);
-  };
+  // const clickShelf = (e) => {
+  //   e.preventDefault();
+  //   const bookKey = key.split("/works/")[1];
+  //   props.setUserBooks((prevState) => [
+  //     ...prevState,
+  //     { id: cover_edition_key, title: title, author: author_name },
+  //   ]);
+  // };
 
   const clickWishlist = (e) => {
     e.preventDefault();
@@ -32,23 +40,36 @@ const Book = ({ book, ...props }) => {
       ...prevState,
       { id: cover_edition_key, title: title, author: author_name },
     ]);
+    const bookKey = key.split('/works/')[1];
+    props.setUserBooks((prevState) => ({
+      ...prevState,
+      [cover_edition_key]: {
+        id: cover_edition_key,
+        title: title,
+        author: author_name,
+      },
+    }));
+  };
+
+  const handleClick = (input) => {
+    props.newBook(input);
   };
 
   return (
-    <Card style={{ width: "20rem" }}>
+    <Card style={{ width: '20rem' }}>
       <Card.Img
-        variant="top"
+        variant='top'
         src={`http://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg`}
       />
       <Card.Body>
         <Card.Title>{title}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">{author_name}</Card.Subtitle>
+        <Card.Subtitle className='mb-2 text-muted'>{author_name}</Card.Subtitle>
 
-        <Button onClick={clickShelf}>Add to shelf</Button>
+        <Button onClick={() => handleClick(buttonBook)}>Add to shelf</Button>
         <Button onClick={clickWishlist}>Add to wishlist</Button>
 
         <Button
-          variant="primary"
+          variant='primary'
           onClick={() => {
             setCurrBook({ id: book.text[0] });
             setModalShow(true);
