@@ -14,6 +14,15 @@ export default function UserActions(props) {
       <Popover.Title as="h3">Confirmation</Popover.Title>
       <Popover.Content>
         Are you sure that you would like to <strong>delete</strong> this book?
+        <br />
+        <br />
+        <Button variant="light">Cancel</Button>
+        <Button
+          variant="danger"
+          onClick={() => props.deleteUserBook(props.currBookID)}
+        >
+          Delete
+        </Button>
       </Popover.Content>
     </Popover>
   );
