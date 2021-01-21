@@ -35,27 +35,20 @@ function App() {
 
   const initialize = () => {
     //Need PROMISE.ALL for the initial request...
-<<<<<<< HEAD
     Promise.all([
       axios.get(`/api/books/category/movie`),
       axios.get(`/api/books/category/awardWinning`),
       axios.get(`/api/books/category/biography`),
-      axios.get(`/api/books/category/dystopian`)
+      axios.get(`/api/books/category/dystopian`),
     ]).then(([movie, awardWinning, bios, dystopian]) => {
       setCBooks({
-        movies: { books: movie.data, catTitle: 'It Was a Book First...' },
-        awardWinning: { books: awardWinning.data, catTitle: 'Award Winning' },
-        bios: { books: bios.data, catTitle: 'Biographies' },
-        dystopian: { books: dystopian.data, catTitle: 'Dystopian' },
-      })
+        movies: { books: movie.data, catTitle: "It Was a Book First..." },
+        awardWinning: { books: awardWinning.data, catTitle: "Award Winning" },
+        bios: { books: bios.data, catTitle: "Biographies" },
+        dystopian: { books: dystopian.data, catTitle: "Dystopian" },
+      });
     });
 
-=======
-    //Carousel 1
-    axios.get(`/api/books/category/movie`).then((res) => {
-      setCBooks(res.data);
-    });
->>>>>>> features/del-wishlist-item
     //GET FRIENDS
     axios.get(`/api/users/${user.id}/friends`).then((res) => {
       setFriends(res.data);
@@ -217,7 +210,6 @@ function App() {
   };
 
   const newBook = (bookData) => {
-
     const newBook = {
       id: bookData.id,
       title: bookData.title,

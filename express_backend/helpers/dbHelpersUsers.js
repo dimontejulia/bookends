@@ -323,7 +323,7 @@ module.exports = (db) => {
         FROM newsfeed_posts
         JOIN users usersTable ON newsfeed_posts.user_id = usersTable.id
         WHERE usersTable.id = $1
-        ORDER BY timestamp asc
+        ORDER BY timestamp desc
       `,
       values: [userId],
     };
@@ -338,14 +338,12 @@ module.exports = (db) => {
       .catch((err) => console.log("DBERROR from users books:>>>>", err));
   };
 
-  const addPost = (userId, post) => {
-    console.log("in add post");
-    const { title, body } = post;
-    console.log("post details", post);
+  const addPost = (post) => {
+    const { user_id, title, body, timestamp } = post;
 
     const query = {
-      text: `INSERT INTO newsfeed_posts (user_id, title, body) VALUES ($1, $2, $3) RETURNING *`,
-      values: [userId, title, body],
+      text: `INSERT INTO newsfeed_posts (user_id, title, body, timestamp) VALUES ($1, $2, $3, $4) RETURNING *`,
+      values: [user_id, title, body, timestamp],
     };
 
     return db

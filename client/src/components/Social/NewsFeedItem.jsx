@@ -2,6 +2,8 @@ import React from "react";
 import Card from "react-bootstrap/Card";
 
 export default function NewsFeedItem(props) {
+  const date = props.item.timestamp.toLocaleString();
+  console.log("PROPS IN ITEM", props);
   return (
     <section>
       <Card className="text-center" style={{ width: "60%" }}>
@@ -11,11 +13,11 @@ export default function NewsFeedItem(props) {
           <blockquote className="blockquote mb-0">
             <p> {props.item.body} </p>
             <footer className="blockquote-footer">
-              Posted by: {props.item.id}
+              Posted by: {props.item.user_id || props.item.id}
             </footer>
           </blockquote>
         </Card.Body>
-        <Card.Footer className="text-muted">{props.item.timestamp}</Card.Footer>
+        <Card.Footer className="text-muted">{date}</Card.Footer>
       </Card>
     </section>
   );
