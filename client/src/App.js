@@ -302,6 +302,7 @@ function App() {
                     setUserBooks={setUserBooks}
                     currBook={currBook}
                     setCurrBook={setCurrBook}
+                    newBook={newBook}
                   />
                 );
               }}

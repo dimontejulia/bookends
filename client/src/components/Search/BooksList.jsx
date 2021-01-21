@@ -26,6 +26,7 @@ const BooksList = ({ loading = false, books = [], count = 0, ...props }) => {
             setUserBooks={props.setUserBooks}
             currBook={props.currBook}
             setCurrBook={props.setCurrBook}
+            newBook={props.newBook}
           />
         ))}
       </div>

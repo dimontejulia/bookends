@@ -6,17 +6,6 @@ import Book from './Search/Book';
 
 export default function Carousel(props) {
   const books = props.carouselBooks;
-  // newBook (Functions)
-  const handleAddToShelf = (input) => {
-    props.setUserBooks((prevState) => ({
-      ...prevState,
-      [input.id]: {
-        id: input.id,
-        title: input.title,
-        author: input.author,
-      },
-    }));
-  };
 
   const handleClick = (input) => {
     props.newBook(input);

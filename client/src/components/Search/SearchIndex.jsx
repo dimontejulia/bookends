@@ -46,6 +46,7 @@ const SearchIndex = (props) => {
         setUserBooks={props.setUserBooks}
         currBook={props.currBook}
         setCurrBook={props.setCurrBook}
+        newBook={props.newBook}
       />
     </Fragment>
   );

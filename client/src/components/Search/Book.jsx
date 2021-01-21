@@ -14,6 +14,14 @@ const Book = ({ book, ...props }) => {
     first_publish_year,
     cover_edition_key,
   } = book;
+
+  const buttonBook = {
+    id: cover_edition_key,
+    title,
+    author: author_name,
+    description: book.description,
+  };
+
   const { currBook, setCurrBook } = props;
   const [modalShow, setModalShow] = useState(false);
 
@@ -30,6 +38,10 @@ const Book = ({ book, ...props }) => {
     }));
   };
 
+  const handleClick = (input) => {
+    props.newBook(input);
+  };
+
   return (
     <Card style={{ width: '20rem' }}>
       <Card.Img
@@ -43,7 +55,7 @@ const Book = ({ book, ...props }) => {
           {author_name}
         </Card.Subtitle>
 
-        <Button onClick={handleSubmitClick}>Add to shelf</Button>
+        <Button onClick={() => handleClick(buttonBook)}>Add to shelf</Button>
         <Button
           variant='primary'
           onClick={() => {
