@@ -6,7 +6,18 @@ import { Link } from "react-router-dom";
 
 export default function UserActions(props) {
   const { userBookData, setUserBookData, currBookID } = props;
+
   let readDate = null;
+
+  const popover = (
+    <Popover id="popover-basic">
+      <Popover.Title as="h3">Confirmation</Popover.Title>
+      <Popover.Content>
+        Are you sure that you would like to <strong>delete</strong> this book?
+      </Popover.Content>
+    </Popover>
+  );
+
   const handleInput = (event) => {
     setUserBookData((prev) => ({
       ...prev,
@@ -20,14 +31,17 @@ export default function UserActions(props) {
       [currBookID]: { ...prev[currBookID], dateread: event.target.value },
     }));
   };
+
   const formatDate = (rawDate) => {
     if (rawDate) {
       return rawDate.slice(0, 10);
     }
   };
+
   if (userBookData) {
     readDate = formatDate(userBookData.dateread);
   }
+
   return (
     <div>
       <p>
