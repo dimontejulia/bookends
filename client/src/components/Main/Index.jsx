@@ -3,6 +3,7 @@ import Carousel from '../Carousel';
 
 export default function Index(props) {
   const { carouselBooks } = props;
+  console.log('AAAA', props);
   // Object of arrays (key is category)
 
   //Map out Object keys (Title of carousel)
@@ -11,8 +12,8 @@ export default function Index(props) {
     carouselBooks &&
     Object.keys(carouselBooks).map((category) => (
       <Carousel
-        carouselTitle={category}
-        carouselBooks={carouselBooks[category]}
+        carouselTitle={carouselBooks[category]['catTitle']}
+        carouselBooks={carouselBooks[category]['books']}
         setUserBooks={props.setUserBooks}
         newBook={props.newBook}
       />

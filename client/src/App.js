@@ -44,12 +44,11 @@ function App() {
       axios.get(`/api/books/category/biography`),
       axios.get(`/api/books/category/dystopian`)
     ]).then(([movie, awardWinning, bios, dystopian]) => {
-      console.log(movie)
       setCBooks({
-        movies: movie.data,
-        awardWinning: awardWinning.data,
-        bios: bios.data,
-        dystopian: dystopian.data
+        movies: { books: movie.data, catTitle: 'It Was a Book First...' },
+        awardWinning: { books: awardWinning.data, catTitle: 'Award Winning' },
+        bios: { books: bios.data, catTitle: 'Biographies' },
+        dystopian: { books: dystopian.data, catTitle: 'Dystopian' },
       })
     });
 
@@ -120,7 +119,7 @@ function App() {
     currClub,
   };
 
-  console.log(">>>>>>everyState", everyState);
+  console.log(">>>>>>everyState", cBooks);
 
   //==============Functions========
 
@@ -379,7 +378,6 @@ function App() {
 
             <Route path="/" exact>
               <MainPage
-                carouselTitle={"Trending Now"}
                 setUserBooks={setUserBooks}
                 carouselBooks={cBooks}
                 newBook={newBook}
