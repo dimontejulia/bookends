@@ -278,7 +278,7 @@ module.exports = (db) => {
         FROM newsfeed_posts
         JOIN users usersTable ON newsfeed_posts.user_id = usersTable.id
         WHERE usersTable.id = $1
-        ORDER BY timestamp asc
+        ORDER BY timestamp desc
       `,
       values: [userId],
     };

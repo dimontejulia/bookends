@@ -15,7 +15,7 @@ export default function NewsFeed(props) {
       ...prevState,
       user_id: userId,
       [id]: value,
-      timestamp: date.toLocaleString(),
+      timestamp: date,
     }));
   };
 
