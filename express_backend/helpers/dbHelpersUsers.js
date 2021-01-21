@@ -1,4 +1,5 @@
 const { getSpecificBook } = require("./dataHelpers");
+const chalk = require("chalk");
 
 module.exports = (db) => {
   const getUsers = () => {
@@ -131,7 +132,6 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-
   const addBookToUser = (userId, usersNewBook) => {
     console.log(">>>>1");
     const { id, title, author, subject } = usersNewBook;
@@ -159,15 +159,16 @@ module.exports = (db) => {
     // on specific users shelf
     // if book is not in books table or users_books table add book to books table and user_books table
     console.log(">>>>2");
-    Promise.all(
-      [
-        db.query(bookCheckQuery),
-        db.query(userBookCheckQuery)
-      ])
+    Promise.all([db.query(bookCheckQuery), db.query(userBookCheckQuery)])
       .then(([bookInDbCheck, userHasBookCheck]) => {
         const bookCheck = Number(bookInDbCheck.rows[0].count);
         const userBookCheck = Number(userHasBookCheck.rows[0].count);
-        console.log('bookCheck ->', bookCheck, 'userBookCheck ->', userBookCheck);
+        console.log(
+          "bookCheck ->",
+          bookCheck,
+          "userBookCheck ->",
+          userBookCheck
+        );
         if (userBookCheck) {
           console.log("Book Exists and is in shelf");
         } else if (!userBookCheck && bookCheck) {
@@ -175,9 +176,9 @@ module.exports = (db) => {
           addToUsersBooks(userId, usersNewBook);
         } else {
           return db
-            .query(addBookQuery)  //ADDS BOOK TO DB
+            .query(addBookQuery) //ADDS BOOK TO DB
             .then(() => {
-              addToUsersBooks(userId, usersNewBook);  // ADD BOOK TO USER SHELF
+              addToUsersBooks(userId, usersNewBook); // ADD BOOK TO USER SHELF
             });
         }
       })
@@ -260,8 +261,52 @@ module.exports = (db) => {
   };
 
   const deleteBook = (bookId, userId) => {
+    const checkWishList = {
+      text: `SELECT count(*) FROM future_books WHERE book_id = $1 AND user_id = $2`,
+      values: [bookId, userId],
+    };
+
+    const checkUserShelf = {
+      text: `SELECT count(*) FROM users_books WHERE book_id = $1 AND user_id = $2`,
+      values: [bookId, userId],
+    };
+
+    Promise.all([db.query(checkWishList), db.query(checkUserShelf)])
+      .then(([checkWishList, checkUserShelf]) => {
+        const wishListCount = Number(checkWishList.rows[0].count);
+        const userShelfCount = Number(checkUserShelf.rows[0].count);
+        console.log(
+          "wishListCount ->",
+          wishListCount,
+          "userShelfCount ->",
+          userShelfCount
+        );
+        if (!userShelfCount && wishListCount) {
+          console.log(chalk.yellow("WishList Item Delete"));
+          deleteBookWishList(bookId, userId);
+        } else if (userShelfCount) {
+          console.log(chalk.yellow("UserShelf Item Delete"));
+          deleteBookUserShelf(bookId, userId);
+        }
+      })
+      .catch((err) => console.log("DELETE BOOK DB CATCH ->", err));
+  };
+
+  const deleteBookUserShelf = (bookId, userId) => {
     const query = {
       text: `DELETE FROM users_books WHERE book_id = $1 AND user_id = $2`,
+      values: [bookId, userId],
+    };
+
+    return db
+      .query(query)
+      .then((result) => result.rows)
+      .catch((err) => err);
+  };
+
+  const deleteBookWishList = (bookId, userId) => {
+    const query = {
+      text: `DELETE FROM future_books WHERE book_id = $1 AND user_id = $2`,
       values: [bookId, userId],
     };
 
