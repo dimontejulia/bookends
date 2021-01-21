@@ -5,17 +5,20 @@ const { getPostsByUsers } = require("../helpers/dataHelpers");
 module.exports = ({
   getUsers,
   getUserBooks,
-  addBook,
   deleteBook,
   getFriends,
   getUserClubs,
+  getUserByEmail,
   getWishlist,
   getPosts,
   addPost,
   updateUsersBooks,
   addBookToUser,
+  addFriend,
+  checkFriend
 }) => {
-  // users/:id/books
+
+
   router
     .get("/:id/books", (req, res) => {
       //Join from user Books & User Books Data
@@ -66,8 +69,19 @@ module.exports = ({
         .catch((err) => res.json({ msg: err.message }));
     })
     .post("/:id/friends", (req, res) => {
-      getUsers()
-        .then((users) => res.json(users))
+      getUserByEmail(req.body)
+        .then((user) => {
+          console.log("..dddddddddddd", user)
+          //Duplicate Checking occurs on client side
+          if (user) {
+            addFriend(req.params.id, user.id)
+              .then((results) => {
+                console.log("Added", user.id, "\n", user);
+                res.json(user);
+              });
+          }
+          //Reply No such USer
+        })
         .catch((err) => res.json({ msg: err.message }));
     })
     .delete("/:id/friends", (req, res) => {
@@ -162,6 +176,8 @@ module.exports = ({
           .then((users) => res.json(users))
           .catch((err) => res.json({ msg: err.message }));
       });
+
+
 
     // users
     router.get("/", (req, res) => {

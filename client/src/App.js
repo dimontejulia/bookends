@@ -33,6 +33,16 @@ function App() {
   const [cBooks, setCBooks] = useState([]);
   const [currClub, setCurrClub] = useState({});
 
+  const convertArrayToObject = (array, key) => {
+    const initialValue = {};
+    return array.reduce((obj, item) => {
+      return {
+        ...obj,
+        [item[key]]: item,
+      };
+    }, initialValue);
+  };
+
   const initialize = () => {
     //Need PROMISE.ALL for the initial request...
     Promise.all([
@@ -55,15 +65,7 @@ function App() {
     });
     // GET BOOKS
     axios.get(`/api/users/${user.id}/books`).then((res) => {
-      const convertArrayToObject = (array, key) => {
-        const initialValue = {};
-        return array.reduce((obj, item) => {
-          return {
-            ...obj,
-            [item[key]]: item,
-          };
-        }, initialValue);
-      };
+
       const newObj = convertArrayToObject(res.data, "id");
       setUserBooks(newObj);
       // setUserBookData(res.data);
@@ -208,6 +210,20 @@ function App() {
       .catch((err) => err);
   };
 
+  const addFriend = (email) => {
+    //Check against friends
+    //Call DB to find user
+    console.log("************", email)
+    const dataToSend = { friendsEmail: email }
+    axios.post(`/api/users/${user.id}/friends`, dataToSend)
+      .then((res) => {
+        console.log("ADD FR RES", res.data)
+        //SUCCESS? RX friend Details > Build new Friend List
+        //FAIL? Error not found...
+
+      })
+  }
+
   const newBook = (bookData) => {
     const newBook = {
       id: bookData.id,
@@ -307,7 +323,7 @@ function App() {
                 user={user}
                 friends={friends}
                 news={news}
-                setFriends={setFriends}
+                addFriend={addFriend}
                 clubs={club}
                 setClub={setClub}
                 setCurrClub={setCurrClub}
