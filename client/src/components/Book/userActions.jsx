@@ -57,11 +57,14 @@ export default function UserActions(props) {
         />
       </span>
       {/* needs to rerender shelf list */}
-      <Link to={`/shelf`}>
+      {/* <Link to={`/shelf`}>
         <Button onClick={() => props.deleteUserBook(props.currBookID)}>
           Remove Book from Shelf
         </Button>
-      </Link>
+      </Link> */}
+      <OverlayTrigger trigger="click" placement="right" overlay={popover}>
+        <Button variant="danger">Delete Book</Button>
+      </OverlayTrigger>
     </div>
   );
 }
