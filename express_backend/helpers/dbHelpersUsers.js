@@ -319,14 +319,6 @@ module.exports = (db) => {
   const getPosts = (userId) => {
     const query = {
       text: `
-<<<<<<< HEAD
-      SELECT first_name AS firstName, last_name AS lastName, news.title ,news.body
-          FROM friends f
-          JOIN users u ON f.users_friend = u.id
-	        LEFT OUTER JOIN newsfeed_posts news ON f.users_friend = news.user_id
-          WHERE news.user_id = $1 OR f.user_id = $1
-	        GROUP BY news.title, first_name, last_name, body;
-=======
       SELECT u.id AS userId, first_name AS firstName, last_name AS lastName, news.title, news.body, news.timestamp
       FROM friends f
       JOIN users u ON f.users_friend = u.id
@@ -334,7 +326,6 @@ module.exports = (db) => {
       WHERE news.user_id = $1 OR f.user_id = $1
       GROUP BY news.title, first_name, last_name, body, u.id, news.id
       ORDER BY news.id desc;
->>>>>>> feature/newsfeed
       `,
       values: [userId],
     };

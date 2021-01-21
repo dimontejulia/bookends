@@ -35,7 +35,6 @@ function App() {
 
   const initialize = () => {
     //Need PROMISE.ALL for the initial request...
-<<<<<<< HEAD
     Promise.all([
       axios.get(`/api/books/category/movie`),
       axios.get(`/api/books/category/awardWinning`),
@@ -50,23 +49,12 @@ function App() {
       });
     });
 
-=======
-    //Carousel 1
-    axios.get(`/api/books/category/movie`).then((res) => {
-      setCBooks(res.data);
-    });
->>>>>>> feature/newsfeed
     //GET FRIENDS
     axios.get(`/api/users/${user.id}/friends`).then((res) => {
       setFriends(res.data);
     });
     // GET BOOKS
     axios.get(`/api/users/${user.id}/books`).then((res) => {
-<<<<<<< HEAD
-      console.log("RES FOR USER BOOKS", res.data);
-
-=======
->>>>>>> feature/newsfeed
       const convertArrayToObject = (array, key) => {
         const initialValue = {};
         return array.reduce((obj, item) => {
