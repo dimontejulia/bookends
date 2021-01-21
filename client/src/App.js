@@ -38,7 +38,25 @@ function App() {
   const initialize = () => {
     //Need PROMISE.ALL for the initial request...
     //Carousel 1
-    axios.get(`/api/books/category/movie`).then((res) => { setCBooks(res.data); });
+    Promise.all([
+      axios.get(`/api/books/category/movie`),
+      axios.get(`/api/books/category/awardWinning`),
+      axios.get(`/api/books/category/biography`),
+      axios.get(`/api/books/category/dystopian`)
+    ]).then(([movie, awardWinning, bios, dystopian]) => {
+      setCBooks({
+        movies: { books: movie.data, catTitle: 'It Was a Book First...' },
+        awardWinning: { books: awardWinning.data, catTitle: 'Award Winning' },
+        bios: { books: bios.data, catTitle: 'Biographies' },
+        dystopian: { books: dystopian.data, catTitle: 'Dystopian' },
+      })
+    });
+
+
+    // axios.get(`/api/books/category/movie`).then((res) => { setCBooks(res.data); });
+    // axios.get(`/api/books/category/awardWinning`).then((res) => { setCBooks(res.data); });
+    // axios.get(`/api/books/category/biography`).then((res) => { setCBooks(res.data); });
+    // axios.get(`/api/books/category/dystopian`).then((res) => { setCBooks(res.data); });
     //GET FRIENDS
     axios.get(`/api/users/${user.id}/friends`).then((res) => { setFriends(res.data); });
     // GET BOOKS
@@ -101,7 +119,7 @@ function App() {
     currClub,
   };
 
-  console.log(">>>>>>everyState", everyState);
+  console.log(">>>>>>everyState", cBooks);
 
   //==============Functions========
 
@@ -360,7 +378,6 @@ function App() {
 
             <Route path="/" exact>
               <MainPage
-                carouselTitle={"Trending Now"}
                 setUserBooks={setUserBooks}
                 carouselBooks={cBooks}
                 newBook={newBook}
