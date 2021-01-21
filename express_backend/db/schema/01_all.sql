@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS future_books CASCADE;
 DROP TABLE IF EXISTS book_club CASCADE;
 DROP TABLE IF EXISTS books CASCADE;
 DROP TABLE IF EXISTS home_page_books CASCADE;
+DROP TABLE IF EXISTS newsfeed_posts CASCADE;
 
 
 CREATE TABLE users (
@@ -77,5 +78,5 @@ CREATE TABLE newsfeed_posts (
   "user_id" INTEGER REFERENCES users(id) ON DELETE CASCADE,
   "title" VARCHAR(255), 
   "body" TEXT NOT NULL,
-  "timestamp" DATE NOT NULL DEFAULT NOW()
+  "timestamp" VARCHAR(255) NOT NULL
 );

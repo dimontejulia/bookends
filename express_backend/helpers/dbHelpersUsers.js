@@ -294,11 +294,11 @@ module.exports = (db) => {
   };
 
   const addPost = (post) => {
-    const { user_id, title, body } = post;
+    const { user_id, title, body, timestamp } = post;
 
     const query = {
-      text: `INSERT INTO newsfeed_posts (user_id, title, body) VALUES ($1, $2, $3) RETURNING *`,
-      values: [user_id, title, body],
+      text: `INSERT INTO newsfeed_posts (user_id, title, body, timestamp) VALUES ($1, $2, $3, $4) RETURNING *`,
+      values: [user_id, title, body, timestamp],
     };
 
     return db

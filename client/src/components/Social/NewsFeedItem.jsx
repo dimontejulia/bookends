@@ -13,7 +13,7 @@ export default function NewsFeedItem(props) {
           <blockquote className="blockquote mb-0">
             <p> {props.item.body} </p>
             <footer className="blockquote-footer">
-              Posted by: {props.item.user_id}
+              Posted by: {props.item.user_id || props.item.id}
             </footer>
           </blockquote>
         </Card.Body>

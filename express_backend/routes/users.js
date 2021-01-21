@@ -121,7 +121,6 @@ module.exports = ({
         .catch((err) => res.json({ msg: err.message }));
     })
     .post("/:id/posts", (req, res) => {
-      console.log("req.body", req.body);
       addPost(req.body)
         .then((posts) => res.json(posts))
         .catch((err) => res.json({ msg: err.message }));
