@@ -298,7 +298,7 @@ module.exports = (db) => {
 
     const query = {
       text: `INSERT INTO newsfeed_posts (user_id, title, body) VALUES ($1, $2, $3) RETURNING *`,
-      values: [userId, title, body],
+      values: [user_id, title, body],
     };
 
     return db
