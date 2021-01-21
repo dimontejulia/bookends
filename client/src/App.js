@@ -33,18 +33,19 @@ function App() {
   const [cBooks, setCBooks] = useState([]);
   const [currClub, setCurrClub] = useState({});
 
-
-
   const initialize = () => {
     //Need PROMISE.ALL for the initial request...
     //Carousel 1
-    axios.get(`/api/books/category/movie`).then((res) => { setCBooks(res.data); });
+    axios.get(`/api/books/category/movie`).then((res) => {
+      setCBooks(res.data);
+    });
     //GET FRIENDS
-    axios.get(`/api/users/${user.id}/friends`).then((res) => { setFriends(res.data); });
+    axios.get(`/api/users/${user.id}/friends`).then((res) => {
+      setFriends(res.data);
+    });
     // GET BOOKS
     axios.get(`/api/users/${user.id}/books`).then((res) => {
-      console.log("RES FOR USER BOOKS", res.data)
-
+      console.log("RES FOR USER BOOKS", res.data);
 
       const convertArrayToObject = (array, key) => {
         const initialValue = {};
@@ -55,7 +56,7 @@ function App() {
           };
         }, initialValue);
       };
-      const newObj = convertArrayToObject(res.data, 'id')
+      const newObj = convertArrayToObject(res.data, "id");
       setUserBooks(newObj);
       // setUserBookData(res.data);
     });
@@ -78,6 +79,7 @@ function App() {
     axios
       .get(`/api/users/${user.id}/posts`)
       .then((res) => {
+        console.log("RES DATA", res.data);
         setNews(res.data);
       })
       .catch((e) => console.log(e));
@@ -165,7 +167,7 @@ function App() {
   };
 
   const updateUserBooks = (bookData) => {
-    console.log("Top func", bookData)
+    console.log("Top func", bookData);
     //Build Book Object
     const newUserBooks = {
       ...userBooks,
@@ -174,8 +176,8 @@ function App() {
         title: bookData.title,
         author: bookData.author,
         subject: bookData.subject,
-      }
-    }
+      },
+    };
     setUserBooks(newUserBooks);
     //Send to DB
     axios
@@ -184,7 +186,6 @@ function App() {
         // Need Saved MSg ELSE Error Message
         console.log("Book added to shelf!");
         //Update state w. latest copy
-
       })
       .catch((err) => console.log(err));
   };
@@ -210,40 +211,37 @@ function App() {
       id: bookData.id,
       title: bookData.title,
       author: bookData.author,
-      subject: bookData.subject
-    }
+      subject: bookData.subject,
+    };
 
     const newState = {
       ...userBooks,
-      [bookData.id]: newBook
-    }
-    console.log("((((((((", newBook, newState, bookData)
+      [bookData.id]: newBook,
+    };
+    console.log("((((((((", newBook, newState, bookData);
 
     //This should be in the THEN of axios but getting 500 error cause Ukn
     // debug later...
-    setUserBooks(newState)
+    setUserBooks(newState);
 
     axios
       .post(`/api/users/${user.id}/books`, newBook)
       .then((res) => {
-
         console.log("Book added to shelf!");
         // Need Saved MSg ELSE Error Message
         //Update state w. latest copy
-
       })
       .catch((err) => console.log(err));
-
-  }
+  };
 
   const saveBookDataToDB = () => {
-    const dataToSend = userBooks[currBook.id]
+    const dataToSend = userBooks[currBook.id];
     axios
       .put(`/api/users/${user.id}/books/${currBook.id}`, dataToSend)
       .then((res) => {
         console.log(`Book ${currBook.id} Data Updated`);
       })
-      .catch((err) => console.log('Book Index, Save ERROR:', err));
+      .catch((err) => console.log("Book Index, Save ERROR:", err));
   };
 
   //==============Watchers that update state =================================
@@ -317,7 +315,11 @@ function App() {
             </Route>
             <Route path="/shelf/">
               {" "}
-              <UserShelf books={userBooks} setBooks={setUserBooks} setCurrBook={setCurrBook} />
+              <UserShelf
+                books={userBooks}
+                setBooks={setUserBooks}
+                setCurrBook={setCurrBook}
+              />
             </Route>
             <Route path="/wishlist/">
               {" "}
@@ -332,11 +334,20 @@ function App() {
               //Route is not fully setup
               render={(props) => {
                 // Strips the id from the full url
-                const paramBookId = props.location.pathname.replace("/book/", "");
+                const paramBookId = props.location.pathname.replace(
+                  "/book/",
+                  ""
+                );
                 console.log("PARAM", paramBookId);
                 // setCurrBook(paramBookId)
                 return (
-                  <BookDetails currBook={currBook} userBookData={userBooks} setUserBookData={setUserBooks} saveToDB={saveBookDataToDB} deleteUserBook={deleteUserBook} />
+                  <BookDetails
+                    currBook={currBook}
+                    userBookData={userBooks}
+                    setUserBookData={setUserBooks}
+                    saveToDB={saveBookDataToDB}
+                    deleteUserBook={deleteUserBook}
+                  />
                 );
               }}
             />
@@ -369,7 +380,7 @@ function App() {
           </Switch>
         </main>
       </div>
-    </Router >
+    </Router>
   );
 }
 
