@@ -33,12 +33,12 @@ export default function Index(props) {
         currBookID={currBook.id}
         userBookData={bookData}
         setUserBookData={setUserBookData}
+        deleteUserBook={deleteUserBook}
       />
       <UserNotes
         currBookID={currBook.id}
         comments={bookData ? bookData.comments : null}
         setUserBookData={setUserBookData}
-        deleteUserBook={deleteUserBook}
       />
       {/* SAVE BUTTON WILL HAVE TO TRIGGER A SAVE TO DB HOOK */}
       <Button onClick={saveToDB}>Save</Button>

@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../Button';
+import { Link } from 'react-router-dom';
 
 export default function UserActions(props) {
   const { userBookData, setUserBookData, currBookID } = props;
@@ -53,6 +54,12 @@ export default function UserActions(props) {
           value={userBookData ? readDate : null}
         />
       </span>
+      {/* needs to rerender shelf list */}
+      <Link to={`/shelf`}>
+        <Button onClick={() => props.deleteUserBook(props.currBookID)}>
+          Remove Book from Shelf
+        </Button>
+      </Link>
     </div>
   );
 }
