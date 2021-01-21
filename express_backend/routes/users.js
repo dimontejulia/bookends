@@ -13,9 +13,8 @@ module.exports = ({
   getPosts,
   addPost,
   updateUsersBooks,
-  addBookToUser
+  addBookToUser,
 }) => {
-
   // users/:id/books
   router
     .get("/:id/books", (req, res) => {
@@ -27,7 +26,7 @@ module.exports = ({
         .catch((err) => res.json({ msg: err.message }));
     })
     .post("/:id/books", (req, res) => {
-      console.log("POST>>>\n\n", req.body, "\n\n===================")
+      console.log("POST>>>\n\n", req.body, "\n\n===================");
       addBookToUser(req.params.id, req.body)
         .then((book) => {
           console.log("RX BOOKS ->>>>", book);
@@ -48,17 +47,16 @@ module.exports = ({
     });
 
   //users/:userId/books/:bookId
-  router
-    .put("/:id/books/:bookId", (req, res) => {
-      const userId = req.params.id;
-      const bookId = req.params.bookId;
-      const bookData = req.body;
-      updateUsersBooks(userId, bookId, bookData)
-        .then((res) => {
-          res.json("Success");
-        })
-        .catch((err) => res.json({ msg: err.message }));
-    });
+  router.put("/:id/books/:bookId", (req, res) => {
+    const userId = req.params.id;
+    const bookId = req.params.bookId;
+    const bookData = req.body;
+    updateUsersBooks(userId, bookId, bookData)
+      .then((res) => {
+        res.json("Success");
+      })
+      .catch((err) => res.json({ msg: err.message }));
+  });
 
   // api/users/:id/friends
   router
@@ -124,7 +122,7 @@ module.exports = ({
     })
     .post("/:id/posts", (req, res) => {
       console.log("req.body", req.body);
-      addPost(req.params.id, req.body)
+      addPost(req.body)
         .then((posts) => res.json(posts))
         .catch((err) => res.json({ msg: err.message }));
     })

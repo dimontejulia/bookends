@@ -7,17 +7,21 @@ export default function NewsFeed(props) {
   const [post, setPost] = useState([]);
   const userId = props.userId;
 
+  const date = new Date();
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setPost((prevState) => ({
       ...prevState,
+      user_id: userId,
       [id]: value,
     }));
   };
 
+  console.log("post", post);
+
   const handleSubmitClick = (e) => {
     e.preventDefault();
-    console.log("post", post);
     axios
       .post(`/api/users/${userId}/posts`, post)
       .then(props.setNews((prevState) => [...prevState, post]))
