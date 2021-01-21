@@ -212,8 +212,11 @@ function App() {
 
   const addFriend = (email) => {
     //Check against friends
-    //Call DB to find user
-    console.log("************", email)
+    const friendExists = friends.some((friend) => friend.email === email)
+    if (friendExists) {
+      console.log("FRIEND EXIST");
+      return "Friend Exists";
+    }
     const dataToSend = { friendsEmail: email }
     axios.post(`/api/users/${user.id}/friends`, dataToSend)
       .then((res) => {
@@ -222,6 +225,7 @@ function App() {
         //FAIL? Error not found...
 
       })
+    //
   }
 
   const newBook = (bookData) => {
