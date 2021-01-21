@@ -38,7 +38,26 @@ function App() {
   const initialize = () => {
     //Need PROMISE.ALL for the initial request...
     //Carousel 1
-    axios.get(`/api/books/category/movie`).then((res) => { setCBooks(res.data); });
+    Promise.all([
+      axios.get(`/api/books/category/movie`),
+      axios.get(`/api/books/category/awardWinning`),
+      axios.get(`/api/books/category/biography`),
+      axios.get(`/api/books/category/dystopian`)
+    ]).then(([movie, awardWinning, bios, dystopian]) => {
+      console.log(movie)
+      setCBooks({
+        movies: movie.data,
+        awardWinning: awardWinning.data,
+        bios: bios.data,
+        dystopian: dystopian.data
+      })
+    });
+
+
+    // axios.get(`/api/books/category/movie`).then((res) => { setCBooks(res.data); });
+    // axios.get(`/api/books/category/awardWinning`).then((res) => { setCBooks(res.data); });
+    // axios.get(`/api/books/category/biography`).then((res) => { setCBooks(res.data); });
+    // axios.get(`/api/books/category/dystopian`).then((res) => { setCBooks(res.data); });
     //GET FRIENDS
     axios.get(`/api/users/${user.id}/friends`).then((res) => { setFriends(res.data); });
     // GET BOOKS
