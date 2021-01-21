@@ -134,48 +134,54 @@ module.exports = (db) => {
 
   const addBookToUser = (userId, usersNewBook) => {
     const { id, title, author, subject } = usersNewBook;
+    const bookCheckQuery = {
+      text: `SELECT count(*) FROM books WHERE id = $1`,
+      values: [id],
+    };
+
+    const userBookCheckQuery = {
+      text: `SELECT count(*) FROM users_books WHERE book_id = $1`,
+      values: [id],
+    };
+
     const addBookQuery = {
       text: `INSERT INTO books (id, title, author, subject) VALUES ($1, $2, $3, $4) RETURNING *`,
       values: [id, title, author[0], subject],
     };
-    console.log("!!addBookToUser", userId, usersNewBook);
-    return db
-      .query(addBookQuery)
-      .then((result) => {
-        return result.rows;
-      })
-      .then(() => {
-        //If AddBook Query Passes
-        addToUsersBooks(userId, usersNewBook);
-      })
-      .catch(() => {
-        //If AddBook Query Fails (Already Exists in DB)
-        addToUsersBooks(userId, usersNewBook);
+
+    // console.log("!!addBookToUser", userId, usersNewBook);
+
+    // check if book user adds is in books table,
+    // if it is in books table, check if book is in user_books table,
+    // if it is not in user_books table add book to user's shelf
+    // if it is in user_books table send message back to userstating that the book is already
+    // on specific users shelf
+    // if book is not in books table or users_books table add book to books table and user_books table
+
+    Promise.all([
+      db.query(bookCheckQuery),
+      db.query(userBookCheckQuery)
+    ])
+      .then(([bookInDbCheck, userHasBookCheck]) => {
+        const bookCheck = Number(bookInDbCheck.rows[0].count);
+        const userBookCheck = Number(userHasBookCheck.rows[0].count);
+        console.log('bookCheck ->', bookCheck, 'userBookCheck ->', userBookCheck);
+        if (userBookCheck) {
+          console.log("Book Exists and is in shelf");
+        } else if (!userBookCheck && bookCheck) {
+          console.log("Book Exists > NOT in shelf");
+          addToUsersBooks(userId, usersNewBook);
+        } else {
+          return db
+            .query(addBookQuery)  //ADDS BOOK TO DB
+            .then(() => {
+              addToUsersBooks(userId, usersNewBook);  // ADD BOOK TO USER SHELF
+            });
+        }
       })
       .catch((err) => console.log("LAST DBERROR:>>>>", err));
   };
 
-
-  const addBook = (userId, userBooks) => {
-    const { id, title, author, subject } = userBooks;
-
-    const query = {
-      text: `INSERT INTO books (id, title, author, subject) VALUES ($1, $2, $3, $4) RETURNING *`,
-      values: [id, title, author[0], subject],
-    };
-    console.log("Start of DB", userId, userBooks);
-    return db
-      .query(query)
-      .then((result) => {
-        console.log("added to DB");
-        return result.rows;
-      })
-      .then(() => {
-        console.log("2nd Query");
-        addToUsersBooks(userId, userBooks);
-      })
-      .catch((err) => console.log("DBERROR:>>>>", err));
-  };
 
   const addToUsersBooks = (userId, userBooks) => {
     const { id } = userBooks;
@@ -184,7 +190,7 @@ module.exports = (db) => {
       text: `INSERT INTO users_books (user_id, book_id) VALUES ($1, $2) RETURNING *`,
       values: [userId, id],
     };
-
+    console.log("Add to USER BOOKS Q", query);
     return db
       .query(query)
       .then((result) => {
@@ -226,7 +232,6 @@ module.exports = (db) => {
     getUsersPosts,
     getOneUsersPosts,
     getFriends,
-    addBook,
     getClubDetails,
     updateUsersBooks,
     addBookToUser,
