@@ -77,6 +77,5 @@ CREATE TABLE newsfeed_posts (
   "id" SERIAL PRIMARY KEY NOT NULL,
   "user_id" INTEGER REFERENCES users(id) ON DELETE CASCADE,
   "title" VARCHAR(255), 
-  "body" TEXT NOT NULL,
-  "timestamp" timestamp NOT NULL
+  "body" TEXT NOT NULL
 );

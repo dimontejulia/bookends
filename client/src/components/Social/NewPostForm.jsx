@@ -15,7 +15,7 @@ export default function NewsFeed(props) {
       ...prevState,
       user_id: userId,
       [id]: value,
-      timestamp: date,
+      timestamp: date.toLocaleString(),
     }));
   };
 
@@ -25,7 +25,7 @@ export default function NewsFeed(props) {
     e.preventDefault();
     axios
       .post(`/api/users/${userId}/posts`, post)
-      .then(props.setNews((prevState) => [...prevState, post]))
+      .then(props.setNews((prevState) => [post, ...prevState]))
       .catch((err) => console.log("errorroroor", err));
   };
 

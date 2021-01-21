@@ -274,12 +274,13 @@ module.exports = (db) => {
   const getPosts = (userId) => {
     const query = {
       text: `
-      SELECT   u.id AS userId, first_name AS firstName, last_name AS lastName, news.title, news.body
+      SELECT u.id AS userId, first_name AS firstName, last_name AS lastName, news.title, news.body
       FROM friends f
       JOIN users u ON f.users_friend = u.id
       FULL OUTER JOIN newsfeed_posts news ON f.users_friend = news.user_id
       WHERE news.user_id = $1 OR f.user_id = $1
-      GROUP BY news.title, first_name, last_name, body, u.id;
+      GROUP BY news.title, first_name, last_name, body, u.id, news.id
+      ORDER BY news.id desc;
       `,
       values: [userId],
     };
@@ -293,11 +294,11 @@ module.exports = (db) => {
   };
 
   const addPost = (post) => {
-    const { user_id, title, body, timestamp } = post;
+    const { user_id, title, body } = post;
 
     const query = {
-      text: `INSERT INTO newsfeed_posts (user_id, title, body, timestamp) VALUES ($1, $2, $3, $4) RETURNING *`,
-      values: [user_id, title, body, timestamp],
+      text: `INSERT INTO newsfeed_posts (user_id, title, body) VALUES ($1, $2, $3) RETURNING *`,
+      values: [user_id, title, body],
     };
 
     return db
