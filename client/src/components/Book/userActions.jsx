@@ -1,5 +1,7 @@
 import React from "react";
-import Button from "../Button";
+import Button from "react-bootstrap/Button";
+import Popover from "react-bootstrap/Popover";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { Link } from "react-router-dom";
 
 export default function UserActions(props) {
