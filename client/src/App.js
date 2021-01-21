@@ -206,7 +206,7 @@ function App() {
     //   interview: { ...interview }
     // };
 
-    const book = {
+    const newBook = {
       id: bookData.id,
       title: bookData.title,
       author: bookData.author,
@@ -215,26 +215,25 @@ function App() {
 
     const newState = {
       ...userBooks,
-      [bookData.id]: book
+      [bookData.id]: newBook
     }
-    console.log("((((((((", book, newState, bookData)
-    //NEW STATE Appts: Add New Appt to copy of State
-    // const appointments = {
-    //   ...state.appointments,
-    //   [id]: appointment
-    // };
-    // return axios.put((API.appointments + id), appointment)
-    //   .then((res) => {
-    //     setState({ ...state, appointments });
-    //   }).then(() => fetchUpdateSpots());
-    //Then carried on in index.js (Appointment Component) 
+    console.log("((((((((", newBook, newState, bookData)
+    axios
+      .post(`/api/users/${user.id}/books`, newBook)
+      .then((res) => {
+        // Need Saved MSg ELSE Error Message
+        //Update state w. latest copy
+        setUserBooks(newState)
+        console.log("Book added to shelf!");
+      })
+      .catch((err) => console.log(err));
 
   }
 
   const saveBookDataToDB = () => {
     const dataToSend = userBooks[currBook.id]
     axios
-      .post(`/api/users/${user.id}/books/${currBook.id}`, dataToSend)
+      .put(`/api/users/${user.id}/books/${currBook.id}`, dataToSend)
       .then((res) => {
         console.log(`Book ${currBook.id} Data Updated`);
       })

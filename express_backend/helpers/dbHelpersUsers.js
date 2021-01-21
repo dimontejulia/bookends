@@ -1,3 +1,5 @@
+const { getSpecificBook } = require("./dataHelpers");
+
 module.exports = (db) => {
   const getUsers = () => {
     const query = {
@@ -25,7 +27,6 @@ module.exports = (db) => {
   };
 
   const getUserBooks = (userID) => {
-    console.log("DB GetUSER BOOKS", userID)
     const query = {
       text: `
           SELECT book_id as id, date_read as dateRead, rating, comments, status, title, author, subject
@@ -39,7 +40,6 @@ module.exports = (db) => {
     return db
       .query(query)
       .then((result) => {
-        console.log("result.rows>>>>>>>", result.rows);
         return result.rows;
       })
       .catch((err) => err);
@@ -66,7 +66,6 @@ module.exports = (db) => {
     return db
       .query(query)
       .then((result) => {
-        console.log("Add user:", result);
         return result.rows;
       })
       .catch((err) => console.log("SQLError", err));
@@ -131,32 +130,61 @@ module.exports = (db) => {
       .then((result) => result.rows)
       .catch((err) => err);
   };
-  const addBook = (user_id, userBooks) => {
+
+
+  const addBookToUser = (userId, usersNewBook) => {
+    const { id, title, author, subject } = usersNewBook;
+    const addBookQuery = {
+      text: `INSERT INTO books (id, title, author, subject) VALUES ($1, $2, $3, $4) RETURNING *`,
+      values: [id, title, author[0], subject],
+    };
+    console.log("!!addBookToUser", userId, usersNewBook);
+    return db
+      .query(addBookQuery)
+      .then((result) => {
+        return result.rows;
+      })
+      .then(() => {
+        //If AddBook Query Passes
+        addToUsersBooks(userId, usersNewBook);
+      })
+      .catch(() => {
+        //If AddBook Query Fails (Already Exists in DB)
+        addToUsersBooks(userId, usersNewBook);
+      })
+      .catch((err) => console.log("LAST DBERROR:>>>>", err));
+  };
+
+
+  const addBook = (userId, userBooks) => {
     const { id, title, author, subject } = userBooks;
 
     const query = {
       text: `INSERT INTO books (id, title, author, subject) VALUES ($1, $2, $3, $4) RETURNING *`,
       values: [id, title, author[0], subject],
     };
-
+    console.log("Start of DB", userId, userBooks);
     return db
       .query(query)
       .then((result) => {
+        console.log("added to DB");
         return result.rows;
       })
-      .then((result) => addToUsersBooks(user_id, userBooks))
+      .then(() => {
+        console.log("2nd Query");
+        addToUsersBooks(userId, userBooks);
+      })
       .catch((err) => console.log("DBERROR:>>>>", err));
   };
 
-  const addToUsersBooks = (user_id, userBooks) => {
+  const addToUsersBooks = (userId, userBooks) => {
     const { id } = userBooks;
 
     const query = {
       text: `INSERT INTO users_books (user_id, book_id) VALUES ($1, $2) RETURNING *`,
-      values: [user_id, id],
+      values: [userId, id],
     };
 
-    console.log("ADD TO DB FUNCTION!!!!!");
     return db
       .query(query)
       .then((result) => {
@@ -165,7 +193,7 @@ module.exports = (db) => {
       .catch((err) => console.log("DBERROR from users books:>>>>", err));
   };
 
-  const UpdateUsersBooks = (userId, bookId, bookData) => {
+  const updateUsersBooks = (userId, bookId, bookData) => {
     const { id, dateread, rating, comments, status } = bookData;
 
     const query = {
@@ -200,6 +228,7 @@ module.exports = (db) => {
     getFriends,
     addBook,
     getClubDetails,
-    UpdateUsersBooks,
+    updateUsersBooks,
+    addBookToUser,
   };
 };

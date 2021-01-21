@@ -2,20 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { getPostsByUsers } = require("../helpers/dataHelpers");
 
-module.exports = ({ getUsers, getUserBooks, addBook, getFriends, UpdateUsersBooks }) => {
-  //users/:userId/books/:bookId
-  router
-    .post("/:id/books/:bookId", (req, res) => {
-      const userId = req.params.id;
-      const bookId = req.params.bookId;
-      const bookData = req.body;
-      UpdateUsersBooks(userId, bookId, bookData)
-        .then((ack) => {
-          res.json("Success");
-        })
-        .catch((err) => res.json({ msg: err.message }));
-    });
-
+module.exports = ({ getUsers, getUserBooks, addBook, getFriends, updateUsersBooks, addBookToUser }) => {
 
   // users/:id/books
   router
@@ -28,20 +15,36 @@ module.exports = ({ getUsers, getUserBooks, addBook, getFriends, UpdateUsersBook
         .catch((err) => res.json({ msg: err.message }));
     })
     .post("/:id/books", (req, res) => {
-      const { userBooks } = req.body;
-      const userBook = userBooks.slice(-1).pop();
-      console.log("userBook", userBook);
-      console.log("user", req.params.id);
-      addBook(req.params.id, userBook)
-        .then((users) => {
-          console.log("RX BOOKS ->>>>", books);
-          res.json(users);
+      // const Rx = {
+      //   id: bookData.id,
+      //   title: bookData.title,
+      //   author: bookData.author,
+      //   subject: bookData.subject
+      // }
+      console.log("POST>>>\n\n", req.body, "\n\n===================")
+      addBookToUser(req.params.id, req.body)
+        .then((book) => {
+          console.log("RX BOOKS ->>>>", book);
+          res.json(book);
         })
         .catch((err) => res.json({ msg: err.message }));
     })
     .delete("/:id/books", (req, res) => {
       getUsers()
         .then((users) => res.json(users))
+        .catch((err) => res.json({ msg: err.message }));
+    });
+
+  //users/:userId/books/:bookId
+  router
+    .put("/:id/books/:bookId", (req, res) => {
+      const userId = req.params.id;
+      const bookId = req.params.bookId;
+      const bookData = req.body;
+      updateUsersBooks(userId, bookId, bookData)
+        .then((res) => {
+          res.json("Success");
+        })
         .catch((err) => res.json({ msg: err.message }));
     });
 
