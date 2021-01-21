@@ -14,7 +14,6 @@ module.exports = ({
     .get("/:id", (req, res) => {
       getSpecificClub(req.params.id)
         .then((club) => {
-          console.log("ClubDetails fr Svr", club);
           res.json(club);
         })
         .catch((err) => res.json({ msg: err.message }));

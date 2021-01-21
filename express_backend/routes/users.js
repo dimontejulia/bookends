@@ -26,14 +26,11 @@ module.exports = ({
         .catch((err) => res.json({ msg: err.message }));
     })
     .post("/:id/books", (req, res) => {
-      console.log("POST>>>\n\n", req.body, "\n\n===================");
       addBookToUser(req.params.id, req.body)
         .then((book) => {
-          console.log("RX BOOKS ->>>>", book);
           res.json(book);
         })
         .catch((err) => {
-          console.log("AAFKJDNFLKJHD");
           res.json({ msg: err.message });
         });
     })

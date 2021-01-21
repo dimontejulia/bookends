@@ -20,9 +20,11 @@ export default function ClubList(props) {
 
   const parsedList =
     list &&
-    list.map((clubId) => (
-      <Link to={`/clubs/${clubId}`}>
-        <Button onClick={() => currentClub(clubId)}>Club {clubId}</Button>
+    list.map((club) => (
+      <Link to={`/clubs/${club.book_club_id}`}>
+        <Button onClick={() => currentClub(club.book_club_id)}>
+          {club.book_club_name}
+        </Button>
       </Link>
     ));
 

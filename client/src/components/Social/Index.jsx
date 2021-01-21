@@ -17,8 +17,7 @@ export default function Index(props) {
   const clubIdList =
     clubs &&
     clubs.map((club) => {
-      console.log(club.book_club_id);
-      return club.book_club_id;
+      return club;
     });
 
   const news = props.news;
@@ -44,7 +43,7 @@ export default function Index(props) {
         currClub={props.currClub}
         setCurrBook={props.setCurrBook}
         list={clubIdList}
-        listName="Clubs"
+        listName={"Clubs"}
       />
       <NewPostForm
         userId={props.user.id}

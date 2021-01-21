@@ -227,7 +227,12 @@ module.exports = (db) => {
 
   const getUserClubs = (userId) => {
     const query = {
-      text: `SELECT book_club_id  from user_book_clubs WHERE user_id = $1;`,
+      text: `
+      SELECT *
+      FROM user_book_clubs 
+      JOIN book_club 
+      ON book_club.id = user_book_clubs.book_club_id
+      WHERE user_id = $1;`,
       values: [userId],
     };
 

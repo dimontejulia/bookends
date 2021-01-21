@@ -30,10 +30,8 @@ module.exports = ({ addUser, authenticateUser, getClubDetails }) => {
   });
 
   router.get("/clubs/:id", function (req, res) {
-    console.log("CLUB ROUTE HIT", req.params.id);
     getClubDetails(req.params.id)
       .then((club) => {
-        console.log("ClubDetails fr Svr", club);
         res.json(club);
       })
       .catch((err) => res.json({ msg: err.message }));
