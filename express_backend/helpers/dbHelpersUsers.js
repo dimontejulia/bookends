@@ -1,3 +1,5 @@
+const { getSpecificBook } = require("./dataHelpers");
+
 module.exports = (db) => {
   const getUsers = () => {
     const query = {
@@ -10,8 +12,21 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
+  const getClubDetails = (clubID) => {
+    const query = {
+      text: `SELECT * FROM book_club WHERE id = $1`,
+      values: [clubID],
+    };
+
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows[0];
+      })
+      .catch((err) => err);
+  };
+
   const getUserBooks = (userID) => {
-    console.log("DB GetUSER BOOKS", userID);
     const query = {
       text: `
           SELECT book_id as id, date_read as dateRead, rating, comments, status, title, author, subject
@@ -25,7 +40,6 @@ module.exports = (db) => {
     return db
       .query(query)
       .then((result) => {
-        console.log("result.rows>>>>>>>", result.rows);
         return result.rows;
       })
       .catch((err) => err);
@@ -52,7 +66,6 @@ module.exports = (db) => {
     return db
       .query(query)
       .then((result) => {
-        console.log("Add user:", result);
         return result.rows;
       })
       .catch((err) => console.log("SQLError", err));
@@ -117,32 +130,68 @@ module.exports = (db) => {
       .then((result) => result.rows)
       .catch((err) => err);
   };
-  const addBook = (user_id, userBooks) => {
-    const { id, title, author, subject } = userBooks;
 
-    const query = {
+
+  const addBookToUser = (userId, usersNewBook) => {
+    console.log(">>>>1");
+    const { id, title, author, subject } = usersNewBook;
+    const bookCheckQuery = {
+      text: `SELECT count(*) FROM books WHERE id = $1`,
+      values: [id],
+    };
+
+    const userBookCheckQuery = {
+      text: `SELECT count(*) FROM users_books WHERE book_id = $1`,
+      values: [id],
+    };
+
+    const addBookQuery = {
       text: `INSERT INTO books (id, title, author, subject) VALUES ($1, $2, $3, $4) RETURNING *`,
       values: [id, title, author[0], subject],
     };
 
-    return db
-      .query(query)
-      .then((result) => {
-        return result.rows;
+    // console.log("!!addBookToUser", userId, usersNewBook);
+
+    // check if book user adds is in books table,
+    // if it is in books table, check if book is in user_books table,
+    // if it is not in user_books table add book to user's shelf
+    // if it is in user_books table send message back to userstating that the book is already
+    // on specific users shelf
+    // if book is not in books table or users_books table add book to books table and user_books table
+    console.log(">>>>2");
+    Promise.all(
+      [
+        db.query(bookCheckQuery),
+        db.query(userBookCheckQuery)
+      ])
+      .then(([bookInDbCheck, userHasBookCheck]) => {
+        const bookCheck = Number(bookInDbCheck.rows[0].count);
+        const userBookCheck = Number(userHasBookCheck.rows[0].count);
+        console.log('bookCheck ->', bookCheck, 'userBookCheck ->', userBookCheck);
+        if (userBookCheck) {
+          console.log("Book Exists and is in shelf");
+        } else if (!userBookCheck && bookCheck) {
+          console.log("Book Exists > NOT in shelf");
+          addToUsersBooks(userId, usersNewBook);
+        } else {
+          return db
+            .query(addBookQuery)  //ADDS BOOK TO DB
+            .then(() => {
+              addToUsersBooks(userId, usersNewBook);  // ADD BOOK TO USER SHELF
+            });
+        }
       })
-      .then((result) => addToUsersBooks(user_id, userBooks))
-      .catch((err) => console.log("DBERROR:>>>>", err));
+      .catch((err) => console.log("LAST DBERROR:>>>>", err));
   };
 
-  const addToUsersBooks = (user_id, userBooks) => {
+  const addToUsersBooks = (userId, userBooks) => {
     const { id } = userBooks;
 
     const query = {
       text: `INSERT INTO users_books (user_id, book_id) VALUES ($1, $2) RETURNING *`,
-      values: [user_id, id],
+      values: [userId, id],
     };
-
-    console.log("ADD TO DB FUNCTION!!!!!");
+    console.log("Add to USER BOOKS Q", query);
     return db
       .query(query)
       .then((result) => {
@@ -151,10 +200,34 @@ module.exports = (db) => {
       .catch((err) => console.log("DBERROR from users books:>>>>", err));
   };
 
-  const getUserClubs = (user_id) => {
+  const updateUsersBooks = (userId, bookId, bookData) => {
+    const { id, dateread, rating, comments, status } = bookData;
+
+    const query = {
+      text: `
+        UPDATE users_books
+        SET date_read= $3,
+        rating= $4,
+        comments = $5,
+        status = $6
+        WHERE user_id = $1 AND book_id = $2
+        RETURNING *;
+      `,
+      values: [userId, id, dateread, rating, comments, status],
+    };
+
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERR", err));
+  };
+
+  const getUserClubs = (userId) => {
     const query = {
       text: `SELECT book_club_id from user_book_clubs WHERE user_id = $1;`,
-      values: [user_id],
+      values: [userId],
     };
 
     console.log("ADD TO DB FUNCTION!!!!!");
@@ -166,7 +239,7 @@ module.exports = (db) => {
       .catch((err) => console.log("DBERROR from users books:>>>>", err));
   };
 
-  const getWishlist = (user_id) => {
+  const getWishlist = (userId) => {
     const query = {
       text: `
       SELECT book_id as id, title, author, subject
@@ -174,7 +247,7 @@ module.exports = (db) => {
         JOIN future_books fb ON books.id = fb.book_id
         WHERE fb.user_id = $1
       `,
-      values: [user_id],
+      values: [userId],
     };
 
     console.log("GET WISHLIST");
@@ -198,7 +271,7 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const getPosts = (user_id) => {
+  const getPosts = (userId) => {
     const query = {
       text: `
       SELECT user_id as id, title, body, timestamp
@@ -207,7 +280,7 @@ module.exports = (db) => {
         WHERE usersTable.id = $1
         ORDER BY timestamp asc
       `,
-      values: [user_id],
+      values: [userId],
     };
 
     console.log("GET WISHLIST");
@@ -220,14 +293,14 @@ module.exports = (db) => {
       .catch((err) => console.log("DBERROR from users books:>>>>", err));
   };
 
-  const addPost = (user_id, post) => {
+  const addPost = (userId, post) => {
     console.log("in add post");
     const { title, body } = post;
     console.log("post details", post);
 
     const query = {
       text: `INSERT INTO newsfeed_posts (user_id, title, body) VALUES ($1, $2, $3) RETURNING *`,
-      values: [user_id, title, body],
+      values: [userId, title, body],
     };
 
     return db
@@ -248,10 +321,11 @@ module.exports = (db) => {
     getUsersPosts,
     getOneUsersPosts,
     getFriends,
-    addBook,
     deleteBook,
     getWishlist,
     getPosts,
     addPost,
+    updateUsersBooks,
+    addBookToUser,
   };
 };

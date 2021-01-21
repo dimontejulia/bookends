@@ -17,6 +17,7 @@ import ClubsIndex from "./components/Club/Index";
 import Register from "./components/Register";
 import BookDetails from "./components/Book/Index";
 import SearchIndex from "./components/Search/SearchIndex";
+import { faUserLock } from "@fortawesome/free-solid-svg-icons";
 //============================================
 function App() {
   const [user, setUser] = useState({ id: 1 });
@@ -32,26 +33,31 @@ function App() {
   const [cBooks, setCBooks] = useState([]);
   const [currClub, setCurrClub] = useState({});
 
-  //  let cBooks = [
 
-  //     { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy",  description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL365902M-L.jpg`},
-  //     { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz", description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL26455544M-L.jpg` },
-  //     { id: "OL24222441M", title: "Trojan Odyssey", author: "C Cussler", description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL24222441M-L.jpg` },
-  //   ];
 
   const initialize = () => {
+    //Need PROMISE.ALL for the initial request...
     //Carousel 1
-    axios.get(`/api/books/category/movie`).then((res) => {
-      setCBooks(res.data);
-    });
+    axios.get(`/api/books/category/movie`).then((res) => { setCBooks(res.data); });
     //GET FRIENDS
-    axios.get(`/api/users/${user.id}/friends`).then((res) => {
-      setFriends(res.data);
-    });
+    axios.get(`/api/users/${user.id}/friends`).then((res) => { setFriends(res.data); });
     // GET BOOKS
     axios.get(`/api/users/${user.id}/books`).then((res) => {
-      setUserBooks(res.data);
-      setUserData(res.data);
+      console.log("RES FOR USER BOOKS", res.data)
+
+
+      const convertArrayToObject = (array, key) => {
+        const initialValue = {};
+        return array.reduce((obj, item) => {
+          return {
+            ...obj,
+            [item[key]]: item,
+          };
+        }, initialValue);
+      };
+      const newObj = convertArrayToObject(res.data, 'id')
+      setUserBooks(newObj);
+      // setUserBookData(res.data);
     });
 
     // GET WISHLIST
@@ -76,35 +82,10 @@ function App() {
       })
       .catch((e) => console.log(e));
 
-    //userBookData
-
-    // setUserData({
-    //   status: "READ | Reading | On list?",
-    //   readDate: "2019-05-07",
-    //   notes: "These are my notes on this book... I like books",
-    //   rating: 0,
-    //   friendsWhoReadIt: ["uid100", "Carl", "Linda"],
-    // });
-    // setClub({
-    //   name: "John's Club",
-    //   avatar: "https://image.flaticon.com/icons/png/512/69/69589.png",
-    //   description: "Basic book club description goes here",
-    //   currentBook: {
-    //     cover:
-    //       "https://dynamic.indigoimages.ca/books/0735211299.jpg?scaleup=true&width=614&maxheight=614&quality=85&lang=en",
-    //     title: "Atomic Habits",
-    //     author: "James Clear",
-    //     published: "October 16, 2018",
-    //     description:
-    //       "No matter your goals, Atomic Habits offers a proven framework for improving--every day. James Clear, one of the world''s leading experts on habit formation, reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.",
-    //   },
-    // });
     setClubAdmin({
       user,
     });
-    // setCurrBook({ ...currBook, id: '1' })
   };
-  //OL365902M  Rainbow Six
   useEffect(() => {
     initialize();
   }, []);
@@ -156,7 +137,6 @@ function App() {
               .get(`https://openlibrary.org${book.works}.json`)
               .then((res) => {
                 book.subjects = res.data.subjects;
-                console.log("RES DESC>>>>", res.data);
                 if (res.data.description) {
                   if (typeof res.data.description !== "string") {
                     book.description = res.data.description.value;
@@ -184,16 +164,27 @@ function App() {
     }
   };
 
-  const updateDBUserBooks = () => {
-    const dataToSend = {
-      userBooks: userBooks,
-      userBookData: userData,
-    };
+  const updateUserBooks = (bookData) => {
+    console.log("Top func", bookData)
+    //Build Book Object
+    const newUserBooks = {
+      ...userBooks,
+      [bookData.id]: {
+        id: bookData.id,
+        title: bookData.title,
+        author: bookData.author,
+        subject: bookData.subject,
+      }
+    }
+    setUserBooks(newUserBooks);
+    //Send to DB
     axios
-      .post(`/api/users/${user.id}/books`, dataToSend)
+      .post(`/api/users/${user.id}/books`, newUserBooks)
       .then((res) => {
         // Need Saved MSg ELSE Error Message
         console.log("Book added to shelf!");
+        //Update state w. latest copy
+
       })
       .catch((err) => console.log(err));
   };
@@ -208,23 +199,64 @@ function App() {
       .catch((err) => err);
   };
 
-  //Watch for currBook to change and load Details into state
-  useEffect(() => {
-    console.log("useEffect for Details");
-    fetchBookDetails(currBook.id);
-  }, [currBook.id]);
+  const newBook = (bookData) => {
+    //New Appointment
+    // const appointment = {
+    //   ...state.appointments[id],
+    //   interview: { ...interview }
+    // };
 
+    const newBook = {
+      id: bookData.id,
+      title: bookData.title,
+      author: bookData.author,
+      subject: bookData.subject
+    }
+
+    const newState = {
+      ...userBooks,
+      [bookData.id]: newBook
+    }
+    console.log("((((((((", newBook, newState, bookData)
+
+    //This should be in the THEN of axios but getting 500 error cause Ukn
+    // debug later...
+    setUserBooks(newState)
+
+    axios
+      .post(`/api/users/${user.id}/books`, newBook)
+      .then((res) => {
+
+        console.log("Book added to shelf!");
+        // Need Saved MSg ELSE Error Message
+        //Update state w. latest copy
+
+      })
+      .catch((err) => console.log(err));
+
+  }
+
+  const saveBookDataToDB = () => {
+    const dataToSend = userBooks[currBook.id]
+    axios
+      .put(`/api/users/${user.id}/books/${currBook.id}`, dataToSend)
+      .then((res) => {
+        console.log(`Book ${currBook.id} Data Updated`);
+      })
+      .catch((err) => console.log('Book Index, Save ERROR:', err));
+  };
+
+  //==============Watchers that update state =================================
   useEffect(() => {
-    console.log("useEffect for UserBooks");
-    updateDBUserBooks(userBooks);
-  }, [userBooks]);
+    fetchBookDetails(currBook.id);
+  }, [currBook.id]); //The book they are looking at (can be search or their own)
 
   // useEffect(() => {
-  //   console.log("useEffect for Details");
-  //   // fetchBookDetails(currBook.id);
-  // }, [friends]);
+  //   updateDBUserBooks(userBooks);
+  // }, []);  // Array of their books
+  // userBooks  watcher for userBooks is firing everytime that data is changed (since consolidated)
 
-  //==================Rendering =============
+  //==================Rendering ======================================================
   return (
     <Router>
       <div className="App">
@@ -285,11 +317,7 @@ function App() {
             </Route>
             <Route path="/shelf/">
               {" "}
-              <UserShelf
-                books={userBooks}
-                setBooks={setUserBooks}
-                setCurrBook={setCurrBook}
-              />
+              <UserShelf books={userBooks} setBooks={setUserBooks} setCurrBook={setCurrBook} />
             </Route>
             <Route path="/wishlist/">
               {" "}
@@ -304,18 +332,11 @@ function App() {
               //Route is not fully setup
               render={(props) => {
                 // Strips the id from the full url
-                const paramBookId = props.location.pathname.replace(
-                  "/book/",
-                  ""
-                );
+                const paramBookId = props.location.pathname.replace("/book/", "");
                 console.log("PARAM", paramBookId);
                 // setCurrBook(paramBookId)
                 return (
-                  <BookDetails
-                    currBook={currBook}
-                    userBookData={userData}
-                    deleteUserBook={deleteUserBook}
-                  />
+                  <BookDetails currBook={currBook} userBookData={userBooks} setUserBookData={setUserBooks} saveToDB={saveBookDataToDB} deleteUserBook={deleteUserBook} />
                 );
               }}
             />
@@ -331,6 +352,7 @@ function App() {
                     setWishlist={setWishlist}
                     currBook={currBook}
                     setCurrBook={setCurrBook}
+                    newBook={newBook}
                   />
                 );
               }}
@@ -341,12 +363,13 @@ function App() {
                 carouselTitle={"Trending Now"}
                 setUserBooks={setUserBooks}
                 carouselBooks={cBooks}
+                newBook={newBook}
               />
             </Route>
           </Switch>
         </main>
       </div>
-    </Router>
+    </Router >
   );
 }
 

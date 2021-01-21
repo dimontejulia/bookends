@@ -1,52 +1,34 @@
-import React from "react";
-import Button from "../Button";
-import Rating from "./Rating";
-import { Link } from "react-router-dom";
+import React from 'react';
+import Button from '../Button';
 
 export default function UserNotes(props) {
-  let { status, readDate, notes } = props.userBookData;
+  const { comments, setUserBookData, currBookID } = props;
+  console.log(props);
+  // [...prev, (comments: event.target.value)]
+  const handleInput = (event) => {
+    setUserBookData((prev) => ({
+      ...prev,
+      [currBookID]: { ...prev[currBookID], comments: event.target.value },
+    }));
+  };
 
   return (
     <div>
-      <div>
-        <p>
-          (ref user read date/ reading / Add to List...etc)
-          <br />
-          Status: {status}
-        </p>
-        <span>
-          <Button>Add to list</Button>
-          <Button>Reading</Button>
-          <label htmlFor="read">Read: </label>
-          <input
-            type="date"
-            id="read"
-            name="read-date"
-            value={readDate ? readDate : "2021-01-01"}
-            max="2021-04-01"
-          />
-          <Button>Edit Date</Button>
-          <Button>Send Book to Friend</Button>
-
-          {/* needs to rerender shelf list */}
-          <Link to={`/shelf`}>
-            <Button onClick={() => props.deleteUserBook(props.currBook.id)}>
-              Remove Book from Shelf
-            </Button>
-          </Link>
-        </span>
-      </div>
       <h3>Notes</h3>
       <br />
       <textarea
-        name="userNotes"
-        rows="15"
-        cols="75"
-        placeholder="Any notes about the book? Write them here..."
-        value={notes ? notes : ""}
+        onChange={handleInput}
+        name='userNotes'
+        rows='15'
+        cols='75'
+        placeholder='Any notes about the book? Write them here...'
+        value={comments ? comments : ''}
       ></textarea>
-      <br />
-      <Button>Save Notes</Button>
     </div>
   );
 }
+
+// userBookData:{
+// OL365902M: {id: "OL365902M", dateread: "2018-09-01T00:00:00.000Z", rating: 2, comments: "Nunc rhoncus dui vel sem. Sed sagittis. Nam congue…libero quis orci. Nullam molestie nibh in lectus.", status: "finished", …}
+// OL7353617M: {id: "OL7353617M", dateread: "2018-07-20T00:00:00.000Z", rating: 1, comments: "Etiam justo. Etiam pretium iaculis justo. In hac h…asse platea dictumst. Etiam faucibus cursus urna.", status: "in_progress", …}
+// }
