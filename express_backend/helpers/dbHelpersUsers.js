@@ -10,22 +10,8 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const getClubDetails = (clubID) => {
-    const query = {
-      text: `SELECT * FROM book_club WHERE id = $1`,
-      values: [clubID],
-    };
-    
-    return db
-      .query(query)
-      .then((result) => {
-        return result.rows[0];
-      })
-      .catch((err) => err);
-  };
-
   const getUserBooks = (userID) => {
-    console.log("DB GetUSER BOOKS", userID)
+    console.log("DB GetUSER BOOKS", userID);
     const query = {
       text: `
           SELECT book_id as id, date_read as dateRead, rating, comments, status, title, author, subject
@@ -165,16 +151,107 @@ module.exports = (db) => {
       .catch((err) => console.log("DBERROR from users books:>>>>", err));
   };
 
+  const getUserClubs = (user_id) => {
+    const query = {
+      text: `SELECT book_club_id from user_book_clubs WHERE user_id = $1;`,
+      values: [user_id],
+    };
+
+    console.log("ADD TO DB FUNCTION!!!!!");
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERROR from users books:>>>>", err));
+  };
+
+  const getWishlist = (user_id) => {
+    const query = {
+      text: `
+      SELECT book_id as id, title, author, subject
+        FROM books
+        JOIN future_books fb ON books.id = fb.book_id
+        WHERE fb.user_id = $1
+      `,
+      values: [user_id],
+    };
+
+    console.log("GET WISHLIST");
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERROR from users books:>>>>", err));
+  };
+
+  const deleteBook = (bookId, userId) => {
+    const query = {
+      text: `DELETE FROM users_books WHERE book_id = $1 AND user_id = $2`,
+      values: [bookId, userId],
+    };
+
+    return db
+      .query(query)
+      .then((result) => result.rows)
+      .catch((err) => err);
+  };
+
+  const getPosts = (user_id) => {
+    const query = {
+      text: `
+      SELECT user_id as id, title, body, timestamp
+        FROM newsfeed_posts
+        JOIN users usersTable ON newsfeed_posts.user_id = usersTable.id
+        WHERE usersTable.id = $1
+        ORDER BY timestamp asc
+      `,
+      values: [user_id],
+    };
+
+    console.log("GET WISHLIST");
+    return db
+      .query(query)
+      .then((result) => {
+        console.log("RESULT", result.rows);
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERROR from users books:>>>>", err));
+  };
+
+  const addPost = (user_id, post) => {
+    console.log("in add post");
+    const { title, body } = post;
+    console.log("post details", post);
+
+    const query = {
+      text: `INSERT INTO newsfeed_posts (user_id, title, body) VALUES ($1, $2, $3) RETURNING *`,
+      values: [user_id, title, body],
+    };
+
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERROR:>>>>", err));
+  };
+
   return {
     getUsers,
     getUserByEmail,
     addUser,
     getUserBooks,
+    getUserClubs,
     authenticateUser,
     getUsersPosts,
     getOneUsersPosts,
     getFriends,
     addBook,
-    getClubDetails,
+    deleteBook,
+    getWishlist,
+    getPosts,
+    addPost,
   };
 };

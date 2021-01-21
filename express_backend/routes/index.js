@@ -39,10 +39,9 @@ module.exports = ({ addUser, authenticateUser, getClubDetails }) => {
       .catch((err) => res.json({ msg: err.message }));
   });
 
-  router
-    .get("/", (req, res, next) => {
-      res.render("index", { title: "Express" });
-    });
+  router.get("/", (req, res, next) => {
+    res.render("index", { title: "Express" });
+  });
 
   return router;
 };

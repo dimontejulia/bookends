@@ -23,12 +23,14 @@ function App() {
   const [userBooks, setUserBooks] = useState([]);
   // const [search, setSearch] = useState("");
   const [friends, setFriends] = useState([]);
-  const [news, setNews] = useState("");
+  const [wishlist, setWishlist] = useState([]);
+  const [news, setNews] = useState([]);
   const [userData, setUserData] = useState({});
-  const [club, setClub] = useState({});
+  const [club, setClub] = useState([]);
   const [clubAdmin, setClubAdmin] = useState("");
   const [currBook, setCurrBook] = useState({ id: "initial" });
   const [cBooks, setCBooks] = useState([]);
+  const [currClub, setCurrClub] = useState({});
 
   //  let cBooks = [
 
@@ -51,18 +53,29 @@ function App() {
       setUserBooks(res.data);
       setUserData(res.data);
     });
+
+    // GET WISHLIST
+    axios.get(`/api/users/${user.id}/wishlist`).then((res) => {
+      setWishlist(res.data);
+    });
+
+    //GET USERS CLUBS
     axios
-      .get(`/clubs/1`)
+      .get(`/api/users/${user.id}/clubs`)
       .then((res) => {
-        console.log("RES", res.data);
+        // [ {},{}]
         setClub(res.data);
       })
       .catch((e) => console.log(e));
 
-    //add first name & last name to user id as an object
-    setFriends(["uid100", "uid200"]);
-    //id, post
-    setNews(["News 1", "News 2"]);
+    // GET POSTS
+    axios
+      .get(`/api/users/${user.id}/posts`)
+      .then((res) => {
+        setNews(res.data);
+      })
+      .catch((e) => console.log(e));
+
     //userBookData
 
     // setUserData({
@@ -72,20 +85,20 @@ function App() {
     //   rating: 0,
     //   friendsWhoReadIt: ["uid100", "Carl", "Linda"],
     // });
-    setClub({
-      name: "John's Club",
-      avatar: "https://image.flaticon.com/icons/png/512/69/69589.png",
-      description: "Basic book club description goes here",
-      currentBook: {
-        cover:
-          "https://dynamic.indigoimages.ca/books/0735211299.jpg?scaleup=true&width=614&maxheight=614&quality=85&lang=en",
-        title: "Atomic Habits",
-        author: "James Clear",
-        published: "October 16, 2018",
-        description:
-          "No matter your goals, Atomic Habits offers a proven framework for improving--every day. James Clear, one of the world''s leading experts on habit formation, reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.",
-      },
-    });
+    // setClub({
+    //   name: "John's Club",
+    //   avatar: "https://image.flaticon.com/icons/png/512/69/69589.png",
+    //   description: "Basic book club description goes here",
+    //   currentBook: {
+    //     cover:
+    //       "https://dynamic.indigoimages.ca/books/0735211299.jpg?scaleup=true&width=614&maxheight=614&quality=85&lang=en",
+    //     title: "Atomic Habits",
+    //     author: "James Clear",
+    //     published: "October 16, 2018",
+    //     description:
+    //       "No matter your goals, Atomic Habits offers a proven framework for improving--every day. James Clear, one of the world''s leading experts on habit formation, reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.",
+    //   },
+    // });
     setClubAdmin({
       user,
     });
@@ -104,6 +117,7 @@ function App() {
     club,
     clubAdmin,
     currBook,
+    currClub,
   };
 
   console.log(">>>>>>everyState", everyState);
@@ -184,6 +198,16 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  const deleteUserBook = (bookId) => {
+    const userId = user.id;
+    axios
+      .delete(`/api/users/${userId}/books/${bookId}`)
+      .then((res) => {
+        console.log("book removed from shelf!");
+      })
+      .catch((err) => err);
+  };
+
   //Watch for currBook to change and load Details into state
   useEffect(() => {
     console.log("useEffect for Details");
@@ -207,11 +231,30 @@ function App() {
         <main>
           <nav className="sidebar__menu">
             <span>
-              <Navbar user={user} setUser={setUser} />
+              <Navbar user={user} setUser={setUser} clubs={club} />
             </span>
           </nav>
           <Switch>
-            <Route path="/clubs">
+            <Route
+              path="/clubs/:id"
+              render={(props) => {
+                const paramClubId = props.location.pathname.replace(
+                  "/clubs/",
+                  ""
+                );
+                return (
+                  <ClubsIndex
+                    clubId={paramClubId}
+                    clubAdmin={clubAdmin}
+                    setClubAdmin={setClubAdmin}
+                    club={club}
+                    setClub={setClub}
+                    currClub={currClub}
+                  />
+                );
+              }}
+            />
+            {/* <Route path="/clubs">
               <ClubsIndex
                 user={user}
                 clubAdmin={clubAdmin}
@@ -219,7 +262,7 @@ function App() {
                 club={club}
                 setClub={setClub}
               />
-            </Route>
+            </Route> */}
             <Route
               path="/register"
               render={() => {
@@ -229,9 +272,15 @@ function App() {
             <Route path="/social">
               {" "}
               <Social
+                user={user}
                 friends={friends}
                 news={news}
                 setFriends={setFriends}
+                clubs={club}
+                setClub={setClub}
+                setCurrClub={setCurrClub}
+                news={news}
+                setNews={setNews}
               />{" "}
             </Route>
             <Route path="/shelf/">
@@ -239,6 +288,14 @@ function App() {
               <UserShelf
                 books={userBooks}
                 setBooks={setUserBooks}
+                setCurrBook={setCurrBook}
+              />
+            </Route>
+            <Route path="/wishlist/">
+              {" "}
+              <UserShelf
+                books={wishlist}
+                setBooks={setWishlist}
                 setCurrBook={setCurrBook}
               />
             </Route>
@@ -254,7 +311,11 @@ function App() {
                 console.log("PARAM", paramBookId);
                 // setCurrBook(paramBookId)
                 return (
-                  <BookDetails currBook={currBook} userBookData={userData} />
+                  <BookDetails
+                    currBook={currBook}
+                    userBookData={userData}
+                    deleteUserBook={deleteUserBook}
+                  />
                 );
               }}
             />
@@ -266,6 +327,8 @@ function App() {
                   <SearchIndex
                     userBooks={userBooks}
                     setUserBooks={setUserBooks}
+                    wishlist={wishlist}
+                    setWishlist={setWishlist}
                     currBook={currBook}
                     setCurrBook={setCurrBook}
                   />

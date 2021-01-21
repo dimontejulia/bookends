@@ -2,7 +2,17 @@ const express = require("express");
 const router = express.Router();
 const { getPostsByUsers } = require("../helpers/dataHelpers");
 
-module.exports = ({ getUsers, getUserBooks, addBook, getFriends }) => {
+module.exports = ({
+  getUsers,
+  getUserBooks,
+  addBook,
+  deleteBook,
+  getFriends,
+  getUserClubs,
+  getWishlist,
+  getPosts,
+  addPost,
+}) => {
   // users/:id/books
   router
     .get("/:id/books", (req, res) => {
@@ -15,8 +25,6 @@ module.exports = ({ getUsers, getUserBooks, addBook, getFriends }) => {
     .post("/:id/books", (req, res) => {
       const { userBooks } = req.body;
       const userBook = userBooks.slice(-1).pop();
-      console.log("userBook", userBook);
-      console.log("user", req.params.id);
       addBook(req.params.id, userBook)
         .then((users) => {
           console.log("RX BOOKS ->>>>", books);
@@ -24,9 +32,12 @@ module.exports = ({ getUsers, getUserBooks, addBook, getFriends }) => {
         })
         .catch((err) => res.json({ msg: err.message }));
     })
-    .delete("/:id/books", (req, res) => {
-      getUsers()
-        .then((users) => res.json(users))
+    .delete("/:userId/books/:bookId", (req, res) => {
+      const { userId, bookId } = req.params;
+      deleteBook(bookId, userId)
+        .then((book) => {
+          res.json(book);
+        })
         .catch((err) => res.json({ msg: err.message }));
     });
 
@@ -51,8 +62,10 @@ module.exports = ({ getUsers, getUserBooks, addBook, getFriends }) => {
   // users/:id/clubs
   router
     .get("/:id/clubs", (req, res) => {
-      getUsers()
-        .then((users) => res.json(users))
+      getUserClubs(req.params.id)
+        .then((clubs) => {
+          res.json(clubs);
+        })
         .catch((err) => res.json({ msg: err.message }));
     })
     .post("/:id/clubs", (req, res) => {
@@ -68,8 +81,8 @@ module.exports = ({ getUsers, getUserBooks, addBook, getFriends }) => {
 
   router
     .get("/:id/wishlist", (req, res) => {
-      getUsers()
-        .then((users) => res.json(users))
+      getWishlist(req.params.id)
+        .then((wishlistBooks) => res.json(wishlistBooks))
         .catch((err) => res.json({ msg: err.message }));
     })
     .post("/:id/wishlist", (req, res) => {
@@ -86,18 +99,19 @@ module.exports = ({ getUsers, getUserBooks, addBook, getFriends }) => {
   // users/:id/posts
   router
     .get("/:id/posts", (req, res) => {
-      getUsers()
-        .then((users) => res.json(users))
+      getPosts(req.params.id)
+        .then((posts) => res.json(posts))
         .catch((err) => res.json({ msg: err.message }));
     })
     .post("/:id/posts", (req, res) => {
-      getUsers()
-        .then((users) => res.json(users))
+      console.log("req.body", req.body);
+      addPost(req.params.id, req.body)
+        .then((posts) => res.json(posts))
         .catch((err) => res.json({ msg: err.message }));
     })
     .delete("/:id/posts", (req, res) => {
       getUsers()
-        .then((users) => res.json(users))
+        .then((posts) => res.json(posts))
         .catch((err) => res.json({ msg: err.message }));
     });
 

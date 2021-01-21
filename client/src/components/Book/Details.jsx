@@ -1,7 +1,7 @@
-import React from 'react';
-import classnames from 'classnames';
+import React from "react";
+import classnames from "classnames";
 
-import Rating from './Rating';
+import Rating from "./Rating";
 
 export default function Details(props) {
   const {
@@ -18,7 +18,7 @@ export default function Details(props) {
       <h2>
         {title} by {author}
       </h2>
-      <img className='book__cover-img' src={coverLink} alt={title} />
+      <img className="book__cover-img" src={coverLink} alt={title} />
       <h5>Description:</h5>
       <p>{description}</p>
       Published: {published}
