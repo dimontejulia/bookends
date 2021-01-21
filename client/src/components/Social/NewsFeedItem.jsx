@@ -17,6 +17,7 @@ export default function NewsFeedItem(props) {
             </footer>
           </blockquote>
         </Card.Body>
+        <Card.Footer className="text-muted">{date}</Card.Footer>
       </Card>
     </section>
   );

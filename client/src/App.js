@@ -45,8 +45,6 @@ function App() {
     });
     // GET BOOKS
     axios.get(`/api/users/${user.id}/books`).then((res) => {
-      console.log("RES FOR USER BOOKS", res.data);
-
       const convertArrayToObject = (array, key) => {
         const initialValue = {};
         return array.reduce((obj, item) => {
