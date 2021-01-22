@@ -15,16 +15,18 @@ module.exports = (db) => {
       text: `
         SELECT  
         club.id AS id, 
-        current_book,
-        admin_id,
-        book_club_name,
-        date_read,
-        rating,
-        comments,
-        status,
-        avatar
+        club.current_book,
+        club.admin_id,
+        club.book_club_name,
+        club.club_description,
+        ub.date_read,
+        ub.rating,
+        ub.comments,
+        ub.status,
+        club.avatar
         FROM book_club club
-        LEFT OUTER JOIN books ON club.current_book = books.id
+	      LEFT OUTER JOIN users_books ub ON club.id = ub.club_id
+        LEFT OUTER JOIN books ON ub.book_id = books.id
         WHERE club.id = $1;
       `,
       values: [clubID],
