@@ -27,15 +27,6 @@ const Book = ({ book, ...props }) => {
   const { currBook, setCurrBook } = props;
   const [modalShow, setModalShow] = useState(false);
 
-  // const clickShelf = (e) => {
-  //   e.preventDefault();
-  //   const bookKey = key.split("/works/")[1];
-  //   props.setUserBooks((prevState) => [
-  //     ...prevState,
-  //     { id: cover_edition_key, title: title, author: author_name },
-  //   ]);
-  // };
-
   const clickWishlist = (e) => {
     e.preventDefault();
     props.setWishlist((prevState) => [

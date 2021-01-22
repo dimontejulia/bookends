@@ -36,9 +36,6 @@ export default function Confirmation(props) {
             </Toast.Header>
           </Toast>
         </Col>
-        {/* <Col xs={6}>
-        <Button onClick={() => setShow(true)}>Show Toast</Button>
-      </Col> */}
       </Row>
     </div>
   );
