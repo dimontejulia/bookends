@@ -1,8 +1,9 @@
-import React from "react";
-import "./Carousel.scss";
-import Badge from "react-bootstrap/Badge";
-import Button from "react-bootstrap/Button";
-import Book from "./Search/Book";
+import React from 'react';
+import ChangeClubBook from './Club/ChangeBook';
+import './Carousel.scss';
+import Badge from 'react-bootstrap/Badge';
+import Button from 'react-bootstrap/Button';
+import Book from './Search/Book';
 
 export default function Carousel(props) {
   const books = props.carouselBooks;
@@ -13,42 +14,47 @@ export default function Carousel(props) {
   };
 
   return (
-    <section className="carousel">
+    <section className='carousel'>
       <h2>{props.carouselTitle}</h2>
-      <div className="carousel__covers">
+      <div className='carousel__covers'>
         {books.map((book) => (
-          <div className="carousel__container">
+          <div className='carousel__container'>
             <img
               key={book.id}
-              className="carousel__book-cover"
+              className='carousel__book-cover'
               src={`https://covers.openlibrary.org/b/olid/${book.id}-L.jpg`}
               alt={book.title}
             />
-            <span className="carousel__info">
-              <h3 className="carousel__book-title">{book.title}</h3>
-              <h5 className="carousel__book-author">by {book.author}</h5>
-              <span className="carousel__book-description">
+            <span className='carousel__info'>
+              <h3 className='carousel__book-title'>{book.title}</h3>
+              <h5 className='carousel__book-author'>by {book.author}</h5>
+              <span className='carousel__book-description'>
                 {book.description}
               </span>
-              <span className="carousel__book-subjects">
-                <Badge className="carousel__subject-badge" variant="dark">
+              <span className='carousel__book-subjects'>
+                <Badge className='carousel__subject-badge' variant='dark'>
                   Non Fiction
                 </Badge>
-                <Badge className="carousel__subject-badge" variant="dark">
+                <Badge className='carousel__subject-badge' variant='dark'>
                   Motivational
                 </Badge>
-                <Badge className="carousel__subject-badge" variant="dark">
+                <Badge className='carousel__subject-badge' variant='dark'>
                   Self-help
                 </Badge>
               </span>
-              <span className="carousel__buttons">
+              <span className='carousel__buttons'>
                 <Button
-                  className="carousel__book-button"
+                  className='carousel__book-button'
                   onClick={() => handleClick(book)}
                 >
                   Add to Shelf
                 </Button>
-                <Button className="carousel__book-button">Share Book</Button>
+                <Button className='carousel__book-button'>Share Book</Button>
+                <ChangeClubBook
+                  book={book}
+                  setClubBook={props.setClubBook}
+                  clubs={props.clubs}
+                />
               </span>
             </span>
           </div>

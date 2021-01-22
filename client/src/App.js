@@ -121,7 +121,7 @@ function App() {
     currClub,
   };
 
-  console.log(">>>>>>everyState", cBooks);
+  console.log(">>>>>>everyState", everyState);
 
   //==============Functions========
 
@@ -460,6 +460,7 @@ function App() {
                     newBook={newBook}
                     show={show}
                     setShow={setShow}
+                    clubs={club}
                   />
                 );
               }}
@@ -472,6 +473,8 @@ function App() {
                 newBook={newBook}
                 show={show}
                 setShow={setShow}
+                setClubBook={setClubBook}
+                clubs={club}
               />
             </Route>
           </Switch>

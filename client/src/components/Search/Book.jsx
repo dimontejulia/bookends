@@ -82,8 +82,9 @@ const Book = ({ book, ...props }) => {
           <Button onClick={() => handleClick(buttonBook)}>Add to shelf</Button>
           <Button onClick={clickWishlist}>Add to wishlist</Button>
           <ChangeClubBook
-            buttonBook={buttonBook}
+            book={buttonBook}
             setClubBook={props.setClubBook}
+            clubs={props.clubs}
           />
 
           <Button
