@@ -1,19 +1,19 @@
-import React from 'react';
-import Book from './Book.jsx';
+import React from "react";
+import Book from "./Book.jsx";
 
 const BooksList = ({ loading = false, books = [], count = 0, ...props }) => {
   return (
-    <section className='section'>
-      <div className='container'>
+    <section className="section">
+      <div className="container">
         {loading && (
           <span
-            className='loader'
-            style={{ margin: '0 auto', width: '30px', height: '30px' }}
+            className="loader"
+            style={{ margin: "0 auto", width: "30px", height: "30px" }}
           />
         )}
         {books.length > 0 && (
-          <p className='subtitle'>
-            Showing <strong>{books.length}</strong> of <strong>{count}</strong>{' '}
+          <p className="subtitle">
+            Showing <strong>{books.length}</strong> of <strong>{count}</strong>{" "}
             results.
           </p>
         )}
@@ -29,6 +29,8 @@ const BooksList = ({ loading = false, books = [], count = 0, ...props }) => {
             wishlist={props.wishlist}
             setWishlist={props.setWishlist}
             newBook={props.newBook}
+            show={props.show}
+            setShow={props.setShow}
           />
         ))}
       </div>
