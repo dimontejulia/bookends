@@ -26,10 +26,24 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
+  const addClub = (userId, clubName, avatar) => {
+    const query = {
+      text: `
+          INSERT INTO book_club (admin_id, book_club_name, avatar) 
+          VALUES ($1, $2, $3) RETURNING *`,
+      values: [userId, clubName, avatar],
+    };
+
+    return db
+      .query(query)
+      .then((result) => result.rows[0])
+      .catch((err) => err);
+  };
+
   return {
     getClubs,
     getSpecificClub,
-    // addClub,
+    addClub,
     // editClub,
     // deleteClub,
   };

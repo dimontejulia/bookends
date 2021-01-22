@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS book_club CASCADE;
 DROP TABLE IF EXISTS books CASCADE;
 DROP TABLE IF EXISTS home_page_books CASCADE;
 DROP TABLE IF EXISTS newsfeed_posts CASCADE;
+DROP TABLE IF EXISTS club_posts CASCADE;
 
 
 CREATE TABLE users (
@@ -76,6 +77,15 @@ CREATE TABLE home_page_books (
 CREATE TABLE newsfeed_posts (
   "id" SERIAL PRIMARY KEY NOT NULL,
   "user_id" INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  "title" VARCHAR(255), 
+  "body" TEXT NOT NULL,
+  "timestamp" VARCHAR(255)
+);
+
+CREATE TABLE club_posts (
+  "id" SERIAL PRIMARY KEY NOT NULL,
+  "user_id" INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  "book_club_id" INTEGER REFERENCES book_club(id) ON DELETE CASCADE,
   "title" VARCHAR(255), 
   "body" TEXT NOT NULL,
   "timestamp" VARCHAR(255)
