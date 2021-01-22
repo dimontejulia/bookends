@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React from "react";
+//<img src={process.env.PUBLIC_URL + "/yourPathHere.jpg"} />;
 export default function Logo() {
-  return <h1>Logo</h1>;
+  return <img src={process.env.PUBLIC_URL + "/images/BookEnds.png"} />;
 }
