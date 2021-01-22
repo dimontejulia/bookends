@@ -27,7 +27,6 @@ const Book = ({ book, ...props }) => {
 
   const { currBook, setCurrBook } = props;
   const [modalShow, setModalShow] = useState(false);
-  const [clubBook, setClubBook] = useState({});
 
   const clickWishlist = (e) => {
     e.preventDefault();
@@ -53,7 +52,7 @@ const Book = ({ book, ...props }) => {
   };
 
   const handleClubClick = (clubId, bookDetails) => {
-    const paramBookId = props.location.pathname.replace("club-", "");
+    clubId = clubId.replace("club-", "");
     //Get club ID from the click event?
     console.log("click event>>>>>>>", clubId, bookDetails);
     props.setClubBook(clubId, bookDetails);
@@ -86,7 +85,7 @@ const Book = ({ book, ...props }) => {
                   handleClubClick(event.target.id, buttonBook)
                 }
               >
-                club name 3
+                club name 1
               </Dropdown.Item>
               <Dropdown.Item id="clubId-2" onClick={() => handleClubClick()}>
                 club name 2

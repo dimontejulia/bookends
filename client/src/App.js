@@ -307,10 +307,19 @@ function App() {
       .catch((err) => console.log("Book Index, Save ERROR:", err));
   };
 
-  const setClubBook = (clubId, newBookDetails) => {
-    console.log("APP JS setClubCurrBook start", clubId, newBookDetails);
+  const setClubBook = (clubId, newBook) => {
+    console.log("APP JS setClubCurrBook start", clubId, newBook);
     // Club ID = #, bookdets = {}
     // Find the club from the ID (State)
+    const newClubObj = { ...club[clubId], current_book: newBook.id };
+
+    const newState = {
+      ...club,
+      [club.clubId]: newClubObj,
+    };
+
+    console.log("setClubCurrBook mid", newClubObj, newState);
+    setClub(newState);
     //Make a new club Object
     //Update clubS object (all clubs)
     //Update DB w. Axios
@@ -443,6 +452,7 @@ function App() {
                     setWishlist={setWishlist}
                     currBook={currBook}
                     setCurrBook={setCurrBook}
+                    setClubBook={setClubBook}
                     newBook={newBook}
                     show={show}
                     setShow={setShow}

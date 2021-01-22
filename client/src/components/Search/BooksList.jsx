@@ -31,6 +31,7 @@ const BooksList = ({ loading = false, books = [], count = 0, ...props }) => {
             newBook={props.newBook}
             show={props.show}
             setShow={props.setShow}
+            setClubBook={props.setClubBook}
           />
         ))}
       </div>
