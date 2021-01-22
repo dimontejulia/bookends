@@ -25,18 +25,18 @@ export default function ClubInfo(props) {
       <section className="book-club__header">
         <img
           className="book__cover-img"
-          src={props.club.avatar}
-          alt={props.club.book_club_name}
+          src={props.currClub.avatar}
+          alt={props.currClub.book_club_name}
           width="20%"
         />
         <br />
-        <h1>{props.club.book_club_name}</h1>
-        <h3>{props.club.comments}</h3>
+        <h1>{props.currClub.book_club_name}</h1>
+        <h3>{props.currClub.comments}</h3>
         {props.user.id === props.admin_id ? (
           <ClubRegular />
         ) : (
           <ClubAdmin
-            club={props.club}
+            currClub={props.currClub}
             deleteClub={props.deleteClub}
             editClub={props.editClub}
           />

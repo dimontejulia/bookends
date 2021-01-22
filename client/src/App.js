@@ -384,7 +384,7 @@ function App() {
                     clubId={paramClubId}
                     clubAdmin={clubAdmin}
                     setClubAdmin={setClubAdmin}
-                    club={currClub}
+                    club={club}
                     setClub={setClub}
                     currClub={currClub}
                     currBook={currBook}
