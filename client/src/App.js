@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { render } from "react-dom";
 import axios from "axios";
 import "./App.css";
 import useApplicationData from "./hooks/useApplicationData";
@@ -17,6 +18,7 @@ import ClubsInfo from "./components/Club/ClubInfo";
 import Register from "./components/Register";
 import BookDetails from "./components/Book/Index";
 import SearchIndex from "./components/Search/SearchIndex";
+import Confirmation from "./components/Confirmation";
 import { faUserLock } from "@fortawesome/free-solid-svg-icons";
 //============================================
 function App() {
@@ -32,6 +34,8 @@ function App() {
   const [currBook, setCurrBook] = useState({ id: "initial" });
   const [cBooks, setCBooks] = useState([]);
   const [currClub, setCurrClub] = useState({});
+  //for the toast
+  const [show, setShow] = useState(false);
 
   const convertArrayToObject = (array, key) => {
     const initialValue = {};
@@ -65,7 +69,6 @@ function App() {
     });
     // GET BOOKS
     axios.get(`/api/users/${user.id}/books`).then((res) => {
-
       const newObj = convertArrayToObject(res.data, "id");
       setUserBooks(newObj);
       // setUserBookData(res.data);
@@ -194,6 +197,7 @@ function App() {
       .then((res) => {
         // Need Saved MSg ELSE Error Message
         console.log("Book added to shelf!");
+        setShow(true);
         //Update state w. latest copy
       })
       .catch((err) => console.log(err));
@@ -211,34 +215,31 @@ function App() {
 
   const addFriend = (email) => {
     //Check against friends
-    const friendExists = friends.some((friend) => friend.email === email)
+    const friendExists = friends.some((friend) => friend.email === email);
     if (friendExists) {
       console.log("FRIEND EXIST");
       return "Friend Exists";
     }
-    const dataToSend = { friendsEmail: email }
-    axios.post(`/api/users/${user.id}/friends`, dataToSend)
-      .then((res) => {
-        console.log("ADD FR RES", res.data)
-        //SUCCESS? RX friend Details > Build new Friend List
-        if (typeof res.data === 'object') {
-          console.log("UPDATE STATE");
-          setFriends((prev) => [...prev, res.data]);
-
-        }
-        //FAIL ResJSON will send 'NO USER FOUND'
-      })
+    const dataToSend = { friendsEmail: email };
+    axios.post(`/api/users/${user.id}/friends`, dataToSend).then((res) => {
+      //SUCCESS? RX friend Details > Build new Friend List
+      if (typeof res.data === "object") {
+        setFriends((prev) => [...prev, res.data]);
+        setShow(true);
+      }
+      //FAIL ResJSON will send 'NO USER FOUND'
+    });
     //
-  }
+  };
 
   const deleteFriend = (friendId) => {
-    console.log("DEL FRIEND START", friendId)
-    axios.delete(`/api/users/${user.id}/friends/${friendId}`)
-      .then((res) => {
-        console.log(`DELETE FRIEND RES ${res.data}`)
-        setFriends(res.data)
-      })
-  }
+    console.log("DEL FRIEND START", friendId);
+    axios.delete(`/api/users/${user.id}/friends/${friendId}`).then((res) => {
+      console.log(`DELETE FRIEND RES ${res.data}`);
+      setFriends(res.data);
+      setShow(true);
+    });
+  };
 
   const newBook = (bookData) => {
     const newBook = {
@@ -262,6 +263,7 @@ function App() {
       .post(`/api/users/${user.id}/books`, newBook)
       .then((res) => {
         console.log("Book added to shelf!");
+        setShow(true);
         // Need Saved MSg ELSE Error Message
         //Update state w. latest copy
       })
@@ -274,6 +276,7 @@ function App() {
       .put(`/api/users/${user.id}/books/${currBook.id}`, dataToSend)
       .then((res) => {
         console.log(`Book ${currBook.id} Data Updated`);
+        render(<Confirmation elem={"book"} />);
       })
       .catch((err) => console.log("Book Index, Save ERROR:", err));
   };
@@ -296,6 +299,7 @@ function App() {
           <nav className="sidebar__menu">
             <span>
               <Navbar user={user} setUser={setUser} clubs={club} />
+              <Confirmation show={show} setShow={setShow} />
             </span>
           </nav>
           <Switch>
@@ -402,6 +406,8 @@ function App() {
                     currBook={currBook}
                     setCurrBook={setCurrBook}
                     newBook={newBook}
+                    show={show}
+                    setShow={setShow}
                   />
                 );
               }}
