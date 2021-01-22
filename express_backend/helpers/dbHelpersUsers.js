@@ -348,7 +348,7 @@ module.exports = (db) => {
       SELECT u.id AS userId, first_name AS firstName, last_name AS lastName, news.title, news.body, news.timestamp, news.id AS postId
       FROM friends f
       JOIN users u ON f.users_friend = u.id
-      FULL OUTER JOIN newsfeed_posts news ON f.users_friend = news.user_id
+      JOIN newsfeed_posts news ON f.users_friend = news.user_id
       WHERE news.user_id = $1 OR f.user_id = $1
       GROUP BY news.title, first_name, last_name, body, u.id, news.id
       ORDER BY news.id desc;
