@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import classnames from "classnames";
 import Button from "../Button";
 
@@ -11,7 +12,9 @@ export default function ClubAdmin() {
         */}
       <Button>Call Club</Button>
       <Button>Add Post</Button>
-      <Button>Change Book</Button>
+      <Link to={"/search"}>
+        <Button>Change Book</Button>
+      </Link>
       <Button>Schedule a Meeting</Button>
       <br />
       <span>Announce Message:</span>

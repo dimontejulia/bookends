@@ -325,7 +325,10 @@ function App() {
     axios
       .put(`/api/clubs/${clubId}`, dataToSend)
       .then((res) => {
-        setShow({ item: `${newBook.title} assigned successfully to \n ${newClubObj.book_club_name}.`, status: true })
+        setShow({
+          item: `${newBook.title} assigned successfully to \n ${newClubObj.book_club_name}.`,
+          status: true,
+        });
         //Update State on success
         setClub(newState);
       })
@@ -370,6 +373,7 @@ function App() {
                     setClub={setClub}
                     currClub={currClub}
                     currBook={currBook}
+                    user={user}
                   />
                 );
               }}
