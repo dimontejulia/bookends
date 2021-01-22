@@ -13,15 +13,19 @@ const Book = ({ book, ...props }) => {
     id_goodreads = [],
     key,
     first_publish_year,
+    subject,
     cover_edition_key,
     number_of_pages,
+    description,
   } = book;
+
   const buttonBook = {
     id: cover_edition_key,
     title,
     author: author_name,
-    description: book.description,
+    description: description,
     first_publish_year: first_publish_year,
+    subject: subject,
   };
 
   const { currBook, setCurrBook } = props;
@@ -31,15 +35,25 @@ const Book = ({ book, ...props }) => {
     e.preventDefault();
     props.setWishlist((prevState) => [
       ...prevState,
-      { id: cover_edition_key, title: title, author: author_name },
+      {
+        id: cover_edition_key,
+        title: title,
+        author: author_name,
+        first_publish_year: first_publish_year,
+        subject: subject,
+        number_of_pages: number_of_pages,
+      },
     ]);
     const bookKey = key.split("/works/")[1];
+
     props.setUserBooks((prevState) => ({
       ...prevState,
       [cover_edition_key]: {
         id: cover_edition_key,
         title: title,
         author: author_name,
+        first_publish_year: first_publish_year,
+        subject: subject,
       },
     }));
     props.setShow({ item: `${title}  added successfully.`, status: true });
