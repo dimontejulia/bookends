@@ -222,6 +222,15 @@ function App() {
       .then((res) => {
         console.log("ADD FR RES", res.data)
         //SUCCESS? RX friend Details > Build new Friend List
+        if (typeof res.data === 'object') {
+          console.log("UPDATE STATE");
+          setFriends((prev) => [...prev, res.data]);
+
+          // setFriends((prevState) => ([
+          //   res.data, ...prevState
+          // ]));
+          //WHY IS THIS FAILING TO COMPILE!!!???
+        }
         //FAIL? Error not found...
 
       })

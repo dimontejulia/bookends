@@ -71,16 +71,16 @@ module.exports = ({
     .post("/:id/friends", (req, res) => {
       getUserByEmail(req.body)
         .then((user) => {
-          console.log("..dddddddddddd", user)
-          //Duplicate Checking occurs on client side
-          if (user) {
-            addFriend(req.params.id, user.id)
-              .then((results) => {
-                console.log("Added", user.id, "\n", user);
-                res.json(user);
-              });
+          console.log("..dddddddddddd", user);
+          if (!user) {
+            return res.json("NO USER FOUND");
           }
-          //Reply No such USer
+          //Duplicate Checking occurs on client side
+          addFriend(req.params.id, user.id)
+            .then((results) => {
+              console.log("Added", user.id, "\n", user);
+              res.json(user);
+            });
         })
         .catch((err) => res.json({ msg: err.message }));
     })
