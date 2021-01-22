@@ -82,9 +82,12 @@ module.exports = ({
         })
         .catch((err) => res.json({ msg: err.message }));
     })
-    .delete("/:id/friends", (req, res) => {
-      deleteFriend(req.params.id, req.body.friendId)
-        .then((users) => res.json(users))
+    .delete("/:id/friends/:friendId", (req, res) => {
+      deleteFriend(req.params.id, req.params.friendId)
+        .then(() => getFriends(req.params.id))
+        .then((newFriends) => {
+          res.json(newFriends);
+        })
         .catch((err) => res.json({ msg: err.message }));
     });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import FriendList from '../List';
+import FriendList from './FriendList';
 import ClubList from './ClubList';
 import NewsFeed from './NewsFeed';
 import NewPostForm from './NewPostForm';
@@ -8,10 +8,10 @@ import AddFriend from './AddFriend';
 export default function Index(props) {
   console.log('SOCIAL INDEX PROPS ======', props);
 
-  const friends = props.friends;
-  const friendList = friends.map((friend) => {
-    return `${friend.firstname} ${friend.lastname}`;
-  });
+  // const friends = props.friends;
+  // const friendList = friends.map((friend) => {
+  //   return `${friend.firstname} ${friend.lastname}`;
+  // });
 
   const clubs = props.clubs;
   const clubIdList =
@@ -31,7 +31,10 @@ export default function Index(props) {
   return (
     <div>
       <AddFriend addFriend={props.addFriend} />
-      <FriendList list={friendList} listName='Friends' />
+      <FriendList
+        friendList={props.friends}
+        deleteFriend={props.deleteFriend}
+      />
       <ClubList
         setCurrClub={props.setCurrClub}
         currClub={props.currClub}

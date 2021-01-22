@@ -228,9 +228,17 @@ function App() {
 
         }
         //FAIL ResJSON will send 'NO USER FOUND'
-
       })
     //
+  }
+
+  const deleteFriend = (friendId) => {
+    console.log("DEL FRIEND START", friendId)
+    axios.delete(`/api/users/${user.id}/friends/${friendId}`)
+      .then((res) => {
+        console.log(`DELETE FRIEND RES ${res.data}`)
+        setFriends(res.data)
+      })
   }
 
   const newBook = (bookData) => {
@@ -333,6 +341,7 @@ function App() {
                 friends={friends}
                 news={news}
                 addFriend={addFriend}
+                deleteFriend={deleteFriend}
                 clubs={club}
                 setClub={setClub}
                 setCurrClub={setCurrClub}

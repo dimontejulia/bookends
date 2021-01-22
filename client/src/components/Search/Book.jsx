@@ -14,7 +14,7 @@ const Book = ({ book, ...props }) => {
     first_publish_year,
     cover_edition_key,
   } = book;
-
+  console.log('SEARCH', book);
   const buttonBook = {
     id: cover_edition_key,
     title,
