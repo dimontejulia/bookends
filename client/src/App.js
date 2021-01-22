@@ -320,12 +320,20 @@ function App() {
       ...club,
       [clubId]: newClubObj,
     };
-    //Update DB w. Axios
-    // axios.put("/api/user");
+    console.log(" Club Book (ES)", newClubObj);
+    //Update DB w. Axios (Need book details and newClub)
+    const dataToSend = { newClubObj, newBook };
 
+    axios
+      .put(`/api/clubs/${clubId}`, dataToSend)
+      .then((res) => {
+        console.log("Update Club Book (Ax RES)", res.data);
+        setClub(newState);
+      })
+      .catch((err) => console.log(err));
     // Pass newbook & the club,
+
     //Update State on success
-    setClub(newState);
   };
 
   //==============Watchers that update state =================================
