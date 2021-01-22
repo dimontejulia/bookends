@@ -21,9 +21,11 @@ module.exports = ({
         .catch((err) => res.json({ msg: err.message }));
     })
     .put("/:id", (req, res) => {
-      const { currBookId, clubName, avatar } = req.body;
-      editClub(req.params.id, currBookId, clubName, avatar)
-        .then((clubs) => res.json(clubs))
+      const { newClubObj, newBook } = req.body;
+      editClub(newClubObj, newBook)
+        .then((clubs) => {
+          res.json(clubs);
+        })
         .catch((err) => res.json({ msg: err.message }));
     })
     .delete("/:id", (req, res) => {

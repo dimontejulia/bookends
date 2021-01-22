@@ -12,7 +12,7 @@ export default function Index(props) {
   const clubs = props.clubs;
   const clubIdList =
     clubs &&
-    clubs.map((club) => {
+    Object.values(clubs).map((club) => {
       return club;
     });
 
