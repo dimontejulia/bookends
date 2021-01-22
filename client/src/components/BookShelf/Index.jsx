@@ -1,5 +1,8 @@
 import React from "react";
 import BookList from "./BookList";
+import Image from "react-bootstrap/Image";
+import Card from "react-bootstrap/Card";
+import { numBooksAward, oldBook, newBook } from "./awards";
 
 export default function Index(props) {
   const { books, setUserBooks, setCurrBook, user, clubs } = props;
@@ -14,44 +17,15 @@ export default function Index(props) {
   const oldestBook = Math.min.apply(Math, years);
   const newestBook = Math.max.apply(Math, years);
 
-  const numBooksAward = function () {
-    if (numBooks > 30) {
-      return (
-        <div>
-          <p>Gold Reader</p>
-        </div>
-      );
-    } else if (numBooks > 20) {
-      return (
-        <div>
-          <p>Silver Reader</p>
-        </div>
-      );
-    } else if (numBooks >= 1) {
-      return (
-        <div>
-          <p>Bronze Reader</p>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <p>Get reading! </p>
-        </div>
-      );
-    }
-  };
-
   return (
     <div>
       <h1>Hello!</h1>
-      <h2>{numBooksAward()}</h2>
-      <p>You have {numBooks} books on your shelf</p>
-      <p>
-        The oldest book you've read is from {oldestBook} written{" "}
-        {currentYear - oldestBook} years ago!
-      </p>
-      <p>The newest book you've read is from {newestBook}.</p>
+      {/* awards */}
+      <section>
+        {oldBook(currentYear, oldestBook)}
+        {newBook(currentYear, newestBook)}
+        {numBooksAward(numBooks)}
+      </section>
       <BookList
         books={books}
         setUserBooks={setUserBooks}
