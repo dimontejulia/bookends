@@ -13,19 +13,19 @@ module.exports = (db) => {
   const getSpecificClub = (clubID) => {
     const query = {
       text: `
-      SELECT  
-club.id AS id, 
-    current_book,
-    admin_id,
-    book_club_name,
-    date_read,
-    rating,
-    comments,
-    status,
-    avatar
-FROM book_club club
-      JOIN books ON club.current_book = books.id
-      WHERE club.id = $1;
+        SELECT  
+        club.id AS id, 
+        current_book,
+        admin_id,
+        book_club_name,
+        date_read,
+        rating,
+        comments,
+        status,
+        avatar
+        FROM book_club club
+        LEFT OUTER JOIN books ON club.current_book = books.id
+        WHERE club.id = $1;
       `,
       values: [clubID],
     };
@@ -46,7 +46,21 @@ FROM book_club club
 
     return db
       .query(query)
-      .then((result) => result.rows)
+      .then((result) => result.rows[0])
+      .catch((err) => err);
+  };
+
+  const addClubToUsersClubs = (userId, clubId) => {
+    const query = {
+      text: `
+          INSERT INTO user_book_clubs (user_id, book_club_id) 
+          VALUES ($1, $2) RETURNING *`,
+      values: [userId, clubId],
+    };
+
+    return db
+      .query(query)
+      .then((result) => result.rows[0])
       .catch((err) => err);
   };
 
@@ -85,6 +99,7 @@ FROM book_club club
     getClubs,
     getSpecificClub,
     addClub,
+    addClubToUsersClubs,
     editClub,
     deleteClub,
   };

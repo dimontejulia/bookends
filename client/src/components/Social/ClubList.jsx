@@ -11,7 +11,7 @@ export default function ClubList(props) {
     axios
       .get(`/api/clubs/${clubID}`)
       .then((res) => {
-        console.log('res daAAAAAA', res.data);
+        console.log('RES DATA CLUB LIST ->', res.data);
         setCurrClub(res.data);
         setCurrBook({ id: res.data.current_book });
       })
@@ -21,8 +21,8 @@ export default function ClubList(props) {
   const parsedList =
     list &&
     list.map((club) => (
-      <Link to={`/clubs/${club.book_club_id}`}>
-        <Button onClick={() => currentClub(club.book_club_id)}>
+      <Link to={`/clubs/${club.id}`}>
+        <Button onClick={() => currentClub(club.id)}>
           {club.book_club_name}
         </Button>
       </Link>

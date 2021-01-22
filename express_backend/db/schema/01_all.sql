@@ -44,12 +44,12 @@ CREATE TABLE future_books (
 CREATE TABLE book_club (
   "id" SERIAL PRIMARY KEY NOT NULL,
   "current_book" VARCHAR(255) REFERENCES books(id) ON DELETE CASCADE,
-  "admin_id" INTEGER,
+  "admin_id" INTEGER NOT NULL,
   "book_club_name" VARCHAR(255) NOT NULL,
-  "date_read" DATE NOT NULL,
+  "date_read" DATE,
   "rating" INTEGER,
   "comments" TEXT,
-  "status" VARCHAR(255) NOT NULL,
+  "status" VARCHAR(255),
   "avatar" TEXT
 );
 
