@@ -20,17 +20,60 @@ module.exports = (db) => {
 
     return db
       .query(query)
-      .then((result) => {
-        return result.rows[0];
-      })
+      .then((result) => result.rows[0])
+      .catch((err) => err);
+  };
+
+  const addClub = (userId, clubName, avatar) => {
+    const query = {
+      text: `
+          INSERT INTO book_club (admin_id, book_club_name, avatar) 
+          VALUES ($1, $2, $3) RETURNING *`,
+      values: [userId, clubName, avatar],
+    };
+
+    return db
+      .query(query)
+      .then((result) => result.rows)
+      .catch((err) => err);
+  };
+
+  const editClub = (clubId, currBookId, clubName, avatar) => {
+    const query = {
+      text: `
+        UPDATE book_clubs
+        SET current_book = $2,
+        book_club_name = $3,
+        avatar = $4
+        WHERE id = $1
+        RETURNING *;
+      `,
+      values: [clubId, currBookId, clubName, avatar],
+    };
+
+    return db
+      .query(query)
+      .then((result) => result.rows)
+      .catch((err) => err);
+  };
+
+  const deleteClub = (clubId) => {
+    const query = {
+      text: `DELETE FROM book_club WHERE id = $1`,
+      values: [clubId],
+    };
+
+    return db
+      .query(query)
+      .then((result) => result.rows)
       .catch((err) => err);
   };
 
   return {
     getClubs,
     getSpecificClub,
-    // addClub,
-    // editClub,
-    // deleteClub,
+    addClub,
+    editClub,
+    deleteClub,
   };
 };
