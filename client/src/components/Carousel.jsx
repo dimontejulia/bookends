@@ -50,12 +50,12 @@ export default function Carousel(props) {
                   Add to Shelf
                 </Button>
                 <Button className='carousel__book-button'>Share Book</Button>
-                <ChangeClubBook
-                  book={book}
-                  setClubBook={props.setClubBook}
-                  clubs={props.clubs}
-                />
               </span>
+              <ChangeClubBook
+                book={book}
+                setClubBook={props.setClubBook}
+                clubs={props.clubs}
+              />
             </span>
           </div>
         ))}
