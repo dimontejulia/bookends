@@ -23,9 +23,16 @@ export default function NewsFeed(props) {
 
   const handleSubmitClick = (e) => {
     e.preventDefault();
+
+    if (!post.title) {
+      return null;
+    }
     axios
       .post(`/api/users/${user.id}/posts`, post)
-      .then(props.setNews((prevState) => [post, ...prevState]))
+      .then(() => {
+        props.setNews((prevState) => [post, ...prevState]);
+        setPost({ title: '', body: '' });
+      })
       .catch((err) => console.log('errorroroor', err));
   };
 
@@ -35,6 +42,7 @@ export default function NewsFeed(props) {
         <Form.Control
           onChange={handleChange}
           name='title'
+          value={post.title}
           placeholder='Post Title'
         />
       </Form.Group>
@@ -44,6 +52,7 @@ export default function NewsFeed(props) {
           name='body'
           as='textarea'
           rows={3}
+          value={post.body}
           placeholder="What are you reading? What did you think about a book you've read? Any
           other literary thoughts?"
         />

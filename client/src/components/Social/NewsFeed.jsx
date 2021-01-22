@@ -2,7 +2,6 @@ import React from 'react';
 import NewsFeedItem from './NewsFeedItem';
 
 export default function NewsFeed(props) {
-  console.log('FEED', props);
   const { newsList } = props;
   const parsedList =
     newsList &&
