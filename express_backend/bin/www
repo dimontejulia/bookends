@@ -23,10 +23,13 @@ const server = http.createServer(app);
 const io = require("socket.io")(server);
 
 io.on("connection", (socket) => {
+  //LIsten for join on room fr client
   socket.on("join-room", (roomId, userId) => {
+    // Joins the room
     socket.join(roomId);
+    //Sends the User ID to everyone else (broadcast)
     socket.to(roomId).broadcast.emit("user-connected", userId);
-
+    //Sends disconnected msg, for clean up...
     socket.on("disconnect", () => {
       socket.to(roomId).broadcast.emit("user-disconnected", userId);
     });
