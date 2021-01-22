@@ -46,10 +46,7 @@ CREATE TABLE book_club (
   "current_book" VARCHAR(255) REFERENCES books(id) ON DELETE CASCADE,
   "admin_id" INTEGER NOT NULL,
   "book_club_name" VARCHAR(255) NOT NULL,
-  "date_read" DATE,
-  "rating" INTEGER,
-  "comments" TEXT,
-  "status" VARCHAR(255),
+  "club_description" VARCHAR(255),
   "avatar" TEXT
 );
 
@@ -62,6 +59,7 @@ CREATE TABLE user_book_clubs (
 CREATE TABLE users_books (
   "id" SERIAL PRIMARY KEY NOT NULL,
   "user_id" INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  "club_id" INTEGER REFERENCES book_club(id) ON DELETE CASCADE,
   "book_id" VARCHAR(255) REFERENCES books(id) ON DELETE CASCADE,
   "date_read" DATE,
   "rating" INTEGER,
