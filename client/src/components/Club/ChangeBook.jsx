@@ -3,7 +3,6 @@ import Dropdown from 'react-bootstrap/Dropdown';
 
 export default function ChangeBook(props) {
   const { book, clubs } = props;
-  console.log('Ptdfs', props);
   const parsedList =
     clubs &&
     Object.values(clubs).map((club) => (
@@ -17,8 +16,6 @@ export default function ChangeBook(props) {
 
   const handleClubClick = (clubId, bookDetails) => {
     const id = clubId.replace('clubId-', '');
-    //Get club ID from the click event?
-    console.log('click event>>>>>>>', id, bookDetails);
     props.setClubBook(id, bookDetails);
   };
 
