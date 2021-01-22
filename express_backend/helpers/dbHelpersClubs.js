@@ -40,12 +40,17 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const editClub = (userId, clubName, avatar) => {
+  const editClub = (clubId, currBookId, clubName, avatar) => {
     const query = {
       text: `
-          INSERT INTO book_club (admin_id, book_club_name, avatar) 
-          VALUES ($1, $2, $3) RETURNING *`,
-      values: [userId, clubName, avatar],
+        UPDATE book_clubs
+        SET current_book = $2,
+        book_club_name = $3,
+        avatar = $4
+        WHERE id = $1
+        RETURNING *;
+      `,
+      values: [clubId, currBookId, clubName, avatar],
     };
 
     return db
