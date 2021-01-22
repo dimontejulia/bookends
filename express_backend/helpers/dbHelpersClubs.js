@@ -66,7 +66,7 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const editClub = (clubObj, bookObj) => {
+  const editClubWithBook = (clubObj, bookObj) => {
     const { current_book, book_club_name, avatar } = clubObj;
     const query = {
       text: `
@@ -79,16 +79,38 @@ module.exports = (db) => {
       `,
       values: [clubObj.id, current_book, book_club_name, avatar],
     };
-
     return checkDBForBook(bookObj.id)
       .then((bookInDB) => {
         if (!bookInDB) {
+          console.log("Adding BOOK TO DB...");
           addBookToDB(bookObj);
         }
       })
       .then(() => {
+        console.log("UPDATING CLUB DB...");
         return db.query(query);
       });
+  };
+
+  const editClub = (clubObj) => {
+    const { id, club_description, book_club_name, avatar } = clubObj;
+    const query = {
+      text: `
+        UPDATE book_club
+        SET club_description = $2
+        book_club_name = $3,
+        avatar = $4
+        WHERE id = $1
+        RETURNING *;
+      `,
+      values: [id, club_description, book_club_name, avatar],
+    };
+    console.log("CHECKING>>>", clubObj);
+
+    return db
+      .query(query)
+      .then((result) => result.rows[0])
+      .catch((err) => err);
   };
 
   const checkDBForBook = (bookId) => {
@@ -134,6 +156,7 @@ module.exports = (db) => {
     addClub,
     addClubToUsersClubs,
     editClub,
+    editClubWithBook,
     deleteClub,
   };
 };

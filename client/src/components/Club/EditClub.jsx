@@ -21,13 +21,14 @@ export default function EditClub(props) {
     console.log("Form >>>>>>>", form);
 
     const editedClubObj = {
+      ...currClub,
       book_club_name: form.book_club_name,
       club_description: form.club_description,
       avatar: form.avatar,
     };
 
     console.log("EVENT CLUB >>>>>>>", editedClubObj);
-    // editClub(editedclubObj, null);
+    editClub(editedClubObj, null);
     //Form resets w/o message and regardless of success or error...
     setForm({ book_club_name: "", club_description: "", avatar: "" });
   };

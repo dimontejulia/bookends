@@ -321,22 +321,26 @@ function App() {
       .catch((err) => console.log("Book Index, Save ERROR:", err));
   };
 
-  const setClubBook = (clubInfo, newBook) => {
-    console.log("SETCLUBBOOK@@@@@@@@@", clubInfo);
+  const updateClubInfo = (clubInfo, newBook) => {
+    console.log("SETCLUBBOOK@@@@@@@@@", clubInfo, newBook);
+    const newClubObj = clubInfo;
     const clubId = clubInfo.id;
-    const newClubObj = { ...club[clubId], current_book: newBook.id };
 
+    if (newBook !== null) {
+      const newClubObj = { ...club[clubId], current_book: newBook.id };
+    }
     const newState = {
       ...club,
       [clubId]: newClubObj,
     };
 
-    // Pass newbook & the club,
     const dataToSend = { newClubObj, newBook };
-    console.log("Update Club Book (Ax RES)", dataToSend);
+    // Pass newbook & the club,
+    console.log("Update Club Book (Ax DATA SENT)", dataToSend);
     axios
       .put(`/api/clubs/${clubId}`, dataToSend)
       .then((res) => {
+        console.log("Update Club (Ax RES)", res.data);
         setShow({
           item: `${newBook.title} assigned successfully to \n ${newClubObj.book_club_name}.`,
           status: true,
@@ -411,7 +415,7 @@ function App() {
                     currBook={currBook}
                     user={user}
                     deleteClub={deleteClub}
-                    editClub={setClubBook}
+                    editClub={updateClubInfo}
                   />
                 );
               }}
@@ -499,7 +503,7 @@ function App() {
                     setWishlist={setWishlist}
                     currBook={currBook}
                     setCurrBook={setCurrBook}
-                    setClubBook={setClubBook}
+                    setClubBook={updateClubInfo}
                     newBook={newBook}
                     show={show}
                     setShow={setShow}
@@ -516,7 +520,7 @@ function App() {
                 newBook={newBook}
                 show={show}
                 setShow={setShow}
-                setClubBook={setClubBook}
+                setClubBook={updateClubInfo}
                 clubs={club}
               />
             </Route>

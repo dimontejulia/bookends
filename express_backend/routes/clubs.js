@@ -9,6 +9,7 @@ module.exports = ({
   addClub,
   addClubToUsersClubs,
   editClub,
+  editClubWithBook,
 }) => {
   // clubs
 
@@ -21,12 +22,23 @@ module.exports = ({
         .catch((err) => res.json({ msg: err.message }));
     })
     .put("/:id", (req, res) => {
+      console.log(chalk.cyanBright("1", req.body));
       const { newClubObj, newBook } = req.body;
-      editClub(newClubObj, newBook)
-        .then((clubs) => {
-          res.json(clubs);
-        })
-        .catch((err) => res.json({ msg: err.message }));
+      if (newBook) {
+        console.log(chalk.cyanBright("With BOOK"));
+        editClubWithBook(newClubObj, newBook)
+          .then((club) => {
+            res.json(club);
+          })
+          .catch((err) => res.json({ msg: err.message }));
+      } else {
+        console.log(chalk.cyanBright("EDIT NO BOOK"));
+        editClub(newClubObj)
+          .then((club) => {
+            res.json(club);
+          })
+          .catch((err) => res.json({ msg: err.message }));
+      }
     })
     .delete("/:id", (req, res) => {
       deleteClub(req.params.id)

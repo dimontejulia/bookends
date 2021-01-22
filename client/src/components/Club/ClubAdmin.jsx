@@ -7,7 +7,7 @@ import Popover from "react-bootstrap/Popover";
 import EditClub from "./EditClub";
 
 export default function ClubAdmin(props) {
-  const { deleteClub, currClub } = props;
+  const { deleteClub, currClub, editClub } = props;
   const clubId = currClub.id;
   const clubName = currClub.book_club_name;
 
@@ -41,7 +41,7 @@ export default function ClubAdmin(props) {
         */}
       <Button>Call Club</Button>
       <div>
-        <EditClub editClub={props.editClub} currClub={props.currClub} />
+        <EditClub editClub={editClub} currClub={currClub} />
       </div>
       <Button>Add Post</Button>
       <Link to={"/search"}>
