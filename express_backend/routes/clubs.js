@@ -20,16 +20,12 @@ module.exports = ({
     })
     .put("/:id", (req, res) => {
       editClub(req.params.id)
-        .then((clubs) => {
-          res.json(clubs);
-        })
+        .then((clubs) => res.json(clubs))
         .catch((err) => res.json({ msg: err.message }));
     })
     .delete("/:id", (req, res) => {
       deleteClub(req.params.id)
-        .then((clubs) => {
-          res.json(clubs);
-        })
+        .then((clubs) => res.json(clubs))
         .catch((err) => res.json({ msg: err.message }));
     });
 
