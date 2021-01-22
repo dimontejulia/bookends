@@ -17,8 +17,8 @@ export default function Confirmation(props) {
         <Col xs={6}>
           <Toast
             onClose={() => props.setShow(false)}
-            show={props.show}
-            delay={3000}
+            show={props.show.status}
+            delay={5000}
             autohide
             style={{
               position: "absolute",
@@ -32,7 +32,7 @@ export default function Confirmation(props) {
                 className="rounded mr-2"
                 alt=""
               />
-              <strong className="mr-auto">Book added succefully!</strong>
+              <strong className="mr-auto">{props.show.item}</strong>
             </Toast.Header>
           </Toast>
         </Col>

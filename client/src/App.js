@@ -35,7 +35,7 @@ function App() {
   const [cBooks, setCBooks] = useState([]);
   const [currClub, setCurrClub] = useState({});
   //for the toast
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState({ item: null, status: false });
 
   const convertArrayToObject = (array, key) => {
     const initialValue = {};
@@ -197,7 +197,8 @@ function App() {
       .then((res) => {
         // Need Saved MSg ELSE Error Message
         console.log("Book added to shelf!");
-        setShow(true);
+
+        setShow({ item: "Book added to shelf.", status: true });
         //Update state w. latest copy
       })
       .catch((err) => console.log(err));
@@ -225,7 +226,7 @@ function App() {
       //SUCCESS? RX friend Details > Build new Friend List
       if (typeof res.data === "object") {
         setFriends((prev) => [...prev, res.data]);
-        setShow(true);
+        setShow({ item: "Friend added successfully.", status: true });
       }
       //FAIL ResJSON will send 'NO USER FOUND'
     });
@@ -237,7 +238,7 @@ function App() {
     axios.delete(`/api/users/${user.id}/friends/${friendId}`).then((res) => {
       console.log(`DELETE FRIEND RES ${res.data}`);
       setFriends(res.data);
-      setShow(true);
+      setShow({ item: "Friend deleted successfully.", status: true });
     });
   };
 
@@ -263,7 +264,7 @@ function App() {
       .post(`/api/users/${user.id}/books`, newBook)
       .then((res) => {
         console.log("Book added to shelf!");
-        setShow(true);
+        setShow({ item: "Book added to shelf!", status: true });
         // Need Saved MSg ELSE Error Message
         //Update state w. latest copy
       })

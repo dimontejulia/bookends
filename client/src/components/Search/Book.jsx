@@ -51,12 +51,12 @@ const Book = ({ book, ...props }) => {
         author: author_name,
       },
     }));
-    props.setShow(true);
+    props.setShow({ item: `${title}  added successfully.`, status: true });
   };
 
   const handleClick = (input) => {
     props.newBook(input);
-    props.setShow(true);
+    props.setShow({ item: `${input.title} added successfully.`, status: true });
   };
 
   return (
