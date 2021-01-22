@@ -51,6 +51,7 @@ const SearchIndex = (props) => {
         newBook={props.newBook}
         show={props.show}
         setShow={props.setShow}
+        setClubBook={props.setClubBook}
       />
     </Fragment>
   );

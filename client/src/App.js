@@ -88,8 +88,9 @@ function App() {
     axios
       .get(`/api/users/${user.id}/clubs`)
       .then((res) => {
-        console.log("RES DATA ALL USERS CLUBS", res.data);
-        setClub(res.data);
+        const newObj = convertArrayToObject(res.data, "id");
+        console.log("CLUBS CONVERTED TO OBJ", newObj);
+        setClub(newObj);
       })
       .catch((e) => console.log(e));
 
@@ -310,6 +311,26 @@ function App() {
       .catch((err) => console.log("Book Index, Save ERROR:", err));
   };
 
+  const setClubBook = (clubId, newBook) => {
+    const newClubObj = { ...club[clubId], current_book: newBook.id };
+
+    const newState = {
+      ...club,
+      [clubId]: newClubObj,
+    };
+
+    // Pass newbook & the club,
+    const dataToSend = { newClubObj, newBook };
+    axios
+      .put(`/api/clubs/${clubId}`, dataToSend)
+      .then((res) => {
+        console.log("Update Club Book (Ax RES)", res.data);
+        //Update State on success
+        setClub(newState);
+      })
+      .catch((err) => console.log(err));
+  };
+
   //==============Watchers that update state =================================
   useEffect(() => {
     fetchBookDetails(currBook.id);
@@ -435,6 +456,7 @@ function App() {
                     setWishlist={setWishlist}
                     currBook={currBook}
                     setCurrBook={setCurrBook}
+                    setClubBook={setClubBook}
                     newBook={newBook}
                     show={show}
                     setShow={setShow}

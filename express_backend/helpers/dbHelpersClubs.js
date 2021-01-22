@@ -64,17 +64,48 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const editClub = (clubId, currBookId, clubName, avatar) => {
+  const editClub = (clubObj, bookObj) => {
+    const { current_book, book_club_name, avatar } = clubObj;
     const query = {
       text: `
-        UPDATE book_clubs
+        UPDATE book_club
         SET current_book = $2,
         book_club_name = $3,
         avatar = $4
         WHERE id = $1
         RETURNING *;
       `,
-      values: [clubId, currBookId, clubName, avatar],
+      values: [clubObj.id, current_book, book_club_name, avatar],
+    };
+
+    return checkDBForBook(bookObj.id)
+      .then((bookInDB) => {
+        if (!bookInDB) {
+          addBookToDB(bookObj);
+        }
+      })
+      .then(() => {
+        return db.query(query);
+      });
+  };
+
+  const checkDBForBook = (bookId) => {
+    const query = {
+      text: `SELECT count(*) FROM books WHERE id = $1`,
+      values: [bookId],
+    };
+
+    return db
+      .query(query)
+      .then((res) => Number(res.rows[0].count))
+      .catch((err) => err);
+  };
+
+  const addBookToDB = (bookObj) => {
+    const { id, title, author, subject } = bookObj;
+    const query = {
+      text: `INSERT INTO books (id, title, author, subject) VALUES ($1, $2, $3, $4) RETURNING *`,
+      values: [id, title, author[0], subject],
     };
 
     return db
