@@ -24,7 +24,7 @@ module.exports = (db) => {
         status,
         avatar
         FROM book_club club
-        JOIN books ON club.current_book = books.id
+        LEFT OUTER JOIN books ON club.current_book = books.id
         WHERE club.id = $1;
       `,
       values: [clubID],

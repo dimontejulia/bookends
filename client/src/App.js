@@ -220,7 +220,7 @@ function App() {
       .post(`/api/clubs/new`, newClubData)
       .then((res) => {
         console.log("RES DATA APP.JS ADD CLUB THEN >>>>", res.data);
-        setClub((prev) => [...prev, res.data]);
+        // setClub((prev) => [...prev, res.data]);
       })
       .catch((err) => console.log(err));
   };
