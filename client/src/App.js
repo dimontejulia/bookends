@@ -347,6 +347,7 @@ function App() {
         });
         //Update State on success
         setClub(newState);
+        setCurrClub(newClubObj);
       })
       .catch((err) => console.log(err));
   };

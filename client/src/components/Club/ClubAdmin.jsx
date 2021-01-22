@@ -18,9 +18,9 @@ export default function ClubAdmin(props) {
         Edit or Delete your club.
         <br />
         <br />
-        {/* <div>
-          <EditClub editClub={props.editClub} club={props.club} />
-        </div> */}
+        <div>
+          <EditClub editClub={editClub} currClub={currClub} />
+        </div>
         <Button variant="light" onClick={() => document.body.click()}>
           Cancel
         </Button>
@@ -40,9 +40,6 @@ export default function ClubAdmin(props) {
           actions for the club are, we can switch later and refactor components as we go  
         */}
       <Button>Call Club</Button>
-      <div>
-        <EditClub editClub={editClub} currClub={currClub} />
-      </div>
       <Button>Add Post</Button>
       <Link to={"/search"}>
         <Button>Change Book</Button>

@@ -97,7 +97,7 @@ module.exports = (db) => {
     const query = {
       text: `
         UPDATE book_club
-        SET club_description = $2
+        SET club_description = $2,
         book_club_name = $3,
         avatar = $4
         WHERE id = $1
