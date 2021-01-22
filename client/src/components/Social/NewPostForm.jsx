@@ -1,11 +1,11 @@
-import React, { useState } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import axios from "axios";
+import React, { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 
 export default function NewsFeed(props) {
   const [post, setPost] = useState([]);
-  const userId = props.userId;
+  const user = props.user;
 
   const date = new Date();
 
@@ -13,42 +13,51 @@ export default function NewsFeed(props) {
     const { id, value } = e.target;
     setPost((prevState) => ({
       ...prevState,
-      user_id: userId,
+      user_id: user.id,
+      firstname: user.firstName,
+      lastname: user.lastName,
       [id]: value,
       timestamp: date.toLocaleString(),
     }));
   };
 
-  console.log("post", post);
-
   const handleSubmitClick = (e) => {
     e.preventDefault();
+
+    if (!post.title) {
+      return null;
+    }
     axios
-      .post(`/api/users/${userId}/posts`, post)
-      .then(props.setNews((prevState) => [post, ...prevState]))
-      .catch((err) => console.log("errorroroor", err));
+      .post(`/api/users/${user.id}/posts`, post)
+      .then(() => {
+        props.setNews((prevState) => [post, ...prevState]);
+        setPost({ title: '', body: '' });
+      })
+      .catch((err) => console.log('errorroroor', err));
   };
 
   return (
     <Form>
-      <Form.Group controlId="title">
+      <Form.Group controlId='title'>
         <Form.Control
           onChange={handleChange}
-          name="title"
-          placeholder="Post Title"
+          name='title'
+          value={post.title}
+          placeholder='Post Title'
         />
       </Form.Group>
-      <Form.Group controlId="body">
+      <Form.Group controlId='body'>
         <Form.Control
           onChange={handleChange}
-          name="body"
-          as="textarea"
+          name='body'
+          as='textarea'
           rows={3}
+          value={post.body}
           placeholder="What are you reading? What did you think about a book you've read? Any
           other literary thoughts?"
         />
       </Form.Group>
-      <Button type="submit" onClick={handleSubmitClick}>
+      <Button type='submit' onClick={handleSubmitClick}>
         Post
       </Button>
     </Form>
