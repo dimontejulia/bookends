@@ -4,17 +4,23 @@ import classnames from "classnames";
 import Button from "react-bootstrap/Button";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
+import EditClub from "./EditClub";
 
 export default function ClubAdmin(props) {
-  const { clubId, clubName, deleteClub } = props;
+  const { deleteClub, currClub, editClub } = props;
+  const clubId = currClub.id;
+  const clubName = currClub.book_club_name;
 
   const popover = (
     <Popover id="popover-basic">
-      <Popover.Title as="h3">Confirmation</Popover.Title>
+      <Popover.Title as="h3">Club Settings</Popover.Title>
       <Popover.Content>
-        Are you sure that you would like to <strong>delete</strong> this club?
+        Edit or Delete your club.
         <br />
         <br />
+        <div>
+          <EditClub editClub={editClub} currClub={currClub} />
+        </div>
         <Button variant="light" onClick={() => document.body.click()}>
           Cancel
         </Button>

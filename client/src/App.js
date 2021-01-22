@@ -319,29 +319,60 @@ function App() {
       .catch((err) => console.log("Book Index, Save ERROR:", err));
   };
 
-  const setClubBook = (clubId, newBook) => {
-    const newClubObj = { ...club[clubId], current_book: newBook.id };
+  const updateClubInfo = (clubInfo, newBook) => {
+    console.log("SETCLUBBOOK@@@@@@@@@", clubInfo, newBook);
+    const newClubObj = clubInfo;
+    const clubId = clubInfo.id;
 
+    if (newBook !== null) {
+      const newClubObj = { ...club[clubId], current_book: newBook.id };
+    }
     const newState = {
       ...club,
       [clubId]: newClubObj,
     };
 
-    // Pass newbook & the club,
     const dataToSend = { newClubObj, newBook };
-    console.log("Update Club Book (Ax RES)", dataToSend);
+    // Pass newbook & the club,
+    console.log("Update Club Book (Ax DATA SENT)", dataToSend);
     axios
       .put(`/api/clubs/${clubId}`, dataToSend)
       .then((res) => {
+        console.log("Update Club (Ax RES)", res.data);
         setShow({
           item: `${newBook.title} assigned successfully to \n ${newClubObj.book_club_name}.`,
           status: true,
         });
         //Update State on success
         setClub(newState);
+        setCurrClub(newClubObj);
       })
       .catch((err) => console.log(err));
   };
+
+  // const editClubInfo = (clubObj) => {
+  //   const newClubObj = { ...club[clubId], current_book: newBook.id };
+
+  //   const newState = {
+  //     ...club,
+  //     [clubId]: newClubObj,
+  //   };
+
+  //   // Pass newbook & the club,
+  //   const dataToSend = { newClubObj, newBook };
+  //   console.log("Update Club Book (Ax RES)", dataToSend);
+  //   axios
+  //     .put(`/api/clubs/${clubId}`, dataToSend)
+  //     .then((res) => {
+  //       setShow({
+  //         item: `${newBook.title} assigned successfully to \n ${newClubObj.book_club_name}.`,
+  //         status: true,
+  //       });
+  //       //Update State on success
+  //       setClub(newState);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   //==============Watchers that update state =================================
   useEffect(() => {
@@ -377,12 +408,13 @@ function App() {
                     clubId={paramClubId}
                     clubAdmin={clubAdmin}
                     setClubAdmin={setClubAdmin}
-                    club={currClub}
+                    club={club}
                     setClub={setClub}
                     currClub={currClub}
                     currBook={currBook}
                     user={user}
                     deleteClub={deleteClub}
+                    editClub={updateClubInfo}
                   />
                 );
               }}
@@ -470,7 +502,7 @@ function App() {
                     setWishlist={setWishlist}
                     currBook={currBook}
                     setCurrBook={setCurrBook}
-                    setClubBook={setClubBook}
+                    setClubBook={updateClubInfo}
                     newBook={newBook}
                     show={show}
                     setShow={setShow}
@@ -487,7 +519,7 @@ function App() {
                 newBook={newBook}
                 show={show}
                 setShow={setShow}
-                setClubBook={setClubBook}
+                setClubBook={updateClubInfo}
                 clubs={club}
               />
             </Route>

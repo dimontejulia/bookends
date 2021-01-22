@@ -15,16 +15,18 @@ module.exports = (db) => {
       text: `
         SELECT  
         club.id AS id, 
-        current_book,
-        admin_id,
-        book_club_name,
-        date_read,
-        rating,
-        comments,
-        status,
-        avatar
+        club.current_book,
+        club.admin_id,
+        club.book_club_name,
+        club.club_description,
+        ub.date_read,
+        ub.rating,
+        ub.comments,
+        ub.status,
+        club.avatar
         FROM book_club club
-        LEFT OUTER JOIN books ON club.current_book = books.id
+	      LEFT OUTER JOIN users_books ub ON club.id = ub.club_id
+        LEFT OUTER JOIN books ON ub.book_id = books.id
         WHERE club.id = $1;
       `,
       values: [clubID],
@@ -64,7 +66,7 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const editClub = (clubObj, bookObj) => {
+  const editClubWithBook = (clubObj, bookObj) => {
     const { current_book, book_club_name, avatar } = clubObj;
     const query = {
       text: `
@@ -77,16 +79,38 @@ module.exports = (db) => {
       `,
       values: [clubObj.id, current_book, book_club_name, avatar],
     };
-
     return checkDBForBook(bookObj.id)
       .then((bookInDB) => {
         if (!bookInDB) {
+          console.log("Adding BOOK TO DB...");
           addBookToDB(bookObj);
         }
       })
       .then(() => {
+        console.log("UPDATING CLUB DB...");
         return db.query(query);
       });
+  };
+
+  const editClub = (clubObj) => {
+    const { id, club_description, book_club_name, avatar } = clubObj;
+    const query = {
+      text: `
+        UPDATE book_club
+        SET club_description = $2,
+        book_club_name = $3,
+        avatar = $4
+        WHERE id = $1
+        RETURNING *;
+      `,
+      values: [id, club_description, book_club_name, avatar],
+    };
+    console.log("CHECKING>>>", clubObj);
+
+    return db
+      .query(query)
+      .then((result) => result.rows[0])
+      .catch((err) => err);
   };
 
   const checkDBForBook = (bookId) => {
@@ -132,6 +156,7 @@ module.exports = (db) => {
     addClub,
     addClubToUsersClubs,
     editClub,
+    editClubWithBook,
     deleteClub,
   };
 };
