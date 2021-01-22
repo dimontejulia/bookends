@@ -305,7 +305,7 @@ function App() {
       .put(`/api/users/${user.id}/books/${currBook.id}`, dataToSend)
       .then((res) => {
         console.log(`Book ${currBook.id} Data Updated`);
-        render(<Confirmation elem={"book"} />);
+        setShow({ item: `Book ${currBook.id} Data Updated`, status: true });
       })
       .catch((err) => console.log("Book Index, Save ERROR:", err));
   };

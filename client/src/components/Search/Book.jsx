@@ -57,7 +57,6 @@ const Book = ({ book, ...props }) => {
       },
     }));
     props.setShow({ item: `${title}  added successfully.`, status: true });
-    console.log("user book", props.book);
   };
 
   const handleClick = (input) => {

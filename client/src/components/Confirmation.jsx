@@ -16,9 +16,9 @@ export default function Confirmation(props) {
       <Row>
         <Col xs={6}>
           <Toast
-            onClose={() => props.setShow(false)}
+            onClose={() => props.setShow({ item: "", status: false })}
             show={props.show.status}
-            delay={5000}
+            delay={3000}
             autohide
             style={{
               position: "absolute",
