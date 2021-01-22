@@ -345,7 +345,7 @@ module.exports = (db) => {
   const getPosts = (userId) => {
     const query = {
       text: `
-      SELECT u.id AS userId, first_name AS firstName, last_name AS lastName, news.title, news.body, news.timestamp
+      SELECT u.id AS userId, first_name AS firstName, last_name AS lastName, news.title, news.body, news.timestamp, news.id AS postId
       FROM friends f
       JOIN users u ON f.users_friend = u.id
       FULL OUTER JOIN newsfeed_posts news ON f.users_friend = news.user_id

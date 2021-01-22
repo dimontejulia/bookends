@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 
-export default function FriendList(props) {
+export default function AddList(props) {
   const [form, setForm] = useState([]);
   const { addFriend } = props;
 
@@ -15,7 +15,6 @@ export default function FriendList(props) {
   };
 
   const handleClick = (e) => {
-    console.log('EVENT', form.value);
     props.addFriend(form.value);
     //Form resets w/o message and regardless of success or error...
     setForm((prev) => ({ ...prev, value: '' }));

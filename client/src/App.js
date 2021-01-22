@@ -20,7 +20,7 @@ import SearchIndex from "./components/Search/SearchIndex";
 import { faUserLock } from "@fortawesome/free-solid-svg-icons";
 //============================================
 function App() {
-  const [user, setUser] = useState({ id: 1 });
+  const [user, setUser] = useState({ id: 1, firstName: 'Mark', lastName: 'Twain' });
   const [userBooks, setUserBooks] = useState([]);
   // const [search, setSearch] = useState("");
   const [friends, setFriends] = useState([]);
@@ -117,6 +117,9 @@ function App() {
   //==============Functions========
 
   const fetchBookDetails = (OLBookID) => {
+    if (OLBookID === 'initial') {
+      return null
+    }
     let book = {
       id: OLBookID,
       title: "",

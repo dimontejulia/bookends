@@ -1,11 +1,14 @@
-import React from "react";
-import Card from "react-bootstrap/Card";
-import NewsFeedItem from "./NewsFeedItem";
+import React from 'react';
+import NewsFeedItem from './NewsFeedItem';
 
 export default function NewsFeed(props) {
-  const { listName, newsList } = props;
+  console.log('FEED', props);
+  const { newsList } = props;
   const parsedList =
-    newsList && newsList.map((listItem) => <NewsFeedItem item={listItem} />);
+    newsList &&
+    newsList.map((listItem) => (
+      <NewsFeedItem key={listItem.postid} item={listItem} />
+    ));
 
   return (
     <section>

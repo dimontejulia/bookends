@@ -3,19 +3,12 @@ import { Table, Button } from 'react-bootstrap';
 
 export default function FriendsList(props) {
   const { friendList, deleteFriend } = props;
-  console.log('!!!!!!!!', friendList);
-
-  // const friends = props.friends;
-  // const friendList = friends.map((friend) => {
-  //   return `${friend.firstname} ${friend.lastname}`;
-  // });
 
   const handleClick = (e) => {};
   const parsedList =
     friendList &&
     friendList.map((friend) => (
       <tr>
-        {console.log('FRIEND', friend)}
         <td>
           {' '}
           {friend.firstname} {friend.lastname}

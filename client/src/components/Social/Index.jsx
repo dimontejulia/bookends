@@ -3,7 +3,7 @@ import FriendList from './FriendList';
 import ClubList from './ClubList';
 import NewsFeed from './NewsFeed';
 import NewPostForm from './NewPostForm';
-import AddFriend from './AddFriend';
+import AddFriendForm from './AddFriend';
 
 export default function Index(props) {
   console.log('SOCIAL INDEX PROPS ======', props);
@@ -24,7 +24,7 @@ export default function Index(props) {
 
   return (
     <div>
-      <AddFriend addFriend={props.addFriend} />
+      <AddFriendForm addFriend={props.addFriend} />
       <FriendList
         friendList={props.friends}
         deleteFriend={props.deleteFriend}
@@ -37,7 +37,7 @@ export default function Index(props) {
         listName={'Clubs'}
       />
       <NewPostForm
-        userId={props.user.id}
+        user={props.user}
         news={props.news}
         setNews={props.setNews}
       />
