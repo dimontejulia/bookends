@@ -1,16 +1,12 @@
 import React from "react";
 import Book from "./Book.jsx";
+import Spinner from "react-bootstrap/Spinner";
 
 const BooksList = ({ loading = false, books = [], count = 0, ...props }) => {
   return (
     <section className="section">
       <div className="container">
-        {loading && (
-          <span
-            className="loader"
-            style={{ margin: "0 auto", width: "30px", height: "30px" }}
-          />
-        )}
+        {loading && <Spinner animation="border" variant="secondary" />}
         {books.length > 0 && (
           <p className="subtitle">
             Showing <strong>{books.length}</strong> of <strong>{count}</strong>{" "}
