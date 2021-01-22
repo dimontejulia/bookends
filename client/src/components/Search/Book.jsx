@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import MoreInfo from './MoreInfo';
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import MoreInfo from "./MoreInfo";
 
 const Book = ({ book, ...props }) => {
   const {
@@ -13,6 +13,7 @@ const Book = ({ book, ...props }) => {
     key,
     first_publish_year,
     cover_edition_key,
+    number_of_pages,
   } = book;
 
   const buttonBook = {
@@ -20,6 +21,7 @@ const Book = ({ book, ...props }) => {
     title,
     author: author_name,
     description: book.description,
+    first_publish_year: first_publish_year,
   };
 
   const { currBook, setCurrBook } = props;
@@ -40,7 +42,7 @@ const Book = ({ book, ...props }) => {
       ...prevState,
       { id: cover_edition_key, title: title, author: author_name },
     ]);
-    const bookKey = key.split('/works/')[1];
+    const bookKey = key.split("/works/")[1];
     props.setUserBooks((prevState) => ({
       ...prevState,
       [cover_edition_key]: {
@@ -56,20 +58,20 @@ const Book = ({ book, ...props }) => {
   };
 
   return (
-    <Card style={{ width: '20rem' }}>
+    <Card style={{ width: "20rem" }}>
       <Card.Img
-        variant='top'
+        variant="top"
         src={`http://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg`}
       />
       <Card.Body>
         <Card.Title>{title}</Card.Title>
-        <Card.Subtitle className='mb-2 text-muted'>{author_name}</Card.Subtitle>
+        <Card.Subtitle className="mb-2 text-muted">{author_name}</Card.Subtitle>
 
         <Button onClick={() => handleClick(buttonBook)}>Add to shelf</Button>
         <Button onClick={clickWishlist}>Add to wishlist</Button>
 
         <Button
-          variant='primary'
+          variant="primary"
           onClick={() => {
             setCurrBook({ id: book.text[0] });
             setModalShow(true);
