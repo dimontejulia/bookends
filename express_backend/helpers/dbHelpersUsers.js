@@ -1,4 +1,3 @@
-const { getSpecificBook } = require("./dataHelpers");
 const chalk = require("chalk");
 
 module.exports = (db) => {
@@ -47,11 +46,33 @@ module.exports = (db) => {
   };
 
   const getUserByEmail = (email) => {
+    const { friendsEmail } = email;
     const query = {
-      text: `SELECT * FROM users WHERE email = $1`,
-      values: [email],
+      text: `SELECT first_name AS firstName, last_name AS lastName, email, id FROM users WHERE email = $1`,
+      values: [friendsEmail],
     };
+    return db
+      .query(query)
+      .then((result) => result.rows[0])
+      .catch((err) => err);
+  };
 
+  const addFriend = (userId, friendId) => {
+    const query = {
+      text: `INSERT INTO friends (user_id, users_friend) VALUES ($1, $2)`,
+      values: [Number(userId), friendId],
+    };
+    return db
+      .query(query)
+      .then((result) => result.rows[0])
+      .catch((err) => err);
+  };
+
+  const deleteFriend = (userId, friendId) => {
+    const query = {
+      text: `DELETE FROM friends WHERE user_id = $1 AND users_friend = $2`,
+      values: [userId, friendId],
+    };
     return db
       .query(query)
       .then((result) => result.rows[0])
@@ -120,7 +141,7 @@ module.exports = (db) => {
   const getFriends = (id) => {
     const query = {
       text: `
-          SELECT first_name as firstName, last_name as lastName
+          SELECT first_name AS firstName, last_name AS lastName, email, u.id AS userId
           FROM friends f
           JOIN users u ON f.users_friend = u.id
           WHERE f.user_id =$1;`,
@@ -361,7 +382,9 @@ module.exports = (db) => {
 
   return {
     getUsers,
+    addFriend,
     getUserByEmail,
+    deleteFriend,
     addUser,
     getUserBooks,
     getUserClubs,
@@ -373,6 +396,7 @@ module.exports = (db) => {
     getWishlist,
     getPosts,
     addPost,
+
     updateUsersBooks,
     addBookToUser,
   };

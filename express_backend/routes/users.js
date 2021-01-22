@@ -5,17 +5,20 @@ const { getPostsByUsers } = require("../helpers/dataHelpers");
 module.exports = ({
   getUsers,
   getUserBooks,
-  addBook,
   deleteBook,
   getFriends,
   getUserClubs,
+  getUserByEmail,
   getWishlist,
   getPosts,
   addPost,
   updateUsersBooks,
   addBookToUser,
+  addFriend,
+  deleteFriend,
 }) => {
-  // users/:id/books
+
+
   router
     .get("/:id/books", (req, res) => {
       //Join from user Books & User Books Data
@@ -63,13 +66,25 @@ module.exports = ({
         .catch((err) => res.json({ msg: err.message }));
     })
     .post("/:id/friends", (req, res) => {
-      getUsers()
-        .then((users) => res.json(users))
+      getUserByEmail(req.body)
+        .then((user) => {
+          if (!user) {
+            return res.json("NO USER FOUND");
+          }
+          //Duplicate Checking occurs on client side
+          addFriend(req.params.id, user.id)
+            .then((results) => {
+              res.json(user);
+            });
+        })
         .catch((err) => res.json({ msg: err.message }));
     })
-    .delete("/:id/friends", (req, res) => {
-      getUsers()
-        .then((users) => res.json(users))
+    .delete("/:id/friends/:friendId", (req, res) => {
+      deleteFriend(req.params.id, req.params.friendId)
+        .then(() => getFriends(req.params.id))
+        .then((newFriends) => {
+          res.json(newFriends);
+        })
         .catch((err) => res.json({ msg: err.message }));
     });
 
@@ -159,6 +174,8 @@ module.exports = ({
           .then((users) => res.json(users))
           .catch((err) => res.json({ msg: err.message }));
       });
+
+
 
     // users
     router.get("/", (req, res) => {
