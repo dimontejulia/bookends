@@ -48,7 +48,7 @@ module.exports = (db) => {
   const getUserByEmail = (email) => {
     const { friendsEmail } = email;
     const query = {
-      text: `SELECT * FROM users WHERE email = $1`,
+      text: `SELECT first_name AS firstName, last_name AS lastName, email, id FROM users WHERE email = $1`,
       values: [friendsEmail],
     };
     return db
@@ -62,21 +62,9 @@ module.exports = (db) => {
       text: `INSERT INTO friends (user_id, users_friend) VALUES ($1, $2)`,
       values: [Number(userId), friendId],
     };
-    console.log("222222222222", query)
     return db
       .query(query)
       .then((result) => result.rows[0])
-      .catch((err) => err);
-  };
-
-  const checkFriend = (userId, friendId) => {
-    const query = {
-      text: `SELECT * FROM friends WHERE user_id = $1 AND users_friend = $2`,
-      values: [userId, friendId],
-    };
-    return db
-      .query(query)
-      .then((result) => result.rows)
       .catch((err) => err);
   };
 
@@ -391,6 +379,7 @@ module.exports = (db) => {
     getUsers,
     addFriend,
     getUserByEmail,
+    deleteFriend,
     addUser,
     getUserBooks,
     getUserClubs,
@@ -400,9 +389,9 @@ module.exports = (db) => {
     getFriends,
     deleteBook,
     getWishlist,
-    checkFriend,
     getPosts,
     addPost,
+
     updateUsersBooks,
     addBookToUser,
   };

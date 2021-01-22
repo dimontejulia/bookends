@@ -226,12 +226,8 @@ function App() {
           console.log("UPDATE STATE");
           setFriends((prev) => [...prev, res.data]);
 
-          // setFriends((prevState) => ([
-          //   res.data, ...prevState
-          // ]));
-          //WHY IS THIS FAILING TO COMPILE!!!???
         }
-        //FAIL? Error not found...
+        //FAIL ResJSON will send 'NO USER FOUND'
 
       })
     //

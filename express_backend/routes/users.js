@@ -15,7 +15,7 @@ module.exports = ({
   updateUsersBooks,
   addBookToUser,
   addFriend,
-  checkFriend
+  deleteFriend,
 }) => {
 
 
@@ -71,21 +71,19 @@ module.exports = ({
     .post("/:id/friends", (req, res) => {
       getUserByEmail(req.body)
         .then((user) => {
-          console.log("..dddddddddddd", user);
           if (!user) {
             return res.json("NO USER FOUND");
           }
           //Duplicate Checking occurs on client side
           addFriend(req.params.id, user.id)
             .then((results) => {
-              console.log("Added", user.id, "\n", user);
               res.json(user);
             });
         })
         .catch((err) => res.json({ msg: err.message }));
     })
     .delete("/:id/friends", (req, res) => {
-      getUsers()
+      deleteFriend(req.params.id, req.body.friendId)
         .then((users) => res.json(users))
         .catch((err) => res.json({ msg: err.message }));
     });
