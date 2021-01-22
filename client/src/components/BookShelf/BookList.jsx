@@ -17,20 +17,30 @@ export default function BookList(props) {
         break;
     }
   };
+  const searchWord = "women";
+  console.log("console.log books", books);
+  const booklistitem = function (book) {
+    if (
+      book.subject.includes(searchWord) ||
+      book.title.includes(searchWord) ||
+      book.author.includes(searchWord)
+    ) {
+      return (
+        <BookListItem
+          title={book.title}
+          author={book.author}
+          first_publish_year={book.first_publish_year}
+          subject={book.subject}
+          bookID={book.id}
+          bookStatus={formatStatus(book.status)}
+          setCurrBook={setCurrBook}
+        />
+      );
+    }
+  };
 
   const parsedList =
-    books &&
-    Object.values(books).map((book) => (
-      <BookListItem
-        title={book.title}
-        author={book.author}
-        first_publish_year={book.first_publish_year}
-        subject={book.subject}
-        bookID={book.id}
-        bookStatus={formatStatus(book.status)}
-        setCurrBook={setCurrBook}
-      />
-    ));
+    books && Object.values(books).map((book) => booklistitem(book));
 
   return (
     <section>

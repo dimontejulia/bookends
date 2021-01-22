@@ -1,6 +1,6 @@
 import React from "react";
 import BookList from "./BookList";
-import Image from "react-bootstrap/Image";
+import SearchBook from "./SearchBook";
 
 export default function Index(props) {
   const { books, setUserBooks, setCurrBook, user, clubs } = props;
@@ -53,6 +53,7 @@ export default function Index(props) {
         {currentYear - oldestBook} years ago!
       </p>
       <p>The newest book you've read is from {newestBook}.</p>
+      <SearchBook />
       <BookList
         books={books}
         setUserBooks={setUserBooks}
