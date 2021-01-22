@@ -4,7 +4,6 @@ const BASE_URL = "http://openlibrary.org";
 
 const get = async (uri, params) => {
   const url = `${BASE_URL}${uri}?${stringify(params)}`;
-  console.log(url);
   const response = await fetch(url, {
     cache: "no-cache",
     headers: {
@@ -16,10 +15,7 @@ const get = async (uri, params) => {
 };
 
 const getWorks = async (uri, params) => {
-  console.log("BASE URL", BASE_URL);
-  console.log("params", params);
   const url = `${BASE_URL}${params}`;
-  console.log(url);
   const response = await fetch(url, {
     cache: "no-cache",
     headers: {

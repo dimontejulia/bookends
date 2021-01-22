@@ -1,6 +1,5 @@
 import React from "react";
 import BookList from "./BookList";
-import Image from "react-bootstrap/Image";
 
 export default function Index(props) {
   const { books, setUserBooks, setCurrBook, user, clubs } = props;

@@ -15,8 +15,6 @@ export default function Login(props) {
   //On Click Axios Call to Server to Auth and get UserID + profile
   const handleSubmitClick = (e) => {
     e.preventDefault();
-    console.log("USER STATE", props.user);
-
     axios
       .post("/login", props.user)
       .then((res) => {
