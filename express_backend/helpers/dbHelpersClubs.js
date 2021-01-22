@@ -65,7 +65,6 @@ module.exports = (db) => {
   };
 
   const editClub = (clubObj, bookObj) => {
-    console.log("db, 1111", clubObj, bookObj);
     const { current_book, book_club_name, avatar } = clubObj;
     const query = {
       text: `
@@ -78,18 +77,14 @@ module.exports = (db) => {
       `,
       values: [clubObj.id, current_book, book_club_name, avatar],
     };
-    console.log("db, query", query);
-    //Call book exists  Check .. then (pass/fail) > addBook to Db > then.. add book to club
+
     return checkDBForBook(bookObj.id)
       .then((bookInDB) => {
-        console.log("db, 22222", bookInDB);
         if (!bookInDB) {
           addBookToDB(bookObj);
         }
       })
       .then(() => {
-        console.log("db, 3333");
-        // updateClub
         return db.query(query);
       });
   };

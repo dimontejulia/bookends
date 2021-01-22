@@ -308,32 +308,23 @@ function App() {
   };
 
   const setClubBook = (clubId, newBook) => {
-    console.log("APP JS setClubCurrBook start", clubId, newBook);
-
-    // Club ID = #, bookdets = {}
-    // Find the club from the ID (State)
-    //Make a new club Object
     const newClubObj = { ...club[clubId], current_book: newBook.id };
 
-    //Update clubS object (all clubs)
     const newState = {
       ...club,
       [clubId]: newClubObj,
     };
-    console.log(" Club Book (ES)", newClubObj);
-    //Update DB w. Axios (Need book details and newClub)
-    const dataToSend = { newClubObj, newBook };
 
+    // Pass newbook & the club,
+    const dataToSend = { newClubObj, newBook };
     axios
       .put(`/api/clubs/${clubId}`, dataToSend)
       .then((res) => {
         console.log("Update Club Book (Ax RES)", res.data);
+        //Update State on success
         setClub(newState);
       })
       .catch((err) => console.log(err));
-    // Pass newbook & the club,
-
-    //Update State on success
   };
 
   //==============Watchers that update state =================================
