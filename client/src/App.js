@@ -80,7 +80,7 @@ function App() {
     axios
       .get(`/api/users/${user.id}/clubs`)
       .then((res) => {
-        // [ {},{}]
+        console.log("RES DATA ALL USERS CLUBS", res.data);
         setClub(res.data);
       })
       .catch((e) => console.log(e));

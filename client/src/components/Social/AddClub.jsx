@@ -16,7 +16,6 @@ export default function AddClub(props) {
   };
 
   const handleClick = (e) => {
-    e.preventDefault();
     console.log("EVENT CLUB >>>>>>>", form);
     addClub(form.clubName, form.clubAvatar);
     //Form resets w/o message and regardless of success or error...

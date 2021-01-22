@@ -12,9 +12,10 @@ module.exports = (db) => {
 
   const getSpecificClub = (clubID) => {
     const query = {
-      text: `SELECT * FROM book_club 
-      JOIN books ON book_club.current_book = books.id
-      WHERE book_club.id = $1`,
+      text: `
+        SELECT * FROM book_club 
+        JOIN books ON book_club.current_book = books.id
+        WHERE book_club.id = $1`,
       values: [clubID],
     };
 
@@ -30,6 +31,20 @@ module.exports = (db) => {
           INSERT INTO book_club (admin_id, book_club_name, avatar) 
           VALUES ($1, $2, $3) RETURNING *`,
       values: [userId, clubName, avatar],
+    };
+
+    return db
+      .query(query)
+      .then((result) => result.rows[0])
+      .catch((err) => err);
+  };
+
+  const addClubToUsersClubs = (userId, clubId) => {
+    const query = {
+      text: `
+          INSERT INTO user_book_clubs (user_id, book_club_id) 
+          VALUES ($1, $2) RETURNING *`,
+      values: [userId, clubId],
     };
 
     return db
@@ -73,6 +88,7 @@ module.exports = (db) => {
     getClubs,
     getSpecificClub,
     addClub,
+    addClubToUsersClubs,
     editClub,
     deleteClub,
   };

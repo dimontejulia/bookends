@@ -7,6 +7,7 @@ module.exports = ({
   getSpecificClub,
   deleteClub,
   addClub,
+  addClubToUsersClubs,
   editClub,
 }) => {
   // clubs
@@ -36,7 +37,9 @@ module.exports = ({
     const { userId, clubName, avatar } = req.body;
     addClub(userId, clubName, avatar)
       .then((club) => {
-        res.json(club);
+        addClubToUsersClubs(userId, club.id).then((res) => {
+          res.json(user);
+        });
       })
       .catch((err) => res.json({ msg: err.message }));
   });
