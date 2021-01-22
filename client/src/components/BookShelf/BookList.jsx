@@ -1,10 +1,16 @@
-import React from "react";
-import AddBookButton from "./AddBookButton";
+import React, { useState } from "react";
 import BookListItem from "./BookListItem";
 import CardColumns from "react-bootstrap/CardColumns";
+import FormControl from "react-bootstrap/FormControl";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 export default function BookList(props) {
   const { books, setUserBooks, setCurrBook } = props;
+  const [form, setForm] = useState([]);
+  const [searchWord, setSearchWord] = useState("");
   //books is object of objects (indv Books)
   console.log("BOOK LIST", props);
   const formatStatus = (inputStatus) => {
@@ -17,8 +23,20 @@ export default function BookList(props) {
         break;
     }
   };
-  const searchWord = "women";
-  console.log("console.log books", books);
+
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setForm((prevState) => ({
+      value,
+    }));
+  };
+
+  const handleClick = (e) => {
+    setSearchWord(form.value);
+    //Form resets w/o message and regardless of success or error...
+    setForm((prev) => ({ ...prev, value: "" }));
+  };
+
   const booklistitem = function (book) {
     if (
       book.subject.includes(searchWord) ||
@@ -44,6 +62,25 @@ export default function BookList(props) {
 
   return (
     <section>
+      <Form>
+        <FormControl
+          onChange={handleChange}
+          id="searchBook"
+          name="searchBook"
+          type="text"
+          value={form.value}
+          placeholder="Search by title, authour, genre etc."
+          className="mr-lg-3"
+        />
+        <Button
+          variant="outline-primary"
+          onClick={() => {
+            handleClick();
+          }}
+        >
+          Search
+        </Button>
+      </Form>
       <CardColumns>{parsedList}</CardColumns>
     </section>
   );
