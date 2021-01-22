@@ -36,9 +36,9 @@ export default function ClubInfo(props) {
           <ClubRegular />
         ) : (
           <ClubAdmin
-            clubId={props.club.id}
-            clubName={props.club.book_club_name}
+            club={props.club}
             deleteClub={props.deleteClub}
+            editClub={props.editClub}
           />
         )}
       </section>

@@ -322,6 +322,11 @@ function App() {
   };
 
   const setClubBook = (clubId, newBook) => {
+    // if club gets edited book needs to stay the same
+    // if (!newBook) {
+
+    // }
+
     const newClubObj = { ...club[clubId], current_book: newBook.id };
 
     const newState = {
@@ -385,6 +390,7 @@ function App() {
                     currBook={currBook}
                     user={user}
                     deleteClub={deleteClub}
+                    editClub={setClubBook}
                   />
                 );
               }}
