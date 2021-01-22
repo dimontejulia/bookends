@@ -1,8 +1,8 @@
-import React from 'react';
-import ClubListItem from './ClubListItem';
-import axios from 'axios';
-import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
+import React from "react";
+import ClubListItem from "./ClubListItem";
+import axios from "axios";
+import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
 
 export default function ClubList(props) {
   const { listName, list, setCurrClub, setCurrBook } = props;
@@ -11,7 +11,6 @@ export default function ClubList(props) {
     axios
       .get(`/api/clubs/${clubID}`)
       .then((res) => {
-        console.log('RES DATA CLUB LIST ->', res.data);
         setCurrClub(res.data);
         setCurrBook({ id: res.data.current_book });
       })

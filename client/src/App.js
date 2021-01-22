@@ -89,7 +89,6 @@ function App() {
       .get(`/api/users/${user.id}/clubs`)
       .then((res) => {
         const newObj = convertArrayToObject(res.data, "id");
-        console.log("CLUBS CONVERTED TO OBJ", newObj);
         setClub(newObj);
       })
       .catch((e) => console.log(e));
@@ -190,7 +189,6 @@ function App() {
   };
 
   const updateUserBooks = (bookData) => {
-    console.log("Top func", bookData);
     //Build Book Object
     const newUserBooks = {
       ...userBooks,
@@ -325,7 +323,10 @@ function App() {
     axios
       .put(`/api/clubs/${clubId}`, dataToSend)
       .then((res) => {
-        setShow({ item: `${newBook.title} assigned successfully to \n ${newClubObj.book_club_name}.`, status: true })
+        setShow({
+          item: `${newBook.title} assigned successfully to \n ${newClubObj.book_club_name}.`,
+          status: true,
+        });
         //Update State on success
         setClub(newState);
       })

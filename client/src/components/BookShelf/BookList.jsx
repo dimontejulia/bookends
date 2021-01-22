@@ -11,8 +11,7 @@ export default function BookList(props) {
   const { books, setUserBooks, setCurrBook } = props;
   const [form, setForm] = useState([]);
   const [searchWord, setSearchWord] = useState("");
-  //books is object of objects (indv Books)
-  console.log("BOOK LIST", props);
+
   const formatStatus = (inputStatus) => {
     switch (inputStatus) {
       case "in_progress":
@@ -36,7 +35,8 @@ export default function BookList(props) {
     //Form resets w/o message and regardless of success or error...
     setForm((prev) => ({ ...prev, value: "" }));
   };
-  const reset = (e) => {
+  const clickReset = (e) => {
+    setSearchWord("");
     setForm((prev) => ({ ...prev, value: "" }));
   };
 
@@ -86,7 +86,7 @@ export default function BookList(props) {
         <Button
           variant="outline-dark"
           onClick={() => {
-            reset();
+            clickReset();
           }}
         >
           Reset

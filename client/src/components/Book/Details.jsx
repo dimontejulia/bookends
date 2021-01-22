@@ -9,7 +9,6 @@ export default function Details(props) {
     published,
     coverLink,
   } = props.book;
-  console.log("details props", props.book);
 
   return (
     <div>
