@@ -33,19 +33,20 @@ module.exports = ({
         .catch((err) => res.json({ msg: err.message }));
     });
 
+  // /api/clubs/new
+  router.post("/new", (req, res) => {
+    const { userId, clubName, avatar } = req.body;
+    addClub(userId, clubName, avatar)
+      .then((club) => res.json(club))
+      .catch((err) => res.json({ msg: err.message }));
+  });
+
   // /api/clubs
-  router
-    .get("/", (req, res) => {
-      getClubs()
-        .then((users) => res.json(users))
-        .catch((err) => res.json({ msg: err.message }));
-    })
-    .post("/", (req, res) => {
-      const { userId, clubName, avatar } = req.body;
-      addClub(userId, clubName, avatar)
-        .then((club) => res.json(club))
-        .catch((err) => res.json({ msg: err.message }));
-    });
+  router.get("/", (req, res) => {
+    getClubs()
+      .then((users) => res.json(users))
+      .catch((err) => res.json({ msg: err.message }));
+  });
 
   return router;
 };
