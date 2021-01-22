@@ -321,10 +321,11 @@ function App() {
 
     // Pass newbook & the club,
     const dataToSend = { newClubObj, newBook };
+    console.log("Update Club Book (Ax RES)", dataToSend);
     axios
       .put(`/api/clubs/${clubId}`, dataToSend)
       .then((res) => {
-        console.log("Update Club Book (Ax RES)", res.data);
+        setShow({ item: `${newBook.title} assigned successfully to \n ${newClubObj.book_club_name}.`, status: true })
         //Update State on success
         setClub(newState);
       })
