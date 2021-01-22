@@ -41,6 +41,9 @@ export default function BookList(props) {
   };
 
   const booklistitem = function (book) {
+    if (Array.isArray(book.subject)) {
+      book.subject = book.subject.join();
+    }
     if (
       book.subject.toLowerCase().includes(searchWord.toLowerCase()) ||
       book.title.toLowerCase().includes(searchWord.toLowerCase()) ||
