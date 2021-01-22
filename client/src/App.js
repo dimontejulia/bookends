@@ -321,12 +321,9 @@ function App() {
       .catch((err) => console.log("Book Index, Save ERROR:", err));
   };
 
-  const setClubBook = (clubId, newBook) => {
-    // if club gets edited book needs to stay the same
-    // if (!newBook) {
-
-    // }
-
+  const setClubBook = (clubInfo, newBook) => {
+    console.log("SETCLUBBOOK@@@@@@@@@", clubInfo);
+    const clubId = clubInfo.id;
     const newClubObj = { ...club[clubId], current_book: newBook.id };
 
     const newState = {
@@ -349,6 +346,30 @@ function App() {
       })
       .catch((err) => console.log(err));
   };
+
+  // const editClubInfo = (clubObj) => {
+  //   const newClubObj = { ...club[clubId], current_book: newBook.id };
+
+  //   const newState = {
+  //     ...club,
+  //     [clubId]: newClubObj,
+  //   };
+
+  //   // Pass newbook & the club,
+  //   const dataToSend = { newClubObj, newBook };
+  //   console.log("Update Club Book (Ax RES)", dataToSend);
+  //   axios
+  //     .put(`/api/clubs/${clubId}`, dataToSend)
+  //     .then((res) => {
+  //       setShow({
+  //         item: `${newBook.title} assigned successfully to \n ${newClubObj.book_club_name}.`,
+  //         status: true,
+  //       });
+  //       //Update State on success
+  //       setClub(newState);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   //==============Watchers that update state =================================
   useEffect(() => {
