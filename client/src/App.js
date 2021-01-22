@@ -20,9 +20,14 @@ import BookDetails from "./components/Book/Index";
 import SearchIndex from "./components/Search/SearchIndex";
 import Confirmation from "./components/Confirmation";
 import { faUserLock } from "@fortawesome/free-solid-svg-icons";
+import NewsFeed from "./components/Social/NewsFeed";
 //============================================
 function App() {
-  const [user, setUser] = useState({ id: 1, firstName: 'Mark', lastName: 'Twain' });
+  const [user, setUser] = useState({
+    id: 1,
+    firstName: "Mark",
+    lastName: "Twain",
+  });
   const [userBooks, setUserBooks] = useState([]);
   // const [search, setSearch] = useState("");
   const [friends, setFriends] = useState([]);
@@ -83,7 +88,7 @@ function App() {
     axios
       .get(`/api/users/${user.id}/clubs`)
       .then((res) => {
-        // [ {},{}]
+        console.log("RES DATA ALL USERS CLUBS", res.data);
         setClub(res.data);
       })
       .catch((e) => console.log(e));
@@ -120,8 +125,8 @@ function App() {
   //==============Functions========
 
   const fetchBookDetails = (OLBookID) => {
-    if (OLBookID === 'initial') {
-      return null
+    if (OLBookID === "initial") {
+      return null;
     }
     let book = {
       id: OLBookID,
@@ -215,6 +220,22 @@ function App() {
         console.log("book removed from shelf!");
       })
       .catch((err) => err);
+  };
+
+  const addClub = (clubName, avatar) => {
+    const newClubData = {
+      userId: user.id,
+      clubName,
+      avatar,
+    };
+
+    axios
+      .post(`/api/clubs/new`, newClubData)
+      .then((res) => {
+        console.log("RES DATA APP.JS ADD CLUB THEN >>>>", res.data);
+        // setClub((prev) => [...prev, res.data]);
+      })
+      .catch((err) => console.log(err));
   };
 
   const addFriend = (email) => {
@@ -350,6 +371,7 @@ function App() {
                 news={news}
                 addFriend={addFriend}
                 deleteFriend={deleteFriend}
+                addClub={addClub}
                 clubs={club}
                 setClub={setClub}
                 setCurrClub={setCurrClub}

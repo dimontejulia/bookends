@@ -5,36 +5,38 @@ import Button from "react-bootstrap/Button";
 
 export default function AddClub(props) {
   const [form, setForm] = useState([]);
-  // const { addFriend } = props;
+  const { addClub } = props;
 
   const handleChange = (e) => {
-    const { value } = e.target;
+    const { id, value } = e.target;
     setForm((prevState) => ({
-      value,
+      ...prevState,
+      [id]: value,
     }));
   };
 
   const handleClick = (e) => {
-    console.log("EVENT", form.value);
-    props.addClub(form.value);
+    console.log("EVENT CLUB >>>>>>>", form);
+    addClub(form.clubName, form.clubAvatar);
     //Form resets w/o message and regardless of success or error...
-    setForm((prev) => ({ ...prev, value: "" }));
+    setForm({ clubName: "", avatar: "" });
   };
 
   return (
     <Form>
-      <Form.Group controlId="formClubName">
+      <h1>Add a Club</h1>
+      <Form.Group>
         <Form.Control
           onChange={handleChange}
-          value={form.value}
+          id="clubName"
           type="text"
           placeholder="Club Name"
         />
       </Form.Group>
-      <Form.Group controlId="formClubAvatar">
+      <Form.Group>
         <Form.Control
           onChange={handleChange}
-          value={form.value}
+          id="clubAvatar"
           type="url"
           placeholder="Club Avatar Link"
         />
@@ -42,11 +44,7 @@ export default function AddClub(props) {
           Please use a direct link to the image!
         </Form.Text>
       </Form.Group>
-      <Button
-        variant="outline-primary"
-        type="submit"
-        onClick={() => handleClick()}
-      >
+      <Button variant="outline-primary" type="submit" onClick={handleClick}>
         Add Club
       </Button>
     </Form>
