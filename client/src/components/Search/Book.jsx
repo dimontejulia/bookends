@@ -52,10 +52,10 @@ const Book = ({ book, ...props }) => {
   };
 
   const handleClubClick = (clubId, bookDetails) => {
-    clubId = clubId.replace("club-", "");
+    const id = clubId.replace("clubId-", "");
     //Get club ID from the click event?
-    console.log("click event>>>>>>>", clubId, bookDetails);
-    props.setClubBook(clubId, bookDetails);
+    console.log("click event>>>>>>>", id, bookDetails);
+    props.setClubBook(id, bookDetails);
   };
 
   return (
