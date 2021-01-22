@@ -34,11 +34,7 @@ export default function Index(props) {
         currClub={props.currClub}
         setCurrBook={props.setCurrBook}
         list={clubIdList}
-<<<<<<< HEAD
-        listName={"Clubs"}
-=======
-        listName='Clubs'
->>>>>>> function/addRmvFriends
+        listName={'Clubs'}
       />
       <NewPostForm
         userId={props.user.id}
