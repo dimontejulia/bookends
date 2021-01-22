@@ -1,7 +1,6 @@
 import React from "react";
 import BookList from "./BookList";
-import Image from "react-bootstrap/Image";
-import Card from "react-bootstrap/Card";
+import CardGroup from "react-bootstrap/CardGroup";
 import { numBooksAward, oldBook, newBook } from "./awards";
 
 export default function Index(props) {
@@ -21,11 +20,12 @@ export default function Index(props) {
     <div>
       <h1>Hello!</h1>
       {/* awards */}
-      <section>
+      <CardGroup>
+        {numBooksAward(numBooks)}
         {oldBook(currentYear, oldestBook)}
         {newBook(currentYear, newestBook)}
-        {numBooksAward(numBooks)}
-      </section>
+      </CardGroup>
+
       <BookList
         books={books}
         setUserBooks={setUserBooks}

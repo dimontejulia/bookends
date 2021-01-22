@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "react-bootstrap/Image";
 import Card from "react-bootstrap/Card";
 
 export function numBooksAward(numBooks) {
@@ -19,7 +18,7 @@ export function numBooksAward(numBooks) {
           variant="top"
           src={process.env.PUBLIC_URL + `/images/${medal.toLowerCase()}.png`}
         />
-        <Card.Text>Wow. You have {numBooks} on your shelf!</Card.Text>
+        <Card.Text>Wow. You have {numBooks} books on your shelf!</Card.Text>
       </Card.Body>
     </Card>
   );
@@ -57,7 +56,7 @@ export function newBook(currentYear, newestBook) {
           />
           <Card.Text>
             You've read a book published in the last year. It was published in{" "}
-            {newBook}. Keep on supporting modern day authors!
+            {newestBook}. Keep on supporting modern day authors!
           </Card.Text>
         </Card.Body>
       </Card>
