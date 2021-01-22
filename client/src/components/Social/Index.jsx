@@ -6,19 +6,7 @@ import NewPostForm from './NewPostForm';
 import AddFriend from './AddFriend';
 
 export default function Index(props) {
-<<<<<<< HEAD
-  const friends = props.friends;
-  const friendList = friends.map((friend) => {
-    return `${friend.firstname} ${friend.lastname}`;
-  });
-=======
   console.log('SOCIAL INDEX PROPS ======', props);
-
-  // const friends = props.friends;
-  // const friendList = friends.map((friend) => {
-  //   return `${friend.firstname} ${friend.lastname}`;
-  // });
->>>>>>> function/addRmvFriends
 
   const clubs = props.clubs;
   const clubIdList =
