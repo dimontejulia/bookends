@@ -59,6 +59,18 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
+  const deleteClub = (clubId) => {
+    const query = {
+      text: `DELETE FROM book_club WHERE id = $1`,
+      values: [clubId],
+    };
+
+    return db
+      .query(query)
+      .then((result) => result.rows[0])
+      .catch((err) => err);
+  };
+
   return {
     getClubs,
     getSpecificClub,

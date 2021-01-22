@@ -19,7 +19,8 @@ module.exports = ({
         .catch((err) => res.json({ msg: err.message }));
     })
     .put("/:id", (req, res) => {
-      editClub(req.params.id)
+      const { currBookId, clubName, avatar } = req.body;
+      editClub(req.params.id, currBookId, clubName, avatar)
         .then((clubs) => res.json(clubs))
         .catch((err) => res.json({ msg: err.message }));
     })
