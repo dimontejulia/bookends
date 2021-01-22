@@ -42,9 +42,9 @@ export default function BookList(props) {
 
   const booklistitem = function (book) {
     if (
-      book.subject.includes(searchWord) ||
-      book.title.includes(searchWord) ||
-      book.author.includes(searchWord)
+      book.subject.toLowerCase().includes(searchWord.toLowerCase()) ||
+      book.title.toLowerCase().includes(searchWord.toLowerCase()) ||
+      book.author.toLowerCase().includes(searchWord.toLowerCase())
     ) {
       return (
         <BookListItem
@@ -58,6 +58,19 @@ export default function BookList(props) {
         />
       );
     }
+  };
+
+  const myObj = {
+    author: "Margaret Atwood",
+    comments: null,
+    dateread: null,
+    first_publish_year: "1985",
+    id: "OL2769393M",
+    rating: null,
+    status: null,
+    subject:
+      "Man-woman relationships, Misogyny, Fiction, Women, Dystopias, brothels, Scrabble, Christian fundamentalism, revolution, military dictatorship, Old Testament, religious fanaticism, totalitarianism, theonomy, handmaids, United States Congress, fantasy fiction, Canadian fantasy fiction, Dystopian fiction, Canadian authors, theocracy, pregnancy, political fiction, science fiction, Canadian fiction",
+    title: "The Handmaids Tale",
   };
 
   const parsedList =
