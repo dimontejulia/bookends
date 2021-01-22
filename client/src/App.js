@@ -134,6 +134,7 @@ function App() {
       author: "",
       published: "",
       description: "",
+      first_publish_year: "",
       subjects: null,
       works: null,
       coverLink: `https://covers.openlibrary.org/b/olid/${OLBookID}-L.jpg`,
@@ -148,6 +149,7 @@ function App() {
             ...book,
             title: res.data.title,
             published: res.data.publish_date,
+            first_publish_year: res.data.first_publish_year,
             author: res.data.authors[0].key,
             works: res.data.works[0].key,
           };
@@ -196,6 +198,7 @@ function App() {
         title: bookData.title,
         author: bookData.author,
         subject: bookData.subject,
+        first_publish_year: bookData.first_publish_year,
       },
     };
     setUserBooks(newUserBooks);
@@ -272,6 +275,7 @@ function App() {
       title: bookData.title,
       author: bookData.author,
       subject: bookData.subject,
+      first_publish_year: bookData.first_publish_year,
     };
 
     const newState = {

@@ -154,8 +154,8 @@ module.exports = (db) => {
   };
 
   const addBookToUser = (userId, usersNewBook) => {
-    console.log(">>>>1");
-    const { id, title, author, subject } = usersNewBook;
+    const { id, title, author, subject, first_publish_year } = usersNewBook;
+    console.log(">>>>1", usersNewBook);
     const bookCheckQuery = {
       text: `SELECT count(*) FROM books WHERE id = $1`,
       values: [id],
@@ -167,8 +167,8 @@ module.exports = (db) => {
     };
 
     const addBookQuery = {
-      text: `INSERT INTO books (id, title, author, subject) VALUES ($1, $2, $3, $4) RETURNING *`,
-      values: [id, title, author[0], subject],
+      text: `INSERT INTO books (id, title, author, subject, first_publish_year) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+      values: [id, title, author[0], subject, first_publish_year],
     };
 
     // console.log("!!addBookToUser", userId, usersNewBook);
