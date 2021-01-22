@@ -36,6 +36,9 @@ export default function BookList(props) {
     //Form resets w/o message and regardless of success or error...
     setForm((prev) => ({ ...prev, value: "" }));
   };
+  const reset = (e) => {
+    setForm((prev) => ({ ...prev, value: "" }));
+  };
 
   const booklistitem = function (book) {
     if (
@@ -79,6 +82,14 @@ export default function BookList(props) {
           }}
         >
           Search
+        </Button>
+        <Button
+          variant="outline-dark"
+          onClick={() => {
+            reset();
+          }}
+        >
+          Reset
         </Button>
       </Form>
       <CardColumns>{parsedList}</CardColumns>
