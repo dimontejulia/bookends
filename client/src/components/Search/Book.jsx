@@ -3,6 +3,7 @@ import { render } from "react-dom";
 
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Dropdown from "react-bootstrap/Dropdown";
 import MoreInfo from "./MoreInfo";
 import Confirmation from "../Confirmation";
 
@@ -26,6 +27,7 @@ const Book = ({ book, ...props }) => {
 
   const { currBook, setCurrBook } = props;
   const [modalShow, setModalShow] = useState(false);
+  const [clubBook, setClubBook] = useState({});
 
   const clickWishlist = (e) => {
     e.preventDefault();
@@ -50,6 +52,13 @@ const Book = ({ book, ...props }) => {
     props.setShow({ item: `${input.title} added successfully.`, status: true });
   };
 
+  const handleClubClick = (clubId, bookDetails) => {
+    const paramBookId = props.location.pathname.replace("club-", "");
+    //Get club ID from the click event?
+    console.log("click event>>>>>>>", clubId, bookDetails);
+    props.setClubBook(clubId, bookDetails);
+  };
+
   return (
     <div>
       <Card style={{ width: "20rem" }}>
@@ -65,6 +74,25 @@ const Book = ({ book, ...props }) => {
 
           <Button onClick={() => handleClick(buttonBook)}>Add to shelf</Button>
           <Button onClick={clickWishlist}>Add to wishlist</Button>
+          <Dropdown>
+            <Dropdown.Toggle variant="success" id="dropdown-basic">
+              Add to Club
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu>
+              <Dropdown.Item
+                id="clubId-1"
+                onClick={(event) =>
+                  handleClubClick(event.target.id, buttonBook)
+                }
+              >
+                club name 3
+              </Dropdown.Item>
+              <Dropdown.Item id="clubId-2" onClick={() => handleClubClick()}>
+                club name 2
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
 
           <Button
             variant="primary"

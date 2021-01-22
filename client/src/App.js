@@ -88,8 +88,9 @@ function App() {
     axios
       .get(`/api/users/${user.id}/clubs`)
       .then((res) => {
-        console.log("RES DATA ALL USERS CLUBS", res.data);
-        setClub(res.data);
+        const newObj = convertArrayToObject(res.data, "id");
+        console.log("CLUBS CONVERTED TO OBJ", newObj);
+        setClub(newObj);
       })
       .catch((e) => console.log(e));
 
@@ -304,6 +305,17 @@ function App() {
         render(<Confirmation elem={"book"} />);
       })
       .catch((err) => console.log("Book Index, Save ERROR:", err));
+  };
+
+  const setClubBook = (clubId, newBookDetails) => {
+    console.log("APP JS setClubCurrBook start", clubId, newBookDetails);
+    // Club ID = #, bookdets = {}
+    // Find the club from the ID (State)
+    //Make a new club Object
+    //Update clubS object (all clubs)
+    //Update DB w. Axios
+    // Pass newbook & the club,
+    //Update State on success
   };
 
   //==============Watchers that update state =================================
