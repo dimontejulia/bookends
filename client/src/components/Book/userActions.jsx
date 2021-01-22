@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 export default function UserActions(props) {
   const { userBookData, setUserBookData, currBookID } = props;
+  console.log("userbook data", userBookData);
 
   let readDate = null;
 
