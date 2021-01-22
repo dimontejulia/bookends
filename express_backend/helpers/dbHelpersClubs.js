@@ -114,10 +114,10 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const deleteClub = (clubId) => {
+  const deleteClub = (clubId, clubName) => {
     const query = {
-      text: `DELETE FROM book_club WHERE id = $1`,
-      values: [clubId],
+      text: `DELETE FROM book_club WHERE id = $1 AND book_club_name = $2`,
+      values: [clubId, clubName],
     };
 
     return db
