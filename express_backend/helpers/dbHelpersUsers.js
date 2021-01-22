@@ -29,7 +29,7 @@ module.exports = (db) => {
   const getUserBooks = (userID) => {
     const query = {
       text: `
-          SELECT book_id as id, date_read as dateRead, rating, comments, status, title, author, subject
+          SELECT book_id as id, date_read as dateRead, rating, comments, status, title, author, subject, first_publish_year
           FROM users_books
           JOIN books ON books.id = users_books.book_id
           WHERE user_id = $1
