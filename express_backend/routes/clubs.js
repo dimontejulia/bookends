@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const chalk = require("chalk");
 
 module.exports = ({
   getClubs,
@@ -34,7 +35,9 @@ module.exports = ({
   router.post("/new", (req, res) => {
     const { userId, clubName, avatar } = req.body;
     addClub(userId, clubName, avatar)
-      .then((club) => res.json(club))
+      .then((club) => {
+        res.json(club);
+      })
       .catch((err) => res.json({ msg: err.message }));
   });
 

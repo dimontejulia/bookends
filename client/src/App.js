@@ -18,6 +18,7 @@ import Register from "./components/Register";
 import BookDetails from "./components/Book/Index";
 import SearchIndex from "./components/Search/SearchIndex";
 import { faUserLock } from "@fortawesome/free-solid-svg-icons";
+import NewsFeed from "./components/Social/NewsFeed";
 //============================================
 function App() {
   const [user, setUser] = useState({ id: 1 });
@@ -65,7 +66,6 @@ function App() {
     });
     // GET BOOKS
     axios.get(`/api/users/${user.id}/books`).then((res) => {
-
       const newObj = convertArrayToObject(res.data, "id");
       setUserBooks(newObj);
       // setUserBookData(res.data);
@@ -209,36 +209,48 @@ function App() {
       .catch((err) => err);
   };
 
+  const addClub = (clubName, avatar) => {
+    const newClubData = {
+      userId: user.id,
+      clubName,
+      avatar,
+    };
+
+    axios
+      .post(`/api/clubs/new`, newClubData)
+      .then((res) => {
+        setClub((prev) => [...prev, res.data]);
+      })
+      .catch((err) => console.log(err));
+  };
+
   const addFriend = (email) => {
     //Check against friends
-    const friendExists = friends.some((friend) => friend.email === email)
+    const friendExists = friends.some((friend) => friend.email === email);
     if (friendExists) {
       console.log("FRIEND EXIST");
       return "Friend Exists";
     }
-    const dataToSend = { friendsEmail: email }
-    axios.post(`/api/users/${user.id}/friends`, dataToSend)
-      .then((res) => {
-        console.log("ADD FR RES", res.data)
-        //SUCCESS? RX friend Details > Build new Friend List
-        if (typeof res.data === 'object') {
-          console.log("UPDATE STATE");
-          setFriends((prev) => [...prev, res.data]);
-
-        }
-        //FAIL ResJSON will send 'NO USER FOUND'
-      })
+    const dataToSend = { friendsEmail: email };
+    axios.post(`/api/users/${user.id}/friends`, dataToSend).then((res) => {
+      console.log("ADD FR RES", res.data);
+      //SUCCESS? RX friend Details > Build new Friend List
+      if (typeof res.data === "object") {
+        console.log("UPDATE STATE");
+        setFriends((prev) => [...prev, res.data]);
+      }
+      //FAIL ResJSON will send 'NO USER FOUND'
+    });
     //
-  }
+  };
 
   const deleteFriend = (friendId) => {
-    console.log("DEL FRIEND START", friendId)
-    axios.delete(`/api/users/${user.id}/friends/${friendId}`)
-      .then((res) => {
-        console.log(`DELETE FRIEND RES ${res.data}`)
-        setFriends(res.data)
-      })
-  }
+    console.log("DEL FRIEND START", friendId);
+    axios.delete(`/api/users/${user.id}/friends/${friendId}`).then((res) => {
+      console.log(`DELETE FRIEND RES ${res.data}`);
+      setFriends(res.data);
+    });
+  };
 
   const newBook = (bookData) => {
     const newBook = {
@@ -342,6 +354,7 @@ function App() {
                 news={news}
                 addFriend={addFriend}
                 deleteFriend={deleteFriend}
+                addClub={addClub}
                 clubs={club}
                 setClub={setClub}
                 setCurrClub={setCurrClub}

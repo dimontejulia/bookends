@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 
 export default function AddClub(props) {
   const [form, setForm] = useState([]);
-  // const { addFriend } = props;
+  const { addClub } = props;
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -16,14 +16,17 @@ export default function AddClub(props) {
   };
 
   const handleClick = (e) => {
-    // props.addClub();
+    e.preventDefault();
+    console.log("EVENT CLUB >>>>>>>", form);
+    addClub(form.clubName, form.clubAvatar);
     //Form resets w/o message and regardless of success or error...
-    setForm((prev) => ({}));
+    setForm({ clubName: "", avatar: "" });
   };
 
   return (
     <Form>
-      <Form.Group controlId="formClubName">
+      <h1>Add a Club</h1>
+      <Form.Group>
         <Form.Control
           onChange={handleChange}
           id="clubName"
@@ -31,7 +34,7 @@ export default function AddClub(props) {
           placeholder="Club Name"
         />
       </Form.Group>
-      <Form.Group controlId="formClubAvatar">
+      <Form.Group>
         <Form.Control
           onChange={handleChange}
           id="clubAvatar"
@@ -42,11 +45,7 @@ export default function AddClub(props) {
           Please use a direct link to the image!
         </Form.Text>
       </Form.Group>
-      <Button
-        variant="outline-primary"
-        type="submit"
-        onClick={() => handleClick()}
-      >
+      <Button variant="outline-primary" type="submit" onClick={handleClick}>
         Add Club
       </Button>
     </Form>
