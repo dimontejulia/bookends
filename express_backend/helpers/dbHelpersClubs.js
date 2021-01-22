@@ -13,9 +13,20 @@ module.exports = (db) => {
   const getSpecificClub = (clubID) => {
     const query = {
       text: `
-        SELECT * FROM book_club 
-        JOIN books ON book_club.current_book = books.id
-        WHERE book_club.id = $1`,
+        SELECT  
+        club.id AS id, 
+        current_book,
+        admin_id,
+        book_club_name,
+        date_read,
+        rating,
+        comments,
+        status,
+        avatar
+        FROM book_club club
+        JOIN books ON club.current_book = books.id
+        WHERE club.id = $1;
+      `,
       values: [clubID],
     };
 

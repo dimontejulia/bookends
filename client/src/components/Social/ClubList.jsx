@@ -13,7 +13,7 @@ export default function ClubList(props) {
       .then((res) => {
         console.log("RES DATA CLUB LIST ->", res.data);
         setCurrClub(res.data);
-        setCurrBook(res.data.current_book);
+        setCurrBook({ id: res.data.current_book });
       })
       .catch((err) => err);
   };
