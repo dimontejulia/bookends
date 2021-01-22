@@ -32,7 +32,15 @@ export default function ClubInfo(props) {
         <br />
         <h1>{props.club.book_club_name}</h1>
         <h3>{props.club.comments}</h3>
-        {props.user.id === props.admin_id ? <ClubRegular /> : <ClubAdmin />}
+        {props.user.id === props.admin_id ? (
+          <ClubRegular />
+        ) : (
+          <ClubAdmin
+            clubId={props.club.id}
+            clubName={props.club.book_club_name}
+            deleteClub={props.deleteClub}
+          />
+        )}
       </section>
       <section className="book-club__content">
         <h3>Current Book:</h3>

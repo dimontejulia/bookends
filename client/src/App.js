@@ -242,6 +242,16 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  const deleteClub = (clubId, clubName) => {
+    console.log("start fo app.js delete", clubId, clubName);
+    axios
+      .delete(`/api/clubs/${clubId}`)
+      .then((res) => {
+        console.log("club has been removed!!!!", res);
+      })
+      .catch((err) => err);
+  };
+
   const addFriend = (email) => {
     //Check against friends
     const friendExists = friends.some((friend) => friend.email === email);
@@ -374,6 +384,7 @@ function App() {
                     currClub={currClub}
                     currBook={currBook}
                     user={user}
+                    deleteClub={deleteClub}
                   />
                 );
               }}
