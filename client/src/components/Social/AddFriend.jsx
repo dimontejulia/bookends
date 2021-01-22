@@ -17,14 +17,18 @@ export default function FriendList(props) {
   const handleClick = (e) => {
     console.log('EVENT', form.value);
     props.addFriend(form.value);
+    //Form resets w/o message and regardless of success or error...
+    setForm((prev) => ({ ...prev, value: '' }));
   };
 
   return (
     <Form inline>
       <FormControl
         onChange={handleChange}
+        id='friendEmailForm'
         name='friendEmail'
         type='text'
+        value={form.value}
         placeholder='Search by email'
         className='mr-sm-2'
       />
