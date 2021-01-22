@@ -419,6 +419,8 @@ function App() {
                 setUserBooks={setUserBooks}
                 carouselBooks={cBooks}
                 newBook={newBook}
+                show={show}
+                setShow={setShow}
               />
             </Route>
           </Switch>

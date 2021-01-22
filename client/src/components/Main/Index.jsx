@@ -1,5 +1,5 @@
-import React from 'react';
-import Carousel from '../Carousel';
+import React from "react";
+import Carousel from "../Carousel";
 
 export default function Index(props) {
   const { carouselBooks } = props;
@@ -11,10 +11,12 @@ export default function Index(props) {
     Object.keys(carouselBooks).map((category) => (
       // Build component w. book list key value
       <Carousel
-        carouselTitle={carouselBooks[category]['catTitle']}
-        carouselBooks={carouselBooks[category]['books']}
+        carouselTitle={carouselBooks[category]["catTitle"]}
+        carouselBooks={carouselBooks[category]["books"]}
         setUserBooks={props.setUserBooks}
         newBook={props.newBook}
+        show={props.show}
+        setShow={props.setShow}
       />
     ));
   return (
