@@ -8,17 +8,17 @@ export default function AddClub(props) {
   // const { addFriend } = props;
 
   const handleChange = (e) => {
-    const { value } = e.target;
+    const { id, value } = e.target;
     setForm((prevState) => ({
-      value,
+      ...prevState,
+      [id]: value,
     }));
   };
 
   const handleClick = (e) => {
-    console.log("EVENT", form.value);
-    props.addClub(form.value);
+    // props.addClub();
     //Form resets w/o message and regardless of success or error...
-    setForm((prev) => ({ ...prev, value: "" }));
+    setForm((prev) => ({}));
   };
 
   return (
@@ -26,7 +26,7 @@ export default function AddClub(props) {
       <Form.Group controlId="formClubName">
         <Form.Control
           onChange={handleChange}
-          value={form.value}
+          id="clubName"
           type="text"
           placeholder="Club Name"
         />
@@ -34,7 +34,7 @@ export default function AddClub(props) {
       <Form.Group controlId="formClubAvatar">
         <Form.Control
           onChange={handleChange}
-          value={form.value}
+          id="clubAvatar"
           type="url"
           placeholder="Club Avatar Link"
         />
