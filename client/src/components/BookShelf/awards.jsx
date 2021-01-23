@@ -1,5 +1,6 @@
 import React from "react";
 import Card from "react-bootstrap/Card";
+import "../Shelf.scss";
 
 export function numBooksAward(numBooks) {
   let medal;
@@ -11,7 +12,7 @@ export function numBooksAward(numBooks) {
     medal = "Bronze";
   }
   return (
-    <Card style={{ width: "18rem" }}>
+    <Card className="award-card">
       <Card.Body>
         <Card.Title>{medal} Reader</Card.Title>
         <Card.Img
@@ -27,7 +28,7 @@ export function numBooksAward(numBooks) {
 export function oldBook(currentYear, oldestBook) {
   if (currentYear - oldestBook >= 100) {
     return (
-      <Card style={{ width: "18rem" }}>
+      <div className="award-card">
         <Card.Body>
           <Card.Title>Old Timer</Card.Title>
           <Card.Img
@@ -39,7 +40,7 @@ export function oldBook(currentYear, oldestBook) {
             in {oldestBook}, {currentYear - oldestBook} years ago!
           </Card.Text>
         </Card.Body>
-      </Card>
+      </div>
     );
   }
 }
@@ -47,7 +48,7 @@ export function oldBook(currentYear, oldestBook) {
 export function newBook(currentYear, newestBook) {
   if (newestBook === currentYear - 1) {
     return (
-      <Card style={{ width: "18rem" }}>
+      <div className="award-card">
         <Card.Body>
           <Card.Title>Millennial Reader</Card.Title>
           <Card.Img
@@ -59,7 +60,7 @@ export function newBook(currentYear, newestBook) {
             {newestBook}. Keep on supporting modern day authors!
           </Card.Text>
         </Card.Body>
-      </Card>
+      </div>
     );
   }
 }

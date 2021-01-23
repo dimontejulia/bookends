@@ -68,7 +68,7 @@ export default function BookList(props) {
 
   return (
     <section>
-      <Form>
+      <Form className="search-books-bar">
         <FormControl
           onChange={handleChange}
           id="searchBook"

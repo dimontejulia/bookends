@@ -2,6 +2,7 @@ import React from "react";
 import BookList from "./BookList";
 import CardGroup from "react-bootstrap/CardGroup";
 import { numBooksAward, oldBook, newBook } from "./awards";
+import "../Shelf.scss";
 
 export default function Index(props) {
   const { books, setUserBooks, setCurrBook, user, clubs } = props;
@@ -17,20 +18,23 @@ export default function Index(props) {
   const newestBook = Math.max.apply(Math, years);
 
   return (
-    <div>
-      <h1>Hello!</h1>
+    <div className="container">
       {/* awards */}
-      <CardGroup>
-        {numBooksAward(numBooks)}
-        {oldBook(currentYear, oldestBook)}
-        {newBook(currentYear, newestBook)}
-      </CardGroup>
-
-      <BookList
-        books={books}
-        setUserBooks={setUserBooks}
-        setCurrBook={setCurrBook}
-      />
+      <section className="sidebar">
+        <h1>Hello!</h1>
+        <div className="card-group-awards">
+          {numBooksAward(numBooks)}
+          {oldBook(currentYear, oldestBook)}
+          {newBook(currentYear, newestBook)}
+        </div>
+      </section>
+      <section className="books-main">
+        <BookList
+          books={books}
+          setUserBooks={setUserBooks}
+          setCurrBook={setCurrBook}
+        />
+      </section>
     </div>
   );
 }
