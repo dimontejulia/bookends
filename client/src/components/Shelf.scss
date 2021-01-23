@@ -1,6 +1,10 @@
 .book-card {
-  width: 20%;
-  margin: 1rem;
+  width: 10em;
+  margin: 1em;
+}
+
+.book-cover {
+  height: 15em;
 }
 
 .container {
@@ -39,8 +43,4 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.book-cover {
-  height: 300px;
 }
