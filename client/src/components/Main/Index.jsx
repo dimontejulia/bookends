@@ -1,6 +1,7 @@
 import React from "react";
 import Carousel from "../Carousel";
 import "../../index.scss";
+import headerIllustration from "./header_illustration.png";
 
 export default function Index(props) {
   const { carouselBooks } = props;
@@ -25,6 +26,13 @@ export default function Index(props) {
   return (
     <div>
       <section className="main__header">
+        <div>
+          <img
+            className="headerIllustration"
+            alt="bookends header"
+            src={headerIllustration}
+          />
+        </div>
         <div className="wave">
           <svg
             data-name="Layer 1"
@@ -38,6 +46,9 @@ export default function Index(props) {
             ></path>
           </svg>
         </div>
+      </section>
+      <section className="header__tagline">
+        <h1>Your Favourite Books, One Shelf</h1>
       </section>
       {parsedList}
     </div>

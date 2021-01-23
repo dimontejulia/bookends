@@ -389,7 +389,11 @@ function App() {
           <nav className="sidebar__menu">
             <span>
               <Navbar user={user} setUser={setUser} clubs={club} />
-              <Confirmation show={show} setShow={setShow} />
+              {/* <Confirmation
+                className="confirmation__toast"
+                show={show}
+                setShow={setShow}
+              /> */}
             </span>
           </nav>
           <Switch>

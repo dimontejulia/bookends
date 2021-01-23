@@ -3,6 +3,7 @@ import Logo from "./Logo";
 import Login from "./Login";
 import axios from "axios";
 import "./Nav.scss";
+import classnames from "classnames";
 
 import { Navbar, Nav, Button, NavDropdown } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
@@ -45,7 +46,7 @@ export default function NavBar(props) {
   };
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar className="main__navbar" expand="lg">
       <LinkContainer to="/">
         <Navbar.Brand>
           {/* <Logo /> */}
