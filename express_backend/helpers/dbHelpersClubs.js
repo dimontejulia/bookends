@@ -45,7 +45,6 @@ module.exports = (db) => {
       `,
       values: [userId, clubId, title, body, timestamp],
     };
-    console.log("query", query);
     return db
       .query(query)
       .then((result) => result.rows)
@@ -185,7 +184,6 @@ module.exports = (db) => {
       text: `DELETE FROM book_club WHERE id = $1`,
       values: [clubId],
     };
-    console.log(query);
     return db
       .query(query)
       .then((result) => result.rows)
@@ -201,7 +199,23 @@ module.exports = (db) => {
       WHERE club_id = $1`,
       values: [clubId],
     };
-    console.log(query);
+    return db
+      .query(query)
+      .then((result) => result.rows)
+      .catch((err) => err);
+  };
+
+  const getClubMembers = (clubId) => {
+    const query = {
+      text: `
+      SELECT concat(users.first_name,' ', users.last_name) as name
+      FROM book_club bc
+      JOIN user_book_clubs uc ON uc.book_club_id = bc.id
+      JOIN users on uc.user_id = users.id
+      WHERE bc.id = $1;`,
+      values: [clubId],
+    };
+    console.log("mbrs start", query);
     return db
       .query(query)
       .then((result) => result.rows)
@@ -219,5 +233,6 @@ module.exports = (db) => {
     getClubNews,
     addClubNews,
     getClubBookHistory,
+    getClubMembers,
   };
 };

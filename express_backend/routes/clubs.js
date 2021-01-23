@@ -13,6 +13,7 @@ module.exports = ({
   getClubNews,
   addClubNews,
   getClubBookHistory,
+  getClubMembers,
 }) => {
   // clubs
 
@@ -31,6 +32,16 @@ module.exports = ({
         .then((newsPost) => {
           console.log("clubnews response", newsPost);
           res.json(newsPost);
+        })
+        .catch((err) => res.json({ msg: err.message }));
+    });
+
+  // /api/clubs/:id/members
+  router
+    .get("/:id/members", (req, res) => {
+      getClubMembers(req.params.id)
+        .then((clubMbrs) => {
+          res.json(clubMbrs);
         })
         .catch((err) => res.json({ msg: err.message }));
     });
