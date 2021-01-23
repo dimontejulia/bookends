@@ -1,46 +1,49 @@
-.book-card {
-  width: 10em;
-  margin: 1em;
-}
-
-.book-cover {
-  height: 15em;
-}
-
 .container {
   padding-top: 2em;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-}
+  .books-main {
+    flex-grow: 6;
+    margin-left: 3em;
+    //book item cards
+    .cards {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      .book-card {
+        width: 10em;
+        margin: 1em;
+      }
+      .book-cover {
+        height: 15em;
+      }
+    }
 
-.books-main {
-  flex-grow: 6;
-  padding-left: 5em;
-}
+    //search bar
+    .search-books-bar {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      .search-bar {
+        width: 30em !important;
+      }
+    }
+  }
 
-.sidebar {
-  flex-grow: 1;
-  padding-right: 5em;
-  width: 10em;
-  display: flex;
-  flex-direction: column;
-}
-
-.award-image {
-  width: 30%;
-}
-.award-card {
-  width: fit-content !important;
-}
-
-.search-books-bar {
-  display: inline;
-}
-
-.cards {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+  .sidebar {
+    flex-grow: 1;
+    margin-right: 2em;
+    width: 10em;
+    display: flex;
+    flex-direction: column;
+    //awards
+    .award-card {
+      width: fit-content !important;
+      .award-image {
+        width: 30%;
+      }
+    }
+  }
 }

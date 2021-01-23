@@ -74,9 +74,9 @@ export default function BookList(props) {
           id="searchBook"
           name="searchBook"
           type="text"
+          className="search-bar"
           value={form.value}
           placeholder="Search by title, authour, genre etc."
-          className="mr-lg-3"
         />
         <Button
           variant="outline-primary"
