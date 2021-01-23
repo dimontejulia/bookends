@@ -69,6 +69,11 @@
     }
 
     .carousel__book-subjects {
+      max-width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      overflow: hidden;
+      flex-direction: row;
       padding: 10px 0;
 
       .carousel__subject-badge {
