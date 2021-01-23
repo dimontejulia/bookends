@@ -16,6 +16,7 @@ module.exports = ({
   addBookToUser,
   addFriend,
   deleteFriend,
+  joinBookClub
 }) => {
 
 
@@ -98,7 +99,9 @@ module.exports = ({
         .catch((err) => res.json({ msg: err.message }));
     })
     .post("/:id/clubs", (req, res) => {
-      getUsers()
+      console.log(req.body)
+      const { userId, clubId } = req.body;
+      joinBookClub(userId, Number(clubId))
         .then((users) => res.json(users))
         .catch((err) => res.json({ msg: err.message }));
     })
