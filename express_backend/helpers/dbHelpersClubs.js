@@ -15,7 +15,18 @@ module.exports = (db) => {
   const getClubNews = (clubID) => {
     const query = {
       text: `
-      SELECT * FROM club_posts WHERE book_club_id = $1 ORDER BY id DESC;
+        SELECT 
+        posts.id AS postid,
+        users.id AS userid,
+        first_name AS firstname,
+        last_name AS lastname,
+        title,
+        body,
+        book_club_id,
+        timestamp
+        FROM club_posts posts
+        JOIN users ON users.id = posts.user_id
+        WHERE book_club_id = $1 ORDER BY posts.id DESC;
       `,
       values: [clubID],
     };
