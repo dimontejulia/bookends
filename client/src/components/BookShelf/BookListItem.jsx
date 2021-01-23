@@ -11,6 +11,7 @@ export default function BookListItem(props) {
     <Card className="book-card">
       <Link to={`/book/${bookID}`} onClick={() => setCurrBook({ id: bookID })}>
         <Card.Img
+          className="book-cover"
           variant="top"
           src={`http://covers.openlibrary.org/b/olid/${bookID}-M.jpg`}
         />

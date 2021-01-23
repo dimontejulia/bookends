@@ -19,7 +19,6 @@ export default function Index(props) {
 
   return (
     <div className="container">
-      {/* awards */}
       <section className="sidebar">
         <div className="card-group-awards">
           <h2>Reading Awards</h2>
