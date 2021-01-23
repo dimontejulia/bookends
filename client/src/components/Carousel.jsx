@@ -20,7 +20,7 @@ export default function Carousel(props) {
 
   return (
     <section className="carousel">
-      <h2>{props.carouselTitle}</h2>
+      <h2 className="carousel__category">{props.carouselTitle}</h2>
       <div className="carousel__covers">
         {books.map((book) => (
           <div className="carousel__container">

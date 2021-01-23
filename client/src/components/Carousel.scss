@@ -1,3 +1,16 @@
+.carousel {
+  padding-bottom: 20px;
+}
+
+.carousel__category {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 25px;
+  font-family: "Unna", serif;
+  font-weight: 900;
+  font-size: 2.5em;
+}
+
 .carousel__covers {
   display: flex;
   flex-direction: row;
@@ -10,8 +23,7 @@
   display: none;
 }
 
-
-.carousel__container { 
+.carousel__container {
   text-align: left;
   display: flex;
   flex-direction: row;
@@ -22,13 +34,13 @@
     transform: scale(1.08);
   }
 
-  .carousel__book-cover { 
+  .carousel__book-cover {
     display: flex;
     height: 250px;
     object-fit: contain;
     transition: transform 450ms;
   }
-  
+
   .carousel__info {
     display: flex;
     width: 300px;
@@ -40,7 +52,7 @@
     .carousel__book-title {
       font-weight: 700;
     }
-    
+
     .carousel__book-subjects {
       padding: 10px 0;
 
@@ -48,7 +60,7 @@
         margin-right: 10px;
       }
     }
-    
+
     .carousel__buttons {
       display: flex;
       flex-direction: row;
@@ -57,8 +69,6 @@
       .carousel__book-button {
         margin-right: 10px;
       }
-
     }
-
   }
 }

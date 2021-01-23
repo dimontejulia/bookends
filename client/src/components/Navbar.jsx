@@ -72,7 +72,7 @@ export default function NavBar(props) {
           </NavDropdown>
           <LinkContainer to="/search">
             <Nav.Link>
-              <Button variant="outline-info">Search Books</Button>{" "}
+              <Button variant="outline-info">Search Books</Button>
             </Nav.Link>
           </LinkContainer>
         </Nav>
