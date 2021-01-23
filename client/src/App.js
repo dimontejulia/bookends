@@ -119,7 +119,7 @@ function App() {
     clubAdmin,
     currBook,
     currClub,
-    clubNews
+    clubNews,
   };
 
   console.log(">>>>>>everyState", everyState);
@@ -321,10 +321,8 @@ function App() {
       .catch((err) => console.log("Book Index, Save ERROR:", err));
   };
 
-
-
   const postClubNews = (post) => {
-    console.log("POST NEWS", post)
+    console.log("POST NEWS", post);
     //Add userInfo To Post
     const clubPost = {
       ...post,
@@ -332,17 +330,16 @@ function App() {
       firstname: user.firstName,
       lastname: user.lastName,
       clubId: currClub.id,
-    }
+    };
 
     //Prepend to state
-    const newClubPosts = [clubPost, ...clubNews]
-    return axios.post(`/api/clubs/:id/newsfeed`, clubPost)
-      .then((res) => {
-        console.log("POST RESPONSE:", res.data)
-        //Update State
-        setClubNews(newClubPosts)
-      })
-  }
+    const newClubPosts = [clubPost, ...clubNews];
+    return axios.post(`/api/clubs/:id/newsfeed`, clubPost).then((res) => {
+      console.log("POST RESPONSE:", res.data);
+      //Update State
+      setClubNews(newClubPosts);
+    });
+  };
 
   const updateClubInfo = (clubInfo, newBook) => {
     console.log("SETCLUBBOOK@@@@@@@@@", clubInfo, newBook);
@@ -373,8 +370,6 @@ function App() {
       })
       .catch((err) => console.log(err));
   };
-
-
 
   //==============Watchers that update state =================================
   useEffect(() => {
@@ -419,7 +414,6 @@ function App() {
                     editClub={updateClubInfo}
                     clubNews={clubNews}
                     postClubNews={postClubNews}
-
                   />
                 );
               }}
@@ -456,7 +450,6 @@ function App() {
                 news={news}
                 setNews={setNews}
                 setClubNews={setClubNews}
-
               />{" "}
             </Route>
             <Route path="/shelf/">
