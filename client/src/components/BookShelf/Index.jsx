@@ -27,7 +27,7 @@ export default function Index(props) {
           {newBook(currentYear, newestBook)}
         </div>
       </section>
-      <section className="books-main">
+      <section className="main-content">
         <h1>Hello!</h1>
         <BookList
           books={books}

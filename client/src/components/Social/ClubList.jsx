@@ -1,8 +1,9 @@
-import React from 'react';
-import ClubListItem from './ClubListItem';
-import axios from 'axios';
-import Button from 'react-bootstrap/Button';
-import { Link } from 'react-router-dom';
+import React from "react";
+import ClubListItem from "./ClubListItem";
+import axios from "axios";
+import Button from "react-bootstrap/Button";
+import Table from "react-bootstrap/Table";
+import { Link } from "react-router-dom";
 
 export default function ClubList(props) {
   const { listName, list, setCurrClub, setCurrBook, setClubNews } = props;
@@ -15,7 +16,7 @@ export default function ClubList(props) {
       axios.get(`/api/clubs/${clubId}/members`),
     ])
       .then(([clubDetails, news, history, members]) => {
-        console.log('MEMBR RTN', members.data);
+        console.log("MEMBR RTN", members.data);
         //HELPER convert history to array
         function coveryHistoryToArray(historyObj) {
           return historyObj.map((book) => `${book.title} by ${book.author}`);
@@ -38,17 +39,24 @@ export default function ClubList(props) {
   const parsedList =
     list &&
     list.map((club) => (
-      <Link to={`/clubs/${club.id}`}>
-        <Button onClick={() => currentClub(club.id)}>
-          {club.book_club_name}
-        </Button>
-      </Link>
+      <tr>
+        <td>{club.book_club_name}</td>
+        <td>
+          <Link to={`/clubs/${club.id}`}>
+            <Button onClick={() => currentClub(club.id)}>
+              <i class="fas fa-arrow-circle-right"></i>
+            </Button>
+          </Link>
+        </td>
+      </tr>
     ));
 
   return (
     <section>
       <h1>{listName}</h1>
-      <ul>{parsedList}</ul>
+      <Table hover size="sm">
+        <tbody>{parsedList}</tbody>
+      </Table>
     </section>
   );
 }

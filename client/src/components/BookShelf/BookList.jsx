@@ -68,13 +68,13 @@ export default function BookList(props) {
 
   return (
     <section>
-      <Form className="search-books-bar">
+      <Form className="search-bar">
         <FormControl
           onChange={handleChange}
           id="searchBook"
           name="searchBook"
           type="text"
-          className="search-bar"
+          className="search-shelf-bar"
           value={form.value}
           placeholder="Search by title, authour, genre etc."
         />
