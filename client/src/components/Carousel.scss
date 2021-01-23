@@ -74,12 +74,17 @@
       display: flex;
       justify-content: flex-start;
       overflow: hidden;
+      overflow-x: scroll;
       flex-direction: row;
       padding: 10px 0;
 
       .carousel__subject-badge {
         margin-right: 10px;
       }
+    }
+
+    .carousel__book-subjects::-webkit-scrollbar {
+      display: none;
     }
 
     .carousel__buttons {
