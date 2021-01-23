@@ -7,6 +7,10 @@ a.active.navbar-brand {
   font-weight: 700;
   font-family: "Unna", serif;
   font-size: 1.8em;
+  transition: transform 450ms;
+  &:hover {
+    transform: scale(1.08);
+  }
 }
 
 .main__navbar {
