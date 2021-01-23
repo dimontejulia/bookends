@@ -37,3 +37,21 @@ a.active.navbar-brand {
     transition: all 0.5s ease-out;
   }
 }
+
+.nav__logout {
+  margin-left: 20px;
+  background-color: #332dee !important;
+  color: #fff !important;
+  -webkit-transition: all 0.5s ease-in;
+  -moz-transition: all 0.5s ease-in;
+  -o-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
+  &:hover {
+    color: #fff !important;
+    background-color: #2621b8 !important;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
+  }
+}
