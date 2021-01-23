@@ -42,7 +42,8 @@ export default function Index(props) {
           setClubNews={props.setClubNews}
         />
         <JoinClubForm joinClub={props.joinClub} />
-        <AddClub addClub={props.addClub} />
+        <br></br>
+        <AddClub className="search-bar" addClub={props.addClub} />
       </div>
       <div className="main-content">
         <NewPostForm
