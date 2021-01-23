@@ -11,7 +11,8 @@ module.exports = ({
   editClub,
   editClubWithBook,
   getClubNews,
-  addClubNews
+  addClubNews,
+  getClubBookHistory,
 }) => {
   // clubs
 
@@ -20,7 +21,6 @@ module.exports = ({
     .get("/:id/newsfeed", (req, res) => {
       getClubNews(req.params.id)
         .then((clubNews) => {
-
           res.json(clubNews);
         })
         .catch((err) => res.json({ msg: err.message }));
@@ -29,12 +29,11 @@ module.exports = ({
       console.log(chalk.cyanBright("news", req.body));
       addClubNews(req.params.id, req.body)
         .then((newsPost) => {
-          console.log('clubnews response', newsPost);
+          console.log("clubnews response", newsPost);
           res.json(newsPost);
         })
         .catch((err) => res.json({ msg: err.message }));
     });
-
 
   router
     .get("/:id", (req, res) => {
@@ -68,6 +67,14 @@ module.exports = ({
         .then((clubs) => res.json(clubs))
         .catch((err) => res.json({ msg: err.message }));
     });
+
+  router.get("/:id/history", (req, res) => {
+    getClubBookHistory(req.params.id)
+      .then((club) => {
+        res.json(club);
+      })
+      .catch((err) => res.json({ msg: err.message }));
+  });
 
   // /api/clubs/new
   router.post("/new", (req, res) => {
