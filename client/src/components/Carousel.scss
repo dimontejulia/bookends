@@ -72,8 +72,15 @@
 
     .carousel__buttons {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       padding: 10px 0;
+      width: 100%;
+
+      .carousel__buttons-adding {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 8px;
+      }
 
       .carousel__book-button {
         margin-right: 10px;

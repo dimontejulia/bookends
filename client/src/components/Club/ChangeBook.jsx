@@ -20,9 +20,9 @@ export default function ChangeBook(props) {
     ));
 
   return (
-    <Dropdown>
-      <Dropdown.Toggle variant="success" id="dropdown-basic">
-        Assign to Book Club:
+    <Dropdown block>
+      <Dropdown.Toggle block variant="primary" id="dropdown-basic">
+        Assign to Club
       </Dropdown.Toggle>
       <Dropdown.Menu>{parsedList}</Dropdown.Menu>
     </Dropdown>

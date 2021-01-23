@@ -49,19 +49,25 @@ export default function Carousel(props) {
                 </Badge>
               </span>
               <span className="carousel__buttons">
-                <Button
-                  className="carousel__book-button"
-                  onClick={() => handleClick(book)}
-                >
-                  Add to Shelf
+                <span className="carousel__buttons-adding">
+                  <Button
+                    block
+                    className="carousel__book-button"
+                    onClick={() => handleClick(book)}
+                  >
+                    Add to Shelf
+                  </Button>
+                  <ChangeClubBook
+                    className="carousel__book-button"
+                    book={book}
+                    setClubBook={props.setClubBook}
+                    clubs={props.clubs}
+                  />
+                </span>
+                <Button block className="carousel__book-button">
+                  Share Book
                 </Button>
-                <Button className="carousel__book-button">Share Book</Button>
               </span>
-              <ChangeClubBook
-                book={book}
-                setClubBook={props.setClubBook}
-                clubs={props.clubs}
-              />
             </span>
           </div>
         ))}

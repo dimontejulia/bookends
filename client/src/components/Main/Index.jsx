@@ -2,6 +2,7 @@ import React from "react";
 import Carousel from "../Carousel";
 import "../../index.scss";
 import headerIllustration from "./header_illustration.png";
+import Button from "react-bootstrap/Button";
 
 export default function Index(props) {
   const { carouselBooks } = props;
@@ -48,8 +49,14 @@ export default function Index(props) {
         </div>
       </section>
       <section className="header__tagline">
-        <h1>Your Favourite Books, One Shelf</h1>
-
+        <div className="header__content">
+          <h1>Your Favourite Books, One Shelf</h1>
+          <div className="header__button_group">
+            <Button variant="primary">My Shelf</Button>
+            <Button variant="primary">Search Books</Button>
+          </div>
+        </div>
+        <br />
         <svg
           width="78px"
           height="12px"
