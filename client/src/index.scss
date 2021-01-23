@@ -75,9 +75,24 @@ code {
 
 .header__tagline {
   margin: 100px 0 50px 0;
-  h1 {
-    margin-bottom: 50px;
-    font-size: 3em;
-    font-weight: 400;
+
+  .header__content {
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+      margin-bottom: 50px;
+      font-size: 3em;
+      font-weight: 400;
+    }
+
+    // .header__button_group {
+    //   display: flex;
+    //   flex-direction: row;
+    //   justify-content: center;
+    //   .header__individual-button {
+    //     margin: 0 20px;
+    //   }
+    // }
   }
 }

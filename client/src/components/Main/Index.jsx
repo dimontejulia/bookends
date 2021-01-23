@@ -51,10 +51,14 @@ export default function Index(props) {
       <section className="header__tagline">
         <div className="header__content">
           <h1>Your Favourite Books, One Shelf</h1>
-          <div className="header__button_group">
-            <Button variant="primary">My Shelf</Button>
-            <Button variant="primary">Search Books</Button>
-          </div>
+          {/* <div className="header__button_group">
+            <Button className="header__individual-button" variant="primary">
+              My Shelf
+            </Button>
+            <Button className="header__individual-button" variant="primary">
+              Search Books
+            </Button>
+          </div> */}
         </div>
         <br />
         <svg
