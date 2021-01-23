@@ -49,6 +49,35 @@ export default function Index(props) {
       </section>
       <section className="header__tagline">
         <h1>Your Favourite Books, One Shelf</h1>
+
+        <svg
+          width="78px"
+          height="12px"
+          viewBox="0 0 78 12"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <title>Group 6</title>
+          <g
+            id="Page-1"
+            stroke="none"
+            stroke-width="1"
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <g
+              id="Desktop-HD"
+              transform="translate(-681.000000, -579.000000)"
+              fill="#1B2531"
+            >
+              <g id="Group-6" transform="translate(681.000000, 579.000000)">
+                <circle id="Oval" cx="39" cy="6" r="6"></circle>
+                <circle id="Oval-Copy" cx="6" cy="6" r="6"></circle>
+                <circle id="Oval-Copy-2" cx="72" cy="6" r="6"></circle>
+              </g>
+            </g>
+          </g>
+        </svg>
       </section>
       {parsedList}
     </div>
