@@ -1,12 +1,11 @@
-@import "~bootstrap/scss/bootstrap";
-@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;1,300;1,400;1,700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap");
-// @import "~normalize.css/normalize.css";
-
 a.active.navbar-brand {
   font-weight: 700;
   font-family: "Unna", serif;
   font-size: 1.8em;
+  transition: transform 450ms;
+  &:hover {
+    transform: scale(1.08);
+  }
 }
 
 .main__navbar {
@@ -19,18 +18,15 @@ a.active.navbar-brand {
 
 .nav-link-items {
   align-items: center;
+  font-weight: 400;
 }
 
 .nav__search {
-  border-color: #332dee !important;
-  color: #332dee !important;
   -webkit-transition: all 0.5s ease-in;
   -moz-transition: all 0.5s ease-in;
   -o-transition: all 0.5s ease-in;
   transition: all 0.5s ease-in;
   &:hover {
-    color: #fff !important;
-    background-color: #332dee !important;
     -webkit-transition: all 0.5s ease-out;
     -moz-transition: all 0.5s ease-out;
     -o-transition: all 0.5s ease-out;
@@ -40,15 +36,11 @@ a.active.navbar-brand {
 
 .nav__logout {
   margin-left: 20px;
-  background-color: #332dee !important;
-  color: #fff !important;
   -webkit-transition: all 0.5s ease-in;
   -moz-transition: all 0.5s ease-in;
   -o-transition: all 0.5s ease-in;
   transition: all 0.5s ease-in;
   &:hover {
-    color: #fff !important;
-    background-color: #2621b8 !important;
     -webkit-transition: all 0.5s ease-out;
     -moz-transition: all 0.5s ease-out;
     -o-transition: all 0.5s ease-out;

@@ -1,25 +1,34 @@
-@import "~bootstrap/scss/bootstrap";
-
-// @import "~normalize.css/normalize.css";
-
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;1,300;1,400;1,700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
-// @import "styles/variables.scss";
-// @import "styles/reset.scss";
+@import "~normalize.css/normalize.css";
 
-// @import "styles/typography.scss";
+@import "styles/variables.scss";
+@import "styles/mixins.scss";
+@import "styles/animations.scss";
+
+/* BOOTSTRAP CUSTOM VARS */
+
+$theme-colors: (
+  "primary": #332dee,
+  "danger": #ff5353,
+  "info": #6c63ff,
+  "success": #21ed75,
+  "dark": #2f2e41,
+);
+
+/* END BOOTSTRAP CUSTOM VARS */
+
+@import "~bootstrap/scss/bootstrap";
 
 * {
   box-sizing: border-box;
 }
 
 body {
+  background-color: #fff;
   margin: 0;
   font-family: "Source Sans Pro", sans-serif;
-  // font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-  //   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-  //   sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -31,7 +40,7 @@ code {
 
 .main__header {
   position: relative;
-  min-height: 50vh;
+  min-height: 25vh;
   background-color: #fff0f5;
 
   .wave {
@@ -48,7 +57,7 @@ code {
     position: relative;
     display: block;
     width: calc(145% + 1.3px);
-    height: 150px;
+    height: 70px;
   }
 
   .wave .shape-fill {
@@ -56,17 +65,35 @@ code {
   }
 
   .headerIllustration {
-    margin-top: 50px;
-    margin-bottom: 100px;
+    // margin-top: 50px;
+    // margin-bottom: 100px;
+    z-index: 10;
+    position: relative;
+    width: 30vw;
   }
 }
 
 .header__tagline {
   margin: 100px 0 50px 0;
-  h1 {
-    margin-bottom: 50px;
-    font-size: 3em;
-    font-weight: 400;
+
+  .header__content {
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+      margin-bottom: 50px;
+      font-size: 3em;
+      font-weight: 400;
+    }
+
+    // .header__button_group {
+    //   display: flex;
+    //   flex-direction: row;
+    //   justify-content: center;
+    //   .header__individual-button {
+    //     margin: 0 20px;
+    //   }
+    // }
   }
 }
 
