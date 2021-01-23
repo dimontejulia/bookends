@@ -31,8 +31,10 @@ export default function Carousel(props) {
               alt={book.title}
             />
             <span className="carousel__info">
-              <h3 className="carousel__book-title">{book.title}</h3>
-              <h5 className="carousel__book-author">by {book.author}</h5>
+              <span className="carousel__book-title-author">
+                <h3 className="carousel__book-title">{book.title}</h3>
+                <h5 className="carousel__book-author">by {book.author}</h5>
+              </span>
               <span className="carousel__book-description">
                 {book.description}
               </span>
