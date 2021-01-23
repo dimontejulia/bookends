@@ -323,8 +323,24 @@ function App() {
 
 
 
-  const postClubNews = (clubId, post) => {
-    console.log("POST NEWS")
+  const postClubNews = (post) => {
+    console.log("POST NEWS", post)
+    //Add userInfo To Post
+    const clubPost = {
+      ...post,
+      user_id: user.id,
+      firstname: user.firstName,
+      lastname: user.lastName,
+    }
+
+    //Prepend to state
+    const newClubPosts = [clubPost, ...clubNews]
+    return axios.post(`/api/clubs/:id/newsfeed`, clubPost)
+      .then((res) => {
+        console.log("POST RESPONSE:", res.data)
+        //Update State
+        setClubNews(newClubPosts)
+      })
   }
 
   const updateClubInfo = (clubInfo, newBook) => {

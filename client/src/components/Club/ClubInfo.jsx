@@ -36,12 +36,7 @@ export default function ClubInfo(props) {
         <h3>Current Book:</h3>
         <Details book={bookDetails ? bookDetails : null} />
       </section>
-      <ClubNews
-        postClubNews={props.postClubNews}
-        clubNews={props.clubNews}
-        postClubNews={props.postClubNews}
-        clubId={props.currClub.id}
-      />
+      <ClubNews clubNews={props.clubNews} postClubNews={props.postClubNews} />
     </div>
   );
 }

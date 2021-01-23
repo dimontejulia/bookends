@@ -10,18 +10,30 @@ module.exports = ({
   addClubToUsersClubs,
   editClub,
   editClubWithBook,
-  getClubNews
+  getClubNews,
+  addClubNews
 }) => {
   // clubs
 
   // /api/clubs/:id/newsfeed
-  router.get("/:id/newsfeed", (req, res) => {
-    getClubNews(req.params.id)
-      .then((clubNews) => {
-        console.log('clubnews response', clubNews);
-        res.json(clubNews);
-      });
-  });
+  router
+    .get("/:id/newsfeed", (req, res) => {
+      getClubNews(req.params.id)
+        .then((clubNews) => {
+
+          res.json(clubNews);
+        })
+        .catch((err) => res.json({ msg: err.message }));
+    })
+    .post("/:id/newsfeed", (req, res) => {
+      console.log(chalk.cyanBright("news", req.body));
+      addClubNews(req.params.id, req.body)
+        .then((newsPost) => {
+          console.log('clubnews response', newsPost);
+          res.json(newsPost);
+        })
+        .catch((err) => res.json({ msg: err.message }));
+    });
 
 
   router
