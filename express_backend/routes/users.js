@@ -102,7 +102,11 @@ module.exports = ({
       console.log(req.body)
       const { userId, clubId } = req.body;
       joinBookClub(userId, Number(clubId))
-        .then((users) => res.json(users))
+        .then((result) => {
+          console.log("Getting USER CLUBS", result);
+          return getUserClubs(req.params.id)
+        })
+        .then(clubs => res.json(clubs))
         .catch((err) => res.json({ msg: err.message }));
     })
     .delete("/:id/clubs", (req, res) => {

@@ -293,11 +293,12 @@ function App() {
     const dataToSend = { userId: user.id, clubId }
     console.log("JOING CLUB APPJS DATA", dataToSend)
     axios.post(`/api/users/${user.id}/clubs`, dataToSend).then((res) => {
-      console.log("JOING CLUB RESPONSE", res.data)
+      console.log("JOING CLUB RESPONSE", res.data, club)
       //Sueccess res will be obj 
       if (typeof res.data === 'string') {
         setShow({ item: res.data, status: true });
       } else if (typeof res.data === 'object') {
+        setClub(res.data);
         setShow({ item: "Successfully joined club", status: true });
       }
       //FAIL ResJSON will send 'NO USER FOUND'

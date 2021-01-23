@@ -257,7 +257,6 @@ module.exports = (db) => {
       values: [userId],
     };
 
-    console.log("ADD TO DB FUNCTION!!!!!");
     return db
       .query(query)
       .then((result) => {
