@@ -4,10 +4,9 @@ import ReactDOM from "react-dom";
 import App from "./App";
 // import * as serviceWorker from "./serviceWorker";
 
-import "./index.scss";
 import "normalize.css";
 import "./fontawesome";
-import "bootstrap/dist/css/bootstrap.css";
+import "./index.scss";
 
 ReactDOM.render(
   <React.StrictMode>
