@@ -28,7 +28,7 @@ export default function NavBar(props) {
       return (
         <span>
           {`What are you reading ${props.user.firstName}?`}
-          <Button variant="primary" type="submit">
+          <Button className="nav__logout" variant="primary" type="submit">
             Logout
           </Button>
         </span>
@@ -72,7 +72,9 @@ export default function NavBar(props) {
           </NavDropdown>
           <LinkContainer to="/search">
             <Nav.Link>
-              <Button variant="outline-info">Search Books</Button>
+              <Button className="nav__search" variant="outline-info">
+                Search Books
+              </Button>
             </Nav.Link>
           </LinkContainer>
         </Nav>
