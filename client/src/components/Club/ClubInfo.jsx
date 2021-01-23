@@ -1,10 +1,9 @@
 import React from "react";
-import classnames from "classnames";
-import Button from "../Button";
 import Details from "../Book/Details";
 import ClubRegular from "./ClubRegular";
 import ClubAdmin from "./ClubAdmin";
 import ClubNews from "./ClubNews";
+import ClubHistory from "./ClubHistory";
 
 export default function ClubInfo(props) {
   const bookDetails = props.currBook;
@@ -13,7 +12,6 @@ export default function ClubInfo(props) {
   const numBooks = Object.keys(props.currClub).length - 10;
   let bookHistory = [];
   for (var i = 0; i < numBooks; i++) bookHistory[i] = props.currClub[i];
-  console.log("book history", bookHistory);
 
   return (
     <div>
@@ -42,6 +40,7 @@ export default function ClubInfo(props) {
         <h3>Current Book:</h3>
         <Details book={bookDetails ? bookDetails : null} />
       </section>
+      <ClubHistory bookHistory={bookHistory} numBooks={numBooks} />
       <ClubNews clubNews={props.clubNews} postClubNews={props.postClubNews} />
     </div>
   );
