@@ -328,9 +328,10 @@ function App() {
     //Add userInfo To Post
     const clubPost = {
       ...post,
-      user_id: user.id,
+      userId: user.id,
       firstname: user.firstName,
       lastname: user.lastName,
+      clubId: currClub.id,
     }
 
     //Prepend to state

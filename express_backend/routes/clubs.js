@@ -27,7 +27,7 @@ module.exports = ({
     })
     .post("/:id/newsfeed", (req, res) => {
       console.log(chalk.cyanBright("news", req.body));
-      addClubNews(req.params.id, req.body)
+      addClubNews(req.body)
         .then((newsPost) => {
           console.log('clubnews response', newsPost);
           res.json(newsPost);

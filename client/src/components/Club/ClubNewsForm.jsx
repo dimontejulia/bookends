@@ -12,10 +12,10 @@ export default function NewsFeed(props) {
     setPost((prevState) => ({
       ...prevState,
       [id]: value,
-      timestamp: date.toLocaleString(),
+      timestamp: date.toLocaleString('en-CA', { hour12: false }),
     }));
   };
-
+  // timestamp: date.toLocaleString('en-CA', { hour12: false }),
   const handleSubmitClick = (e) => {
     e.preventDefault();
 
