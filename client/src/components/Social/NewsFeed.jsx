@@ -1,5 +1,5 @@
-import React from 'react';
-import NewsFeedItem from './NewsFeedItem';
+import React from "react";
+import NewsFeedItem from "./NewsFeedItem";
 
 export default function NewsFeed(props) {
   const { newsList } = props;
@@ -9,10 +9,5 @@ export default function NewsFeed(props) {
       <NewsFeedItem key={listItem.postid} item={listItem} />
     ));
 
-  return (
-    <section>
-      <h1>{props.listName}</h1>
-      <h1>{parsedList}</h1>
-    </section>
-  );
+  return <section className="newsfeed ">{parsedList}</section>;
 }

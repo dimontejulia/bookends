@@ -21,7 +21,7 @@ export default function AddList(props) {
   };
 
   return (
-    <Form inline>
+    <Form className="search-social">
       <FormControl
         onChange={handleChange}
         id="friendEmailForm"

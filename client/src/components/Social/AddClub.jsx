@@ -23,7 +23,7 @@ export default function AddClub(props) {
 
   return (
     <Form>
-      <h1>Add a Club</h1>
+      <h1>Create New Club</h1>
       <Form.Group>
         <Form.Control
           onChange={handleChange}
@@ -44,7 +44,7 @@ export default function AddClub(props) {
         </Form.Text>
       </Form.Group>
       <Button variant="outline-primary" type="submit" onClick={handleClick}>
-        Add Club
+        Create Club
       </Button>
     </Form>
   );
