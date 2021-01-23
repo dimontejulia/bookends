@@ -36,6 +36,25 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
+  const addClubNews = (clubId, post) => {
+    const { user_Id, title, body, timestamp } = post;
+    const query = {
+      text: `
+      INSERT INTO club_posts (user_id, book_club_id, title, body, timestamp)
+      VALUES
+      ($1,$2,$3,$4)
+      RETURNING *
+      `,
+      values: [user_Id, clubId, title, body, timestamp],
+    };
+    console.log("query", query)
+    return db
+      .query(query)
+      .then((result) => result.rows)
+      .catch((err) => err);
+  };
+
+
   const getSpecificClub = (clubID) => {
     const query = {
       text: `
@@ -184,6 +203,7 @@ module.exports = (db) => {
     editClub,
     editClubWithBook,
     deleteClub,
-    getClubNews
+    getClubNews,
+    addClubNews
   };
 };
