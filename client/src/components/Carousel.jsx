@@ -13,6 +13,11 @@ export default function Carousel(props) {
     props.setShow({ item: `${input.title} added successfully.`, status: true });
   };
 
+  let subjects;
+  const getSubjects = (bookSubjectsStr) => {
+    subjects = bookSubjectsStr.split(",").slice(0, 3);
+  };
+
   return (
     <section className="carousel">
       <h2>{props.carouselTitle}</h2>
@@ -32,14 +37,15 @@ export default function Carousel(props) {
                 {book.description}
               </span>
               <span className="carousel__book-subjects">
+                {getSubjects(book.subject)}
                 <Badge className="carousel__subject-badge" variant="dark">
-                  Non Fiction
+                  {subjects[0]}
                 </Badge>
                 <Badge className="carousel__subject-badge" variant="dark">
-                  Motivational
+                  {subjects[1]}
                 </Badge>
                 <Badge className="carousel__subject-badge" variant="dark">
-                  Self-help
+                  {subjects[2]}
                 </Badge>
               </span>
               <span className="carousel__buttons">
