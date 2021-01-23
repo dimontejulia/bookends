@@ -14,6 +14,7 @@ $theme-colors: (
   "danger": #ff5353,
   "info": #6c63ff,
   "success": #21ed75,
+  "dark": #2f2e41,
 );
 
 /* END BOOTSTRAP CUSTOM VARS */
@@ -25,6 +26,7 @@ $theme-colors: (
 }
 
 body {
+  background-color: #fff;
   margin: 0;
   font-family: "Source Sans Pro", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -38,7 +40,7 @@ code {
 
 .main__header {
   position: relative;
-  min-height: 50vh;
+  min-height: 25vh;
   background-color: #fff0f5;
 
   .wave {
@@ -55,7 +57,7 @@ code {
     position: relative;
     display: block;
     width: calc(145% + 1.3px);
-    height: 150px;
+    height: 70px;
   }
 
   .wave .shape-fill {
@@ -63,8 +65,11 @@ code {
   }
 
   .headerIllustration {
-    margin-top: 50px;
-    margin-bottom: 100px;
+    // margin-top: 50px;
+    // margin-bottom: 100px;
+    z-index: 10;
+    position: relative;
+    width: 30vw;
   }
 }
 
