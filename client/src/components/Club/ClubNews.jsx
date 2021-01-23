@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from "react";
 import ClubNewsForm from "../Social/NewPostForm";
 import ClubNewsFeed from "../Social/NewsFeed"; //newsList & Name
@@ -17,6 +18,20 @@ export default function ClubInfo(props) {
     <section>
       <ClubNewsForm user={} clubInfo={} postClubNews={} />
       <ClubNewsFeed newsList={clubNews} listName="Club News:" />
+=======
+import React from 'react';
+import ClubNewsForm from './ClubNewsForm';
+import ClubNewsFeed from '../Social/NewsFeed';
+import NewsItem from '../Social/NewsFeedItem';
+
+export default function ClubInfo(props) {
+  const { postClubNews, clubNews } = props;
+
+  return (
+    <section>
+      <ClubNewsForm postClubNews={postClubNews} />
+      <ClubNewsFeed newsList={clubNews} listName='Club News:' />
+>>>>>>> feature/clubNews
     </section>
   );
 }
