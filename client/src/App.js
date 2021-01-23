@@ -271,6 +271,35 @@ function App() {
     //
   };
 
+
+  const mbrOfClub = (userId, clubId) => {
+    //HELPER FUNC
+    //Check if Mbr has that club Id already
+    const usersClubs = Object.keys(club)
+    return usersClubs.some(club => club === clubId)
+  }
+
+
+  const joinClub = (clubId) => {
+    //Combine 2 checks below into validate join club
+    //Check if entry if a club ID (implement club Prefix)
+    //Check if mbr already
+    if (mbrOfClub(user.id, clubId)) {
+      return setShow({ item: "Whoops, you already belong to that club.", status: true })
+    }
+    const dataToSend = { userId: user.id, clubId }
+    axios.post(`/api/users/${user.id}/clubs`, dataToSend).then((res) => {
+      //Sueccess res will be obj 
+      if (typeof res.data === 'string') {
+        setShow({ item: res.data, status: true });
+      } else if (typeof res.data === 'object') {
+        setClub(res.data);
+        setShow({ item: "Successfully joined club", status: true });
+      }
+      //FAIL ResJSON will send 'NO USER FOUND'
+    }).catch((e) => setShow({ item: "Error", status: true }));
+  };
+
   const deleteFriend = (friendId) => {
     console.log("DEL FRIEND START", friendId);
     axios.delete(`/api/users/${user.id}/friends/${friendId}`).then((res) => {
@@ -454,6 +483,8 @@ function App() {
                 news={news}
                 setNews={setNews}
                 setClubNews={setClubNews}
+                joinClub={joinClub}
+
               />{" "}
             </Route>
             <Route path="/shelf/">

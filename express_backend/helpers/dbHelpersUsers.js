@@ -257,7 +257,6 @@ module.exports = (db) => {
       values: [userId],
     };
 
-    console.log("ADD TO DB FUNCTION!!!!!");
     return db
       .query(query)
       .then((result) => {
@@ -380,6 +379,23 @@ module.exports = (db) => {
       .catch((err) => console.log("DBERROR:>>>>", err));
   };
 
+
+  const joinBookClub = (userId, clubId) => {
+    const joinQuery = {
+      text: `INSERT INTO user_book_clubs (user_id, book_club_id) VALUES ($1,$2) RETURNING *; `,
+      values: [userId, clubId],
+    };
+    console.log("ClubCheck STArt");
+    return db
+      .query(joinQuery)
+      .then((result) => {
+        console.log("ClubCheck", result.rows);
+        return result.rows;
+      })
+
+      .catch((err) => "Whoops, Check that the Club ID exists");
+  };
+
   return {
     getUsers,
     addFriend,
@@ -396,7 +412,7 @@ module.exports = (db) => {
     getWishlist,
     getPosts,
     addPost,
-
+    joinBookClub,
     updateUsersBooks,
     addBookToUser,
   };

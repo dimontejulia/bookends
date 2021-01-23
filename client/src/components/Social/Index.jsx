@@ -4,6 +4,7 @@ import ClubList from './ClubList';
 import NewsFeed from './NewsFeed';
 import NewPostForm from './NewPostForm';
 import AddFriendForm from './AddFriend';
+import JoinClubForm from './JoinClubForm';
 import AddClub from './AddClub';
 
 export default function Index(props) {
@@ -25,7 +26,10 @@ export default function Index(props) {
 
   return (
     <div>
-      <AddFriendForm addFriend={props.addFriend} />
+      <span>
+        <AddFriendForm addFriend={props.addFriend} />
+        <JoinClubForm joinClub={props.joinClub} />
+      </span>
       <FriendList
         friendList={props.friends}
         deleteFriend={props.deleteFriend}
