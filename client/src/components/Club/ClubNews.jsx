@@ -1,22 +1,15 @@
 import React from "react";
-import ClubNewsForm from "../Social/NewPostForm";
-import ClubNewsFeed from "../Social/NewsFeed"; //newsList & Name
+import ClubNewsForm from "./ClubNewsForm";
+import ClubNewsFeed from "../Social/NewsFeed";
 import NewsItem from "../Social/NewsFeedItem";
 
 export default function ClubInfo(props) {
-  const { postClubNews, clubNews, clubId } = props;
-
-  //Iterate over News Obj for this Club's News
-  //Generate Items
-  clubNews &&
-    Object.values(clubNews).map((newsItem) => {
-      console.log("MAPS!!!", newsItem);
-    });
+  const { postClubNews, clubNews } = props;
 
   return (
     <section>
-      {/* <ClubNewsForm user={} clubInfo={} postClubNews={} />
-      <ClubNewsFeed newsList={clubNews} listName='Club News:' /> */}
+      <ClubNewsForm postClubNews={postClubNews} />
+      <ClubNewsFeed newsList={clubNews} listName="Club News:" />
     </section>
   );
 }
