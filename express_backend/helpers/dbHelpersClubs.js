@@ -10,6 +10,22 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
+
+
+  const getClubNews = (clubID) => {
+    const query = {
+      text: `
+      SELECT * FROM club_posts WHERE book_club_id = $1 ORDER BY id DESC;
+      `,
+      values: [clubID],
+    };
+    console.log(query)
+    return db
+      .query(query)
+      .then((result) => result.rows)
+      .catch((err) => err);
+  };
+
   const getSpecificClub = (clubID) => {
     const query = {
       text: `
@@ -158,5 +174,6 @@ module.exports = (db) => {
     editClub,
     editClubWithBook,
     deleteClub,
+    getClubNews
   };
 };

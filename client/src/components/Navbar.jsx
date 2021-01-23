@@ -1,10 +1,10 @@
-import React from "react";
-import Logo from "./Logo";
-import Login from "./Login";
-import axios from "axios";
+import React from 'react';
+import Logo from './Logo';
+import Login from './Login';
+import axios from 'axios';
 
-import { Navbar, Nav, Button, NavDropdown } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import { Navbar, Nav, Button, NavDropdown } from 'react-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 
 export default function NavBar(props) {
   // const parsedList =
@@ -16,7 +16,7 @@ export default function NavBar(props) {
     if (!id) {
       return (
         <div>
-          <LinkContainer to="/register">
+          <LinkContainer to='/register'>
             <Nav.Link>Register</Nav.Link>
           </LinkContainer>
           <Login user={props.user} setUser={props.setUser} />
@@ -25,8 +25,8 @@ export default function NavBar(props) {
     } else {
       return (
         <span>
-          {`User: ${props.user.first_name}`}
-          <Button variant="primary" type="submit">
+          {`What are you reading ${props.user.firstName}?`}
+          <Button variant='primary' type='submit'>
             Logout
           </Button>
         </span>
@@ -38,38 +38,38 @@ export default function NavBar(props) {
     axios
       .get(`/api/club/${clubId}`)
       .then((res) => {
-        console.log("RESDATA /API/CLUBS/ID ->>>>", res.data);
+        console.log('RESDATA /API/CLUBS/ID ->>>>', res.data);
       })
       .catch((err) => err);
   };
 
   return (
-    <Navbar bg="light" expand="lg">
-      <LinkContainer to="/">
+    <Navbar bg='light' expand='lg'>
+      <LinkContainer to='/'>
         <Navbar.Brand>
           <Logo />
         </Navbar.Brand>
       </LinkContainer>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <LinkContainer to="/">
+      <Navbar.Toggle aria-controls='basic-navbar-nav' />
+      <Navbar.Collapse id='basic-navbar-nav'>
+        <Nav className='mr-auto'>
+          <LinkContainer to='/'>
             <Nav.Link>Home</Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/social">
+          <LinkContainer to='/social'>
             <Nav.Link>Social</Nav.Link>
           </LinkContainer>
-          <NavDropdown title="My Books" id="nav-dropdown">
-            <LinkContainer to="/shelf">
+          <NavDropdown title='My Books' id='nav-dropdown'>
+            <LinkContainer to='/shelf'>
               <Nav.Link>My Shelf</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/wishlist">
+            <LinkContainer to='/wishlist'>
               <Nav.Link>My Wishlist</Nav.Link>
             </LinkContainer>
           </NavDropdown>
-          <LinkContainer to="/search">
+          <LinkContainer to='/search'>
             <Nav.Link>
-              <Button variant="outline-info">Search Books</Button>{" "}
+              <Button variant='outline-info'>Search Books</Button>{' '}
             </Nav.Link>
           </LinkContainer>
         </Nav>
