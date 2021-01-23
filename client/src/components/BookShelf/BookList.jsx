@@ -10,6 +10,7 @@ import '../Shelf.scss';
 export default function BookList(props) {
   const { books, setUserBooks, setCurrBook } = props;
   const [form, setForm] = useState([]);
+  const [results, setResults] = useState(books);
   const [searchWord, setSearchWord] = useState('');
 
   console.log('Form', form);
@@ -41,30 +42,30 @@ export default function BookList(props) {
     setForm((prev) => ({ ...prev, value: '' }));
   };
 
-  const booklistitem = function (book) {
-    let subject = book.subject;
+  // const booklistitem = function (book) {
+  //   let subject = book.subject;
 
-    if (Array.isArray(book.subject)) {
-      subject = book.subject.join();
-    }
-    if (
-      subject.toLowerCase().includes(searchWord.toLowerCase()) ||
-      book.title.toLowerCase().includes(searchWord.toLowerCase()) ||
-      book.author.toLowerCase().includes(searchWord.toLowerCase())
-    ) {
-      return (
-        <BookListItem
-          title={book.title}
-          author={book.author}
-          first_publish_year={book.first_publish_year}
-          subject={book.subject}
-          bookID={book.id}
-          bookStatus={formatStatus(book.status)}
-          setCurrBook={setCurrBook}
-        />
-      );
-    }
-  };
+  //   if (Array.isArray(book.subject)) {
+  //     subject = book.subject.join();
+  //   }
+  //   if (
+  //     subject.toLowerCase().includes(searchWord.toLowerCase()) ||
+  //     book.title.toLowerCase().includes(searchWord.toLowerCase()) ||
+  //     book.author.toLowerCase().includes(searchWord.toLowerCase())
+  //   ) {
+  //     return (
+  //       <BookListItem
+  //         title={book.title}
+  //         author={book.author}
+  //         first_publish_year={book.first_publish_year}
+  //         subject={book.subject}
+  //         bookID={book.id}
+  //         bookStatus={formatStatus(book.status)}
+  //         setCurrBook={setCurrBook}
+  //       />
+  //     );
+  //   }
+  // };
 
   //map- take in obj of objs (books)
   const searchBooks = useCallback(
@@ -74,38 +75,45 @@ export default function BookList(props) {
       }
       searchTerm = searchTerm.toLowerCase();
       let results = {};
-      const test = Object.values(books).map((book) => {
-        Object.values(book).map((val) => {
+      //iterate over books obj - values
+      Object.values(bookObj).map((iBook) => {
+        //Iterate over values of inner obj
+        Object.values(iBook).map((val) => {
           val = val.toString().toLowerCase();
 
-          // console.log('val', val, searchTerm);
+          //Check values for search term (includes
           if (val.includes(searchTerm)) {
-            console.log('VAL HIT', book);
-            results = { ...results, [book.id]: { ...book } };
+            results = { ...results, [iBook.id]: { ...iBook } };
           }
         });
       });
 
       console.log('Restults', results);
+      //Result is object of objects send to parser
       return results;
     },
     [form]
   );
-  //iterate over books obj - values
-  //Iterate over values of inner obj
-  //Check values for search term (includes
-  //Feed new arry into parsing map
-
+  let searchResults = {};
   useEffect(() => {
+    //Watching for changes in form
     //Run Search of myBooks Generate new List
-    console.log('USE EFFECT FORM');
-    searchBooks(books, form);
+    setResults(searchBooks(books, form));
   }, [form]);
-  //UseEffect watching searchTerm
-  //When term changes run
-
+  console.log('RES', results);
   const parsedList =
-    books && Object.values(books).map((book) => searchBooks(book));
+    books &&
+    Object.values(results).map((book) => (
+      <BookListItem
+        title={book.title}
+        author={book.author}
+        first_publish_year={book.first_publish_year}
+        subject={book.subject}
+        bookID={book.id}
+        bookStatus={formatStatus(book.status)}
+        setCurrBook={setCurrBook}
+      />
+    ));
 
   return (
     <section>
