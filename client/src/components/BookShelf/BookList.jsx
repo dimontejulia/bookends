@@ -73,16 +73,21 @@ export default function BookList(props) {
         searchTerm = searchTerm.join();
       }
       searchTerm = searchTerm.toLowerCase();
-      const results = Object.values(books).map((book) => {
-        console.log('SEARCH', book);
-        console.log('Term', searchTerm);
+      let results = {};
+      const test = Object.values(books).map((book) => {
+        Object.values(book).map((val) => {
+          val = val.toString().toLowerCase();
 
-        return Object.values(book).map((val) => {
-          // console.log('val', val);
-          return val.toString().includes(searchTerm);
+          // console.log('val', val, searchTerm);
+          if (val.includes(searchTerm)) {
+            console.log('VAL HIT', book);
+            results = { ...results, [book.id]: { ...book } };
+          }
         });
-        // books.id
       });
+
+      console.log('Restults', results);
+      return results;
     },
     [form]
   );
@@ -100,7 +105,7 @@ export default function BookList(props) {
   //When term changes run
 
   const parsedList =
-    books && Object.values(books).map((book) => booklistitem(book));
+    books && Object.values(books).map((book) => searchBooks(book));
 
   return (
     <section>
