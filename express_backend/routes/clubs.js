@@ -10,25 +10,27 @@ module.exports = ({
   addClubToUsersClubs,
   editClub,
   editClubWithBook,
-  getClubNews
+  getClubNews,
+  getClubBookHistory,
 }) => {
   // clubs
 
   // /api/clubs/:id/newsfeed
   router.get("/:id/newsfeed", (req, res) => {
-    getClubNews(req.params.id)
-      .then((clubNews) => {
-        console.log('clubnews response', clubNews);
-        res.json(clubNews);
-      });
+    getClubNews(req.params.id).then((clubNews) => {
+      console.log("clubnews response", clubNews);
+      res.json(clubNews);
+    });
   });
-
 
   router
     .get("/:id", (req, res) => {
-      getSpecificClub(req.params.id)
+      getSpecificClub(req.params.id);
+      // getClubBookHistory(req.params.id);
+      get
         .then((club) => {
           res.json(club);
+          console.log("club=======", club);
         })
         .catch((err) => res.json({ msg: err.message }));
     })

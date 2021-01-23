@@ -10,8 +10,6 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-
-
   const getClubNews = (clubID) => {
     const query = {
       text: `
@@ -176,6 +174,22 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
+  const getClubBookHistory = (clubId) => {
+    const query = {
+      text: `
+      SELECT books.id, title, author, subject, first_publish_year
+      FROM books
+      JOIN users_books ON books.id = users_books.book_id
+      WHERE club_id = $1`,
+      values: [clubId],
+    };
+    console.log(query);
+    return db
+      .query(query)
+      .then((result) => result.rows)
+      .catch((err) => err);
+  };
+
   return {
     getClubs,
     getSpecificClub,
@@ -184,6 +198,7 @@ module.exports = (db) => {
     editClub,
     editClubWithBook,
     deleteClub,
-    getClubNews
+    getClubNews,
+    getClubBookHistory,
   };
 };
