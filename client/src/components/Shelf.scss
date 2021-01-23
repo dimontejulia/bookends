@@ -1,5 +1,5 @@
 .book-card {
-  width: 50%;
+  width: 30%;
 }
 
 .container {
@@ -10,16 +10,15 @@
 
 .books-main {
   flex-grow: 6;
+  padding-left: 5em;
 }
 
 .sidebar {
   flex-grow: 1;
+  padding-right: 5em;
   width: 10em;
   display: flex;
   flex-direction: column;
-}
-
-.card-group-award {
 }
 
 .award-image {
@@ -27,5 +26,8 @@
 }
 .award-card {
   width: fit-content !important;
-  border: lightblue solid;
+}
+
+.search-books-bar {
+  display: inline;
 }

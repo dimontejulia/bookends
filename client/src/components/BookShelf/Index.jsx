@@ -21,14 +21,15 @@ export default function Index(props) {
     <div className="container">
       {/* awards */}
       <section className="sidebar">
-        <h1>Hello!</h1>
         <div className="card-group-awards">
+          <h2>Reading Awards</h2>
           {numBooksAward(numBooks)}
           {oldBook(currentYear, oldestBook)}
           {newBook(currentYear, newestBook)}
         </div>
       </section>
       <section className="books-main">
+        <h1>Hello!</h1>
         <BookList
           books={books}
           setUserBooks={setUserBooks}

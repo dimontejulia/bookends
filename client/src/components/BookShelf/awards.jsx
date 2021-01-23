@@ -12,7 +12,7 @@ export function numBooksAward(numBooks) {
     medal = "Bronze";
   }
   return (
-    <Card className="award-card">
+    <div className="award-card">
       <Card.Body>
         <Card.Title>{medal} Reader</Card.Title>
         <Card.Img
@@ -21,7 +21,7 @@ export function numBooksAward(numBooks) {
         />
         <Card.Text>Wow. You have {numBooks} books on your shelf!</Card.Text>
       </Card.Body>
-    </Card>
+    </div>
   );
 }
 
