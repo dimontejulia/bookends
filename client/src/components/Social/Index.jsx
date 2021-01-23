@@ -27,6 +27,7 @@ export default function Index(props) {
   return (
     <div className="container">
       <div className="sidebar">
+        <h2>Connect with Fellow Readers!</h2>
         <FriendList
           friendList={props.friends}
           deleteFriend={props.deleteFriend}
@@ -46,12 +47,13 @@ export default function Index(props) {
         <AddClub className="search-bar" addClub={props.addClub} />
       </div>
       <div className="main-content">
+        <h1>Book Talk</h1>
         <NewPostForm
           user={props.user}
           news={props.news}
           setNews={props.setNews}
         />
-        <NewsFeed newsList={newsList} listName="My News" />
+        <NewsFeed newsList={newsList} />
       </div>
     </div>
   );
