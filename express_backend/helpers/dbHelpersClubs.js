@@ -30,7 +30,6 @@ module.exports = (db) => {
       `,
       values: [clubID],
     };
-    console.log(query)
     return db
       .query(query)
       .then((result) => result.rows)

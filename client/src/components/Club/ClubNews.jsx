@@ -15,7 +15,7 @@ export default function ClubInfo(props) {
 
   return (
     <section>
-      <ClubNewsForm />
+      <ClubNewsForm user={} clubInfo={} postClubNews={} />
       <ClubNewsFeed newsList={clubNews} listName='Club News:' />
     </section>
   );
