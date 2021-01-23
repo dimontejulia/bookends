@@ -1,6 +1,4 @@
 import React from 'react';
-import classnames from 'classnames';
-import Button from '../Button';
 import Details from '../Book/Details';
 import ClubRegular from './ClubRegular';
 import ClubAdmin from './ClubAdmin';

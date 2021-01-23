@@ -44,7 +44,7 @@ export default function Index(props) {
         news={props.news}
         setNews={props.setNews}
       />
-      <NewsFeed newsList={newsList} listName='News' />
+      <NewsFeed newsList={newsList} listName='My News' />
     </div>
   );
 }

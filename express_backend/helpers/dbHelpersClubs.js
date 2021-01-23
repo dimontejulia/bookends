@@ -36,16 +36,16 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const addClubNews = (clubId, post) => {
-    const { user_Id, title, body, timestamp } = post;
+  const addClubNews = (post) => {
+    const { userId, clubId, title, body, timestamp } = post;
     const query = {
       text: `
       INSERT INTO club_posts (user_id, book_club_id, title, body, timestamp)
       VALUES
-      ($1,$2,$3,$4)
-      RETURNING *
+      ($1,$2,$3,$4,$5)
+      RETURNING *;
       `,
-      values: [user_Id, clubId, title, body, timestamp],
+      values: [userId, clubId, title, body, timestamp],
     };
     console.log("query", query)
     return db

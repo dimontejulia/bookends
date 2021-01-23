@@ -11,7 +11,7 @@ export default function NewsFeed(props) {
 
   return (
     <section>
-      <h1>NewsFeed</h1>
+      <h1>{props.listName}</h1>
       <h1>{parsedList}</h1>
     </section>
   );

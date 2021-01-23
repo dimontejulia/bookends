@@ -17,7 +17,7 @@ export default function NewsFeed(props) {
       firstname: user.firstName,
       lastname: user.lastName,
       [id]: value,
-      timestamp: date.toLocaleString(),
+      timestamp: date.toLocaleString('en-CA'),
     }));
   };
 
