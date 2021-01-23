@@ -20,7 +20,7 @@ export default function Carousel(props) {
 
   return (
     <section className="carousel">
-      <h2>{props.carouselTitle}</h2>
+      <h2 className="carousel__category">{props.carouselTitle}</h2>
       <div className="carousel__covers">
         {books.map((book) => (
           <div className="carousel__container">
@@ -66,6 +66,34 @@ export default function Carousel(props) {
           </div>
         ))}
       </div>
+
+      <svg
+        className="carousel__line-hr"
+        width="180px"
+        height="3px"
+        viewBox="0 0 180 3"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <title>Line</title>
+        <g
+          id="Page-1"
+          stroke="none"
+          stroke-width="1"
+          fill="none"
+          fill-rule="evenodd"
+          stroke-linecap="round"
+        >
+          <g
+            id="Desktop-HD"
+            transform="translate(-633.000000, -604.000000)"
+            stroke="#CCCCCC"
+            stroke-width="2"
+          >
+            <line x1="634.5" y1="605.5" x2="812" y2="606" id="Line"></line>
+          </g>
+        </g>
+      </svg>
     </section>
   );
 }
