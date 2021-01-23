@@ -4,8 +4,8 @@
   flex-direction: row;
   justify-content: flex-start;
   .books-main {
-    flex-grow: 6;
-    margin-left: 3em;
+    flex-grow: 10;
+    margin-left: 2em;
     //book item cards
     .cards {
       display: flex;
@@ -34,16 +34,12 @@
 
   .sidebar {
     flex-grow: 1;
-    margin-right: 2em;
-    width: 10em;
+    margin-top: 6.5em;
     display: flex;
     flex-direction: column;
     //awards
     .award-card {
-      width: fit-content !important;
-      .award-image {
-        width: 30%;
-      }
+      width: 10em;
     }
   }
 }
