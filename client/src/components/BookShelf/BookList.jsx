@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import BookListItem from "./BookListItem";
-import CardColumns from "react-bootstrap/CardColumns";
+import CardDeck from "react-bootstrap/CardDeck";
 import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+
+import "../Shelf.scss";
 
 export default function BookList(props) {
   const { books, setUserBooks, setCurrBook } = props;
@@ -68,7 +68,7 @@ export default function BookList(props) {
 
   return (
     <section>
-      <Form>
+      <Form className="search-books-bar">
         <FormControl
           onChange={handleChange}
           id="searchBook"
@@ -95,7 +95,7 @@ export default function BookList(props) {
           Reset
         </Button>
       </Form>
-      <CardColumns>{parsedList}</CardColumns>
+      <div className="cards">{parsedList}</div>
     </section>
   );
 }
