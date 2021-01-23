@@ -39,6 +39,7 @@ function App() {
   const [currBook, setCurrBook] = useState({ id: "initial" });
   const [cBooks, setCBooks] = useState([]);
   const [currClub, setCurrClub] = useState({});
+  const [clubNews, setClubNews] = useState();
   //for the toast
   const [show, setShow] = useState({ item: null, status: false });
 
@@ -118,6 +119,7 @@ function App() {
     clubAdmin,
     currBook,
     currClub,
+    clubNews
   };
 
   console.log(">>>>>>everyState", everyState);
@@ -319,6 +321,12 @@ function App() {
       .catch((err) => console.log("Book Index, Save ERROR:", err));
   };
 
+
+
+  const postClubNews = (clubId, post) => {
+    console.log("POST NEWS")
+  }
+
   const updateClubInfo = (clubInfo, newBook) => {
     console.log("SETCLUBBOOK@@@@@@@@@", clubInfo, newBook);
     const newClubObj = clubInfo;
@@ -331,7 +339,6 @@ function App() {
       ...club,
       [clubId]: newClubObj,
     };
-
     const dataToSend = { newClubObj, newBook };
     // Pass newbook & the club,
     console.log("Update Club Book (Ax DATA SENT)", dataToSend);
@@ -350,29 +357,7 @@ function App() {
       .catch((err) => console.log(err));
   };
 
-  // const editClubInfo = (clubObj) => {
-  //   const newClubObj = { ...club[clubId], current_book: newBook.id };
 
-  //   const newState = {
-  //     ...club,
-  //     [clubId]: newClubObj,
-  //   };
-
-  //   // Pass newbook & the club,
-  //   const dataToSend = { newClubObj, newBook };
-  //   console.log("Update Club Book (Ax RES)", dataToSend);
-  //   axios
-  //     .put(`/api/clubs/${clubId}`, dataToSend)
-  //     .then((res) => {
-  //       setShow({
-  //         item: `${newBook.title} assigned successfully to \n ${newClubObj.book_club_name}.`,
-  //         status: true,
-  //       });
-  //       //Update State on success
-  //       setClub(newState);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
 
   //==============Watchers that update state =================================
   useEffect(() => {
@@ -415,6 +400,9 @@ function App() {
                     user={user}
                     deleteClub={deleteClub}
                     editClub={updateClubInfo}
+                    clubNews={clubNews}
+                    postClubNews={postClubNews}
+
                   />
                 );
               }}
@@ -450,6 +438,8 @@ function App() {
                 currBook={currBook}
                 news={news}
                 setNews={setNews}
+                setClubNews={setClubNews}
+
               />{" "}
             </Route>
             <Route path="/shelf/">

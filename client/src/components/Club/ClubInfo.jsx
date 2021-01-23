@@ -1,37 +1,27 @@
-import React from "react";
-import classnames from "classnames";
-import Button from "../Button";
-import Details from "../Book/Details";
-import ClubRegular from "./ClubRegular";
-import ClubAdmin from "./ClubAdmin";
+import React from 'react';
+import classnames from 'classnames';
+import Button from '../Button';
+import Details from '../Book/Details';
+import ClubRegular from './ClubRegular';
+import ClubAdmin from './ClubAdmin';
+import ClubNews from './ClubNews';
 
 export default function ClubInfo(props) {
   const bookDetails = props.currBook;
 
-  const placeholderBook = {
-    id: 1,
-    current_book: "OL7353617M",
-    admin_id: 1,
-    book_club_name: "Lighthouse Learners",
-    date_read: "2020-07-20T04:00:00.000Z",
-    rating: 4,
-    comments: "A fun read with friends!",
-    status: "finished",
-    avatar: "https://picsum.photos/200",
-  };
-
   return (
     <div>
-      <section className="book-club__header">
+      <section className='book-club__header'>
         <img
-          className="book__cover-img"
+          className='book__cover-img'
           src={props.currClub.avatar}
           alt={props.currClub.book_club_name}
-          width="20%"
+          width='20%'
         />
         <br />
         <h1>{props.currClub.book_club_name}</h1>
-        <h3>{props.currClub.comments}</h3>
+        <h3>{props.currClub.club_description}</h3>
+
         {props.user.id === props.admin_id ? (
           <ClubRegular />
         ) : (
@@ -42,10 +32,16 @@ export default function ClubInfo(props) {
           />
         )}
       </section>
-      <section className="book-club__content">
+      <section className='book-club__content'>
         <h3>Current Book:</h3>
         <Details book={bookDetails ? bookDetails : null} />
       </section>
+      <ClubNews
+        postClubNews={props.postClubNews}
+        clubNews={props.clubNews}
+        postClubNews={props.postClubNews}
+        clubId={props.currClub.id}
+      />
     </div>
   );
 }

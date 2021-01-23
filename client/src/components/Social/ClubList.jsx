@@ -1,18 +1,24 @@
-import React from "react";
-import ClubListItem from "./ClubListItem";
-import axios from "axios";
-import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import React from 'react';
+import ClubListItem from './ClubListItem';
+import axios from 'axios';
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
 
 export default function ClubList(props) {
-  const { listName, list, setCurrClub, setCurrBook } = props;
+  const { listName, list, setCurrClub, setCurrBook, setClubNews } = props;
 
-  const currentClub = (clubID) => {
-    axios
-      .get(`/api/clubs/${clubID}`)
-      .then((res) => {
-        setCurrClub(res.data);
-        setCurrBook({ id: res.data.current_book });
+  const currentClub = (clubId) => {
+    Promise.all([
+      axios.get(`/api/clubs/${clubId}`),
+      axios.get(`/api/clubs/${clubId}/newsfeed`),
+    ])
+      .then(([clubDetails, news]) => {
+        //Fetch Club Details
+        setCurrClub(clubDetails.data);
+        // //Set Current Book (for details)
+        setCurrBook({ id: clubDetails.data.current_book });
+        // //Set Club News
+        setClubNews(news.data);
       })
       .catch((err) => err);
   };
@@ -27,7 +33,6 @@ export default function ClubList(props) {
       </Link>
     ));
 
-  //localhost:3000/api/clubs/1
   return (
     <section>
       <h1>{listName}</h1>

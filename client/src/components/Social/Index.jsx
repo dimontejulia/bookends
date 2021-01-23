@@ -1,13 +1,13 @@
-import React from "react";
-import FriendList from "./FriendList";
-import ClubList from "./ClubList";
-import NewsFeed from "./NewsFeed";
-import NewPostForm from "./NewPostForm";
-import AddFriendForm from "./AddFriend";
-import AddClub from "./AddClub";
+import React from 'react';
+import FriendList from './FriendList';
+import ClubList from './ClubList';
+import NewsFeed from './NewsFeed';
+import NewPostForm from './NewPostForm';
+import AddFriendForm from './AddFriend';
+import AddClub from './AddClub';
 
 export default function Index(props) {
-  console.log("SOCIAL INDEX PROPS ======", props);
+  console.log('SOCIAL INDEX PROPS ======', props);
 
   const clubs = props.clubs;
   const clubIdList =
@@ -36,14 +36,15 @@ export default function Index(props) {
         currClub={props.currClub}
         setCurrBook={props.setCurrBook}
         list={clubIdList}
-        listName={"Clubs"}
+        listName={'Clubs'}
+        setClubNews={props.setClubNews}
       />
       <NewPostForm
         user={props.user}
         news={props.news}
         setNews={props.setNews}
       />
-      <NewsFeed newsList={newsList} listName="News" />
+      <NewsFeed newsList={newsList} listName='News' />
     </div>
   );
 }

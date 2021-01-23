@@ -10,8 +10,19 @@ module.exports = ({
   addClubToUsersClubs,
   editClub,
   editClubWithBook,
+  getClubNews
 }) => {
   // clubs
+
+  // /api/clubs/:id/newsfeed
+  router.get("/:id/newsfeed", (req, res) => {
+    getClubNews(req.params.id)
+      .then((clubNews) => {
+        console.log('clubnews response', clubNews);
+        res.json(clubNews);
+      });
+  });
+
 
   router
     .get("/:id", (req, res) => {
