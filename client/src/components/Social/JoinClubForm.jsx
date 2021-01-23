@@ -15,9 +15,11 @@ export default function JoinClub(props) {
   };
 
   const handleClick = (e) => {
-    props.joinClub(form.value);
-    //Form resets w/o message and regardless of success or error...
-    setForm((prev) => ({ ...prev, value: '' }));
+    if (form.value) {
+      props.joinClub(form.value);
+      //Form resets w/o message and regardless of success or error...
+      setForm((prev) => ({ ...prev, value: '' }));
+    }
   };
 
   return (

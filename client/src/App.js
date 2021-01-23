@@ -276,24 +276,19 @@ function App() {
     //HELPER FUNC
     //Check if Mbr has that club Id already
     const usersClubs = Object.keys(club)
-    console.log(usersClubs, "******")
     return usersClubs.some(club => club === clubId)
   }
 
 
   const joinClub = (clubId) => {
-    console.log("JOING CLUB APPJS ID", clubId)
     //Combine 2 checks below into validate join club
     //Check if entry if a club ID (implement club Prefix)
     //Check if mbr already
     if (mbrOfClub(user.id, clubId)) {
       return setShow({ item: "Whoops, you already belong to that club.", status: true })
     }
-
     const dataToSend = { userId: user.id, clubId }
-    console.log("JOING CLUB APPJS DATA", dataToSend)
     axios.post(`/api/users/${user.id}/clubs`, dataToSend).then((res) => {
-      console.log("JOING CLUB RESPONSE", res.data, club)
       //Sueccess res will be obj 
       if (typeof res.data === 'string') {
         setShow({ item: res.data, status: true });
