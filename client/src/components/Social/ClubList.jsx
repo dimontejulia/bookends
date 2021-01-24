@@ -53,7 +53,7 @@ export default function ClubList(props) {
 
   return (
     <section>
-      <h1>{listName}</h1>
+      <h1 className="sidebar__subheading">{listName}</h1>
       <Table hover size="sm">
         <tbody>{parsedList}</tbody>
       </Table>

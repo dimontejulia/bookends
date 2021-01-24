@@ -18,6 +18,7 @@ export default function FriendsList(props) {
             onClick={() => {
               deleteFriend(friend.userid);
             }}
+            variant="primary"
           >
             <i class="fas fa-user-times"></i>
           </Button>
@@ -26,7 +27,7 @@ export default function FriendsList(props) {
     ));
   return (
     <section>
-      <h1>Friends</h1>
+      <h1 className="sidebar__subheading">Friends</h1>
       <Table hover size="sm">
         <tbody>{parsedList}</tbody>
       </Table>

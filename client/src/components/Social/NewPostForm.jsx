@@ -38,31 +38,33 @@ export default function NewsFeed(props) {
   };
 
   return (
-    <Form className="form__newsfeed-post">
-      <Form.Group controlId="title">
-        <Form.Control
-          onChange={handleChange}
-          name="title"
-          className="form__newsfeed-post-title"
-          value={post.title}
-          placeholder="Post Title"
-        />
-      </Form.Group>
-      <Form.Group controlId="body">
-        <Form.Control
-          onChange={handleChange}
-          name="body"
-          as="textarea"
-          className="form__newsfeed-post-body"
-          rows={3}
-          value={post.body}
-          placeholder="What are you reading? What did you think about a book you've read? Any
+    <div className="form__newsfeed-post">
+      <Form>
+        <Form.Group controlId="title">
+          <Form.Control
+            onChange={handleChange}
+            name="title"
+            className="form__newsfeed-post-title"
+            value={post.title}
+            placeholder="Post Title"
+          />
+        </Form.Group>
+        <Form.Group controlId="body">
+          <Form.Control
+            onChange={handleChange}
+            name="body"
+            as="textarea"
+            className="form__newsfeed-post-body"
+            rows={3}
+            value={post.body}
+            placeholder="What are you reading? What did you think about a book you've read? Any
           other literary thoughts?"
-        />
-      </Form.Group>
-      <Button block type="submit" onClick={handleSubmitClick}>
-        Post
-      </Button>
-    </Form>
+          />
+        </Form.Group>
+        <Button block type="submit" onClick={handleSubmitClick}>
+          Post
+        </Button>
+      </Form>
+    </div>
   );
 }
