@@ -12,7 +12,7 @@ export default function useApplicationData() {
       lastName: "Twain",
     },
     books: {},
-    wishList: {},
+    wishList: [],
     friends: [],
     news: [],
     clubNews: [],
@@ -102,7 +102,7 @@ export default function useApplicationData() {
         // //Set Current Book (for details)
         setCurrBook({ id: clubDetails.data.current_book });
         // //Set Club News
-        // setClubNews(news.data);
+        setClubNews(news.data);
       })
       .catch((err) => err);
   }

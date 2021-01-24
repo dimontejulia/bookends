@@ -146,17 +146,18 @@ function App() {
                 );
                 return (
                   <ClubsInfo
-                    clubId={paramClubId}
+                    state={state}
                     // clubAdmin={clubAdmin}
                     // setClubAdmin={setClubAdmin}
-                    club={state.clubs}
+                    // club={state.clubs}
                     // setClub={setClub}
+                    clubId={paramClubId}
+                    clubNews={state.clubNews}
                     currClub={state.currClub}
                     currBook={state.currBook}
                     user={user}
                     deleteClub={deleteClub}
                     editClub={updateClubInfo}
-                    clubNews={state.clubNews}
                     postClubNews={postClubNews}
                   />
                 );
