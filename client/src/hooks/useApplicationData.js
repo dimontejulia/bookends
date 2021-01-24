@@ -73,7 +73,7 @@ export default function useApplicationData() {
 
   }, []);
   //Functions to be passed down as Props (Dealing with state);===================================
-  //Setters
+  //==Setters==============================================
   const setWishlist = () => {
     console.log('Click')
   }
@@ -83,6 +83,7 @@ export default function useApplicationData() {
   const setCurrClub = (input) => {
     setState((prev) => { return { ...prev, currClub: input } });
   }
+  //==FRIENDS==============================================
 
   const addFriend = (email) => {
     //Check against friends
@@ -109,12 +110,43 @@ export default function useApplicationData() {
   const deleteFriend = (friendId) => {
     console.log("DEL FRIEND START", friendId);
     axios.delete(`/api/users/${user.id}/friends/${friendId}`).then((res) => {
-      setState((prev) => {
-        return { ...prev, friends: res.data }
-      });
+      setState((prev) => { return { ...prev, friends: res.data } });
       setShow({ item: "Friend deleted successfully.", status: true });
     });
   };
+  //==Books==============================================
+
+
+  const addBookToShelf = (bookData) => {
+    const newBook = {
+      id: bookData.id,
+      title: bookData.title,
+      author: bookData.author,
+      subject: bookData.subject,
+      first_publish_year: bookData.first_publish_year,
+    };
+
+    const newBookState = {
+      ...state.books,
+      [bookData.id]: newBook,
+    };
+
+    //This should be in the THEN of axios but getting 500 error cause Ukn
+    // debug later...
+    setState((prev) => { return { ...prev, books: newBookState } });
+
+    axios
+      .post(`/api/users/${user.id}/books`, newBook)
+      .then((res) => {
+        console.log("Book added to shelf!");
+        setShow({ item: "Book added to shelf!", status: true });
+        // Need Saved MSg ELSE Error Message
+        //Update state w. latest copy
+      })
+      .catch((err) => console.log(err));
+  };
+
+
 
   return {
     state,
@@ -125,5 +157,6 @@ export default function useApplicationData() {
     setCurrClub,
     addFriend,
     deleteFriend,
+    addBookToShelf,
   }
 }

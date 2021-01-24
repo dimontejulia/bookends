@@ -29,6 +29,7 @@ function App() {
     setCurrClub,
     addFriend,
     deleteFriend,
+    addBookToShelf,
   } = useApplicationData()
 
   console.log("MEGA STATE App import", state)
@@ -38,14 +39,14 @@ function App() {
     firstName: "Mark",
     lastName: "Twain",
   });
-  const [userBooks, setUserBooks] = useState([]);
+  // const [userBooks, setUserBooks] = useState([]);
   // const [search, setSearch] = useState("");
   // const [friends, setFriends] = useState([]);
   // const [wishlist, setWishlist] = useState([]);
   const [news, setNews] = useState([]);
-  const [userData, setUserData] = useState({});
+  // const [userData, setUserData] = useState({});
   const [club, setClub] = useState([]);
-  const [clubAdmin, setClubAdmin] = useState("");
+  // const [clubAdmin, setClubAdmin] = useState("");
   // const [currBook, setCurrBook] = useState({ id: "initial" });
   // const [cBooks, setCBooks] = useState([]);
   // const [currClub, setCurrClub] = useState({});
@@ -84,11 +85,11 @@ function App() {
     //   setFriends(res.data);
     // });
     // GET BOOKS
-    axios.get(`/api/users/${user.id}/books`).then((res) => {
-      const newObj = convertArrayToObject(res.data, "id");
-      setUserBooks(newObj);
-      // setUserBookData(res.data);
-    });
+    // axios.get(`/api/users/${user.id}/books`).then((res) => {
+    //   const newObj = convertArrayToObject(res.data, "id");
+    //   setUserBooks(newObj);
+    //   // setUserBookData(res.data);
+    // });
 
     // GET WISHLIST
     // axios.get(`/api/users/${user.id}/wishlist`).then((res) => {
@@ -112,9 +113,9 @@ function App() {
       })
       .catch((e) => console.log(e));
 
-    setClubAdmin({
-      user,
-    });
+    // setClubAdmin({
+    //   user,
+    // });
   };
   useEffect(() => {
     initialize();
@@ -187,31 +188,31 @@ function App() {
     }
   };
 
-  const updateUserBooks = (bookData) => {
-    //Build Book Object
-    const newUserBooks = {
-      ...userBooks,
-      [bookData.id]: {
-        id: bookData.id,
-        title: bookData.title,
-        author: bookData.author,
-        subject: bookData.subject,
-        first_publish_year: bookData.first_publish_year,
-      },
-    };
-    setUserBooks(newUserBooks);
-    //Send to DB
-    axios
-      .post(`/api/users/${user.id}/books`, newUserBooks)
-      .then((res) => {
-        // Need Saved MSg ELSE Error Message
-        console.log("Book added to shelf!");
+  // const updateUserBooks = (bookData) => {
+  //   //Build Book Object
+  //   const newUserBooks = {
+  //     ...userBooks,
+  //     [bookData.id]: {
+  //       id: bookData.id,
+  //       title: bookData.title,
+  //       author: bookData.author,
+  //       subject: bookData.subject,
+  //       first_publish_year: bookData.first_publish_year,
+  //     },
+  //   };
+  //   setUserBooks(newUserBooks);
+  //   //Send to DB
+  //   axios
+  //     .post(`/api/users/${user.id}/books`, newUserBooks)
+  //     .then((res) => {
+  //       // Need Saved MSg ELSE Error Message
+  //       console.log("Book added to shelf!");
 
-        setShow({ item: "Book added to shelf.", status: true });
-        //Update state w. latest copy
-      })
-      .catch((err) => console.log(err));
-  };
+  //       setShow({ item: "Book added to shelf.", status: true });
+  //       //Update state w. latest copy
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   const deleteUserBook = (bookId) => {
     const userId = user.id;
@@ -310,46 +311,46 @@ function App() {
   //   });
   // };
 
-  const newBook = (bookData) => {
-    const newBook = {
-      id: bookData.id,
-      title: bookData.title,
-      author: bookData.author,
-      subject: bookData.subject,
-      first_publish_year: bookData.first_publish_year,
-    };
+  // const newBook = (bookData) => {
+  //   const newBook = {
+  //     id: bookData.id,
+  //     title: bookData.title,
+  //     author: bookData.author,
+  //     subject: bookData.subject,
+  //     first_publish_year: bookData.first_publish_year,
+  //   };
 
-    const newState = {
-      ...userBooks,
-      [bookData.id]: newBook,
-    };
-    console.log("((((((((", newBook, newState, bookData);
+  //   const newState = {
+  //     ...userBooks,
+  //     [bookData.id]: newBook,
+  //   };
+  //   console.log("((((((((", newBook, newState, bookData);
 
-    //This should be in the THEN of axios but getting 500 error cause Ukn
-    // debug later...
-    setUserBooks(newState);
+  //   //This should be in the THEN of axios but getting 500 error cause Ukn
+  //   // debug later...
+  //   setUserBooks(newState);
 
-    axios
-      .post(`/api/users/${user.id}/books`, newBook)
-      .then((res) => {
-        console.log("Book added to shelf!");
-        setShow({ item: "Book added to shelf!", status: true });
-        // Need Saved MSg ELSE Error Message
-        //Update state w. latest copy
-      })
-      .catch((err) => console.log(err));
-  };
+  //   axios
+  //     .post(`/api/users/${user.id}/books`, newBook)
+  //     .then((res) => {
+  //       console.log("Book added to shelf!");
+  //       setShow({ item: "Book added to shelf!", status: true });
+  //       // Need Saved MSg ELSE Error Message
+  //       //Update state w. latest copy
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
-  const saveBookDataToDB = () => {
-    const dataToSend = userBooks[state.currBook.id];
-    axios
-      .put(`/api/users/${user.id}/books/${state.currBook.id}`, dataToSend)
-      .then((res) => {
-        console.log(`Book ${state.currBook.id} Data Updated`);
-        setShow({ item: `Book ${state.currBook.id} Data Updated`, status: true });
-      })
-      .catch((err) => console.log("Book Index, Save ERROR:", err));
-  };
+  // const saveBookDataToDB = () => {
+  //   const dataToSend = userBooks[state.currBook.id];
+  //   axios
+  //     .put(`/api/users/${user.id}/books/${state.currBook.id}`, dataToSend)
+  //     .then((res) => {
+  //       console.log(`Book ${state.currBook.id} Data Updated`);
+  //       setShow({ item: `Book ${state.currBook.id} Data Updated`, status: true });
+  //     })
+  //     .catch((err) => console.log("Book Index, Save ERROR:", err));
+  // };
 
   const postClubNews = (post) => {
     console.log("POST NEWS", post);
@@ -437,8 +438,8 @@ function App() {
                 return (
                   <ClubsInfo
                     clubId={paramClubId}
-                    clubAdmin={clubAdmin}
-                    setClubAdmin={setClubAdmin}
+                    // clubAdmin={clubAdmin}
+                    // setClubAdmin={setClubAdmin}
                     club={club}
                     setClub={setClub}
                     currClub={state.currClub}
@@ -490,8 +491,8 @@ function App() {
             <Route path="/shelf/">
               {" "}
               <UserShelf
-                books={userBooks}
-                setBooks={setUserBooks}
+                books={state.books}
+                setBooks={addBookToShelf}
                 setCurrBook={setCurrBook}
               />
             </Route>
@@ -517,9 +518,9 @@ function App() {
                 return (
                   <BookDetails
                     currBook={state.currBook}
-                    userBookData={userBooks}
-                    setUserBookData={setUserBooks}
-                    saveToDB={saveBookDataToDB}
+                    userBookData={state.books}
+                    setUserBookData={addBookToShelf}
+                    // saveToDB={saveBookDataToDB}
                     deleteUserBook={deleteUserBook}
                   />
                 );
@@ -531,14 +532,14 @@ function App() {
               render={(props) => {
                 return (
                   <SearchIndex
-                    userBooks={userBooks}
-                    setUserBooks={setUserBooks}
+                    userBooks={state.books}
+                    setUserBooks={addBookToShelf}
                     wishlist={state.wishlist}
                     setWishlist={setWishlist}
                     currBook={state.currBook}
                     setCurrBook={setCurrBook}
                     setClubBook={updateClubInfo}
-                    newBook={newBook}
+                    newBook={addBookToShelf}
                     show={show}
                     setShow={setShow}
                     clubs={club}
@@ -549,9 +550,9 @@ function App() {
 
             <Route path="/" exact>
               <MainPage
-                setUserBooks={setUserBooks}
+                setUserBooks={addBookToShelf}
                 carouselBooks={state.carouselBooks}
-                newBook={newBook}
+                newBook={addBookToShelf}
                 show={show}
                 setShow={setShow}
                 setClubBook={updateClubInfo}
