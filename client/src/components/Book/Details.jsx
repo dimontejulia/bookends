@@ -9,7 +9,12 @@ export default function Details(props) {
     published,
     coverLink,
   } = props.book;
-  console.log("subjects", subjects);
+
+  const subjectStr =
+    subjects &&
+    subjects.map((subject) => {
+      return " - " + subject;
+    });
 
   return (
     <div>
@@ -31,7 +36,7 @@ export default function Details(props) {
           </div>
           Published: {published ? published : null}
           <br />
-          Subjects: {subjects ? subjects.slice(0, 10) : null}
+          Subjects: {subjects ? subjectStr.splice(0, 6) : null}
         </div>
       )}
     </div>
