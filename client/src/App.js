@@ -20,7 +20,8 @@ import NewsFeed from "./components/Social/NewsFeed";
 //============================================
 function App() {
 
-  const { state } = useApplicationData()
+  const { state, setWishlist } = useApplicationData()
+
   console.log("MEGA STATE App import", state)
 
   const [user, setUser] = useState({
@@ -31,7 +32,7 @@ function App() {
   const [userBooks, setUserBooks] = useState([]);
   // const [search, setSearch] = useState("");
   const [friends, setFriends] = useState([]);
-  const [wishlist, setWishlist] = useState([]);
+  // const [wishlist, setWishlist] = useState([]);
   const [news, setNews] = useState([]);
   const [userData, setUserData] = useState({});
   const [club, setClub] = useState([]);
@@ -81,9 +82,9 @@ function App() {
     });
 
     // GET WISHLIST
-    axios.get(`/api/users/${user.id}/wishlist`).then((res) => {
-      setWishlist(res.data);
-    });
+    // axios.get(`/api/users/${user.id}/wishlist`).then((res) => {
+    //   setWishlist(res.data);
+    // });
 
     //GET USERS CLUBS
     axios
@@ -501,7 +502,7 @@ function App() {
             <Route path="/wishlist/">
               {" "}
               <UserShelf
-                books={wishlist}
+                books={state.wishlist}
                 setBooks={setWishlist}
                 setCurrBook={setCurrBook}
               />
@@ -536,7 +537,7 @@ function App() {
                   <SearchIndex
                     userBooks={userBooks}
                     setUserBooks={setUserBooks}
-                    wishlist={wishlist}
+                    wishlist={state.wishlist}
                     setWishlist={setWishlist}
                     currBook={currBook}
                     setCurrBook={setCurrBook}

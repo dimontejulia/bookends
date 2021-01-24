@@ -10,19 +10,18 @@ export default function useApplicationData() {
       firstName: "Mark",
       lastName: "Twain",
     },
-    books: {
-      currBook: {},
-      wishList: {},
-    },
+    books: {},
+    wishList: {},
     friends: {},
     news: {
       clubNews: {},
     },
     clubs: {
       clubAdmin: {},
-      currClub: {},
     },
     carouselBooks: {},
+    currBook: {},
+    currClub: {},
   })
 
   const API = 'localhost:3005'
@@ -72,12 +71,13 @@ export default function useApplicationData() {
       .catch(e => console.log("Initialization Error", e));
 
   }, []);
-
-
-  console.log("MEGA STATE POST INIT", state)
   //Functions to be passed down as Props (Dealing with state);===================================
-
+  //Setters
+  const setWishlist = () => {
+    console.log('Click')
+  }
   return {
     state,
+    setWishlist
   }
 }
