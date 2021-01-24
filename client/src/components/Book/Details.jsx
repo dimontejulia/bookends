@@ -31,7 +31,7 @@ export default function Details(props) {
           </div>
           Published: {published ? published : null}
           <br />
-          Subjects: {subjects ? subjects : null}
+          Subjects: {subjects ? subjects.slice(0, 10) : null}
         </div>
       )}
     </div>
