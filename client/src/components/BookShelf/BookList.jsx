@@ -39,11 +39,12 @@ export default function BookList(props) {
     Object.values(bookObj).map((iBook) => {
       //Iterate over values of inner obj
       Object.values(iBook).map((val) => {
-        val = val.toString().toLowerCase();
-
-        //Check values for search term (includes
-        if (val.includes(searchTerm)) {
-          results = { ...results, [iBook.id]: { ...iBook } };
+        if (val) {
+          val = val.toString().toLowerCase();
+          //Check values for search term (includes
+          if (val.includes(searchTerm)) {
+            results = { ...results, [iBook.id]: { ...iBook } };
+          }
         }
       });
     });
