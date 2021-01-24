@@ -23,6 +23,7 @@ function App() {
   const {
     state,
     show,
+    setClubNews,
     setShow,
     setWishlist,
     setCurrBook,
@@ -491,7 +492,7 @@ function App() {
                 currBook={state.currBook}
                 // news={news}
                 setNews={postNews}
-                // setClubNews={setClubNews}
+                setClubNews={setClubNews}
                 joinClub={joinClub}
               />{" "}
             </Route>

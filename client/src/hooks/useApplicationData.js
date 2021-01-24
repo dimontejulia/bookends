@@ -62,7 +62,6 @@ export default function useApplicationData() {
           friends: rFriends.data,
           clubs: cvtArrayToObj(rClubs.data, 'id'),
           news: rPosts.data,
-
         }
       })
     })
@@ -272,15 +271,21 @@ export default function useApplicationData() {
     const newClubPosts = [clubPost, ...state.clubNews];
     return axios.post(`/api/clubs/:id/newsfeed`, clubPost).then((res) => {
       console.log("POST RESPONSE:", res.data);
+      console.log("POST RESPONSE:", res.data);
       //Update State
       // setClubNews(newClubPosts);
       setState((prev) => { return { ...prev, clubNews: newClubPosts } });
     });
   };
+  const setClubNews = (posts) => {
+    setState((prev) => { return { ...prev, clubNews: posts } });
+
+  };
 
   return {
     state,
     show,
+    setClubNews,
     setShow,
     setWishlist,
     setCurrBook,
