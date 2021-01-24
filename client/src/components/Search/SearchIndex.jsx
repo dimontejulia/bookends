@@ -1,7 +1,8 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import * as client from './OpenLibraryClient.jsx';
 import BooksList from './BooksList.jsx';
 import SearchForm from './SearchForm.jsx';
+import useDebounce from '../../hooks/useDebounce';
 
 const SearchIndex = (props) => {
   const [isFetching, setIsFetching] = useState(false);
@@ -9,22 +10,29 @@ const SearchIndex = (props) => {
   const [numFound, setNumFound] = useState(0);
   const [query, setQuery] = useState('');
 
-  const onSearch = async (e) => {
-    e.preventDefault();
-
+  const onSearch = useCallback(async (e) => {
+    // e.preventDefault();
+    if (!term) {
+      return;
+    }
     setIsFetching(true);
-
-    const result = await client.findBooks(query);
+    const result = await client.findBooks(term);
     const { docs = [], numFound = 0 } = result;
-
     setIsFetching(false);
     setBooks(docs);
     setNumFound(numFound);
-  };
+  });
 
   const onQueryChange = ({ target: { value } }) => {
     setQuery(value);
   };
+
+  //Live Search
+  const term = useDebounce(query, 500);
+  useCallback(onSearch, [term]);
+  useEffect(() => {
+    onSearch(term);
+  }, [term]);
 
   return (
     <Fragment>
