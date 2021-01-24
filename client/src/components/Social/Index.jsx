@@ -28,7 +28,9 @@ export default function Index(props) {
 
   return (
     <section>
-      <h1 className="page-title">Social</h1>
+      <div className="container">
+        <h1 className="page-title">Social</h1>
+      </div>
       <div className="container">
         <div className="sidebar">
           {/* <h2>Connect with Fellow Readers!</h2> */}

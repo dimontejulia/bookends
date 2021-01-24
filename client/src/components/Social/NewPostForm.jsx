@@ -60,7 +60,7 @@ export default function NewsFeed(props) {
           other literary thoughts?"
         />
       </Form.Group>
-      <Button type="submit" onClick={handleSubmitClick}>
+      <Button block type="submit" onClick={handleSubmitClick}>
         Post
       </Button>
     </Form>
