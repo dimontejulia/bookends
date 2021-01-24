@@ -1,13 +1,14 @@
-import React, { Fragment, useState } from 'react';
-import * as client from './OpenLibraryClient.jsx';
-import BooksList from './BooksList.jsx';
-import SearchForm from './SearchForm.jsx';
+import React, { Fragment, useState } from "react";
+import * as client from "./OpenLibraryClient.jsx";
+import BooksList from "./BooksList.jsx";
+import SearchForm from "./SearchForm.jsx";
+import "../Search.scss";
 
 const SearchIndex = (props) => {
   const [isFetching, setIsFetching] = useState(false);
   const [books, setBooks] = useState([]);
   const [numFound, setNumFound] = useState(0);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
 
   const onSearch = async (e) => {
     e.preventDefault();
@@ -28,11 +29,7 @@ const SearchIndex = (props) => {
 
   return (
     <Fragment>
-      <section className='section'>
-        <div className='container'>
-          <h1 className='title has-text-centered'>Open Library books search</h1>
-        </div>
-      </section>
+      <h1 className="title has-text-centered">Open Library books search</h1>
       <SearchForm
         onQueryChange={onQueryChange}
         onSearch={onSearch}

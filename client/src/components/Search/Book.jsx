@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { render } from 'react-dom';
+import React, { useState, useEffect } from "react";
+import { render } from "react-dom";
 
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 
-import MoreInfo from './MoreInfo';
-import Confirmation from '../Confirmation';
-import ChangeClubBook from '../Club/ChangeBook';
+import MoreInfo from "./MoreInfo";
+import Confirmation from "../Confirmation";
+import ChangeClubBook from "../Club/ChangeBook";
 
 const Book = ({ book, ...props }) => {
   const {
@@ -46,7 +46,7 @@ const Book = ({ book, ...props }) => {
         number_of_pages: number_of_pages,
       },
     ]);
-    const bookKey = key.split('/works/')[1];
+    const bookKey = key.split("/works/")[1];
 
     props.setUserBooks((prevState) => ({
       ...prevState,
@@ -68,14 +68,15 @@ const Book = ({ book, ...props }) => {
 
   return (
     <div>
-      <Card style={{ width: '20rem' }}>
+      <Card className="book-card">
         <Card.Img
-          variant='top'
+          className="book-cover"
+          variant="top"
           src={`http://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg`}
         />
         <Card.Body>
           <Card.Title>{title}</Card.Title>
-          <Card.Subtitle className='mb-2 text-muted'>
+          <Card.Subtitle className="mb-2 text-muted">
             {author_name}
           </Card.Subtitle>
 
@@ -88,7 +89,7 @@ const Book = ({ book, ...props }) => {
           />
 
           <Button
-            variant='primary'
+            variant="secondary"
             onClick={() => {
               setCurrBook({ id: book.text[0] });
               setModalShow(true);

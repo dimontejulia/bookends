@@ -6,16 +6,16 @@ import Button from "react-bootstrap/Button";
 
 const SearchForm = ({ query, onQueryChange, onSearch }) => {
   return (
-    <section className="section">
-      <Form onSubmit={onSearch}>
+    <section>
+      <Form onSubmit={onSearch} className="search-container">
         <FormControl
+          className="open-library-search"
           type="text"
           placeholder="Search Books: search by book title, author name..."
-          className="mr-sm-2"
           defaultValue={query}
           onChange={onQueryChange}
         />
-        <Button type="submit" variant="outline-success">
+        <Button type="submit" variant="info">
           Search
         </Button>
       </Form>

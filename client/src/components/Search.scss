@@ -1,0 +1,32 @@
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  .open-library-search {
+    width: 50%;
+  }
+}
+
+.search-cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  .book-card {
+    width: 15em;
+    margin: 1em;
+  }
+  .book-cover {
+    height: 20em;
+  }
+}
+
+.spinner {
+  margin: 2em;
+}
