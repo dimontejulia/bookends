@@ -39,6 +39,7 @@ export default function NewsFeed(props) {
 
   return (
     <div className="form__newsfeed-post">
+      <h1 className="sidebar__subheading">What are you reading?</h1>
       <Form>
         <Form.Group controlId="title">
           <Form.Control
@@ -57,7 +58,7 @@ export default function NewsFeed(props) {
             className="form__newsfeed-post-body"
             rows={3}
             value={post.body}
-            placeholder="What are you reading? What did you think about a book you've read? Any
+            placeholder="What did you think about a book you've read? Any
           other literary thoughts?"
           />
         </Form.Group>
