@@ -20,7 +20,16 @@ import NewsFeed from "./components/Social/NewsFeed";
 //============================================
 function App() {
 
-  const { state, setWishlist, setCurrBook } = useApplicationData()
+  const {
+    state,
+    show,
+    setShow,
+    setWishlist,
+    setCurrBook,
+    setCurrClub,
+    addFriend,
+    deleteFriend,
+  } = useApplicationData()
 
   console.log("MEGA STATE App import", state)
 
@@ -31,7 +40,7 @@ function App() {
   });
   const [userBooks, setUserBooks] = useState([]);
   // const [search, setSearch] = useState("");
-  const [friends, setFriends] = useState([]);
+  // const [friends, setFriends] = useState([]);
   // const [wishlist, setWishlist] = useState([]);
   const [news, setNews] = useState([]);
   const [userData, setUserData] = useState({});
@@ -39,10 +48,10 @@ function App() {
   const [clubAdmin, setClubAdmin] = useState("");
   // const [currBook, setCurrBook] = useState({ id: "initial" });
   // const [cBooks, setCBooks] = useState([]);
-  const [currClub, setCurrClub] = useState({});
+  // const [currClub, setCurrClub] = useState({});
   const [clubNews, setClubNews] = useState();
   //for the toast
-  const [show, setShow] = useState({ item: null, status: false });
+  // const [show, setShow] = useState({ item: null, status: false });
 
   const convertArrayToObject = (array, key) => {
     const initialValue = {};
@@ -71,9 +80,9 @@ function App() {
     // });
 
     //GET FRIENDS
-    axios.get(`/api/users/${user.id}/friends`).then((res) => {
-      setFriends(res.data);
-    });
+    // axios.get(`/api/users/${user.id}/friends`).then((res) => {
+    //   setFriends(res.data);
+    // });
     // GET BOOKS
     axios.get(`/api/users/${user.id}/books`).then((res) => {
       const newObj = convertArrayToObject(res.data, "id");
@@ -240,24 +249,24 @@ function App() {
       .catch((err) => err);
   };
 
-  const addFriend = (email) => {
-    //Check against friends
-    const friendExists = friends.some((friend) => friend.email === email);
-    if (friendExists) {
-      console.log("FRIEND EXIST");
-      return "Friend Exists";
-    }
-    const dataToSend = { friendsEmail: email };
-    axios.post(`/api/users/${user.id}/friends`, dataToSend).then((res) => {
-      //SUCCESS? RX friend Details > Build new Friend List
-      if (typeof res.data === "object") {
-        setFriends((prev) => [...prev, res.data]);
-        setShow({ item: "Friend added successfully.", status: true });
-      }
-      //FAIL ResJSON will send 'NO USER FOUND'
-    });
-    //
-  };
+  // const addFriend = (email) => {
+  //   //Check against friends
+  //   const friendExists = state.friends.some((friend) => friend.email === email);
+  //   if (friendExists) {
+  //     console.log("FRIEND EXIST");
+  //     return "Friend Exists";
+  //   }
+  //   const dataToSend = { friendsEmail: email };
+  //   axios.post(`/api/users/${user.id}/friends`, dataToSend).then((res) => {
+  //     //SUCCESS? RX friend Details > Build new Friend List
+  //     if (typeof res.data === "object") {
+  //       setFriends((prev) => [...prev, res.data]);
+  //       setShow({ item: "Friend added successfully.", status: true });
+  //     }
+  //     //FAIL ResJSON will send 'NO USER FOUND'
+  //   });
+  //   //
+  // };
 
   const mbrOfClub = (userId, clubId) => {
     //HELPER FUNC
@@ -292,14 +301,14 @@ function App() {
       .catch((e) => setShow({ item: "Error", status: true }));
   };
 
-  const deleteFriend = (friendId) => {
-    console.log("DEL FRIEND START", friendId);
-    axios.delete(`/api/users/${user.id}/friends/${friendId}`).then((res) => {
-      console.log(`DELETE FRIEND RES ${res.data}`);
-      setFriends(res.data);
-      setShow({ item: "Friend deleted successfully.", status: true });
-    });
-  };
+  // const deleteFriend = (friendId) => {
+  //   console.log("DEL FRIEND START", friendId);
+  //   axios.delete(`/api/users/${user.id}/friends/${friendId}`).then((res) => {
+  //     console.log(`DELETE FRIEND RES ${res.data}`);
+  //     setFriends(res.data);
+  //     setShow({ item: "Friend deleted successfully.", status: true });
+  //   });
+  // };
 
   const newBook = (bookData) => {
     const newBook = {
@@ -350,7 +359,7 @@ function App() {
       userId: user.id,
       firstname: user.firstName,
       lastname: user.lastName,
-      clubId: currClub.id,
+      clubId: state.currClub.id,
     };
 
     //Prepend to state
@@ -432,7 +441,7 @@ function App() {
                     setClubAdmin={setClubAdmin}
                     club={club}
                     setClub={setClub}
-                    currClub={currClub}
+                    currClub={state.currClub}
                     currBook={state.currBook}
                     user={user}
                     deleteClub={deleteClub}
@@ -462,7 +471,7 @@ function App() {
               {" "}
               <Social
                 user={user}
-                friends={friends}
+                friends={state.friends}
                 news={news}
                 addFriend={addFriend}
                 deleteFriend={deleteFriend}

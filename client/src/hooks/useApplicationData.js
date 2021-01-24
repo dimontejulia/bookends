@@ -4,6 +4,7 @@ import cvtArrayToObj from '../helpers/helpers'
 
 
 export default function useApplicationData() {
+  const [show, setShow] = useState({ item: null, status: false });
   const [state, setState] = useState({
     user: {
       id: 1,
@@ -12,7 +13,7 @@ export default function useApplicationData() {
     },
     books: {},
     wishList: {},
-    friends: {},
+    friends: [],
     news: {
       clubNews: {},
     },
@@ -76,12 +77,53 @@ export default function useApplicationData() {
   const setWishlist = () => {
     console.log('Click')
   }
-  const setCurrBook = (inputBook) => {
-    setState((prev) => { return { ...prev, currBook: inputBook } });
+  const setCurrBook = (input) => {
+    setState((prev) => { return { ...prev, currBook: input } });
   }
+  const setCurrClub = (input) => {
+    setState((prev) => { return { ...prev, currClub: input } });
+  }
+
+  const addFriend = (email) => {
+    //Check against friends
+    const friendExists = state.friends.some((friend) => friend.email === email);
+    if (friendExists) {
+      console.log("FRIEND EXIST");
+      return "Friend Exists";
+    }
+    const dataToSend = { friendsEmail: email };
+    axios.post(`/api/users/${user.id}/friends`, dataToSend).then((res) => {
+      if (typeof res.data === "object") {
+        const newFriendState = { ...state.friends, [res.data.id]: res.data }
+        setState((prev) => { return { ...prev, friends: newFriendState } });
+        setShow({ item: "Friend added successfully.", status: true });
+      } else {
+        //FAIL ResJSON will send 'NO USER FOUND'
+        console.log(`Response @addFriend: ${res.data}`)
+        setShow({ item: "Whoops, can't seem to find that one...", status: true });
+      }
+    });
+    //
+  };
+
+  const deleteFriend = (friendId) => {
+    console.log("DEL FRIEND START", friendId);
+    axios.delete(`/api/users/${user.id}/friends/${friendId}`).then((res) => {
+      setState((prev) => {
+        return { ...prev, friends: res.data }
+      });
+      setShow({ item: "Friend deleted successfully.", status: true });
+    });
+  };
+
   return {
     state,
+    show,
+    setShow,
     setWishlist,
     setCurrBook,
+    setCurrClub,
+    addFriend,
+    deleteFriend,
   }
 }
