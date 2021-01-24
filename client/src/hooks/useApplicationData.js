@@ -76,8 +76,35 @@ export default function useApplicationData() {
   const setCurrBook = (input) => {
     setState((prev) => { return { ...prev, currBook: input } });
   }
-  const setCurrClub = (input) => {
-    setState((prev) => { return { ...prev, currClub: input } });
+  const setCurrClub = (clubId) => {
+    console.log("SET CURR CLUB, promises...")
+
+    Promise.all([
+      axios.get(`/api/clubs/${clubId}`),
+      axios.get(`/api/clubs/${clubId}/newsfeed`),
+      axios.get(`/api/clubs/${clubId}/history`),
+      axios.get(`/api/clubs/${clubId}/members`),
+    ])
+      .then(([clubDetails, news, history, members]) => {
+        console.log("MEMBR RTN", members.data);
+
+        function coveryHistoryToArray(historyObj) {
+          //HELPER convert history to array
+          return historyObj.map((book) => `${book.title} by ${book.author}`);
+        }
+        //Fetch Club Details
+        const currClubObj = {
+          ...clubDetails.data,
+          history: coveryHistoryToArray(history.data),
+          members: members.data,
+        };
+        setState((prev) => { return { ...prev, currClub: currClubObj } });
+        // //Set Current Book (for details)
+        setCurrBook({ id: clubDetails.data.current_book });
+        // //Set Club News
+        // setClubNews(news.data);
+      })
+      .catch((err) => err);
   }
   //==FRIENDS==============================================
 
@@ -257,7 +284,7 @@ export default function useApplicationData() {
 
 
   const postClubNews = (post) => {
-    console.log("POST NEWS", post);
+    console.log("POST CLUB NEWS", post);
     //Add userInfo To Post
     const clubPost = {
       ...post,
@@ -266,7 +293,6 @@ export default function useApplicationData() {
       lastname: user.lastName,
       clubId: state.currClub.id,
     };
-
     //Prepend to state
     const newClubPosts = [clubPost, ...state.clubNews];
     return axios.post(`/api/clubs/:id/newsfeed`, clubPost).then((res) => {
@@ -279,7 +305,6 @@ export default function useApplicationData() {
   };
   const setClubNews = (posts) => {
     setState((prev) => { return { ...prev, clubNews: posts } });
-
   };
 
   //=RETURNs=======================================================

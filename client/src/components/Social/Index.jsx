@@ -18,7 +18,6 @@ export default function Index(props) {
     });
 
   const news = props.news;
-  console.log('!!!!News', news);
   const newsList =
     news &&
     news.map((post) => {

@@ -4,11 +4,10 @@ import { Table, Button, ListGroup } from 'react-bootstrap';
 export default function FriendsList(props) {
   const { friendList, deleteFriend } = props;
 
-  console.log('FOCUSS', friendList);
   const parsedList =
     friendList &&
     friendList.map((friend) => (
-      <tr>
+      <tr key={friend.userid}>
         <td>
           {' '}
           {friend.firstname} {friend.lastname}
