@@ -1,23 +1,27 @@
-import React from "react";
+import React from 'react';
 
-import Form from "react-bootstrap/Form";
-import FormControl from "react-bootstrap/FormControl";
-import Button from "react-bootstrap/Button";
+import Form from 'react-bootstrap/Form';
+import FormControl from 'react-bootstrap/FormControl';
+import Button from 'react-bootstrap/Button';
 
 const SearchForm = ({ query, onQueryChange, onSearch }) => {
   return (
-    <section>
-      <Form onSubmit={onSearch} className="search-container">
+    <section className='section'>
+      {/* <Form onSubmit={onSearch}> */}
+      <Form>
         <FormControl
-          className="open-library-search"
-          type="text"
-          placeholder="Search Books: search by book title, author name..."
+          type='text'
+          placeholder='Search Books: search by book title, author name...'
+          className='mr-sm-2'
           defaultValue={query}
           onChange={onQueryChange}
+          onKeyPress={(e) => {
+            e.key === 'Enter' && e.preventDefault();
+          }}
         />
-        <Button type="submit" variant="info">
+        {/* <Button type='submit' variant='outline-success'>
           Search
-        </Button>
+        </Button> */}
       </Form>
     </section>
   );
