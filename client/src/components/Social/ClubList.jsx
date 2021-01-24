@@ -40,14 +40,14 @@ export default function ClubList(props) {
     list &&
     list.map((club) => (
       <tr>
-        <td>{club.book_club_name}</td>
-        <td>
-          <Link to={`/clubs/${club.id}`}>
+        <Link to={`/clubs/${club.id}`}>
+          <td className="text-dark">{club.book_club_name}</td>
+          <td>
             <Button onClick={() => currentClub(club.id)}>
               <i class="fas fa-arrow-circle-right"></i>
             </Button>
-          </Link>
-        </td>
+          </td>
+        </Link>
       </tr>
     ));
 
