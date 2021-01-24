@@ -6,6 +6,7 @@ import "./App.css";
 import useApplicationData from "./hooks/useApplicationData";
 
 //===========Components Import =============
+import Wave from "./components/Wave";
 import Navbar from "./components/Navbar";
 import MainPage from "./components/Main/Index";
 import UserShelf from "./components/BookShelf/Index";
@@ -418,6 +419,7 @@ function App() {
           <nav className="sidebar__menu">
             <span>
               <Navbar user={user} setUser={setUser} clubs={club} />
+              <Wave />
               {/* <Confirmation
                 className="confirmation__toast"
                 show={show}

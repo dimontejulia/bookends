@@ -19,7 +19,7 @@ const SearchForm = ({ query, onQueryChange, onSearch }) => {
             e.key === "Enter" && e.preventDefault();
           }}
         />
-        {/* <Button type='submit' variant='outline-success'>
+        {/* <Button type="submit" variant="outline-success">
           Search
         </Button> */}
       </Form>

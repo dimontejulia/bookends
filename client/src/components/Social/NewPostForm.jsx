@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import axios from 'axios';
+import React, { useState } from "react";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import axios from "axios";
 
 export default function NewsFeed(props) {
-  const [post, setPost] = useState(props.placeholder ? props.placeholder : '');
+  const [post, setPost] = useState(props.placeholder ? props.placeholder : "");
   const user = props.user;
 
   const date = new Date();
@@ -17,7 +17,7 @@ export default function NewsFeed(props) {
       firstname: user.firstName,
       lastname: user.lastName,
       [id]: value,
-      timestamp: date.toLocaleString('en-CA'),
+      timestamp: date.toLocaleString("en-CA"),
     }));
   };
 
@@ -27,38 +27,38 @@ export default function NewsFeed(props) {
     if (!post.title) {
       return null;
     }
-    console.log('USER IN POST ', user);
+    console.log("USER IN POST ", user);
     axios
       .post(`/api/users/${user.id}/posts`, post)
       .then(() => {
         props.setNews((prevState) => [post, ...prevState]);
-        setPost({ title: '', body: '' });
+        setPost({ title: "", body: "" });
       })
-      .catch((err) => console.log('errorroroor', err));
+      .catch((err) => console.log("errorroroor", err));
   };
 
   return (
-    <Form className='newsfeed-post'>
-      <Form.Group controlId='title'>
+    <Form className="form__newsfeed-post">
+      <Form.Group controlId="title">
         <Form.Control
           onChange={handleChange}
-          name='title'
+          name="title"
           value={post.title}
-          placeholder='Post Title'
+          placeholder="Post Title"
         />
       </Form.Group>
-      <Form.Group controlId='body'>
+      <Form.Group controlId="body">
         <Form.Control
           onChange={handleChange}
-          name='body'
-          as='textarea'
+          name="body"
+          as="textarea"
           rows={3}
           value={post.body}
           placeholder="What are you reading? What did you think about a book you've read? Any
           other literary thoughts?"
         />
       </Form.Group>
-      <Button type='submit' onClick={handleSubmitClick}>
+      <Button type="submit" onClick={handleSubmitClick}>
         Post
       </Button>
     </Form>
