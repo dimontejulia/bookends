@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import useApplicationData from "./hooks/useApplicationData";
 import { render } from "react-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
-import useApplicationData from "./hooks/useApplicationData";
 
 //===========Components Import =============
 import Navbar from "./components/Navbar";
@@ -19,6 +19,10 @@ import { faUserLock } from "@fortawesome/free-solid-svg-icons";
 import NewsFeed from "./components/Social/NewsFeed";
 //============================================
 function App() {
+
+  const { state } = useApplicationData()
+  console.log("MEGA STATE App import", state)
+
   const [user, setUser] = useState({
     id: 1,
     firstName: "Mark",

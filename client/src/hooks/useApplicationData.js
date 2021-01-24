@@ -1,72 +1,83 @@
-// import { useEffect, useReducer } from 'react';
+import { useState, useEffect } from "react";
+import axios from 'axios';
+import cvtArrayToObj from '../helpers/helpers'
 
-// // import dataReducer, { SET_USERS } from '../reducers/dataReducer';
 
-// import axios from 'axios';
+export default function useApplicationData() {
+  const [state, setState] = useState({
+    user: {
+      id: 1,
+      firstName: "Mark",
+      lastName: "Twain",
+    },
+    books: {
+      currBook: {},
+      wishList: {},
+    },
+    friends: {},
+    news: {
+      clubNews: {},
+    },
+    clubs: {
+      clubAdmin: {},
+      currClub: {},
+    },
+    carouselBooks: {},
+  })
 
-// export default useApplicationData = () => {
+  const API = 'localhost:3005'
+  let user = state.user
+  useEffect(() => {
+    //==== Initialize State ============================
 
-//   const user = {
-//     userID
-//   }
+    Promise.all([
+      axios.get(`/api/books/category/movie`),
+      axios.get(`/api/books/category/awardWinning`),
+      axios.get(`/api/books/category/biography`),
+      axios.get(`/api/books/category/dystopian`),
+    ]).then(([movie, awardWinning, bios, dystopian]) => {
+      setState((prev) => {
+        return {
+          ...prev,
+          carouselBooks: {
+            movies: { books: movie.data, catTitle: "It Was a Book First..." },
+            awardWinning: { books: awardWinning.data, catTitle: "Award Winning" },
+            bios: { books: bios.data, catTitle: "Biographies" },
+            dystopian: { books: dystopian.data, catTitle: "Dystopian" },
+          }
+        }
+      })
+    }).catch(e => console.log("Carousel Initialization Error", e));
 
-//   const [state, setState] = useState({
-//     user
-//   });
+    Promise.all([
+      //GET FRIENDS
+      axios.get(`/api/users/${user.id}/books`),
+      axios.get(`/api/users/${user.id}/wishlist`),
+      axios.get(`/api/users/${user.id}/friends`),
+      axios.get(`/api/users/${user.id}/clubs`),
+      axios.get(`/api/users/${user.id}/posts`)
+    ]).then(([rBooks, rWishlist, rFriends, rClubs, rPosts]) => {
+      setState((prev) => {
+        return {
+          ...prev,
+          books: cvtArrayToObj(rBooks.data, 'id'),
+          wishlist: rWishlist.data,
+          friends: rFriends.data,
+          clubs: cvtArrayToObj(rClubs.data, 'id'),
+          news: rPosts.data,
 
-//   const setUser = user => setState({ ...state, user })
+        }
+      })
+    })
+      .catch(e => console.log("Initialization Error", e));
 
-//   // const getUserBooks = ()
+  }, []);
 
-//   // const [state, dispatch] = useReducer(dataReducer, {
-//   //   users: [],
-//   //   loading: true,
-//   // });
 
-//   // useEffect(() => {
-//   //   axios({
-//   //     method: 'GET',
-//   //     url: '/api/users',
-//   //   })
-//   //     .then(({ data }) => {
-//   //       console.log(data);
-//   //       dispatch({ type: SET_USERS, users: data });
-//   //     })
-//   //     .catch((err) => console.log(err));
-//   // }, []);
+  console.log("MEGA STATE POST INIT", state)
+  //Functions to be passed down as Props (Dealing with state);===================================
 
-//   // return {
-//   //   state,
-//   //   dispatch,
-//   // };
-
-// };
-
-// export default registerUser = () => {
-//   if (state.email.length && state.password.length) {
-//     props.showError(null);
-//     const payload = {
-//       "email": state.email,
-//       "password": state.password,
-//     }
-//     axios.post(API_BASE_URL + '/user/register', payload)
-//       .then(function (response) {
-//         if (response.status === 200) {
-//           setState(prevState => ({
-//             ...prevState,
-//             'successMessage': 'Registration successful. Redirecting to home page..'
-//           }))
-//           redirectToHome();
-//           props.showError(null)
-//         } else {
-//           props.showError("Some error ocurred");
-//         }
-//       })
-//       .catch(function (error) {
-//         console.log(error);
-//       });
-//   } else {
-//     props.showError('Please enter valid username and password')
-//   }
-
-// };
+  return {
+    state,
+  }
+}
