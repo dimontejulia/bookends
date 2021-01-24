@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import classnames from 'classnames';
-import Button from 'react-bootstrap/Button';
+import { Button, Popover, Accordion, Card } from 'react-bootstrap';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Popover from 'react-bootstrap/Popover';
+// import Popover from 'react-bootstrap/Popover';
 import NewPostForm from './Social/NewPostForm';
 
 export default function ShareBook(props) {
@@ -10,9 +10,6 @@ export default function ShareBook(props) {
     <Popover id='popover-basic'>
       <Popover.Title as='h3'>Share this book...</Popover.Title>
       <Popover.Content>
-        Edit or Delete your club.
-        <br />
-        <br />
         <div>
           <NewPostForm
             user={props.user}
@@ -29,16 +26,47 @@ export default function ShareBook(props) {
       </Popover.Content>
     </Popover>
   );
+
+  const accorion = (
+    <Accordion defaultActiveKey='0'>
+      <Card>
+        <Accordion.Toggle as={Card.Header} eventKey='0'>
+          Click me!
+        </Accordion.Toggle>
+        <Accordion.Collapse eventKey='0'>
+          <Card.Body>Hello! I'm the body</Card.Body>
+        </Accordion.Collapse>
+      </Card>
+    </Accordion>
+  );
+
+  //   <OverlayTrigger
+  //   rootClose={true}
+  //   trigger='click'
+  //   placement='auto-end'
+  //   overlay={popover}
+  // >
+  //   <Button block classNames='carousel__book-button'>
+  //     Share Book
+  //   </Button>
+  // </OverlayTrigger>
   return (
-    <OverlayTrigger
-      rootClose={true}
-      trigger='click'
-      placement='right'
-      overlay={popover}
-    >
-      <Button block classNames='carousel__book-button'>
-        Share Book
-      </Button>
-    </OverlayTrigger>
+    <Accordion>
+      <Card>
+        <Accordion.Toggle as={Card.Header} eventKey='0'>
+          Share Book
+        </Accordion.Toggle>
+        <Accordion.Collapse eventKey='0'>
+          <NewPostForm
+            user={props.user}
+            setNews={props.setNews}
+            placeholder={{
+              title: `${props.book.title} by, ${props.book.author}`,
+              body: '',
+            }}
+          />
+        </Accordion.Collapse>
+      </Card>
+    </Accordion>
   );
 }

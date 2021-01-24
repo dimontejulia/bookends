@@ -74,6 +74,7 @@ export default function Carousel(props) {
                   book={book}
                   user={props.user}
                   setNews={props.setNews}
+                  news={props.news}
                 />
               </span>
             </span>

@@ -557,6 +557,7 @@ function App() {
                 clubs={club}
                 user={user}
                 setNews={setNews}
+                news={news}
               />
             </Route>
           </Switch>

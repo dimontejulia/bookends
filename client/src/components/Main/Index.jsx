@@ -24,6 +24,7 @@ export default function Index(props) {
         setClubBook={props.setClubBook}
         user={props.user}
         setNews={props.setNews}
+        news={props.news}
       />
     ));
   return (
