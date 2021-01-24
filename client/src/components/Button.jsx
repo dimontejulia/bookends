@@ -1,7 +1,6 @@
-import React from 'react';
+import React from "react";
+import Button from "react-bootstrap/Button";
 // Generic Btn
-function Button(props) {
-  return <button onClick={props.onClick}>{props.children || 'Button'}</button>;
+export default function ButtonClick(props) {
+  return <Button onClick={props.onClick}>{props.children || "Button"}</Button>;
 }
-
-export default Button;

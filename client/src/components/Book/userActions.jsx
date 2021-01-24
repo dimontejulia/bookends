@@ -57,13 +57,20 @@ export default function UserActions(props) {
 
   return (
     <div>
-      <p>
-        <br />
-        <Button>Add to list</Button>
-      </p>
+      <Button>Add to list</Button>
+      <OverlayTrigger
+        rootClose={true}
+        trigger="click"
+        placement="right"
+        overlay={popover}
+      >
+        <Button variant="danger">Delete Book</Button>
+      </OverlayTrigger>
+      <br></br>
       <span>
-        Status: {userBookData ? userBookData.status : null}
-        <br />
+        <br></br>
+        <h4>Status: {userBookData ? userBookData.status : null}</h4>
+
         <select
           onChange={handleInput}
           name="status"
@@ -84,14 +91,6 @@ export default function UserActions(props) {
         />
       </span>
       {/* needs to rerender shelf list */}
-      <OverlayTrigger
-        rootClose={true}
-        trigger="click"
-        placement="right"
-        overlay={popover}
-      >
-        <Button variant="danger">Delete Book</Button>
-      </OverlayTrigger>
     </div>
   );
 }
