@@ -419,7 +419,6 @@ function App() {
           <nav className="sidebar__menu">
             <span>
               <Navbar user={user} setUser={setUser} clubs={club} />
-              <Wave />
               {/* <Confirmation
                 className="confirmation__toast"
                 show={show}

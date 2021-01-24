@@ -31,6 +31,7 @@ export default function AddList(props) {
         placeholder="Search by email"
         className="mr-sm-2"
       />
+
       <Button
         variant="outline-primary"
         onClick={() => {

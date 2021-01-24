@@ -6,6 +6,7 @@ import NewPostForm from "./NewPostForm";
 import AddFriendForm from "./AddFriend";
 import JoinClubForm from "./JoinClubForm";
 import AddClub from "./AddClub";
+import Wave from "../Wave";
 
 import "../Social.scss";
 
@@ -28,8 +29,10 @@ export default function Index(props) {
 
   return (
     <section>
+      <Wave />
       <div className="container">
         <h1 className="page-title">Social</h1>
+        <hr />
       </div>
       <div className="container">
         <div className="sidebar">

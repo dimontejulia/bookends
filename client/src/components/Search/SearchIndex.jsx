@@ -3,6 +3,7 @@ import * as client from "./OpenLibraryClient.jsx";
 import BooksList from "./BooksList.jsx";
 import SearchForm from "./SearchForm.jsx";
 import useDebounce from "../../hooks/useDebounce";
+import Wave from "../Wave";
 import "../Search.scss";
 
 const SearchIndex = (props) => {
@@ -37,11 +38,10 @@ const SearchIndex = (props) => {
 
   return (
     <Fragment>
-      <section className="section">
-        <div className="container">
-          <h1 className="title has-text-centered">Open Library books search</h1>
-        </div>
-      </section>
+      <Wave />
+      <div className="container">
+        <h1 className="title has-text-centered">Open Library books search</h1>
+      </div>
       <SearchForm onQueryChange={onQueryChange} query={query} />
       <BooksList
         loading={isFetching}

@@ -12,8 +12,7 @@ export default function FriendsList(props) {
           {" "}
           {friend.firstname} {friend.lastname}
         </td>
-        {/* <td>"x is Reading..."</td> */}
-        <td>
+        <td className="social__lists-button">
           <Button
             onClick={() => {
               deleteFriend(friend.userid);

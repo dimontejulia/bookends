@@ -41,7 +41,7 @@ export default function ClubList(props) {
     list.map((club) => (
       <tr>
         <td>{club.book_club_name}</td>
-        <td>
+        <td className="social__lists-button">
           <Link to={`/clubs/${club.id}`}>
             <Button onClick={() => currentClub(club.id)}>
               <i class="fas fa-arrow-circle-right"></i>
