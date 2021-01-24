@@ -12,14 +12,13 @@ export default function Details(props) {
 
   return (
     <div>
-      <h1> Book Details</h1>
       {!title ? (
         <Spinner animation="border" variant="secondary" />
       ) : (
         <div>
-          <h2>
+          <h1>
             {title} by {author}
-          </h2>
+          </h1>
           <div className="details-container">
             <div className="details-cover">
               <img className="book__cover-img" src={coverLink} alt={title} />

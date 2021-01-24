@@ -1,10 +1,11 @@
-import React from 'react';
-import Details from '../Book/Details';
-import ClubRegular from './ClubRegular';
-import ClubAdmin from './ClubAdmin';
-import ClubNews from './ClubNews';
-import ClubHistory from './ClubHistory';
-import ClubMembers from '../List';
+import React from "react";
+import Details from "../Book/Details";
+import ClubRegular from "./ClubRegular";
+import ClubAdmin from "./ClubAdmin";
+import ClubNews from "./ClubNews";
+import ClubHistory from "./ClubHistory";
+import ClubMembers from "../List";
+import "../Clubs.scss";
 
 export default function ClubInfo(props) {
   const bookDetails = props.currBook;
@@ -21,17 +22,16 @@ export default function ClubInfo(props) {
   const bookCount = props.currClub.history ? props.currClub.history.length : 0;
 
   return (
-    <div>
-      <section className='book-club__header'>
+    <div className="container">
+      <section className="sidebar">
         <img
-          className='book__cover-img'
+          className="club-avatar"
           src={props.currClub.avatar}
           alt={props.currClub.book_club_name}
-          width='20%'
+          width="20%"
         />
-        <br />
         <h1>{props.currClub.book_club_name}</h1>
-        <h3>{props.currClub.club_description}</h3>
+        <h4>{props.currClub.club_description}</h4>
         <h5>Club ID: {props.currClub.id}</h5>
 
         {props.user.id === props.admin_id ? (
@@ -43,21 +43,20 @@ export default function ClubInfo(props) {
             editClub={props.editClub}
           />
         )}
+        <br></br>
+        <ClubMembers listName={"Book History"} list={props.currClub.history} />
+        <h6 className="text-muted">{`${bookCount} books read`}</h6>
+        <br></br>
+        <ClubMembers listName={"Members"} list={members} />
       </section>
-      <section className='book-club__content'>
-        <h3>Current Book:</h3>
+      <section className="main-content">
         <Details book={bookDetails ? bookDetails : null} />
+        <ClubNews clubNews={props.clubNews} postClubNews={props.postClubNews} />
       </section>
       {/* <ClubHistory
         bookHistory={props.currClub.history}
         numBooks={props.currClub.history ? props.currClub.history.length : 0}
       /> */}
-      <ClubMembers
-        listName={`Book Club History : ${bookCount} books read`}
-        list={props.currClub.history}
-      />
-      <ClubMembers listName={'Members:'} list={members} />
-      <ClubNews clubNews={props.clubNews} postClubNews={props.postClubNews} />
     </div>
   );
 }
