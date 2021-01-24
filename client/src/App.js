@@ -31,6 +31,10 @@ function App() {
     deleteFriend,
     addBookToShelf,
     rmvBookFrShelf,
+    joinClub,
+    createClub,
+    deleteClub,
+    updateClubInfo,
   } = useApplicationData()
 
   console.log("MEGA STATE App import", state)
@@ -46,7 +50,7 @@ function App() {
   // const [wishlist, setWishlist] = useState([]);
   const [news, setNews] = useState([]);
   // const [userData, setUserData] = useState({});
-  const [club, setClub] = useState([]);
+  // const [club, setClub] = useState([]);
   // const [clubAdmin, setClubAdmin] = useState("");
   // const [currBook, setCurrBook] = useState({ id: "initial" });
   // const [cBooks, setCBooks] = useState([]);
@@ -55,15 +59,15 @@ function App() {
   //for the toast
   // const [show, setShow] = useState({ item: null, status: false });
 
-  const convertArrayToObject = (array, key) => {
-    const initialValue = {};
-    return array.reduce((obj, item) => {
-      return {
-        ...obj,
-        [item[key]]: item,
-      };
-    }, initialValue);
-  };
+  // const convertArrayToObject = (array, key) => {
+  //   const initialValue = {};
+  //   return array.reduce((obj, item) => {
+  //     return {
+  //       ...obj,
+  //       [item[key]]: item,
+  //     };
+  //   }, initialValue);
+  // };
 
   const initialize = () => {
     //Need PROMISE.ALL for the initial request...
@@ -98,13 +102,13 @@ function App() {
     // });
 
     //GET USERS CLUBS
-    axios
-      .get(`/api/users/${user.id}/clubs`)
-      .then((res) => {
-        const newObj = convertArrayToObject(res.data, "id");
-        setClub(newObj);
-      })
-      .catch((e) => console.log(e));
+    // axios
+    //   .get(`/api/users/${user.id}/clubs`)
+    //   .then((res) => {
+    //     const newObj = convertArrayToObject(res.data, "id");
+    //     setClub(newObj);
+    //   })
+    //   .catch((e) => console.log(e));
 
     // GET POSTS
     axios
@@ -225,31 +229,31 @@ function App() {
   //     .catch((err) => err);
   // };
 
-  const addClub = (clubName, avatar) => {
-    const newClubData = {
-      userId: user.id,
-      clubName,
-      avatar,
-    };
+  // const addClub = (clubName, avatar) => {
+  //   const newClubData = {
+  //     userId: user.id,
+  //     clubName,
+  //     avatar,
+  //   };
 
-    axios
-      .post(`/api/clubs/new`, newClubData)
-      .then((res) => {
-        console.log("RES DATA APP.JS ADD CLUB THEN >>>>", res.data);
-        // setClub((prev) => [...prev, res.data]);
-      })
-      .catch((err) => console.log(err));
-  };
+  //   axios
+  //     .post(`/api/clubs/new`, newClubData)
+  //     .then((res) => {
+  //       console.log("RES DATA APP.JS ADD CLUB THEN >>>>", res.data);
+  //       // setClub((prev) => [...prev, res.data]);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
-  const deleteClub = (clubId, clubName) => {
-    console.log("start fo app.js delete", clubId, clubName);
-    axios
-      .delete(`/api/clubs/${clubId}`)
-      .then((res) => {
-        console.log("club has been removed!!!!", res);
-      })
-      .catch((err) => err);
-  };
+  // const deleteClub = (clubId, clubName) => {
+  //   console.log("start fo app.js delete", clubId, clubName);
+  //   axios
+  //     .delete(`/api/clubs/${clubId}`)
+  //     .then((res) => {
+  //       console.log("club has been removed!!!!", res);
+  //     })
+  //     .catch((err) => err);
+  // };
 
   // const addFriend = (email) => {
   //   //Check against friends
@@ -270,38 +274,38 @@ function App() {
   //   //
   // };
 
-  const mbrOfClub = (userId, clubId) => {
-    //HELPER FUNC
-    //Check if Mbr has that club Id already
-    const usersClubs = Object.keys(club);
-    return usersClubs.some((club) => club === clubId);
-  };
+  // const mbrOfClub = (userId, clubId) => {
+  //   //HELPER FUNC
+  //   //Check if Mbr has that club Id already
+  //   const usersClubs = Object.keys(state.clubs);
+  //   return usersClubs.some((club) => club === clubId);
+  // };
 
-  const joinClub = (clubId) => {
-    //Combine 2 checks below into validate join club
-    //Check if entry if a club ID (implement club Prefix)
-    //Check if mbr already
-    if (mbrOfClub(user.id, clubId)) {
-      return setShow({
-        item: "Whoops, you already belong to that club.",
-        status: true,
-      });
-    }
-    const dataToSend = { userId: user.id, clubId };
-    axios
-      .post(`/api/users/${user.id}/clubs`, dataToSend)
-      .then((res) => {
-        //Sueccess res will be obj
-        if (typeof res.data === "string") {
-          setShow({ item: res.data, status: true });
-        } else if (typeof res.data === "object") {
-          setClub(res.data);
-          setShow({ item: "Successfully joined club", status: true });
-        }
-        //FAIL ResJSON will send 'NO USER FOUND'
-      })
-      .catch((e) => setShow({ item: "Error", status: true }));
-  };
+  // const joinClub = (clubId) => {
+  //   //Combine 2 checks below into validate join club
+  //   //Check if entry if a club ID (implement club Prefix)
+  //   //Check if mbr already
+  //   if (mbrOfClub(user.id, clubId)) {
+  //     return setShow({
+  //       item: "Whoops, you already belong to that club.",
+  //       status: true,
+  //     });
+  //   }
+  //   const dataToSend = { userId: user.id, clubId };
+  //   axios
+  //     .post(`/api/users/${user.id}/clubs`, dataToSend)
+  //     .then((res) => {
+  //       //Sueccess res will be obj
+  //       if (typeof res.data === "string") {
+  //         setShow({ item: res.data, status: true });
+  //       } else if (typeof res.data === "object") {
+  //         setClub(res.data);
+  //         setShow({ item: "Successfully joined club", status: true });
+  //       }
+  //       //FAIL ResJSON will send 'NO USER FOUND'
+  //     })
+  //     .catch((e) => setShow({ item: "Error", status: true }));
+  // };
 
   // const deleteFriend = (friendId) => {
   //   console.log("DEL FRIEND START", friendId);
@@ -373,35 +377,35 @@ function App() {
     });
   };
 
-  const updateClubInfo = (clubInfo, newBook) => {
-    console.log("SETCLUBBOOK@@@@@@@@@", clubInfo, newBook);
-    const newClubObj = clubInfo;
-    const clubId = clubInfo.id;
+  // const updateClubInfo = (clubInfo, newBook) => {
+  //   console.log("SETCLUBBOOK@@@@@@@@@", clubInfo, newBook);
+  //   const newClubObj = clubInfo;
+  //   const clubId = clubInfo.id;
 
-    if (newBook !== null) {
-      const newClubObj = { ...club[clubId], current_book: newBook.id };
-    }
-    const newState = {
-      ...club,
-      [clubId]: newClubObj,
-    };
-    const dataToSend = { newClubObj, newBook };
-    // Pass newbook & the club,
-    console.log("Update Club Book (Ax DATA SENT)", dataToSend);
-    axios
-      .put(`/api/clubs/${clubId}`, dataToSend)
-      .then((res) => {
-        console.log("Update Club (Ax RES)", res.data);
-        setShow({
-          item: `${newBook.title} assigned successfully to \n ${newClubObj.book_club_name}.`,
-          status: true,
-        });
-        //Update State on success
-        setClub(newState);
-        setCurrClub(newClubObj);
-      })
-      .catch((err) => console.log(err));
-  };
+  //   if (newBook !== null) {
+  //     const newClubObj = { ...club[clubId], current_book: newBook.id };
+  //   }
+  //   const newState = {
+  //     ...club,
+  //     [clubId]: newClubObj,
+  //   };
+  //   const dataToSend = { newClubObj, newBook };
+  //   // Pass newbook & the club,
+  //   console.log("Update Club Book (Ax DATA SENT)", dataToSend);
+  //   axios
+  //     .put(`/api/clubs/${clubId}`, dataToSend)
+  //     .then((res) => {
+  //       console.log("Update Club (Ax RES)", res.data);
+  //       setShow({
+  //         item: `${newBook.title} assigned successfully to \n ${newClubObj.book_club_name}.`,
+  //         status: true,
+  //       });
+  //       //Update State on success
+  //       setClub(newState);
+  //       setCurrClub(newClubObj);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   //==============Watchers that update state =================================
   useEffect(() => {
@@ -420,7 +424,7 @@ function App() {
         <main>
           <nav className="sidebar__menu">
             <span>
-              <Navbar user={user} setUser={setUser} clubs={club} />
+              <Navbar user={user} setUser={setUser} clubs={state.clubs} />
               {/* <Confirmation
                 className="confirmation__toast"
                 show={show}
@@ -441,8 +445,8 @@ function App() {
                     clubId={paramClubId}
                     // clubAdmin={clubAdmin}
                     // setClubAdmin={setClubAdmin}
-                    club={club}
-                    setClub={setClub}
+                    club={state.clubs}
+                    // setClub={setClub}
                     currClub={state.currClub}
                     currBook={state.currBook}
                     user={user}
@@ -477,9 +481,9 @@ function App() {
                 news={news}
                 addFriend={addFriend}
                 deleteFriend={deleteFriend}
-                addClub={addClub}
-                clubs={club}
-                setClub={setClub}
+                addClub={createClub}
+                clubs={state.clubs}
+                // setClub={setClub}
                 setCurrClub={setCurrClub}
                 setCurrBook={setCurrBook}
                 currBook={state.currBook}
@@ -543,7 +547,7 @@ function App() {
                     newBook={addBookToShelf}
                     show={show}
                     setShow={setShow}
-                    clubs={club}
+                    clubs={state.clubs}
                   />
                 );
               }}
@@ -557,7 +561,7 @@ function App() {
                 show={show}
                 setShow={setShow}
                 setClubBook={updateClubInfo}
-                clubs={club}
+                clubs={state.clubs}
                 user={user}
                 setNews={setNews}
                 news={news}

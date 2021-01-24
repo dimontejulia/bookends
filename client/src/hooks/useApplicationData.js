@@ -115,8 +115,6 @@ export default function useApplicationData() {
     });
   };
   //==Books==============================================
-
-
   const addBookToShelf = (bookData) => {
     const newBook = {
       id: bookData.id,
@@ -157,6 +155,98 @@ export default function useApplicationData() {
       })
       .catch((err) => err);
   };
+  //==Club ==============================================
+
+  const mbrOfClub = (userId, clubId) => {
+    //HELPER FUNC
+    //Check if Mbr has that club Id already
+    const usersClubs = Object.keys(state.clubs);
+    return usersClubs.some((club) => club === clubId);
+  };
+
+  const joinClub = (clubId) => {
+    //Combine 2 checks below into validate join club
+    //Check if entry if a club ID (implement club Prefix)
+    //Check if mbr already
+    if (mbrOfClub(user.id, clubId)) {
+      return setShow({
+        item: "Whoops, you already belong to that club.",
+        status: true,
+      });
+    }
+    const dataToSend = { userId: user.id, clubId };
+    axios
+      .post(`/api/users/${user.id}/clubs`, dataToSend)
+      .then((res) => {
+        if (typeof res.data === "string") {
+          //FAIL ResJSON will send 'NO USER FOUND'
+          setShow({ item: res.data, status: true });
+        } else if (typeof res.data === "object") {
+          //Success res will be obj
+          setState((prev) => { return { ...prev, clubs: res.data } });
+          setShow({ item: "Successfully joined club", status: true });
+        }
+      })
+      .catch((e) => setShow({ item: "Error", status: true }));
+  };
+
+  const createClub = (clubName, avatar) => {
+    const newClubData = {
+      userId: user.id,
+      clubName,
+      avatar,
+    };
+    axios
+      .post(`/api/clubs/new`, newClubData)
+      .then((res) => {
+        console.log("RES DATA APP.JS ADD CLUB THEN >>>>", res.data);
+        const newClubsState = { ...state.clubs, [res.data.id]: res.data }
+        setState((prev) => { return { ...prev, clubs: newClubsState } });
+        setShow({ item: "Club created successfully.", status: true });
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const deleteClub = (clubId, clubName) => {
+    console.log("start fo app.js delete", clubId, clubName);
+    axios
+      .delete(`/api/clubs/${clubId}`)
+      .then((res) => {
+        console.log("club has been removed!!!!", res);
+      })
+      .catch((err) => err);
+  };
+
+  const updateClubInfo = (clubInfo, newBook) => {
+    console.log("SETCLUBBOOK@@@@@@@@@", clubInfo, newBook);
+    const newClubObj = clubInfo;
+    const clubId = clubInfo.id;
+
+    if (newBook !== null) {
+      //Updates CLub Book
+      const newClubObj = { ...state.clubs[clubId], current_book: newBook.id };
+    }
+    const newState = {
+      ...state.clubs,
+      [clubId]: newClubObj,
+    };
+    const dataToSend = { newClubObj, newBook };
+    // Pass newbook & the club,
+    console.log("Update Club Book (Ax DATA SENT)", dataToSend);
+    axios
+      .put(`/api/clubs/${clubId}`, dataToSend)
+      .then((res) => {
+        console.log("Update Club (Ax RES)", res.data);
+        setShow({
+          item: `${newBook.title} assigned successfully to \n ${newClubObj.book_club_name}.`,
+          status: true,
+        });
+        //Update State on success
+        setState((prev) => { return { ...prev, clubs: newState } });
+        setCurrClub(newClubObj);
+      })
+      .catch((err) => console.log(err));
+  };
 
 
   return {
@@ -170,6 +260,9 @@ export default function useApplicationData() {
     deleteFriend,
     addBookToShelf,
     rmvBookFrShelf,
-
+    joinClub,
+    createClub,
+    deleteClub,
+    updateClubInfo,
   }
 }
