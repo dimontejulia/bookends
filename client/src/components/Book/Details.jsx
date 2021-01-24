@@ -10,16 +10,21 @@ export default function Details(props) {
     coverLink,
   } = props.book;
 
+  const subjectStr =
+    subjects &&
+    subjects.map((subject) => {
+      return " - " + subject;
+    });
+
   return (
     <div>
-      <h1> Book Details</h1>
       {!title ? (
         <Spinner animation="border" variant="secondary" />
       ) : (
         <div>
-          <h2>
+          <h1>
             {title} by {author}
-          </h2>
+          </h1>
           <div className="details-container">
             <div className="details-cover">
               <img className="book__cover-img" src={coverLink} alt={title} />
@@ -31,7 +36,7 @@ export default function Details(props) {
           </div>
           Published: {published ? published : null}
           <br />
-          Subjects: {subjects ? subjects.slice(0, 10) : null}
+          Subjects: {subjects ? subjectStr.splice(0, 6) : null}
         </div>
       )}
     </div>

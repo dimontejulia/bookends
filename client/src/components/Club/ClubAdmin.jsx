@@ -39,12 +39,12 @@ export default function ClubAdmin(props) {
           admin buttons and features will probably be where normal user
           actions for the club are, we can switch later and refactor components as we go  
         */}
-      <Button>Call Club</Button>
-      <Button>Add Post</Button>
+      {/* <Button>Call Club</Button>
+      <Button>Add Post</Button> */}
       <Link to={"/search"}>
         <Button>Change Book</Button>
       </Link>
-      <Button>Schedule a Meeting</Button>
+      {/* <Button>Schedule a Meeting</Button> */}
       <OverlayTrigger
         rootClose={true}
         trigger="click"
@@ -53,8 +53,6 @@ export default function ClubAdmin(props) {
       >
         <Button variant="danger">Delete Club</Button>
       </OverlayTrigger>
-      <br />
-      <span>Announce Message:</span>
     </div>
   );
 }

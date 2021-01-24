@@ -5,14 +5,7 @@ import Row from "react-bootstrap/Row";
 
 export default function Confirmation(props) {
   return (
-    <div
-      aria-live="polite"
-      aria-atomic="true"
-      style={{
-        position: "relative",
-        minHeight: "100px",
-      }}
-    >
+    <div aria-live="polite" aria-atomic="true">
       <Row>
         <Col xs={6}>
           <Toast
@@ -20,11 +13,7 @@ export default function Confirmation(props) {
             show={props.show.status}
             delay={3000}
             autohide
-            style={{
-              position: "absolute",
-              top: 0,
-              right: 0,
-            }}
+            className="confirmation-box"
           >
             <Toast.Header>
               <img
@@ -32,7 +21,7 @@ export default function Confirmation(props) {
                 className="rounded mr-2"
                 alt=""
               />
-              <strong className="mr-auto">{props.show.item}</strong>
+              <h3 className="mr-auto">{props.show.item}</h3>
             </Toast.Header>
           </Toast>
         </Col>
