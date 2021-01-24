@@ -4,7 +4,7 @@ import classnames from "classnames";
 
 export default function Wave(props) {
   return (
-    <div class="wave">
+    <div class="everypage__wave">
       <svg
         data-name="Layer 1"
         xmlns="http://www.w3.org/2000/svg"

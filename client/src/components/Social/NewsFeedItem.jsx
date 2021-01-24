@@ -5,7 +5,7 @@ export default function NewsFeedItem(props) {
   const date = props.item.timestamp;
   return (
     <Card className="newsfeed-post">
-      <Card.Header className="bg-pink">
+      <Card.Header>
         <h4>{props.item.title}</h4>
       </Card.Header>
       <Card.Body>

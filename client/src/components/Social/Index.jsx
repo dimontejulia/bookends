@@ -27,32 +27,35 @@ export default function Index(props) {
     });
 
   return (
-    <div className="container">
-      <div className="sidebar">
-        <h2>Connect with Fellow Readers!</h2>
-        <FriendList
-          friendList={props.friends}
-          deleteFriend={props.deleteFriend}
-        />
-        <AddFriendForm className="search-bar" addFriend={props.addFriend} />
-        <br></br>
-        <ClubList
-          setCurrClub={props.setCurrClub}
-          currClub={props.currClub}
-          setCurrBook={props.setCurrBook}
-          list={clubIdList}
-          listName={"Clubs"}
-          setClubNews={props.setClubNews}
-        />
-        <JoinClubForm joinClub={props.joinClub} />
-        <br></br>
-        <AddClub className="search-bar" addClub={props.addClub} />
+    <section>
+      <h1 className="page-title">Social</h1>
+      <div className="container">
+        <div className="sidebar">
+          {/* <h2>Connect with Fellow Readers!</h2> */}
+          <FriendList
+            friendList={props.friends}
+            deleteFriend={props.deleteFriend}
+          />
+          <AddFriendForm className="search-bar" addFriend={props.addFriend} />
+          <br></br>
+          <ClubList
+            setCurrClub={props.setCurrClub}
+            currClub={props.currClub}
+            setCurrBook={props.setCurrBook}
+            list={clubIdList}
+            listName={"Clubs"}
+            setClubNews={props.setClubNews}
+          />
+          <JoinClubForm joinClub={props.joinClub} />
+          <br></br>
+          <AddClub className="search-bar" addClub={props.addClub} />
+        </div>
+        <div className="main-content social__main-content">
+          {/* <h1>Book Talk</h1> */}
+          <NewPostForm user={props.user} setNews={props.setNews} />
+          <NewsFeed newsList={newsList} />
+        </div>
       </div>
-      <div className="main-content social__main-content">
-        <h1>Book Talk</h1>
-        <NewPostForm user={props.user} setNews={props.setNews} />
-        <NewsFeed newsList={newsList} />
-      </div>
-    </div>
+    </section>
   );
 }
