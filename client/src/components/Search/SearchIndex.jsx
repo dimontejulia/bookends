@@ -40,7 +40,7 @@ const SearchIndex = (props) => {
     <Fragment>
       <Wave />
       <div className="container">
-        <h1 className="title has-text-centered">Open Library books search</h1>
+        <h1 className="page-title">Search Books</h1>
       </div>
       <SearchForm onQueryChange={onQueryChange} query={query} />
       <BooksList

@@ -490,19 +490,20 @@ function App() {
             <Route path="/shelf/">
               {" "}
               <UserShelf
-                books={userBooks}
+                userBooks={userBooks}
+                wishlist={wishlist}
                 setBooks={setUserBooks}
                 setCurrBook={setCurrBook}
               />
             </Route>
-            <Route path="/wishlist/">
+            {/* <Route path="/wishlist/">
               {" "}
               <UserShelf
                 books={wishlist}
                 setBooks={setWishlist}
                 setCurrBook={setCurrBook}
               />
-            </Route>
+            </Route> */}
             <Route
               path="/book/:id"
               //Route is not fully setup

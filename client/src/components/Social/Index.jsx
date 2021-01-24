@@ -32,7 +32,6 @@ export default function Index(props) {
       <Wave />
       <div className="container">
         <h1 className="page-title">Social</h1>
-        <hr />
       </div>
       <div className="container">
         <div className="sidebar">
