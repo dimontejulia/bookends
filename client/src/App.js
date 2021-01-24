@@ -20,7 +20,7 @@ import NewsFeed from "./components/Social/NewsFeed";
 //============================================
 function App() {
 
-  const { state, setWishlist } = useApplicationData()
+  const { state, setWishlist, setCurrBook } = useApplicationData()
 
   console.log("MEGA STATE App import", state)
 
@@ -37,8 +37,8 @@ function App() {
   const [userData, setUserData] = useState({});
   const [club, setClub] = useState([]);
   const [clubAdmin, setClubAdmin] = useState("");
-  const [currBook, setCurrBook] = useState({ id: "initial" });
-  const [cBooks, setCBooks] = useState([]);
+  // const [currBook, setCurrBook] = useState({ id: "initial" });
+  // const [cBooks, setCBooks] = useState([]);
   const [currClub, setCurrClub] = useState({});
   const [clubNews, setClubNews] = useState();
   //for the toast
@@ -56,19 +56,19 @@ function App() {
 
   const initialize = () => {
     //Need PROMISE.ALL for the initial request...
-    Promise.all([
-      axios.get(`/api/books/category/movie`),
-      axios.get(`/api/books/category/awardWinning`),
-      axios.get(`/api/books/category/biography`),
-      axios.get(`/api/books/category/dystopian`),
-    ]).then(([movie, awardWinning, bios, dystopian]) => {
-      setCBooks({
-        movies: { books: movie.data, catTitle: "It Was a Book First..." },
-        awardWinning: { books: awardWinning.data, catTitle: "Award Winning" },
-        bios: { books: bios.data, catTitle: "Biographies" },
-        dystopian: { books: dystopian.data, catTitle: "Dystopian" },
-      });
-    });
+    // Promise.all([
+    //   axios.get(`/api/books/category/movie`),
+    //   axios.get(`/api/books/category/awardWinning`),
+    //   axios.get(`/api/books/category/biography`),
+    //   axios.get(`/api/books/category/dystopian`),
+    // ]).then(([movie, awardWinning, bios, dystopian]) => {
+    //   setCBooks({
+    //     movies: { books: movie.data, catTitle: "It Was a Book First..." },
+    //     awardWinning: { books: awardWinning.data, catTitle: "Award Winning" },
+    //     bios: { books: bios.data, catTitle: "Biographies" },
+    //     dystopian: { books: dystopian.data, catTitle: "Dystopian" },
+    //   });
+    // });
 
     //GET FRIENDS
     axios.get(`/api/users/${user.id}/friends`).then((res) => {
@@ -111,19 +111,6 @@ function App() {
     initialize();
   }, []);
 
-  const everyState = {
-    userBooks,
-    user,
-    friends,
-    news,
-    club,
-    clubAdmin,
-    currBook,
-    currClub,
-    clubNews,
-  };
-
-  console.log(">>>>>>everyState", everyState);
 
   //==============Functions========
 
@@ -345,12 +332,12 @@ function App() {
   };
 
   const saveBookDataToDB = () => {
-    const dataToSend = userBooks[currBook.id];
+    const dataToSend = userBooks[state.currBook.id];
     axios
-      .put(`/api/users/${user.id}/books/${currBook.id}`, dataToSend)
+      .put(`/api/users/${user.id}/books/${state.currBook.id}`, dataToSend)
       .then((res) => {
-        console.log(`Book ${currBook.id} Data Updated`);
-        setShow({ item: `Book ${currBook.id} Data Updated`, status: true });
+        console.log(`Book ${state.currBook.id} Data Updated`);
+        setShow({ item: `Book ${state.currBook.id} Data Updated`, status: true });
       })
       .catch((err) => console.log("Book Index, Save ERROR:", err));
   };
@@ -407,8 +394,8 @@ function App() {
 
   //==============Watchers that update state =================================
   useEffect(() => {
-    fetchBookDetails(currBook.id);
-  }, [currBook.id]); //The book they are looking at (can be search or their own)
+    fetchBookDetails(state.currBook.id);
+  }, [state.currBook.id]); //The book they are looking at (can be search or their own)
 
   // useEffect(() => {
   //   updateDBUserBooks(userBooks);
@@ -446,7 +433,7 @@ function App() {
                     club={club}
                     setClub={setClub}
                     currClub={currClub}
-                    currBook={currBook}
+                    currBook={state.currBook}
                     user={user}
                     deleteClub={deleteClub}
                     editClub={updateClubInfo}
@@ -484,7 +471,7 @@ function App() {
                 setClub={setClub}
                 setCurrClub={setCurrClub}
                 setCurrBook={setCurrBook}
-                currBook={currBook}
+                currBook={state.currBook}
                 news={news}
                 setNews={setNews}
                 setClubNews={setClubNews}
@@ -520,7 +507,7 @@ function App() {
                 // setCurrBook(paramBookId)
                 return (
                   <BookDetails
-                    currBook={currBook}
+                    currBook={state.currBook}
                     userBookData={userBooks}
                     setUserBookData={setUserBooks}
                     saveToDB={saveBookDataToDB}
@@ -539,7 +526,7 @@ function App() {
                     setUserBooks={setUserBooks}
                     wishlist={state.wishlist}
                     setWishlist={setWishlist}
-                    currBook={currBook}
+                    currBook={state.currBook}
                     setCurrBook={setCurrBook}
                     setClubBook={updateClubInfo}
                     newBook={newBook}
@@ -554,7 +541,7 @@ function App() {
             <Route path="/" exact>
               <MainPage
                 setUserBooks={setUserBooks}
-                carouselBooks={cBooks}
+                carouselBooks={state.carouselBooks}
                 newBook={newBook}
                 show={show}
                 setShow={setShow}

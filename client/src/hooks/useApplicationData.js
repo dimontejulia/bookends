@@ -20,7 +20,7 @@ export default function useApplicationData() {
       clubAdmin: {},
     },
     carouselBooks: {},
-    currBook: {},
+    currBook: { id: 'initial' },
     currClub: {},
   })
 
@@ -76,8 +76,12 @@ export default function useApplicationData() {
   const setWishlist = () => {
     console.log('Click')
   }
+  const setCurrBook = (inputBook) => {
+    setState((prev) => { return { ...prev, currBook: inputBook } });
+  }
   return {
     state,
-    setWishlist
+    setWishlist,
+    setCurrBook,
   }
 }
