@@ -242,12 +242,13 @@ export default function useApplicationData() {
 
   const updateClubInfo = (clubInfo, newBook) => {
     console.log("SETCLUBBOOK@@@@@@@@@", clubInfo, newBook);
-    const newClubObj = clubInfo;
+    let newClubObj = clubInfo;
     const clubId = clubInfo.id;
 
     if (newBook !== null) {
       //Updates CLub Book
-      const newClubObj = { ...state.clubs[clubId], current_book: newBook.id };
+      console.log("UPDATING NEW CLUB OBJ w. new BOOK")
+      newClubObj = { ...state.clubs[clubId], current_book: newBook.id };
     }
     const newState = {
       ...state.clubs,
@@ -259,14 +260,14 @@ export default function useApplicationData() {
     axios
       .put(`/api/clubs/${clubId}`, dataToSend)
       .then((res) => {
-        console.log("Update Club (Ax RES)", res.data);
+        console.log("Update Club (Ax RX *********)", res.data);
         setShow({
           item: `${newBook.title} assigned successfully to \n ${newClubObj.book_club_name}.`,
           status: true,
         });
         //Update State on success
         setState((prev) => { return { ...prev, clubs: newState } });
-        setCurrClub(newClubObj);
+        // setCurrClub(newClubObj);
       })
       .catch((err) => console.log(err));
   };
