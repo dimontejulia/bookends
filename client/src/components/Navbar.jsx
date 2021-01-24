@@ -62,14 +62,9 @@ export default function NavBar(props) {
           <LinkContainer to="/social">
             <Nav.Link>Social</Nav.Link>
           </LinkContainer>
-          <NavDropdown title="My Books" id="nav-dropdown">
-            <LinkContainer to="/shelf">
-              <Nav.Link>My Shelf</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/wishlist">
-              <Nav.Link>My Wishlist</Nav.Link>
-            </LinkContainer>
-          </NavDropdown>
+          <LinkContainer to="/shelf">
+            <Nav.Link>Book Shelf</Nav.Link>
+          </LinkContainer>
           <LinkContainer to="/search">
             <Nav.Link>
               <Button className="nav__search" variant="outline-info">
