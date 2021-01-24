@@ -3,7 +3,7 @@ import * as client from "./OpenLibraryClient.jsx";
 import BooksList from "./BooksList.jsx";
 import SearchForm from "./SearchForm.jsx";
 import useDebounce from "../../hooks/useDebounce";
-import "Search.scss";
+import "../Search.scss";
 
 const SearchIndex = (props) => {
   const [isFetching, setIsFetching] = useState(false);
