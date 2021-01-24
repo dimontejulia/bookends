@@ -28,4 +28,37 @@
   border-radius: 20px;
   padding: 1em;
   margin-bottom: 1em;
+
+  .form__newsfeed-post-title {
+    background-color: #ffe1eb;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    border-bottom: 5px solid #fed5e3;
+    &:focus {
+      transition: all 450ms;
+      background-color: #fff;
+      border-bottom: 5px solid #ff87ac;
+    }
+  }
+
+  .form__newsfeed-post-body {
+    background-color: #ffe1eb;
+    border-radius: 10px;
+    border: none;
+    border-bottom: 5px solid #fed5e3;
+    outline: none;
+    resize: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    &:focus {
+      transition: all 450ms;
+      background-color: #fff;
+      border-bottom: 5px solid #ff87ac;
+    }
+  }
 }

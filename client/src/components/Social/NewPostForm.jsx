@@ -43,6 +43,7 @@ export default function NewsFeed(props) {
         <Form.Control
           onChange={handleChange}
           name="title"
+          className="form__newsfeed-post-title"
           value={post.title}
           placeholder="Post Title"
         />
@@ -52,6 +53,7 @@ export default function NewsFeed(props) {
           onChange={handleChange}
           name="body"
           as="textarea"
+          className="form__newsfeed-post-body"
           rows={3}
           value={post.body}
           placeholder="What are you reading? What did you think about a book you've read? Any
