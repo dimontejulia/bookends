@@ -144,3 +144,14 @@ code {
 .club-avatar {
   width: 100%;
 }
+
+.confirmation-box {
+  width: 400px;
+  min-width: 300px;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 1em;
+  z-index: 1;
+  padding: 1em;
+}
