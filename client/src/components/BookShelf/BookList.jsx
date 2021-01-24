@@ -55,7 +55,7 @@ export default function BookList(props) {
   useEffect(() => {
     console.log('STATE', books, results, form);
     setResults(searchBooks(books, form));
-  }, [form]);
+  }, [form, books]);
 
   const initList = Object.values(books).map((book) => (
     <BookListItem

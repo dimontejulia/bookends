@@ -323,10 +323,21 @@ module.exports = (db) => {
       text: `DELETE FROM users_books WHERE book_id = $1 AND user_id = $2`,
       values: [bookId, userId],
     };
-
+    console.log("delShelf", query);
     return db
       .query(query)
-      .then((result) => result.rows)
+      .then((res) => res.rows)
+      .catch((err) => err);
+  };
+  const rmvUsersBooks = (bookId, userId) => {
+    const query = {
+      text: `DELETE FROM users_books WHERE book_id = $1 AND user_id = $2`,
+      values: [bookId, userId],
+    };
+    console.log("RMV FR Q", query);
+    return db
+      .query(query)
+      .then((res) => console.log(res.rows, "REMOVED"))
       .catch((err) => err);
   };
 
@@ -415,5 +426,6 @@ module.exports = (db) => {
     joinBookClub,
     updateUsersBooks,
     addBookToUser,
+    rmvUsersBooks,
   };
 };

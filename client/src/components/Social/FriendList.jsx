@@ -1,15 +1,16 @@
-import React from "react";
-import { Table, Button, ListGroup } from "react-bootstrap";
+import React from 'react';
+import { Table, Button, ListGroup } from 'react-bootstrap';
 
 export default function FriendsList(props) {
   const { friendList, deleteFriend } = props;
 
+  console.log('FOCUSS', friendList);
   const parsedList =
     friendList &&
     friendList.map((friend) => (
       <tr>
         <td>
-          {" "}
+          {' '}
           {friend.firstname} {friend.lastname}
         </td>
         {/* <td>"x is Reading..."</td> */}
@@ -19,7 +20,7 @@ export default function FriendsList(props) {
               deleteFriend(friend.userid);
             }}
           >
-            <i class="fas fa-user-times"></i>
+            <i class='fas fa-user-times'></i>
           </Button>
         </td>
       </tr>
@@ -27,7 +28,7 @@ export default function FriendsList(props) {
   return (
     <section>
       <h1>Friends</h1>
-      <Table hover size="sm">
+      <Table hover size='sm'>
         <tbody>{parsedList}</tbody>
       </Table>
     </section>

@@ -28,13 +28,8 @@ export default function NewsFeed(props) {
       return null;
     }
     console.log('USER IN POST ', user);
-    axios
-      .post(`/api/users/${user.id}/posts`, post)
-      .then(() => {
-        props.setNews((prevState) => [post, ...prevState]);
-        setPost({ title: '', body: '' });
-      })
-      .catch((err) => console.log('errorroroor', err));
+    props.setNews(post);
+    setPost({ title: '', body: '' });
   };
 
   return (
