@@ -282,6 +282,7 @@ export default function useApplicationData() {
 
   };
 
+  //=RETURNs=======================================================
   return {
     state,
     show,
