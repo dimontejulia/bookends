@@ -9,6 +9,7 @@ export default function Details(props) {
     published,
     coverLink,
   } = props.book;
+  console.log("subjects", subjects);
 
   return (
     <div>

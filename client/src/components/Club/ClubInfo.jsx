@@ -3,9 +3,7 @@ import Details from "../Book/Details";
 import ClubRegular from "./ClubRegular";
 import ClubAdmin from "./ClubAdmin";
 import ClubNews from "./ClubNews";
-import ClubHistory from "./ClubHistory";
 import ClubMembers from "../List";
-import "../Clubs.scss";
 
 export default function ClubInfo(props) {
   const bookDetails = props.currBook;
