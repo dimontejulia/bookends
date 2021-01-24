@@ -30,6 +30,7 @@ function App() {
     addFriend,
     deleteFriend,
     addBookToShelf,
+    rmvBookFrShelf,
   } = useApplicationData()
 
   console.log("MEGA STATE App import", state)
@@ -214,15 +215,15 @@ function App() {
   //     .catch((err) => console.log(err));
   // };
 
-  const deleteUserBook = (bookId) => {
-    const userId = user.id;
-    axios
-      .delete(`/api/users/${userId}/books/${bookId}`)
-      .then((res) => {
-        console.log("book removed from shelf!");
-      })
-      .catch((err) => err);
-  };
+  // const deleteUserBook = (bookId) => {
+  //   const userId = user.id;
+  //   axios
+  //     .delete(`/api/users/${userId}/books/${bookId}`)
+  //     .then((res) => {
+  //       console.log("book removed from shelf!");
+  //     })
+  //     .catch((err) => err);
+  // };
 
   const addClub = (clubName, avatar) => {
     const newClubData = {
@@ -521,7 +522,7 @@ function App() {
                     userBookData={state.books}
                     setUserBookData={addBookToShelf}
                     // saveToDB={saveBookDataToDB}
-                    deleteUserBook={deleteUserBook}
+                    deleteUserBook={rmvBookFrShelf}
                   />
                 );
               }}

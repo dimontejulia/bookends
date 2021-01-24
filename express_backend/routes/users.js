@@ -16,7 +16,8 @@ module.exports = ({
   addBookToUser,
   addFriend,
   deleteFriend,
-  joinBookClub
+  joinBookClub,
+  rmvUsersBooks
 }) => {
 
 
@@ -40,9 +41,10 @@ module.exports = ({
     })
     .delete("/:userId/books/:bookId", (req, res) => {
       const { userId, bookId } = req.params;
-      deleteBook(bookId, userId)
-        .then((book) => {
-          res.json(book);
+      rmvUsersBooks(bookId, userId)
+        .then(() => getUserBooks(req.params.userId))
+        .then((books) => {
+          res.json(books);
         })
         .catch((err) => res.json({ msg: err.message }));
     });

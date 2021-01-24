@@ -146,6 +146,17 @@ export default function useApplicationData() {
       .catch((err) => console.log(err));
   };
 
+  const rmvBookFrShelf = (bookId) => {
+    const userId = user.id;
+    axios
+      .delete(`/api/users/${userId}/books/${bookId}`)
+      .then((res) => {
+        console.log("book removed from shelf!", res.data);
+        setState((prev) => { return { ...prev, books: res.data } });
+        setShow({ item: "Book removed successfully.", status: true });
+      })
+      .catch((err) => err);
+  };
 
 
   return {
@@ -158,5 +169,7 @@ export default function useApplicationData() {
     addFriend,
     deleteFriend,
     addBookToShelf,
+    rmvBookFrShelf,
+
   }
 }
