@@ -555,6 +555,9 @@ function App() {
                 setShow={setShow}
                 setClubBook={updateClubInfo}
                 clubs={club}
+                user={user}
+                setNews={setNews}
+                news={news}
               />
             </Route>
           </Switch>
