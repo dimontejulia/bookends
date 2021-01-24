@@ -35,6 +35,8 @@ function App() {
     createClub,
     deleteClub,
     updateClubInfo,
+    postNews,
+    postClubNews,
   } = useApplicationData()
 
   console.log("MEGA STATE App import", state)
@@ -48,14 +50,14 @@ function App() {
   // const [search, setSearch] = useState("");
   // const [friends, setFriends] = useState([]);
   // const [wishlist, setWishlist] = useState([]);
-  const [news, setNews] = useState([]);
+  // const [news, setNews] = useState([]);
   // const [userData, setUserData] = useState({});
   // const [club, setClub] = useState([]);
   // const [clubAdmin, setClubAdmin] = useState("");
   // const [currBook, setCurrBook] = useState({ id: "initial" });
   // const [cBooks, setCBooks] = useState([]);
   // const [currClub, setCurrClub] = useState({});
-  const [clubNews, setClubNews] = useState();
+  // const [clubNews, setClubNews] = useState();
   //for the toast
   // const [show, setShow] = useState({ item: null, status: false });
 
@@ -111,12 +113,12 @@ function App() {
     //   .catch((e) => console.log(e));
 
     // GET POSTS
-    axios
-      .get(`/api/users/${user.id}/posts`)
-      .then((res) => {
-        setNews(res.data);
-      })
-      .catch((e) => console.log(e));
+    // axios
+    //   .get(`/api/users/${user.id}/posts`)
+    //   .then((res) => {
+    //     setNews(res.data);
+    //   })
+    //   .catch((e) => console.log(e));
 
     // setClubAdmin({
     //   user,
@@ -357,25 +359,25 @@ function App() {
   //     .catch((err) => console.log("Book Index, Save ERROR:", err));
   // };
 
-  const postClubNews = (post) => {
-    console.log("POST NEWS", post);
-    //Add userInfo To Post
-    const clubPost = {
-      ...post,
-      userId: user.id,
-      firstname: user.firstName,
-      lastname: user.lastName,
-      clubId: state.currClub.id,
-    };
+  // const postClubNews = (post) => {
+  //   console.log("POST NEWS", post);
+  //   //Add userInfo To Post
+  //   const clubPost = {
+  //     ...post,
+  //     userId: user.id,
+  //     firstname: user.firstName,
+  //     lastname: user.lastName,
+  //     clubId: state.currClub.id,
+  //   };
 
-    //Prepend to state
-    const newClubPosts = [clubPost, ...clubNews];
-    return axios.post(`/api/clubs/:id/newsfeed`, clubPost).then((res) => {
-      console.log("POST RESPONSE:", res.data);
-      //Update State
-      setClubNews(newClubPosts);
-    });
-  };
+  //   //Prepend to state
+  //   const newClubPosts = [clubPost, ...clubNews];
+  //   return axios.post(`/api/clubs/:id/newsfeed`, clubPost).then((res) => {
+  //     console.log("POST RESPONSE:", res.data);
+  //     //Update State
+  //     setClubNews(newClubPosts);
+  //   });
+  // };
 
   // const updateClubInfo = (clubInfo, newBook) => {
   //   console.log("SETCLUBBOOK@@@@@@@@@", clubInfo, newBook);
@@ -452,7 +454,7 @@ function App() {
                     user={user}
                     deleteClub={deleteClub}
                     editClub={updateClubInfo}
-                    clubNews={clubNews}
+                    clubNews={state.clubNews}
                     postClubNews={postClubNews}
                   />
                 );
@@ -478,7 +480,7 @@ function App() {
               <Social
                 user={user}
                 friends={state.friends}
-                news={news}
+                news={state.news}
                 addFriend={addFriend}
                 deleteFriend={deleteFriend}
                 addClub={createClub}
@@ -487,9 +489,9 @@ function App() {
                 setCurrClub={setCurrClub}
                 setCurrBook={setCurrBook}
                 currBook={state.currBook}
-                news={news}
-                setNews={setNews}
-                setClubNews={setClubNews}
+                // news={news}
+                setNews={postNews}
+                // setClubNews={setClubNews}
                 joinClub={joinClub}
               />{" "}
             </Route>
@@ -563,8 +565,8 @@ function App() {
                 setClubBook={updateClubInfo}
                 clubs={state.clubs}
                 user={user}
-                setNews={setNews}
-                news={news}
+                setNews={postNews}
+                news={state.news}
               />
             </Route>
           </Switch>

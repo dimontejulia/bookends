@@ -14,12 +14,9 @@ export default function useApplicationData() {
     books: {},
     wishList: {},
     friends: [],
-    news: {
-      clubNews: {},
-    },
-    clubs: {
-      clubAdmin: {},
-    },
+    news: [],
+    clubNews: [],
+    clubs: {},
     carouselBooks: {},
     currBook: { id: 'initial' },
     currClub: {},
@@ -247,7 +244,39 @@ export default function useApplicationData() {
       })
       .catch((err) => console.log(err));
   };
+  //==News ==============================================
 
+  const postNews = (input) => {
+    console.log("postnews Input", input)
+    axios.post(`/api/users/${user.id}/posts`, input)
+      .then(() => {
+        // props.setNews((prevState) => [post, ...prevState]);
+        setState((prev) => { return { ...prev, news: [input, ...prev.news] } });
+      })
+      .catch((err) => console.log('errorroroor', err));
+  }
+
+
+  const postClubNews = (post) => {
+    console.log("POST NEWS", post);
+    //Add userInfo To Post
+    const clubPost = {
+      ...post,
+      userId: user.id,
+      firstname: user.firstName,
+      lastname: user.lastName,
+      clubId: state.currClub.id,
+    };
+
+    //Prepend to state
+    const newClubPosts = [clubPost, ...state.clubNews];
+    return axios.post(`/api/clubs/:id/newsfeed`, clubPost).then((res) => {
+      console.log("POST RESPONSE:", res.data);
+      //Update State
+      // setClubNews(newClubPosts);
+      setState((prev) => { return { ...prev, clubNews: newClubPosts } });
+    });
+  };
 
   return {
     state,
@@ -264,5 +293,7 @@ export default function useApplicationData() {
     createClub,
     deleteClub,
     updateClubInfo,
+    postNews,
+    postClubNews,
   }
 }
