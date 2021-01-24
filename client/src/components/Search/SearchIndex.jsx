@@ -28,7 +28,7 @@ const SearchIndex = (props) => {
   };
 
   //Live Search
-  const term = useDebounce(query, 500);
+  const term = useDebounce(query, 1000);
   useCallback(onSearch, [term]);
   useEffect(() => {
     onSearch(term);
@@ -41,11 +41,7 @@ const SearchIndex = (props) => {
           <h1 className='title has-text-centered'>Open Library books search</h1>
         </div>
       </section>
-      <SearchForm
-        onQueryChange={onQueryChange}
-        onSearch={onSearch}
-        query={query}
-      />
+      <SearchForm onQueryChange={onQueryChange} query={query} />
       <BooksList
         loading={isFetching}
         books={books}

@@ -7,18 +7,21 @@ import Button from 'react-bootstrap/Button';
 const SearchForm = ({ query, onQueryChange, onSearch }) => {
   return (
     <section className='section'>
-      <Form onSubmit={onSearch}>
-        {/* <Form onSubmit={onQueryChange}> */}
+      {/* <Form onSubmit={onSearch}> */}
+      <Form>
         <FormControl
           type='text'
           placeholder='Search Books: search by book title, author name...'
           className='mr-sm-2'
           defaultValue={query}
           onChange={onQueryChange}
+          onKeyPress={(e) => {
+            e.key === 'Enter' && e.preventDefault();
+          }}
         />
-        <Button type='submit' variant='outline-success'>
+        {/* <Button type='submit' variant='outline-success'>
           Search
-        </Button>
+        </Button> */}
       </Form>
     </section>
   );
