@@ -5,6 +5,8 @@ import UserNotes from "./UserNotes";
 import UserActions from "./userActions";
 import AlsoReadList from "./AlsoReadList";
 import ButtonClick from "../Button";
+import Wave from "../Wave";
+
 import "../Details.scss";
 
 export default function Index(props) {
@@ -21,33 +23,42 @@ export default function Index(props) {
     Object.values(userBookData).find((bookObj) => bookObj.id === currBook.id);
 
   return (
-    <div className="container">
-      <div className="sidebar">
-        <h2>Book Diary</h2>
-        <UserActions
-          currBookID={currBook.id}
-          userBookData={bookData}
-          setUserBookData={setUserBookData}
-          deleteUserBook={deleteUserBook}
-        />
-        <UserNotes
-          currBookID={currBook.id}
-          comments={bookData ? bookData.comments : null}
-          setUserBookData={setUserBookData}
-        />
-
-        <Rating
-          currBookID={currBook.id}
-          userRating={bookData ? bookData.rating : 0}
-          setUserBookData={setUserBookData}
-        />
-        <br></br>
-        {/* SAVE BUTTON WILL HAVE TO TRIGGER A SAVE TO DB HOOK */}
-        <ButtonClick onClick={saveToDB}>Save</ButtonClick>
-        <AlsoReadList friendsWhoRead={userBookData.friendsWhoReadIt} />
+    <div>
+      <Wave />
+      <div className="container">
+        <div className="book__details">
+          <h1 className="page-title">{currBook.title}</h1>
+          <h3 className="book__details-author">by {currBook.author}</h3>
+        </div>
       </div>
-      <div className="main-content">
-        <Details book={currBook} />
+      <div className="container">
+        <div className="sidebar">
+          <h2>Book Diary</h2>
+          <UserActions
+            currBookID={currBook.id}
+            userBookData={bookData}
+            setUserBookData={setUserBookData}
+            deleteUserBook={deleteUserBook}
+          />
+          <UserNotes
+            currBookID={currBook.id}
+            comments={bookData ? bookData.comments : null}
+            setUserBookData={setUserBookData}
+          />
+
+          <Rating
+            currBookID={currBook.id}
+            userRating={bookData ? bookData.rating : 0}
+            setUserBookData={setUserBookData}
+          />
+          <br></br>
+          {/* SAVE BUTTON WILL HAVE TO TRIGGER A SAVE TO DB HOOK */}
+          <ButtonClick onClick={saveToDB}>Save</ButtonClick>
+          <AlsoReadList friendsWhoRead={userBookData.friendsWhoReadIt} />
+        </div>
+        <div className="main-content">
+          <Details book={currBook} />
+        </div>
       </div>
     </div>
   );

@@ -125,11 +125,26 @@ code {
   }
 }
 
-.page-title {
-  // margin: 80px 0 30px 0;
-  font-size: 3em;
-  font-weight: 900;
-  font-family: "Unna", serif;
+.book__details {
+  display: flex;
+  flex-direction: column;
+
+  .page-title {
+    // margin: 80px 0 30px 0;
+    margin-bottom: 0;
+    font-size: 3em;
+    font-weight: 900;
+    font-family: "Unna", serif;
+  }
+
+  .book__details-author {
+    margin: 0;
+    text-align: start;
+    font-size: 1.5em;
+    font-style: italic;
+    font-weight: 400;
+    font-family: "Unna", serif;
+  }
 }
 
 .club-avatar {
