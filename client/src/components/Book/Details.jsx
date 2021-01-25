@@ -22,7 +22,7 @@ export default function Details(props) {
   console.log("description", description);
   return (
     <div>
-      {!title ? (
+      {!title || title === "" ? (
         <Spinner animation="border" variant="secondary" />
       ) : (
         <div>
