@@ -284,14 +284,16 @@ export default function useApplicationData() {
       .put(`/api/clubs/${clubId}`, dataToSend)
       .then((res) => {
         console.log("Update Club (Ax RX *********)", res.data);
+
+        //Update State on success
+        console.log("NEWCLUB STATE", newState)
+        setState((prev) => { return { ...prev, clubs: newState } });
+        setState((prev) => { return { ...prev, currClub: newClubObj } });
+        // setCurrClub(newClubObj);
         setShow({
           item: `${newBook.title} assigned successfully to \n ${newClubObj.book_club_name}.`,
           status: true,
         });
-        //Update State on success
-        setState((prev) => { return { ...prev, clubs: newState } });
-        setState((prev) => { return { ...prev, currClub: newClubObj } });
-        // setCurrClub(newClubObj);
       })
       .catch((err) => console.log(err));
   };

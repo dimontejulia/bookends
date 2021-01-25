@@ -15,11 +15,7 @@ export default function ClubInfo(props) {
   useEffect(() => {
     console.log('USE EFFECT HIT', props.currClub);
     setClubInfo(props.currClub);
-  }, [props.currClub, props.editClub]);
-  //getting book history - prop manipulation
-  // const numBooks = Object.keys(props.currClub).length - 10;
-  // let bookHistory = [];
-  // for (var i = 0; i < numBooks; i++) bookHistory[i] = props.currClub[i];
+  }, [props.editClub]);
 
   const members = props.currClub.members
     ? props.currClub.members.map((member) => Object.values(member))

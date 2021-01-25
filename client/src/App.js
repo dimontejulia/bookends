@@ -192,16 +192,17 @@ function App() {
             <Route path="/social">
               {" "}
               <Social
+                state={state}
                 user={user}
-                friends={state.friends}
-                news={state.news}
+                // friends={state.friends}
+                // news={state.news}
+                // currBook={state.currBook}
+                // clubs={state.clubs}
                 addFriend={addFriend}
                 deleteFriend={deleteFriend}
                 addClub={createClub}
-                clubs={state.clubs}
                 setCurrClub={setCurrClub}
                 setCurrBook={setCurrBook}
-                currBook={state.currBook}
                 setNews={postNews}
                 setClubNews={setClubNews}
                 joinClub={joinClub}
