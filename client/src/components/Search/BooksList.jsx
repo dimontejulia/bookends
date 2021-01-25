@@ -1,14 +1,14 @@
-import React from "react";
-import Book from "./Book.jsx";
-import Spinner from "react-bootstrap/Spinner";
+import React from 'react';
+import Book from './Book.jsx';
+import Spinner from 'react-bootstrap/Spinner';
 
 const BooksList = ({ loading = false, books = [], count = 0, ...props }) => {
-  console.log("BOOOOOKS", books);
+  // console.log("BOOOOOKS", books);
   return (
     <section>
-      <div className="search-cards">
+      <div className='search-cards'>
         {loading && (
-          <Spinner animation="border" variant="primary" className="spinner" />
+          <Spinner animation='border' variant='primary' className='spinner' />
         )}
 
         {/* take out slice operator if we want more than 5 results */}

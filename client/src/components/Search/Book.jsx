@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import Card from "react-bootstrap/Card";
-import Button from "react-bootstrap/Button";
-import Badge from "react-bootstrap/Badge";
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import Badge from 'react-bootstrap/Badge';
 
-import MoreInfo from "./MoreInfo";
-import ChangeClubBook from "../Club/ChangeBook";
+import MoreInfo from './MoreInfo';
+import ChangeClubBook from '../Club/ChangeBook';
 
 const Book = ({ book, ...props }) => {
   const {
@@ -25,85 +25,84 @@ const Book = ({ book, ...props }) => {
     description: description,
     first_publish_year: first_publish_year,
     subject: subject,
+    number_of_pages: number_of_pages,
   };
 
   const { currBook, setCurrBook } = props;
   const [modalShow, setModalShow] = useState(false);
 
-  const clickWishlist = (e) => {
-    e.preventDefault();
-    props.setWishlist((prevState) => [
-      ...prevState,
-      {
-        id: cover_edition_key,
-        title: title,
-        author: author_name,
-        first_publish_year: first_publish_year,
-        subject: subject,
-        number_of_pages: number_of_pages,
-      },
-    ]);
+  const clickWishlist = (input) => {
+    // e.preventDefault();
+    // props.setWishlist({
+    //   id: cover_edition_key,
+    //   title: title,
+    //   author: author_name,
+    //   first_publish_year: first_publish_year,
+    //   subject: subject,
+    //   number_of_pages: number_of_pages,
+    // });
     // const bookKey = key.split("/works/")[1];
 
-    props.setUserBooks((prevState) => ({
-      ...prevState,
-      [cover_edition_key]: {
-        id: cover_edition_key,
-        title: title,
-        author: author_name,
-        first_publish_year: first_publish_year,
-        subject: subject,
-      },
-    }));
-    props.setShow({ item: `${title}  added successfully.`, status: true });
+    // props.setUserBooks((prevState) => ({
+    //   ...prevState,
+    //   [cover_edition_key]: {
+    //     id: cover_edition_key,
+    //     title: title,
+    //     author: author_name,
+    //     first_publish_year: first_publish_year,
+    //     subject: subject,
+    //   },
+    // }));
+    props.newBook(input, 'Shelf');
+    props.setShow({ item: `${title}  added to wishlist.`, status: true });
   };
 
   const handleClick = (input) => {
-    props.newBook(input);
-    props.setShow({ item: `${input.title} added successfully.`, status: true });
+    props.newBook(input, 'Shelf');
+    props.setShow({ item: `${input.title} added to shelf.`, status: true });
   };
 
   return (
     <div>
-      <Card className="book-card">
+      <Card className='book-card'>
         <Card.Body>
           <Card.Img
-            className="book-cover"
-            variant="top"
+            className='book-cover'
+            variant='top'
             src={`http://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg`}
           />
           <Card.Title>{title}</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">
+          <Card.Subtitle className='mb-2 text-muted'>
             {author_name}
           </Card.Subtitle>
           <Badge
-            className="carousel__subject-badge"
-            variant="outline-secondary"
+            className='carousel__subject-badge'
+            variant='outline-secondary'
           >
             <Button
-              variant="outline-secondary"
+              variant='outline-secondary'
               onClick={() => {
                 setCurrBook({ id: book.text[0] });
                 setModalShow(true);
               }}
             >
-              More Info <i class="fas fa-info-circle"></i>
+              More Info <i class='fas fa-info-circle'></i>
             </Button>
           </Badge>
           <br></br>
           Add to:
           <div>
             <Button
-              variant="outline-primary"
-              className="search-card-button"
+              variant='outline-primary'
+              className='search-card-button'
               onClick={() => handleClick(buttonBook)}
             >
               Shelf
             </Button>
             <Button
-              className="search-card-button"
-              variant="outline-primary"
-              onClick={clickWishlist}
+              className='search-card-button'
+              variant='outline-primary'
+              onClick={clickWishlist(buttonBook)}
             >
               Wishlist
             </Button>

@@ -74,8 +74,8 @@ export default function useApplicationData() {
   }, []);
   //Functions to be passed down as Props (Dealing with state);===================================
   //==State Setters==============================================
-  const setWishlist = () => {
-    console.log("Click");
+  const setWishlist = (input) => {
+    console.log("Set wish", input);
   };
   const setCurrBook = (input) => {
     setState((prev) => {
@@ -161,7 +161,9 @@ export default function useApplicationData() {
     });
   };
   //==Books==============================================
-  const addBookToShelf = (bookData) => {
+  const addBookToShelf = (bookData, list) => {
+    console.log("ADD TO SHELF", bookData, list)
+
     const newBook = {
       id: bookData.id,
       title: bookData.title,
@@ -173,6 +175,7 @@ export default function useApplicationData() {
       ...state.books,
       [bookData.id]: newBook,
     };
+
     //This should be in the THEN of axios but getting 500 error cause Ukn
     // debug later...
     setState((prev) => {
