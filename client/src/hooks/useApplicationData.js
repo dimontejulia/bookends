@@ -83,7 +83,7 @@ export default function useApplicationData() {
     });
   };
   const setCurrClub = (clubId) => {
-    console.log("SET CURR CLUB, promises...");
+    console.log("SET CURR CLUB, promises...", clubId);
 
     Promise.all([
       axios.get(`/api/clubs/${clubId}`),

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import useApplicationData from "./hooks/useApplicationData";
 import { render } from "react-dom";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -138,9 +138,21 @@ function App() {
     );
   }
 
-  useEffect(() => {
-    renderClubInfo(state.currClub.id);
-  }, [state.currClub, updateClubInfo]);
+  let currentClub = function (id) {
+    // setCurrClub(id)
+    return (<ClubsInfo
+      state={state}
+      clubId={id}
+      clubNews={state.clubNews}
+      currClub={state.currClub}
+      currBook={state.currBook}
+      user={user}
+      deleteClub={deleteClub}
+      editClub={updateClubInfo}
+      postClubNews={postClubNews}
+    />
+    )
+  }
 
   //==================Rendering ======================================================
   return (
@@ -165,6 +177,8 @@ function App() {
                   "/clubs/",
                   ""
                 );
+                // setCurrClub()
+                { console.log("adsfasdfa", paramClubId) }
                 return (
                   <ClubsInfo
                     state={state}
@@ -176,6 +190,7 @@ function App() {
                     deleteClub={deleteClub}
                     editClub={updateClubInfo}
                     postClubNews={postClubNews}
+                    setCurrClub={setCurrClub}
                   />
                 );
                 // renderClubInfo(state.currClub.id);
