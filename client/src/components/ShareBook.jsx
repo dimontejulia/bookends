@@ -1,17 +1,17 @@
 import React from "react";
 import { Accordion, Card } from "react-bootstrap";
-import NewPostForm from "./Social/NewPostForm";
+import ShareBookForm from "./Social/ShareBookForm";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
 import Button from "react-bootstrap/Button";
 
 export default function ShareBook(props) {
   const popover = (
-    <Popover id="popover-basic">
+    <Popover class="share-book-popover" id="popover-basic">
       <Popover.Title as="h3">Share Book</Popover.Title>
       <Popover.Content>
         <div>
-          <NewPostForm
+          <ShareBookForm
             user={props.user}
             setNews={props.setNews}
             placeholder={{

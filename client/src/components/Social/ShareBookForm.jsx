@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-export default function NewPostForm(props) {
+export default function ShareBookForm(props) {
   const [post, setPost] = useState(props.placeholder ? props.placeholder : "");
   const user = props.user;
 
@@ -36,16 +36,16 @@ export default function NewPostForm(props) {
   };
 
   return (
-    <div className="form__newsfeed-post">
-      <h1 className="sidebar__subheading">What are you reading?</h1>
+    <div className="form__share-book-post">
       <Form>
         <Form.Group controlId="title">
           <Form.Control
             onChange={handleChange}
             name="title"
-            className="form__newsfeed-post-title"
+            className="form__share-book-title"
             value={post.title}
             placeholder="Post Title"
+            readOnly
           />
         </Form.Group>
         <Form.Group controlId="body">
@@ -53,8 +53,8 @@ export default function NewPostForm(props) {
             onChange={handleChange}
             name="body"
             as="textarea"
-            className="form__newsfeed-post-body"
-            rows={3}
+            className="form__share-book-body"
+            rows={4}
             value={post.body}
             placeholder="What did you think about a book you've read? Any
           other literary thoughts?"
