@@ -1,18 +1,18 @@
-import React, { Fragment, useState, useEffect, useCallback } from "react";
-import * as client from "./OpenLibraryClient.jsx";
-import BooksList from "./BooksList.jsx";
-import SearchForm from "./SearchForm.jsx";
-import useDebounce from "../../hooks/useDebounce";
-import Wave from "../Wave";
-import "../Search.scss";
+import React, { Fragment, useState, useEffect, useCallback } from 'react';
+import * as client from './OpenLibraryClient.jsx';
+import BooksList from './BooksList.jsx';
+import SearchForm from './SearchForm.jsx';
+import useDebounce from '../../hooks/useDebounce';
+import Wave from '../Wave';
+import '../Search.scss';
 
 const SearchIndex = (props) => {
   const [isFetching, setIsFetching] = useState(false);
   const [books, setBooks] = useState([]);
   const [numFound, setNumFound] = useState(0);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
 
-  const onSearch = useCallback(async (e) => {
+  const onSearch = async (e) => {
     // e.preventDefault();
     if (!term) {
       return;
@@ -23,7 +23,7 @@ const SearchIndex = (props) => {
     setIsFetching(false);
     setBooks(docs);
     setNumFound(numFound);
-  });
+  };
 
   const onQueryChange = ({ target: { value } }) => {
     setQuery(value);
@@ -39,8 +39,8 @@ const SearchIndex = (props) => {
   return (
     <Fragment>
       <Wave />
-      <div className="container">
-        <h1 className="page-title">Search Books</h1>
+      <div className='container'>
+        <h1 className='page-title'>Search Books</h1>
       </div>
       <SearchForm onQueryChange={onQueryChange} query={query} />
       <BooksList

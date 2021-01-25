@@ -138,9 +138,21 @@ function App() {
     );
   }
 
-  useEffect(() => {
-    renderClubInfo(state.currClub.id);
-  }, [state.currClub, updateClubInfo]);
+  let currentClub = function (id) {
+    // setCurrClub(id)
+    return (<ClubsInfo
+      state={state}
+      clubId={id}
+      clubNews={state.clubNews}
+      currClub={state.currClub}
+      currBook={state.currBook}
+      user={user}
+      deleteClub={deleteClub}
+      editClub={updateClubInfo}
+      postClubNews={postClubNews}
+    />
+    )
+  }
 
   //==================Rendering ======================================================
   return (
@@ -165,10 +177,12 @@ function App() {
                   "/clubs/",
                   ""
                 );
+                // setCurrClub()
+                { console.log("adsfasdfa", paramClubId) }
                 return (
                   <ClubsInfo
                     state={state}
-                    clubId={paramClubId}
+                    paramId={paramClubId}
                     clubNews={state.clubNews}
                     currClub={state.currClub}
                     currBook={state.currBook}
@@ -176,6 +190,7 @@ function App() {
                     deleteClub={deleteClub}
                     editClub={updateClubInfo}
                     postClubNews={postClubNews}
+                    setCurrClub={setCurrClub}
                   />
                 );
                 // renderClubInfo(state.currClub.id);
@@ -240,6 +255,8 @@ function App() {
                 return (
                   <BookDetails
                     state={state}
+                    paramId={paramBookId}
+                    setCurrBook={setCurrBook}
                     // currBook={state.currBook}
                     // userBookData={state.books}
                     addBookToShelf={addBookToShelf}

@@ -21,7 +21,7 @@ export default function useApplicationData() {
     currClub: {},
   });
 
-  const API = "localhost:3005";
+  // const API = "localhost:3005";
   let user = state.user;
   useEffect(() => {
     //==== Initialize State ============================
@@ -83,7 +83,7 @@ export default function useApplicationData() {
     });
   };
   const setCurrClub = (clubId) => {
-    console.log("SET CURR CLUB, promises...");
+    console.log("SET CURR CLUB, promises...", clubId);
 
     Promise.all([
       axios.get(`/api/clubs/${clubId}`),

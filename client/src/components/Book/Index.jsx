@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Details from './Details';
 import Rating from './Rating';
 import UserNotes from './UserNotes';
@@ -8,13 +8,24 @@ import ButtonClick from '../Button';
 import '../Details.scss';
 
 export default function Index(props) {
-  const { addBookToShelf, saveBookNotes, deleteUserBook } = props;
+  const { saveBookNotes, deleteUserBook, paramId, setCurrBook } = props;
   const books = props.state.books;
   const currBook = props.state.currBook;
 
+  useEffect(() => {
+    //Sets currBook if accessed directly by url
+    setCurrBook({ id: paramId });
+  }, []);
+
+  useEffect(() => {
+    //Updates User's book notes when books are changed
+    //Other wise direct url wont load them
+    setBookState(bookData);
+  }, [books]);
+
   const bookData =
     books && Object.values(books).find((bookObj) => bookObj.id === currBook.id);
-  const [bookState, setBookState] = useState(bookData);
+  const [bookState, setBookState] = useState();
 
   return (
     <div className='container'>
