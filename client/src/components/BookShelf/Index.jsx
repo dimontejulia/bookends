@@ -42,6 +42,7 @@ export default function Index(props) {
                 setUserBooks={setUserBooks}
                 setCurrBook={setCurrBook}
                 listName={'Shelf'}
+                wishlist={wishlist}
               />
             </Tab>
             <Tab eventKey='wishlist' title='Wishlist'>

@@ -61,20 +61,20 @@ export default function BookList(props) {
     setResults(searchBooks(books, form));
   }, [form, books]);
 
-  const initList = books
-    ? Object.values(books).map((book) => (
-        <BookListItem
-          title={book.title}
-          author={book.author}
-          first_publish_year={book.first_publish_year}
-          subject={book.subject}
-          bookID={book.id}
-          bookStatus={formatStatus(book.status)}
-          setCurrBook={setCurrBook}
-          listName={props.listName}
-        />
-      ))
-    : 0;
+  // const initList = books
+  //   ? Object.values(books).map((book) => (
+  //       <BookListItem
+  //         title={book.title}
+  //         author={book.author}
+  //         first_publish_year={book.first_publish_year}
+  //         subject={book.subject}
+  //         bookID={book.id}
+  //         bookStatus={formatStatus(book.status)}
+  //         setCurrBook={setCurrBook}
+  //         listName={props.listName}
+  //       />
+  //     ))
+  //   : 0;
 
   const parsedList =
     results &&

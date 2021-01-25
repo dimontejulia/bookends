@@ -11,7 +11,7 @@ export default function useApplicationData() {
       lastName: "Twain",
     },
     books: {},
-    wishList: [],
+    wishlist: [],
     friends: [],
     news: [],
     clubNews: [],
