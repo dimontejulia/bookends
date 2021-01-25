@@ -77,9 +77,9 @@ export default function UserActions(props) {
           id='status'
           value={bookData ? bookData.status : null}
         >
-          <option value='onList'>On my list</option>
-          <option value='in_progress'>Reading</option>
-          <option value='finished'>Read</option>
+          <option value='On my list'>On my list</option>
+          <option value='In Progress'>Reading</option>
+          <option value='Finished'>Read</option>
         </select>
         {bookData && bookData.status === 'finished' ? (
           <span>
