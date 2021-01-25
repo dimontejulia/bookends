@@ -16,6 +16,10 @@ export default function BookList(props) {
         return 'Reading';
       case 'Finished':
         return 'Read it';
+      case 'On my list':
+        return '';
+      case '':
+        return 'New';
       default:
         return 'New';
     }
@@ -57,6 +61,7 @@ export default function BookList(props) {
     setResults(searchBooks(books, form));
   }, [form, books]);
 
+  console.log('BList ', props);
   const initList = books
     ? Object.values(books).map((book) => (
         <BookListItem
@@ -67,6 +72,7 @@ export default function BookList(props) {
           bookID={book.id}
           bookStatus={formatStatus(book.status)}
           setCurrBook={setCurrBook}
+          listName={props.listName}
         />
       ))
     : 0;
@@ -82,6 +88,7 @@ export default function BookList(props) {
         bookID={book.id}
         bookStatus={formatStatus(book.status)}
         setCurrBook={setCurrBook}
+        listName={props.listName}
       />
     ));
 

@@ -5,7 +5,7 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { Link } from 'react-router-dom';
 
 export default function UserActions(props) {
-  const { bookData, setBookState, currBookID } = props;
+  const { bookData, setBookState } = props;
 
   let readDate = null;
 
@@ -81,7 +81,7 @@ export default function UserActions(props) {
           <option value='In Progress'>Reading</option>
           <option value='Finished'>Read</option>
         </select>
-        {bookData && bookData.status === 'finished' ? (
+        {bookData && bookData.status === 'Finished' ? (
           <span>
             <label htmlFor='read'>Read: </label>
             <input

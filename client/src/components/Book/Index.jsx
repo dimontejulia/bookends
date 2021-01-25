@@ -14,7 +14,7 @@ export default function Index(props) {
 
   useEffect(() => {
     //Sets currBook if accessed directly by url
-    setCurrBook({ id: paramId });
+    setCurrBook({ ...props.state.currBook, id: paramId });
   }, []);
 
   useEffect(() => {

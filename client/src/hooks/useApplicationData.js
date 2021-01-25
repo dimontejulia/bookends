@@ -78,6 +78,7 @@ export default function useApplicationData() {
     console.log("Click");
   };
   const setCurrBook = (input) => {
+    console.log("SET HIT", input)
     setState((prev) => {
       return { ...prev, currBook: input };
     });
@@ -169,18 +170,15 @@ export default function useApplicationData() {
       subject: bookData.subject,
       first_publish_year: bookData.first_publish_year,
     };
-
     const newBookState = {
       ...state.books,
       [bookData.id]: newBook,
     };
-
     //This should be in the THEN of axios but getting 500 error cause Ukn
     // debug later...
     setState((prev) => {
       return { ...prev, books: newBookState };
     });
-
     axios
       .post(`/api/users/${user.id}/books`, newBook)
       .then((res) => {
@@ -191,6 +189,7 @@ export default function useApplicationData() {
       })
       .catch((err) => console.log(err));
   };
+
   const saveBookNotes = (updatedBook) => {
     console.log("DATA TO SENDBOOK", updatedBook);
     const newBookState = {
@@ -214,6 +213,7 @@ export default function useApplicationData() {
 
   const rmvBookFrShelf = (bookId) => {
     const userId = user.id;
+    console.log("RMB FR SHELF", bookId, user.id)
     axios
       .delete(`/api/users/${userId}/books/${bookId}`)
       .then((res) => {
