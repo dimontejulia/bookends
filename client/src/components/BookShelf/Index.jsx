@@ -35,7 +35,7 @@ export default function Index(props) {
           </div>
         </section>
         <section className='main-content'>
-          <Tabs defaultActiveKey='mybooks' id='my-shelf-tabs'>
+          <Tabs defaultActiveKey={props.list} id='my-shelf-tabs'>
             <Tab eventKey='mybooks' title='My Books'>
               <BookList
                 books={books}

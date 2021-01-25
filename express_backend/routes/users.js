@@ -134,7 +134,6 @@ module.exports = ({
       deleteBookWishList(userId, bookId)
         .then(() => getWishlist(req.params.userId))
         .then((books) => {
-          console.log(books)
           res.json(books);
         })
 

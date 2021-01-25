@@ -61,7 +61,6 @@ export default function BookList(props) {
     setResults(searchBooks(books, form));
   }, [form, books]);
 
-  console.log('BList ', props);
   const initList = books
     ? Object.values(books).map((book) => (
         <BookListItem

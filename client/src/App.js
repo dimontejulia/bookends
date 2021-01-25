@@ -191,16 +191,26 @@ function App() {
                 joinClub={joinClub}
                 show={show}
                 setShow={setShow}
-              />{" "}
+              />
             </Route>
             <Route path="/shelf/">
-              {" "}
               <UserShelf
                 books={state.books}
                 wishlist={state.wishlist}
                 setBooks={addBookToShelf}
                 setWishlist={setWishlist}
                 setCurrBook={setCurrBook}
+                list={'mybooks'}
+              />
+            </Route>
+            <Route path="/wishlist/">
+              <UserShelf
+                books={state.books}
+                wishlist={state.wishlist}
+                setBooks={addBookToShelf}
+                setWishlist={setWishlist}
+                setCurrBook={setCurrBook}
+                list={'wishlist'}
               />
             </Route>
             {/* <Route path="/wishlist/">

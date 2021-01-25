@@ -342,12 +342,10 @@ module.exports = (db) => {
   };
 
   const deleteBookWishList = (userId, bookId) => {
-    console.log("%%%%%", bookId, userId)
     const query = {
       text: `DELETE FROM future_books WHERE book_id = $1 AND user_id = $2`,
       values: [bookId, userId],
     };
-    console.log("%%%%%", query)
     return db
       .query(query)
       .then((result) => console.log("RMV", result.rows))
