@@ -191,7 +191,8 @@ function App() {
               <UserShelf
                 books={state.books}
                 wishlist={state.wishlist}
-                setBooks={setUserBooks}
+                setBooks={addBookToShelf}
+                setWishlist={setWishlist}
                 setCurrBook={setCurrBook}
               />
             </Route>

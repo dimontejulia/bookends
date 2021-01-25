@@ -8,7 +8,15 @@ import Wave from "../Wave";
 import "../Shelf.scss";
 
 export default function Index(props) {
-  const { userBooks, wishlist, setUserBooks, setCurrBook, user, clubs } = props;
+  const {
+    books,
+    wishlist,
+    setUserBooks,
+    setWishlist,
+    setCurrBook,
+    user,
+    clubs,
+  } = props;
 
   const date = new Date();
   const currentYear = date.getFullYear();
@@ -39,7 +47,7 @@ export default function Index(props) {
           <Tabs defaultActiveKey="mybooks" id="my-shelf-tabs">
             <Tab eventKey="mybooks" title="My Books">
               <BookList
-                books={userBooks}
+                books={books}
                 setUserBooks={setUserBooks}
                 setCurrBook={setCurrBook}
               />
@@ -47,7 +55,7 @@ export default function Index(props) {
             <Tab eventKey="wishlist" title="Wishlist">
               <BookList
                 books={wishlist}
-                setUserBooks={setUserBooks}
+                setUserBooks={setWishlist}
                 setCurrBook={setCurrBook}
               />
             </Tab>
