@@ -6,8 +6,8 @@ import Form from 'react-bootstrap/Form';
 import '../Shelf.scss';
 
 export default function BookList(props) {
-  const { books, setCurrBook } = props;
-  const [results, setResults] = useState();
+  const { books, setCurrBook, wishlist } = props;
+  const [results, setResults] = useState(books);
   const [form, setForm] = useState('');
 
   const formatStatus = (inputStatus) => {
@@ -16,6 +16,10 @@ export default function BookList(props) {
         return 'Reading';
       case 'Finished':
         return 'Read it';
+      case 'On my list':
+        return '';
+      case '':
+        return 'New';
       default:
         return 'New';
     }
@@ -35,7 +39,7 @@ export default function BookList(props) {
       searchTerm = searchTerm.join();
     }
     searchTerm = searchTerm.toLowerCase();
-    let results = {};
+    let fresults = {};
     //iterate over books obj - values
     Object.values(bookObj).map((iBook) => {
       //Iterate over values of inner obj
@@ -44,32 +48,33 @@ export default function BookList(props) {
           val = val.toString().toLowerCase();
           //Check values for search term (includes
           if (val.includes(searchTerm)) {
-            results = { ...results, [iBook.id]: { ...iBook } };
+            fresults = { ...fresults, [iBook.id]: { ...iBook } };
           }
         }
       });
     });
     //Result is object of objects send to parser
-    return results;
+    return fresults;
   };
 
   useEffect(() => {
     setResults(searchBooks(books, form));
   }, [form, books]);
 
-  const initList = books
-    ? Object.values(books).map((book) => (
-        <BookListItem
-          title={book.title}
-          author={book.author}
-          first_publish_year={book.first_publish_year}
-          subject={book.subject}
-          bookID={book.id}
-          bookStatus={formatStatus(book.status)}
-          setCurrBook={setCurrBook}
-        />
-      ))
-    : 0;
+  // const initList = books
+  //   ? Object.values(books).map((book) => (
+  //       <BookListItem
+  //         title={book.title}
+  //         author={book.author}
+  //         first_publish_year={book.first_publish_year}
+  //         subject={book.subject}
+  //         bookID={book.id}
+  //         bookStatus={formatStatus(book.status)}
+  //         setCurrBook={setCurrBook}
+  //         listName={props.listName}
+  //       />
+  //     ))
+  //   : 0;
 
   const parsedList =
     results &&
@@ -82,6 +87,7 @@ export default function BookList(props) {
         bookID={book.id}
         bookStatus={formatStatus(book.status)}
         setCurrBook={setCurrBook}
+        listName={props.listName}
       />
     ));
 
@@ -100,7 +106,7 @@ export default function BookList(props) {
         />
       </Form>
       <div className='cards'>
-        {resultsCount || form ? parsedList : initList}
+        {resultsCount || form ? parsedList : parsedList}
       </div>
     </section>
   );

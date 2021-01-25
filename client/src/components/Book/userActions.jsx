@@ -1,12 +1,12 @@
-import React from "react";
-import Button from "react-bootstrap/Button";
-import Popover from "react-bootstrap/Popover";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Form from "react-bootstrap/Form";
-import { Link } from "react-router-dom";
+import React from 'react';
+import Button from 'react-bootstrap/Button';
+import Popover from 'react-bootstrap/Popover';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Form from 'react-bootstrap/Form';
+import { Link } from 'react-router-dom';
 
 export default function UserActions(props) {
-  const { bookData, setBookState, currBookID } = props;
+  const { bookData, setBookState } = props;
 
   let readDate = null;
 
@@ -52,27 +52,27 @@ export default function UserActions(props) {
         </select> */}
 
         <Form>
-          <Form.Group controlId="status__select">
+          <Form.Group controlId='status__select'>
             <Form.Control
-              as="select"
+              as='select'
               onChange={handleInput}
-              name="status"
-              id="status"
+              name='status'
+              id='status'
               value={bookData ? bookData.status : null}
             >
-              <option value="onList">On my list</option>
-              <option value="in_progress">Reading</option>
-              <option value="finished">Finished Reading</option>
+              <option value='On my list'>On my list</option>
+              <option value='In Progress'>Reading</option>
+              <option value='Finished'>Finished Reading</option>
             </Form.Control>
           </Form.Group>
 
-          <Form.Group controlId="read__cal">
+          <Form.Group controlId='read__cal'>
             <Form.Control
-              as="date"
+              as='date'
               onChange={handleCal}
-              type="date"
-              name="read-date"
-              id="read"
+              type='date'
+              name='read-date'
+              id='read'
               value={bookData ? readDate : null}
             ></Form.Control>
           </Form.Group>
