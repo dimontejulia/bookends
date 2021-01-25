@@ -11,6 +11,7 @@ export default function BookList(props) {
   const { books, setUserBooks, setCurrBook } = props;
   const [results, setResults] = useState();
   const [form, setForm] = useState('');
+  console.log('BOOKLIST PORPS', props);
 
   const formatStatus = (inputStatus) => {
     switch (inputStatus) {
@@ -29,7 +30,10 @@ export default function BookList(props) {
 
   //map- take in obj of objs (books)
   const searchBooks = (bookObj, searchTerm) => {
-    console.log('SEARCH', bookObj, searchTerm);
+    console.log('SEARCHAA', bookObj, searchTerm);
+    if (!bookObj) {
+      return;
+    }
     if (Array.isArray(searchTerm)) {
       searchTerm = searchTerm.join();
     }
@@ -57,17 +61,19 @@ export default function BookList(props) {
     setResults(searchBooks(books, form));
   }, [form, books]);
 
-  const initList = Object.values(books).map((book) => (
-    <BookListItem
-      title={book.title}
-      author={book.author}
-      first_publish_year={book.first_publish_year}
-      subject={book.subject}
-      bookID={book.id}
-      bookStatus={formatStatus(book.status)}
-      setCurrBook={setCurrBook}
-    />
-  ));
+  const initList = books
+    ? Object.values(books).map((book) => (
+        <BookListItem
+          title={book.title}
+          author={book.author}
+          first_publish_year={book.first_publish_year}
+          subject={book.subject}
+          bookID={book.id}
+          bookStatus={formatStatus(book.status)}
+          setCurrBook={setCurrBook}
+        />
+      ))
+    : 0;
 
   const parsedList =
     results &&
