@@ -16,9 +16,13 @@ export default function AddClub(props) {
   };
 
   const handleClick = (e) => {
-    addClub(form.clubName, form.clubAvatar);
-    //Form resets w/o message and regardless of success or error...
-    setForm({ clubName: "", avatar: "" });
+    if (form.clubName && form.clubAvatar) {
+      addClub(form.clubName, form.clubAvatar);
+      setForm({ clubName: "", avatar: "" });
+      //props.setShow({ item: "Club created successfully.", status: true });
+    } else {
+      //props.setShow({ item: "Club ID cannot be blank.", status: true });
+    }
   };
 
   return (

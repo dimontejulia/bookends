@@ -120,7 +120,7 @@ function App() {
   }, [state.currBook.id]); //The book they are looking at (can be search or their own)
   function renderClubInfo(clubId) {
     if (!clubId) {
-      return
+      return;
     }
     return (
       <ClubsInfo
@@ -135,12 +135,10 @@ function App() {
         postClubNews={postClubNews}
       />
     );
-
   }
 
   useEffect(() => {
-    renderClubInfo(state.currClub.id)
-
+    renderClubInfo(state.currClub.id);
   }, [state.currClub, updateClubInfo]);
 
   //==================Rendering ======================================================
@@ -205,6 +203,8 @@ function App() {
                 setNews={postNews}
                 setClubNews={setClubNews}
                 joinClub={joinClub}
+                show={show}
+                setShow={setShow}
               />{" "}
             </Route>
             <Route path="/shelf/">
