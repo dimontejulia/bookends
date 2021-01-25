@@ -30,6 +30,7 @@ export default function EditClub(props) {
     console.log('EVENT CLUB >>>>>>>', editedClubObj);
     editClub(editedClubObj, null);
     //Form resets w/o message and regardless of success or error...
+    props.setClubInfo(editedClubObj);
     setForm({ book_club_name: '', club_description: '', avatar: '' });
     document.body.click();
   };

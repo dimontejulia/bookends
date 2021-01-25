@@ -47,6 +47,7 @@ export default function ClubInfo(props) {
             currClub={props.currClub}
             deleteClub={props.deleteClub}
             editClub={props.editClub}
+            setClubInfo={setClubInfo}
           />
         )}
         <br></br>

@@ -19,7 +19,11 @@ export default function ClubAdmin(props) {
         <br />
         <br />
         <div>
-          <EditClub editClub={editClub} currClub={currClub} />
+          <EditClub
+            editClub={editClub}
+            currClub={currClub}
+            setClubInfo={props.setClubInfo}
+          />
         </div>
         <Button variant='light' onClick={() => document.body.click()}>
           Cancel
