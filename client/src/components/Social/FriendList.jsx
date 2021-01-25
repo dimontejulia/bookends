@@ -8,7 +8,7 @@ export default function FriendsList(props) {
     friendList &&
     friendList.map((friend) => (
       <tr key={friend.userid}>
-        <td>
+        <td className="friends-list__names">
           {" "}
           {friend.firstname} {friend.lastname}
         </td>

@@ -5,8 +5,32 @@
   justify-content: center;
 }
 
+.friends-list__names {
+  vertical-align: middle !important;
+}
+
 .social__lists-button {
   text-align: end;
+}
+
+.club__lists-button {
+  display: flex;
+  flex-direction: row;
+  text-align: end;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.clubs__list-item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  a {
+    width: 100%;
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
 
 .newsfeed {

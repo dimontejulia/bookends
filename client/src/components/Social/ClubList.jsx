@@ -9,10 +9,10 @@ export default function ClubList(props) {
   const parsedList =
     list &&
     list.map((club) => (
-      <tr key={club.id}>
+      <tr className="clubs__list-item" key={club.id}>
         <Link onClick={() => setCurrClub(club.id)} to={`/clubs/${club.id}`}>
-          <td className="text-dark">{club.book_club_name}</td>
-          <td className="social__lists-button">
+          <td className="club__lists-button">
+            <span className="text-dark">{club.book_club_name}</span>
             <Button>
               <i class="fas fa-arrow-circle-right"></i>
             </Button>
