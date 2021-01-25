@@ -1,52 +1,56 @@
-import React from "react";
-import Details from "./Details";
-import Rating from "./Rating";
-import UserNotes from "./UserNotes";
-import UserActions from "./userActions";
-import AlsoReadList from "./AlsoReadList";
-import ButtonClick from "../Button";
-import "../Details.scss";
+import React, { useState } from 'react';
+import Details from './Details';
+import Rating from './Rating';
+import UserNotes from './UserNotes';
+import UserActions from './userActions';
+import AlsoReadList from '../List';
+import ButtonClick from '../Button';
+import '../Details.scss';
 
 export default function Index(props) {
-  const {
-    currBook,
-    userBookData,
-    setUserBookData,
-    saveToDB,
-    deleteUserBook,
-  } = props;
+  const { addBookToShelf, saveBookNotes, deleteUserBook } = props;
+  const books = props.state.books;
+  const currBook = props.state.currBook;
 
   const bookData =
-    userBookData &&
-    Object.values(userBookData).find((bookObj) => bookObj.id === currBook.id);
+    books && Object.values(books).find((bookObj) => bookObj.id === currBook.id);
+  const [bookState, setBookState] = useState(bookData);
+  console.log('INIT BOOK', bookState);
 
   return (
-    <div className="container">
-      <div className="sidebar">
+    <div className='container'>
+      <div className='sidebar'>
         <h2>Book Diary</h2>
         <UserActions
           currBookID={currBook.id}
-          userBookData={bookData}
-          setUserBookData={setUserBookData}
+          books={bookData}
+          setBookState={setBookState}
           deleteUserBook={deleteUserBook}
         />
         <UserNotes
           currBookID={currBook.id}
           comments={bookData ? bookData.comments : null}
-          setUserBookData={setUserBookData}
+          setBookState={setBookState}
         />
 
         <Rating
           currBookID={currBook.id}
-          userRating={bookData ? bookData.rating : 0}
-          setUserBookData={setUserBookData}
+          userRating={bookState ? bookState.rating : 0}
+          setBookState={setBookState}
         />
         <br></br>
         {/* SAVE BUTTON WILL HAVE TO TRIGGER A SAVE TO DB HOOK */}
-        <ButtonClick onClick={saveToDB}>Save</ButtonClick>
-        <AlsoReadList friendsWhoRead={userBookData.friendsWhoReadIt} />
+        <ButtonClick onClick={() => saveBookNotes(bookState)}>Save</ButtonClick>
+        {currBook.friends ? (
+          <AlsoReadList
+            list={currBook.friends}
+            listName={`Friends Who also read ${currBook.title}`}
+          />
+        ) : (
+          'Friends who read'
+        )}
       </div>
-      <div className="main-content">
+      <div className='main-content'>
         <Details book={currBook} />
       </div>
     </div>
