@@ -30,7 +30,7 @@ export default function NewsFeed(props) {
 
   return (
     <div className="form__club-post">
-      <h1 className="sidebar__subheading">What do you think of the book?</h1>
+      <h1 className="sidebar__subheading">Thoughts about the book?</h1>
       <Form>
         <Form.Group controlId="title">
           <Form.Control
