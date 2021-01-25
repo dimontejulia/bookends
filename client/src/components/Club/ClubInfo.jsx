@@ -6,16 +6,17 @@ import ClubNews from './ClubNews';
 import List from '../List';
 
 export default function ClubInfo(props) {
+  const { setCurrClub, paramId, currClub, editClub } = props;
   const bookDetails = props.currBook;
   const [clubInfo, setClubInfo] = useState(props.currClub);
-  useEffect(() => {
-    props.setCurrClub(props.clubId);
-    console.log('USEEFFECT', props.state, props.clubId);
-  }, [props.clubId]);
 
   useEffect(() => {
-    setClubInfo(props.currClub);
-  }, [props.editClub]);
+    setCurrClub(paramId);
+  }, []);
+
+  useEffect(() => {
+    setClubInfo(currClub);
+  }, [editClub]);
 
   const members = props.currClub.members
     ? props.currClub.members.map((member) => Object.values(member))

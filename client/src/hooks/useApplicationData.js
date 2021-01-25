@@ -21,7 +21,7 @@ export default function useApplicationData() {
     currClub: {},
   });
 
-  const API = "localhost:3005";
+  // const API = "localhost:3005";
   let user = state.user;
   useEffect(() => {
     //==== Initialize State ============================

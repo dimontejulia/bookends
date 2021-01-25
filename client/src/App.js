@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import useApplicationData from "./hooks/useApplicationData";
 import { render } from "react-dom";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
@@ -182,7 +182,7 @@ function App() {
                 return (
                   <ClubsInfo
                     state={state}
-                    clubId={paramClubId}
+                    paramId={paramClubId}
                     clubNews={state.clubNews}
                     currClub={state.currClub}
                     currBook={state.currBook}
@@ -255,6 +255,8 @@ function App() {
                 return (
                   <BookDetails
                     state={state}
+                    paramId={paramBookId}
+                    setCurrBook={setCurrBook}
                     // currBook={state.currBook}
                     // userBookData={state.books}
                     addBookToShelf={addBookToShelf}
