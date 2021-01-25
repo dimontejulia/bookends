@@ -4,6 +4,7 @@ import ClubRegular from "./ClubRegular";
 import ClubAdmin from "./ClubAdmin";
 import ClubNews from "./ClubNews";
 import List from "../List";
+import Alert from "react-bootstrap/Alert";
 
 export default function ClubInfo(props) {
   const bookDetails = props.currBook;
@@ -49,7 +50,13 @@ export default function ClubInfo(props) {
         <List listName={"Members"} list={members} />
       </section>
       <section className="main-content">
-        <Details book={bookDetails ? bookDetails : null} />
+        {props.currBook.id !== null ? (
+          <Details book={bookDetails ? bookDetails : null} />
+        ) : (
+          <Alert variant={"info"}>
+            No book has been chosen for this club.{" "}
+          </Alert>
+        )}
         <ClubNews clubNews={props.clubNews} postClubNews={props.postClubNews} />
       </section>
       {/* <ClubHistory
