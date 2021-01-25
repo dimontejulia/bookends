@@ -124,11 +124,11 @@ module.exports = ({
         .then((wishlistBooks) => res.json(wishlistBooks))
         .catch((err) => res.json({ msg: err.message }));
     })
-    .post("/:id/wishlist", (req, res) => {
-      getUsers()
-        .then((users) => res.json(users))
-        .catch((err) => res.json({ msg: err.message }));
-    })
+    // .post("/:id/wishlist", (req, res) => {
+    //   // getUsers()
+    //     .then((users) => res.json(users))
+    //     .catch((err) => res.json({ msg: err.message }));
+    // })
     .delete("/:userId/wishlist/:bookId", (req, res) => {
       const { userId, bookId } = req.params;
       deleteBookWishList(userId, bookId)
