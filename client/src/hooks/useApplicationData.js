@@ -255,10 +255,19 @@ export default function useApplicationData() {
 
   const deleteClub = (clubId, clubName) => {
     console.log("start fo app.js delete", clubId, clubName);
+    let newClubsState = state.clubs;
+    delete newClubsState[String(clubId)];
+    console.log("clNew State!!!", newClubsState);
     axios
       .delete(`/api/clubs/${clubId}`)
       .then((res) => {
-        console.log("club has been removed!!!!", res);
+        if (res.status === 200) {
+          console.log("club has been removed!!!!", res);
+          setState((prev) => {
+            return { ...prev, clubs: newClubsState };
+          });
+        }
+
       })
       .catch((err) => err);
   };
