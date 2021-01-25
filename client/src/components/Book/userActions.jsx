@@ -22,7 +22,9 @@ export default function UserActions(props) {
         <Link to={`/shelf`}>
           <Button
             variant='danger'
-            onClick={() => props.deleteUserBook(props.currBookID)}
+            onClick={() =>
+              props.deleteUserBook(props.currBookID, props.listName)
+            }
           >
             Delete
           </Button>

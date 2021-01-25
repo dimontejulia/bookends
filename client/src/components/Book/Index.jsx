@@ -33,6 +33,7 @@ export default function Index(props) {
         <h2>Book Diary</h2>
         <UserActions
           currBookID={currBook.id}
+          listName={currBook.listName}
           bookData={bookState}
           setBookState={setBookState}
           deleteUserBook={deleteUserBook}

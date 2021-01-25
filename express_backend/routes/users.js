@@ -17,7 +17,8 @@ module.exports = ({
   addFriend,
   deleteFriend,
   joinBookClub,
-  rmvUsersBooks
+  rmvUsersBooks,
+  deleteBookWishList
 }) => {
 
 
@@ -127,13 +128,19 @@ module.exports = ({
       getUsers()
         .then((users) => res.json(users))
         .catch((err) => res.json({ msg: err.message }));
+    })
+    .delete("/:userId/wishlist/:bookId", (req, res) => {
+      const { userId, bookId } = req.params;
+      deleteBookWishList(userId, bookId)
+        .then(() => getWishlist(req.params.userId))
+        .then((books) => {
+          console.log(books)
+          res.json(books);
+        })
+
+        //     .then((book) => res.json(book))
+        .catch((err) => res.json({ msg: err.message }));
     });
-  // .delete("/:userId/wishlist/:bookId", (req, res) => {
-  //   const { userId, bookId } = req.params;
-  //   deleteBook(userId, bookId)
-  //     .then((book) => res.json(book))
-  //     .catch((err) => res.json({ msg: err.message }));
-  // });
 
   // users/:id/posts
   router

@@ -341,16 +341,17 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const deleteBookWishList = (bookId, userId) => {
+  const deleteBookWishList = (userId, bookId) => {
+    console.log("%%%%%", bookId, userId)
     const query = {
       text: `DELETE FROM future_books WHERE book_id = $1 AND user_id = $2`,
       values: [bookId, userId],
     };
-
+    console.log("%%%%%", query)
     return db
       .query(query)
-      .then((result) => result.rows)
-      .catch((err) => err);
+      .then((result) => console.log("RMV", result.rows))
+      .catch((err) => console.log("err", err));
   };
 
   const getPosts = (userId) => {
@@ -427,5 +428,6 @@ module.exports = (db) => {
     updateUsersBooks,
     addBookToUser,
     rmvUsersBooks,
+    deleteBookWishList,
   };
 };

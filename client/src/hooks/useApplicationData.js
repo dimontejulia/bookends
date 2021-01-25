@@ -78,7 +78,6 @@ export default function useApplicationData() {
     console.log("Click");
   };
   const setCurrBook = (input) => {
-    console.log("SET HIT", input)
     setState((prev) => {
       return { ...prev, currBook: input };
     });
@@ -211,19 +210,37 @@ export default function useApplicationData() {
       .catch((err) => console.log("Book Index, Save ERROR:", err));
   };
 
-  const rmvBookFrShelf = (bookId) => {
+  const rmvBookFrShelf = (bookId, list) => {
     const userId = user.id;
-    console.log("RMB FR SHELF", bookId, user.id)
-    axios
-      .delete(`/api/users/${userId}/books/${bookId}`)
-      .then((res) => {
-        console.log("book removed from shelf!", res.data);
-        setState((prev) => {
-          return { ...prev, books: res.data };
-        });
-        setShow({ item: "Book removed successfully.", status: true });
-      })
-      .catch((err) => err);
+    console.log("RMB FR", bookId, user.id, list)
+
+    if (list === 'Wishlist') {
+      console.log("RMB FR list", bookId, user.id, list)
+      //wishlist
+      axios
+        .delete(`/api/users/${userId}/wishlist/${bookId}`)
+        .then((res) => {
+          console.log("book removed from wishlist!", res.data);
+          setState((prev) => {
+            return { ...prev, books: res.data };
+          });
+          setShow({ item: "Book removed successfully.", status: true });
+        })
+        .catch((err) => err);
+    } else {
+      console.log("RMB FR SHELF", bookId, user.id, list)
+      //SHELF
+      axios
+        .delete(`/api/users/${userId}/books/${bookId}`)
+        .then((res) => {
+          console.log("book removed from shelf!", res.data);
+          setState((prev) => {
+            return { ...prev, books: res.data };
+          });
+          setShow({ item: "Book removed successfully.", status: true });
+        })
+        .catch((err) => err);
+    }
   };
   //==Club ==============================================
 
