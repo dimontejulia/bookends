@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Details from '../Book/Details';
 import ClubRegular from './ClubRegular';
 import ClubAdmin from './ClubAdmin';
 import ClubNews from './ClubNews';
-import ClubMembers from '../List';
+import List from '../List';
 
 export default function ClubInfo(props) {
   const bookDetails = props.currBook;
+  const [clubInfo, setClubInfo] = useState(props.currClub);
 
   console.log('CLUBINFO PROPS', props);
+  console.log('CLUBINFO state', clubInfo);
 
+  useEffect(() => {
+    console.log('USE EFFECT HIT', props.currClub);
+    setClubInfo(props.currClub);
+  }, [props.currClub, props.editClub]);
   //getting book history - prop manipulation
   // const numBooks = Object.keys(props.currClub).length - 10;
   // let bookHistory = [];
@@ -26,12 +32,12 @@ export default function ClubInfo(props) {
       <section className='sidebar'>
         <img
           className='club-avatar'
-          src={props.currClub.avatar}
-          alt={props.currClub.book_club_name}
+          src={clubInfo ? clubInfo.avatar : null}
+          alt={clubInfo ? clubInfo.book_club_name : null}
           width='20%'
         />
-        <h1>{props.currClub.book_club_name}</h1>
-        <h4>{props.currClub.club_description}</h4>
+        <h1>{clubInfo ? clubInfo.book_club_name : 'null'}</h1>
+        <h4>{clubInfo ? clubInfo.club_description : null}</h4>
         <h5>Club ID: {props.currClub.id}</h5>
 
         {props.user.id === props.admin_id ? (
@@ -41,13 +47,14 @@ export default function ClubInfo(props) {
             currClub={props.currClub}
             deleteClub={props.deleteClub}
             editClub={props.editClub}
+            setClubInfo={setClubInfo}
           />
         )}
         <br></br>
-        <ClubMembers listName={'Book History'} list={props.currClub.history} />
+        <List listName={'Book History'} list={props.currClub.history} />
         <h6 className='text-muted'>{`${bookCount} books read`}</h6>
         <br></br>
-        <ClubMembers listName={'Members'} list={members} />
+        <List listName={'Members'} list={members} />
       </section>
       <section className='main-content'>
         <Details book={bookDetails ? bookDetails : null} />

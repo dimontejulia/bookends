@@ -118,6 +118,30 @@ function App() {
   useEffect(() => {
     fetchBookDetails(state.currBook.id);
   }, [state.currBook.id]); //The book they are looking at (can be search or their own)
+  function renderClubInfo(clubId) {
+    if (!clubId) {
+      return
+    }
+    return (
+      <ClubsInfo
+        state={state}
+        clubId={clubId}
+        clubNews={state.clubNews}
+        currClub={state.currClub}
+        currBook={state.currBook}
+        user={user}
+        deleteClub={deleteClub}
+        editClub={updateClubInfo}
+        postClubNews={postClubNews}
+      />
+    );
+
+  }
+
+  useEffect(() => {
+    renderClubInfo(state.currClub.id)
+
+  }, [state.currClub, updateClubInfo]);
 
   //==================Rendering ======================================================
   return (
@@ -145,10 +169,6 @@ function App() {
                 return (
                   <ClubsInfo
                     state={state}
-                    // clubAdmin={clubAdmin}
-                    // setClubAdmin={setClubAdmin}
-                    // club={state.clubs}
-                    // setClub={setClub}
                     clubId={paramClubId}
                     clubNews={state.clubNews}
                     currClub={state.currClub}
@@ -159,6 +179,7 @@ function App() {
                     postClubNews={postClubNews}
                   />
                 );
+                // renderClubInfo(state.currClub.id);
               }}
             />
 

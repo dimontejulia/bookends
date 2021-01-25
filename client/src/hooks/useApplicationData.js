@@ -289,10 +289,15 @@ export default function useApplicationData() {
           status: true,
         });
         //Update State on success
+<<<<<<< HEAD
         setState((prev) => {
           return { ...prev, clubs: newState };
         });
         setShow({ item: "Club info updated successfully.", status: true });
+=======
+        setState((prev) => { return { ...prev, clubs: newState } });
+        setState((prev) => { return { ...prev, currClub: newClubObj } });
+>>>>>>> fix/renderClubEdit
         // setCurrClub(newClubObj);
       })
       .catch((err) => console.log(err));

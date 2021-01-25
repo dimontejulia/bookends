@@ -6,35 +6,7 @@ import Table from "react-bootstrap/Table";
 import { Link } from "react-router-dom";
 
 export default function ClubList(props) {
-  const { listName, list, setCurrClub, setCurrBook, setClubNews } = props;
-
-  // const currentClub = (clubId) => {
-  //   Promise.all([
-  //     axios.get(`/api/clubs/${clubId}`),
-  //     axios.get(`/api/clubs/${clubId}/newsfeed`),
-  //     axios.get(`/api/clubs/${clubId}/history`),
-  //     axios.get(`/api/clubs/${clubId}/members`),
-  //   ])
-  //     .then(([clubDetails, news, history, members]) => {
-  //       console.log("MEMBR RTN", members.data);
-  //       //HELPER convert history to array
-  //       function coveryHistoryToArray(historyObj) {
-  //         return historyObj.map((book) => `${book.title} by ${book.author}`);
-  //       }
-
-  //       //Fetch Club Details
-  //       setCurrClub({
-  //         ...clubDetails.data,
-  //         history: coveryHistoryToArray(history.data),
-  //         members: members.data,
-  //       });
-  //       // //Set Current Book (for details)
-  //       setCurrBook({ id: clubDetails.data.current_book });
-  //       // //Set Club News
-  //       setClubNews(news.data);
-  //     })
-  //     .catch((err) => err);
-  // };
+  const { listName, list, setCurrClub } = props;
 
   const parsedList =
     list &&
