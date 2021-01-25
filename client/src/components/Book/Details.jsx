@@ -19,7 +19,6 @@ export default function Details(props) {
   const shortDescription =
     description && description.substring(0, 1000) + "...";
 
-  console.log("description", description);
   return (
     <div>
       {!title || title === "" ? (

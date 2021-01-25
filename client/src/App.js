@@ -51,7 +51,6 @@ function App() {
 
   const getUserNames = (id) => {
     const friends = state.friends;
-    console.log("friends state", friends);
     for (let friend of friends) {
       if (friend.userid === id) {
         return `${friend.firstname}  ${friend.lastname}`;
@@ -159,19 +158,20 @@ function App() {
 
   let currentClub = function (id) {
     // setCurrClub(id)
-    return (<ClubsInfo
-      state={state}
-      clubId={id}
-      clubNews={state.clubNews}
-      currClub={state.currClub}
-      currBook={state.currBook}
-      user={user}
-      deleteClub={deleteClub}
-      editClub={updateClubInfo}
-      postClubNews={postClubNews}
-    />
-    )
-  }
+    return (
+      <ClubsInfo
+        state={state}
+        clubId={id}
+        clubNews={state.clubNews}
+        currClub={state.currClub}
+        currBook={state.currBook}
+        user={user}
+        deleteClub={deleteClub}
+        editClub={updateClubInfo}
+        postClubNews={postClubNews}
+      />
+    );
+  };
 
   //==================Rendering ======================================================
   return (
@@ -197,7 +197,9 @@ function App() {
                   ""
                 );
                 // setCurrClub()
-                { console.log("adsfasdfa", paramClubId) }
+                {
+                  console.log("adsfasdfa", paramClubId);
+                }
                 return (
                   <ClubsInfo
                     state={state}

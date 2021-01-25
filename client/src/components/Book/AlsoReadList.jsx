@@ -3,7 +3,6 @@ import ListGroup from "react-bootstrap/ListGroup";
 
 export default function List(props) {
   const { listName, list, friends } = props;
-  console.log("friends", friends);
   const parsedList =
     list &&
     list.map((listItem) => <ListGroup.Item> {listItem} </ListGroup.Item>);
