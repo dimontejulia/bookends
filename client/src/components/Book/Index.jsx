@@ -15,7 +15,6 @@ export default function Index(props) {
   const bookData =
     books && Object.values(books).find((bookObj) => bookObj.id === currBook.id);
   const [bookState, setBookState] = useState(bookData);
-  console.log('INIT BOOK', bookState);
 
   return (
     <div className='container'>
@@ -23,13 +22,13 @@ export default function Index(props) {
         <h2>Book Diary</h2>
         <UserActions
           currBookID={currBook.id}
-          books={bookData}
+          bookData={bookState}
           setBookState={setBookState}
           deleteUserBook={deleteUserBook}
         />
         <UserNotes
           currBookID={currBook.id}
-          comments={bookData ? bookData.comments : null}
+          comments={bookState ? bookState.comments : null}
           setBookState={setBookState}
         />
 
@@ -46,9 +45,7 @@ export default function Index(props) {
             list={currBook.friends}
             listName={`Friends Who also read ${currBook.title}`}
           />
-        ) : (
-          'Friends who read'
-        )}
+        ) : null}
       </div>
       <div className='main-content'>
         <Details book={currBook} />

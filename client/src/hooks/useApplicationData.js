@@ -193,13 +193,20 @@ export default function useApplicationData() {
       .catch((err) => console.log(err));
   };
   const saveBookNotes = (updatedBook) => {
-    const dataToSend = state.books[state.currBook.id];
-    console.log("DATA TO SENDBOOK", dataToSend)
+    console.log("DATA TO SENDBOOK", updatedBook)
+    const newBookState = {
+      ...state.books,
+      [updatedBook.id]: updatedBook,
+    };
     axios
-      .put(`/api/users/${user.id}/books/${state.currBook.id}`, dataToSend)
+      .put(`/api/users/${user.id}/books/${state.currBook.id}`, updatedBook)
       .then((res) => {
-        console.log(`Book ${state.currBook.id} Data Updated`);
-        setShow({ item: `Book ${state.currBook.id} Notes Updated`, status: true });
+        console.log("SAVE", res)
+        setState((prev) => {
+          return { ...prev, books: newBookState };
+        });
+        setShow({ item: `Book ${updatedBook.title} Notes Updated`, status: true });
+
       })
       .catch((err) => console.log("Book Index, Save ERROR:", err));
   };

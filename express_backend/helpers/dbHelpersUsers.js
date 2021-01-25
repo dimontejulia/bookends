@@ -223,7 +223,7 @@ module.exports = (db) => {
       .catch((err) => console.log("DBERROR from users books:>>>>", err));
   };
 
-  const updateUsersBooks = (userId, bookId, bookData) => {
+  const updateUsersBooks = (userId, bookData) => {
     const { id, dateread, rating, comments, status } = bookData;
 
     const query = {

@@ -5,10 +5,8 @@ import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 
 export default function Rating(props) {
   const { userRating, setBookState, currBookID } = props;
-  console.log('CURRFOCUS', props);
 
   const handleInput = (event) => {
-    console.log('STAR CLICK');
     let newRating = event.target.id;
     newRating = newRating.slice(-1);
     setBookState((prev) => ({ ...prev, rating: newRating }));

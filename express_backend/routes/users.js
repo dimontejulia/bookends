@@ -52,9 +52,9 @@ module.exports = ({
   //users/:userId/books/:bookId
   router.put("/:id/books/:bookId", (req, res) => {
     const userId = req.params.id;
-    const bookId = req.params.bookId;
+    // const bookId = req.params.bookId;
     const bookData = req.body;
-    updateUsersBooks(userId, bookId, bookData)
+    updateUsersBooks(userId, bookData)
       .then((res) => {
         res.json("Success");
       })
