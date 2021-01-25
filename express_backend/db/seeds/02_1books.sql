@@ -27,5 +27,7 @@
   ('OL8870184M','Little Women','Louisa May Alcott','Movie, Classic, American, Juvenile, American, Children, Literature, History, Historical, Fiction, March family (Fictitious characters), Family, Families, Family life, Sisters, Young women, Mothers, Daughtes, Married women, Orphans, Coming of life, Manners, Customs, Conduct of life, Social life','1868'),
   ('OL7511248M','The Wizard of Oz','L. Frank Baum','Movie, Witches, Fantasy, Toy and movable books, Spanish language materials, Fiction, Wizards, Juvenile literature, Wizards in fiction, Russian, Specimens, Imaginary voyages in fiction, Classic Literature, Imaginary Voyages, American, Adventure and adventurers, Open Library Staff Picks, Books and reading,  Witches in fiction, History, Juvenile fiction', '2019'),
   ('OL7950355M','Forrest Gump','Winston Groom','Movie,  Young Men, War, People with mental disabilities, Fiction, WWII, war, veterans, Forrest Gump','1986'),
-  ('OL28346251M','The Princess Bride','William Goldman','Movie, Adventure, Fiction','1973')
+  ('OL28346251M','The Princess Bride','William Goldman','Movie, Adventure, Fiction','1973'),
+
+  ('OL22856696M', 'Harry Potter And The Philosophers Stone', 'J. K. Rowling', ' Ghosts, Monsters, Vampires, Witches, Challenges and Overcoming Obstacles, Magic and Supernatural, Cleverness, School Life, school stories, Wizards, Magic, MAGIA, MAGOS, Juvenile fiction, Fiction, NOVELAS INGLESAS, Schools, orphans, fantasy fiction, England in fiction, Witches in fiction, Wizards in fiction, Alchemy, New York Times bestseller, Juvenile literature, Magic in fiction, Open Library Staff Picks, Juvenile audience','1997')
 ;
