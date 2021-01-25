@@ -5,7 +5,7 @@ import FriendsWhoReadList from "../List";
 
 export default function AlsoReadList(props) {
   return (
-    <div>
+    <div className="list__container">
       <FriendsWhoReadList
         list={props.friendsWhoRead}
         listName="Friends who also read this book..."

@@ -10,7 +10,7 @@ export default function List(props) {
     list.map((listItem) => <ListGroup.Item> {listItem} </ListGroup.Item>);
   return (
     <section>
-      <h3>{listName}</h3>
+      <h3 className="list__title">{listName}</h3>
       <ListGroup variant="flush">{parsedList}</ListGroup>
       {/* 
       <ul>{parsedList}</ul> */}
