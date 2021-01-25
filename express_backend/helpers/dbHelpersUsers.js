@@ -252,7 +252,7 @@ module.exports = (db) => {
   };
   const addToShelf = (userId, bookId) => {
     const query = {
-      text: `INSERT INTO user_books (user_id, book_id) VALUES ($1, $2) RETURNING *`,
+      text: `INSERT INTO users_books (user_id, book_id) VALUES ($1, $2) RETURNING *`,
       values: [userId, bookId],
     };
     console.log("Add to future BOOKS Q", query);

@@ -197,7 +197,7 @@ export default function useApplicationData() {
     const newBook = {
       id: bookData.id,
       title: bookData.title,
-      author: bookData.author,
+      author: bookData.author[0],
       subject: bookData.subject,
       first_publish_year: bookData.first_publish_year,
     };
