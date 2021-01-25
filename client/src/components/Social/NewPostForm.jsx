@@ -24,6 +24,10 @@ export default function NewsFeed(props) {
     e.preventDefault();
 
     if (!post.title) {
+      props.setShow({ item: `Title cannot be blank.`, status: true });
+      return null;
+    } else if (!post.body) {
+      props.setShow({ item: `Body cannot be blank.`, status: true });
       return null;
     }
     console.log("USER IN POST ", user);

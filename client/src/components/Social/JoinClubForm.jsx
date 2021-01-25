@@ -14,13 +14,12 @@ export default function JoinClub(props) {
   };
 
   const handleClick = (e) => {
-    if (form.value) {
+    if (form.value && Number.isInteger(parseInt(form.value))) {
       props.joinClub(form.value);
-      //Form resets w/o message and regardless of success or error...
       setForm((prev) => ({ ...prev, value: "" }));
       props.setShow({ item: `Successfully joined new club.`, status: true });
     } else {
-      props.setShow({ item: `Club ID cannot be blank.`, status: true });
+      props.setShow({ item: `Invalid club ID.`, status: true });
     }
   };
 

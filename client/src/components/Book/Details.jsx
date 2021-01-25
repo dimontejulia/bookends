@@ -1,5 +1,5 @@
-import React from 'react';
-import Spinner from 'react-bootstrap/Spinner';
+import React from "react";
+import Spinner from "react-bootstrap/Spinner";
 export default function Details(props) {
   const {
     description,
@@ -13,25 +13,29 @@ export default function Details(props) {
   const subjectStr =
     subjects &&
     subjects.map((subject) => {
-      return ' - ' + subject;
+      return " - " + subject;
     });
 
+  const shortDescription =
+    description && description.substring(0, 1000) + "...";
+
+  console.log("description", description);
   return (
     <div>
       {!title ? (
-        <Spinner animation='border' variant='secondary' />
+        <Spinner animation="border" variant="secondary" />
       ) : (
         <div>
           <h1>
             {title} by {author}
           </h1>
-          <div className='details-container'>
-            <div className='details-cover'>
-              <img className='book__cover-img' src={coverLink} alt={title} />
+          <div className="details-container">
+            <div className="details-cover">
+              <img className="book__cover-img" src={coverLink} alt={title} />
             </div>
-            <div className='book-details'>
+            <div className="book-details">
               <h5>Description:</h5>
-              <p>{description ? description : null}</p>
+              <p>{description ? shortDescription : null}</p>
             </div>
           </div>
           Published: {published ? published : null}
