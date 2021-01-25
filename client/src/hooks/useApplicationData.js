@@ -115,7 +115,6 @@ export default function useApplicationData() {
       .catch((err) => err);
   };
 
-
   // const setBookNotes = (currId) => {
   //   const newBookObj = state.books.currId
   //   const newBookState = { ...state, book:}
@@ -193,7 +192,7 @@ export default function useApplicationData() {
       .catch((err) => console.log(err));
   };
   const saveBookNotes = (updatedBook) => {
-    console.log("DATA TO SENDBOOK", updatedBook)
+    console.log("DATA TO SENDBOOK", updatedBook);
     const newBookState = {
       ...state.books,
       [updatedBook.id]: updatedBook,
@@ -201,17 +200,17 @@ export default function useApplicationData() {
     axios
       .put(`/api/users/${user.id}/books/${state.currBook.id}`, updatedBook)
       .then((res) => {
-        console.log("SAVE", res)
+        console.log("SAVE", res);
         setState((prev) => {
           return { ...prev, books: newBookState };
         });
-        setShow({ item: `Book ${updatedBook.title} Notes Updated`, status: true });
-
+        setShow({
+          item: `Book ${updatedBook.title} Notes Updated`,
+          status: true,
+        });
       })
       .catch((err) => console.log("Book Index, Save ERROR:", err));
   };
-
-
 
   const rmvBookFrShelf = (bookId) => {
     const userId = user.id;
@@ -294,7 +293,6 @@ export default function useApplicationData() {
             return { ...prev, clubs: newClubsState };
           });
         }
-
       })
       .catch((err) => err);
   };
@@ -322,9 +320,13 @@ export default function useApplicationData() {
         console.log("Update Club (Ax RX *********)", res.data);
 
         //Update State on success
-        console.log("NEWCLUB STATE", newState)
-        setState((prev) => { return { ...prev, clubs: newState } });
-        setState((prev) => { return { ...prev, currClub: newClubObj } });
+        console.log("NEWCLUB STATE", newState);
+        setState((prev) => {
+          return { ...prev, clubs: newState };
+        });
+        setState((prev) => {
+          return { ...prev, currClub: newClubObj };
+        });
         // setCurrClub(newClubObj);
         setShow({
           item: `${newBook.title} assigned successfully to \n ${newClubObj.book_club_name}.`,

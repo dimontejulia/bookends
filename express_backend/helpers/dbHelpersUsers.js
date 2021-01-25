@@ -33,7 +33,7 @@ module.exports = (db) => {
           FROM users_books
           JOIN books ON books.id = users_books.book_id
           WHERE user_id = $1
-          ORDER BY book_id desc;
+          ORDER BY users_books.id desc;
           `,
       values: [userID],
     };
