@@ -58,7 +58,7 @@ export default function UserActions(props) {
               onChange={handleInput}
               name="status"
               id="status"
-              value={userBookData ? userBookData.status : null}
+              value={bookData ? bookData.status : null}
             >
               <option value="onList">On my list</option>
               <option value="in_progress">Reading</option>
@@ -73,7 +73,7 @@ export default function UserActions(props) {
               type="date"
               name="read-date"
               id="read"
-              value={userBookData ? readDate : null}
+              value={bookData ? readDate : null}
             ></Form.Control>
           </Form.Group>
         </Form>

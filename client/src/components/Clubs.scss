@@ -27,6 +27,19 @@
 }
 
 .main-content {
+  .subjects-container {
+    display: flex;
+    flex-direction: row;
+    text-align: start;
+    margin: 1.2em 0;
+    justify-content: flex-end;
+
+    .book__subject-badge {
+      margin-right: 5px;
+      text-transform: capitalize;
+    }
+  }
+
   .book__details.clubs {
     width: 100%;
     text-align: end;
@@ -72,19 +85,6 @@
         font-style: italic;
       }
     }
-  }
-}
-
-.subjects-container {
-  display: flex;
-  flex-direction: row;
-  text-align: start;
-  margin: 1.2em 0;
-  justify-content: flex-end;
-
-  .book__subject-badge {
-    margin-right: 5px;
-    text-transform: capitalize;
   }
 }
 
