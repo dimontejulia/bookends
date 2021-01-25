@@ -41,24 +41,33 @@ export default function Index(props) {
         <div className='sidebar'>
           {/* <h2>Connect with Fellow Readers!</h2> */}
           <FriendList friendList={friends} deleteFriend={props.deleteFriend} />
-          <AddFriendForm className='search-bar' addFriend={props.addFriend} />
+          <AddFriendForm
+            className='search-bar'
+            show={props.show}
+            setShow={props.setShow}
+            addFriend={props.addFriend}
+          />
           <br></br>
-          {clubsState.length ? (
-            <ClubList
-              // state={props.state}
-              setCurrClub={props.setCurrClub}
-              currClub={currClub}
-              setCurrBook={props.setCurrBook}
-              list={clubsState}
-              listName={'Clubs'}
-              setClubNews={props.setClubNews}
-            />
-          ) : (
-            'No Clubs Listed'
-          )}
-          <JoinClubForm joinClub={props.joinClub} />
+          <ClubList
+            setCurrClub={props.setCurrClub}
+            currClub={currClub}
+            setCurrBook={props.setCurrBook}
+            list={clubsState}
+            listName={'Clubs'}
+            setClubNews={props.setClubNews}
+          />
+          <JoinClubForm
+            joinClub={props.joinClub}
+            show={props.show}
+            setShow={props.setShow}
+          />
           <br></br>
-          <AddClub className='search-bar' addClub={props.addClub} />
+          <AddClub
+            className='search-bar'
+            addClub={props.addClub}
+            show={props.show}
+            setShow={props.setShow}
+          />
         </div>
         <div className='main-content social__main-content'>
           {/* <h1>Book Talk</h1> */}

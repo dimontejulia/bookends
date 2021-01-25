@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { render } from "react-dom";
 
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
+import Badge from "react-bootstrap/Badge";
 
 import MoreInfo from "./MoreInfo";
-import Confirmation from "../Confirmation";
 import ChangeClubBook from "../Club/ChangeBook";
 
 const Book = ({ book, ...props }) => {
@@ -69,35 +68,53 @@ const Book = ({ book, ...props }) => {
   return (
     <div>
       <Card className="book-card">
-        <Card.Img
-          className="book-cover"
-          variant="top"
-          src={`http://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg`}
-        />
         <Card.Body>
+          <Card.Img
+            className="book-cover"
+            variant="top"
+            src={`http://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg`}
+          />
           <Card.Title>{title}</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
             {author_name}
           </Card.Subtitle>
-
-          <Button onClick={() => handleClick(buttonBook)}>Add to shelf</Button>
-          <Button onClick={clickWishlist}>Add to wishlist</Button>
+          <Badge
+            className="carousel__subject-badge"
+            variant="outline-secondary"
+          >
+            <Button
+              variant="outline-secondary"
+              onClick={() => {
+                setCurrBook({ id: book.text[0] });
+                setModalShow(true);
+              }}
+            >
+              More Info <i class="fas fa-info-circle"></i>
+            </Button>
+          </Badge>
+          <br></br>
+          Add to:
+          <div>
+            <Button
+              variant="outline-primary"
+              className="search-card-button"
+              onClick={() => handleClick(buttonBook)}
+            >
+              Shelf
+            </Button>
+            <Button
+              className="search-card-button"
+              variant="outline-primary"
+              onClick={clickWishlist}
+            >
+              Wishlist
+            </Button>
+          </div>
           <ChangeClubBook
             book={buttonBook}
             setClubBook={props.setClubBook}
             clubs={props.clubs}
           />
-
-          <Button
-            variant="secondary"
-            onClick={() => {
-              setCurrBook({ id: book.text[0] });
-              setModalShow(true);
-            }}
-          >
-            More Info
-          </Button>
-
           <MoreInfo
             book={book}
             key={book.key}
