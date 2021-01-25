@@ -1,14 +1,12 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import BookListItem from "./BookListItem";
-import CardDeck from "react-bootstrap/CardDeck";
 import FormControl from "react-bootstrap/FormControl";
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 
 import "../Shelf.scss";
 
 export default function BookList(props) {
-  const { books, setUserBooks, setCurrBook } = props;
+  const { books, setCurrBook } = props;
   const [results, setResults] = useState();
   const [form, setForm] = useState("");
 
@@ -18,18 +16,18 @@ export default function BookList(props) {
         return "Reading";
       case "finished":
         return "Read it";
+      default:
+        return "New";
     }
   };
 
   const handleChange = (e) => {
     const { value } = e.target;
-    console.log("FORM VALUE", e);
     setForm(value);
   };
 
   //map- take in obj of objs (books)
   const searchBooks = (bookObj, searchTerm) => {
-    console.log("SEARCHAA", bookObj, searchTerm);
     if (!bookObj) {
       return;
     }
@@ -56,7 +54,6 @@ export default function BookList(props) {
   };
 
   useEffect(() => {
-    console.log("STATE", books, results, form);
     setResults(searchBooks(books, form));
   }, [form, books]);
 
@@ -88,9 +85,7 @@ export default function BookList(props) {
       />
     ));
 
-  console.log("Book Count", initList.length);
   const resultsCount = parsedList ? parsedList.length : results;
-  console.log("Search Results", resultsCount);
   return (
     <section>
       <Form className="search-books-bar">

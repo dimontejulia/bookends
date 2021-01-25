@@ -1,7 +1,7 @@
-import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons';
-import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons";
+import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 
 export default function Rating(props) {
   const { userRating, setUserBookData, currBookID } = props;
@@ -20,7 +20,6 @@ export default function Rating(props) {
     if (!rating) {
       rating = 0;
     }
-    console.log('RATING', rating);
     const emptyStars = 5 - rating;
     let starRating = [];
     //Add Solid Stars to Array
@@ -50,7 +49,7 @@ export default function Rating(props) {
   };
 
   return (
-    <span className='star_rating' id='rating'>
+    <span className="star_rating" id="rating">
       {numberToStarRating(userRating)}
     </span>
   );

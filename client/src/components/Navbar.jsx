@@ -1,18 +1,16 @@
 import React from "react";
-import Logo from "./Logo";
 import Login from "./Login";
 import axios from "axios";
 import "./Nav.scss";
-import classnames from "classnames";
 
-import { Navbar, Nav, Button, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, Button } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 
 export default function NavBar(props) {
   // const parsedList =
   //   clubIds && clubIds.map((club) => console.log(club.book_club_id));
+  //const clubIds = props.clubs;
   const userId = props.user.id;
-  const clubIds = props.clubs;
 
   const loggedIn = function (id) {
     if (!id) {
@@ -36,14 +34,14 @@ export default function NavBar(props) {
     }
   };
 
-  const usersClubs = (clubId) => {
-    axios
-      .get(`/api/club/${clubId}`)
-      .then((res) => {
-        console.log("RESDATA /API/CLUBS/ID ->>>>", res.data);
-      })
-      .catch((err) => err);
-  };
+  // const usersClubs = (clubId) => {
+  //   axios
+  //     .get(`/api/club/${clubId}`)
+  //     .then((res) => {
+  //       console.log("RESDATA /API/CLUBS/ID ->>>>", res.data);
+  //     })
+  //     .catch((err) => err);
+  // };
 
   return (
     <Navbar className="main__navbar" expand="lg">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
@@ -11,8 +11,6 @@ const Book = ({ book, ...props }) => {
   const {
     title,
     author_name,
-    id_goodreads = [],
-    key,
     first_publish_year,
     subject,
     cover_edition_key,
@@ -45,7 +43,7 @@ const Book = ({ book, ...props }) => {
         number_of_pages: number_of_pages,
       },
     ]);
-    const bookKey = key.split("/works/")[1];
+    // const bookKey = key.split("/works/")[1];
 
     props.setUserBooks((prevState) => ({
       ...prevState,

@@ -1,7 +1,5 @@
 import React from "react";
 import "./Wave.scss";
-import classnames from "classnames";
-
 export default function Wave(props) {
   return (
     <div class="everypage__wave">

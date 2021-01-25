@@ -1,5 +1,4 @@
 import React from "react";
-import ListItem from "./ListItem";
 import ListGroup from "react-bootstrap/ListGroup";
 
 export default function List(props) {

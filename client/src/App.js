@@ -235,7 +235,6 @@ function App() {
                   "/book/",
                   ""
                 );
-                console.log("PARAM", paramBookId);
                 // setCurrBook(paramBookId)
                 return (
                   <BookDetails

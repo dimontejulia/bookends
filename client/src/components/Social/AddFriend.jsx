@@ -5,7 +5,6 @@ import Button from "react-bootstrap/Button";
 
 export default function AddList(props) {
   const [form, setForm] = useState([]);
-  const { addFriend } = props;
 
   const handleChange = (e) => {
     const { value } = e.target;

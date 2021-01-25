@@ -1,10 +1,9 @@
 import React from "react";
-import Button from "../Button";
 import Form from "react-bootstrap/Form";
 
 export default function UserNotes(props) {
   const { comments, setUserBookData, currBookID } = props;
-  console.log(props);
+
   // [...prev, (comments: event.target.value)]
   const handleInput = (event) => {
     setUserBookData((prev) => ({
@@ -21,7 +20,7 @@ export default function UserNotes(props) {
           <Form.Control
             onChange={handleInput}
             name="userNotes"
-            name="body"
+            // name="body"
             as="textarea"
             placeholder="Any notes about the book? Write them here..."
             rows={3}

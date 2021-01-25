@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Button, ListGroup } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 
 export default function FriendsList(props) {
   const { friendList, deleteFriend } = props;
