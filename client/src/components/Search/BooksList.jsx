@@ -28,6 +28,7 @@ const BooksList = ({ loading = false, books = [], count = 0, ...props }) => {
               setShow={props.setShow}
               setClubBook={props.setClubBook}
               clubs={props.clubs}
+              addBookToWishlist={props.addBookToWishlist}
             />
           ) : null
         )}

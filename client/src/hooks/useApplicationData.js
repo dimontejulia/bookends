@@ -191,6 +191,35 @@ export default function useApplicationData() {
       })
       .catch((err) => console.log(err));
   };
+  const addBookToWishlist = (bookData, list) => {
+    console.log("ADD TO SHELF", bookData, list)
+
+    const newBook = {
+      id: bookData.id,
+      title: bookData.title,
+      author: bookData.author,
+      subject: bookData.subject,
+      first_publish_year: bookData.first_publish_year,
+    };
+    const newWishlistState = {
+      ...state.wishlist,
+      [bookData.id]: newBook,
+    };
+
+    setState((prev) => {
+      return { ...prev, wishlist: newWishlistState };
+    });
+    axios
+      .post(`/api/users/${user.id}/wishlist`, newBook)
+      .then((res) => {
+        console.log("Book added to wishlist!");
+        setShow({ item: "Book added to wishlist!", status: true });
+        // Need Saved MSg ELSE Error Message
+        //Update state w. latest copy
+      })
+      .catch((err) => console.log(err));
+  };
+
 
   const saveBookNotes = (updatedBook) => {
     console.log("DATA TO SENDBOOK", updatedBook);
@@ -412,6 +441,7 @@ export default function useApplicationData() {
     addFriend,
     deleteFriend,
     addBookToShelf,
+    addBookToWishlist,
     saveBookNotes,
     rmvBookFrShelf,
     joinClub,

@@ -31,6 +31,7 @@ function App() {
     addFriend,
     deleteFriend,
     addBookToShelf,
+    addBookToWishlist,
     rmvBookFrShelf,
     saveBookNotes,
     joinClub,
@@ -266,6 +267,7 @@ function App() {
                   <SearchIndex
                     userBooks={state.books}
                     setUserBooks={addBookToShelf}
+                    addBookToWishlist={addBookToWishlist}
                     wishlist={state.wishlist}
                     setWishlist={setWishlist}
                     currBook={state.currBook}
