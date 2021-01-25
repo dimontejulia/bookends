@@ -7,7 +7,6 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { Link } from 'react-router-dom';
 
 export default function Details(props) {
-  console.log('DETAILS', props);
   const {
     description,
     subjects,
@@ -31,7 +30,7 @@ export default function Details(props) {
           <Button
             variant='danger'
             onClick={() =>
-              props.deleteUserBook(props.currBookID, props.listName)
+              props.deleteUserBook(props.currBookId, props.listName)
             }
           >
             Delete

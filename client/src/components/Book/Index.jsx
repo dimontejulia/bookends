@@ -43,8 +43,8 @@ export default function Index(props) {
           <Details
             book={currBook}
             deleteUserBook={deleteUserBook}
-            currBookId={props.currBookId}
-            listName={props.currBookId}
+            currBookId={currBook.id}
+            listName={currBook.listName}
           />
           {currBook.friends_read
             ? currBook.friends_read.length > 1 && (
