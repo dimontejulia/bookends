@@ -58,6 +58,7 @@ const SearchIndex = (props) => {
         setShow={props.setShow}
         setClubBook={props.setClubBook}
         clubs={props.clubs}
+        addBookToWishlist={props.addBookToWishlist}
       />
     </Fragment>
   );

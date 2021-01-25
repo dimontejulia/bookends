@@ -18,7 +18,10 @@ module.exports = ({
   deleteFriend,
   joinBookClub,
   rmvUsersBooks,
-  deleteBookWishList
+  deleteBookWishList,
+  checkDBforBook,
+  addBookToDB,
+  addToWishlist
 }) => {
 
 
@@ -107,7 +110,7 @@ module.exports = ({
       joinBookClub(userId, Number(clubId))
         .then((result) => {
           console.log("Getting USER CLUBS", result);
-          return getUserClubs(req.params.id)
+          return getUserClubs(req.params.id);
         })
         .then(clubs => res.json(clubs))
         .catch((err) => res.json({ msg: err.message }));
@@ -124,11 +127,26 @@ module.exports = ({
         .then((wishlistBooks) => res.json(wishlistBooks))
         .catch((err) => res.json({ msg: err.message }));
     })
-    // .post("/:id/wishlist", (req, res) => {
-    //   // getUsers()
-    //     .then((users) => res.json(users))
-    //     .catch((err) => res.json({ msg: err.message }));
-    // })
+    .post("/:id/wishlist", (req, res) => {
+      const bookData = req.body;
+      const bookId = bookData.id;
+      const userId = req.params.id;
+      checkDBforBook(bookId)
+        .then(check => {
+          console.log("check????", check[0].count)
+          if (check[0].count === '0') {
+            console.log("check!!!", check[0].count)
+            return addBookToDB(bookData);
+          }
+          return "Book Exists";
+        })
+        .then(() => {
+          console.log("STRT CHECK", bookId, userId, bookData);
+          return addToWishlist(userId, bookId);
+        })
+        .then((res) => res.json(res))
+        .catch((err) => res.json({ msg: err.message }));
+    })
     .delete("/:userId/wishlist/:bookId", (req, res) => {
       const { userId, bookId } = req.params;
       deleteBookWishList(userId, bookId)

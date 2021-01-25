@@ -7,7 +7,7 @@ import Badge from 'react-bootstrap/Badge';
 import MoreInfo from './MoreInfo';
 import ChangeClubBook from '../Club/ChangeBook';
 
-const Book = ({ book, ...props }) => {
+const Book = ({ book, addBookToWishlist, ...props }) => {
   const {
     title,
     author_name,
@@ -31,34 +31,13 @@ const Book = ({ book, ...props }) => {
   const { currBook, setCurrBook } = props;
   const [modalShow, setModalShow] = useState(false);
 
-  // const clickWishlist = (e) => {
-  //   e.preventDefault();
-  //   // props.setWishlist({
-  //   //   id: cover_edition_key,
-  //   //   title: title,
-  //   //   author: author_name,
-  //   //   first_publish_year: first_publish_year,
-  //   //   subject: subject,
-  //   //   number_of_pages: number_of_pages,
-  //   // });
-  //   // const bookKey = key.split("/works/")[1];
-
-  //   // props.setUserBooks((prevState) => ({
-  //   //   ...prevState,
-  //   //   [cover_edition_key]: {
-  //   //     id: cover_edition_key,
-  //   //     title: title,
-  //   //     author: author_name,
-  //   //     first_publish_year: first_publish_year,
-  //   //     subject: subject,
-  //   //   },
-  //   // }));
-  //   props.setShow({ item: `${title}  added to wishlist.`, status: true });
-  // };
+  const clickWishlist = (e) => {
+    addBookToWishlist(buttonBook);
+  };
 
   const handleClick = (input) => {
     props.newBook(input, 'Shelf');
-    props.setShow({ item: `${input.title} added to shelf.`, status: true });
+    // props.setShow({ item: `${input.title} added to shelf.`, status: true });
   };
 
   return (
@@ -101,7 +80,7 @@ const Book = ({ book, ...props }) => {
             <Button
               className='search-card-button'
               variant='outline-primary'
-              onClick={console.log('CLICK NOT CONNECTED TO FUNCTION')}
+              onClick={() => clickWishlist(buttonBook)}
             >
               Wishlist
             </Button>

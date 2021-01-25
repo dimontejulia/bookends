@@ -223,6 +223,49 @@ module.exports = (db) => {
       .catch((err) => console.log("DBERROR from users books:>>>>", err));
   };
 
+  const checkDBforBook = (bookId) => {
+    const bookCheckQuery = {
+      text: `SELECT count(*) FROM books WHERE id = $1`,
+      values: [bookId],
+    };
+
+    return db
+      .query(bookCheckQuery)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERR", err));
+  };
+
+  const addBookToDB = (bookData) => {
+    const { id, title, author, subject, first_publish_year } = bookData;
+    const addBookQuery = {
+      text: `INSERT INTO books (id, title, author, subject, first_publish_year) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+      values: [id, title, author[0], subject, first_publish_year],
+    };
+    return db
+      .query(addBookQuery)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERR", err));
+  };
+
+  const addToWishlist = (userId, bookId) => {
+    console.log("START????")
+    const query = {
+      text: `INSERT INTO future_books (user_id, book_id) VALUES ($1, $2) RETURNING *`,
+      values: [userId, bookId],
+    };
+    console.log("Add to future BOOKS Q", query);
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERROR from users books:>>>>", err));
+  };
+
   const updateUsersBooks = (userId, bookData) => {
     const { id, dateread, rating, comments, status } = bookData;
 
@@ -285,6 +328,26 @@ module.exports = (db) => {
       })
       .catch((err) => console.log("DBERROR from users books:>>>>", err));
   };
+
+  // const addToWishlist = (userId, bookData) => {
+  //   const query = {
+  //     text: `
+  //     SELECT book_id as id, title, author, subject, first_publish_year
+  //       FROM books
+  //       JOIN future_books fb ON books.id = fb.book_id
+  //       WHERE fb.user_id = $1
+  //     `,
+  //     values: [userId],
+  //   };
+
+  //   console.log("GET WISHLIST");
+  //   return db
+  //     .query(query)
+  //     .then((result) => {
+  //       return result.rows;
+  //     })
+  //     .catch((err) => console.log("DBERROR from users books:>>>>", err));
+  // };
 
   const deleteBook = (bookId, userId) => {
     const checkWishList = {
@@ -427,5 +490,8 @@ module.exports = (db) => {
     addBookToUser,
     rmvUsersBooks,
     deleteBookWishList,
+    checkDBforBook,
+    addBookToDB,
+    addToWishlist
   };
 };

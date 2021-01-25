@@ -133,6 +133,7 @@ export default function useApplicationData() {
     }
     const dataToSend = { friendsEmail: email };
     axios.post(`/api/users/${user.id}/friends`, dataToSend).then((res) => {
+
       if (typeof res.data === "object") {
         const newFriendState = { ...state.friends, [res.data.id]: res.data };
         setState((prev) => {
@@ -191,6 +192,34 @@ export default function useApplicationData() {
       })
       .catch((err) => console.log(err));
   };
+  const addBookToWishlist = (bookData, list) => {
+    const newBook = {
+      id: bookData.id,
+      title: bookData.title,
+      author: bookData.author,
+      subject: bookData.subject,
+      first_publish_year: bookData.first_publish_year,
+    };
+    const newWishlistState = {
+      ...state.wishlist,
+      [bookData.id]: newBook,
+    };
+    axios
+      .post(`/api/users/${user.id}/wishlist`, newBook)
+      .then((res) => {
+        console.log("Book added to wishlist!", res);
+        if (res.status == '200') {
+          setShow({ item: "Book added to wishlist!", status: true });
+          setState((prev) => {
+            return { ...prev, wishlist: newWishlistState };
+          });
+        } else {
+          setShow({ item: "Error adding to wishlist!", status: true });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
 
   const saveBookNotes = (updatedBook) => {
     console.log("DATA TO SENDBOOK", updatedBook);
@@ -412,6 +441,7 @@ export default function useApplicationData() {
     addFriend,
     deleteFriend,
     addBookToShelf,
+    addBookToWishlist,
     saveBookNotes,
     rmvBookFrShelf,
     joinClub,
