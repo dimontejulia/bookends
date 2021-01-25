@@ -5,7 +5,7 @@ const { getPostsByUsers } = require("../helpers/dataHelpers");
 module.exports = ({
   getBooks,
   addBookToUser,
-  getSpecificBook,
+  getBookReaders,
   getCarouselBooks,
 }) => {
   // books
@@ -17,7 +17,7 @@ module.exports = ({
 
   // books/:id
   router.get("/:id", (req, res) => {
-    getSpecificBook(req.params.id)
+    getBookReaders(req.params.id)
       .then((book) => res.json(book))
       .catch((err) => res.json({ msg: err.message }));
   });

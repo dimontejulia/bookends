@@ -10,9 +10,9 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
-  const getSpecificBook = (book_id) => {
+  const getBookReaders = (book_id) => {
     const query = {
-      text: "SELECT * FROM users_books WHERE id = $1",
+      text: "SELECT user_id FROM users_books WHERE book_id = $1",
       values: [book_id],
     };
 
@@ -43,7 +43,7 @@ module.exports = (db) => {
 
   return {
     getBooks,
-    getSpecificBook,
+    getBookReaders,
     getCarouselBooks,
   };
 };
