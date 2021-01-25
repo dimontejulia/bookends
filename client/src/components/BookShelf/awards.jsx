@@ -14,12 +14,13 @@ export function numBooksAward(numBooks) {
   return (
     <div className="award-card">
       <Card.Body>
-        <Card.Title>{medal} Reader</Card.Title>
         <Card.Img
           variant="top"
           src={process.env.PUBLIC_URL + `/images/${medal.toLowerCase()}.png`}
         />
-        <Card.Text>Wow. You have {numBooks} books on your shelf!</Card.Text>
+        <Card.Text className="award__text">
+          Wow. You have {numBooks} books on your shelf!
+        </Card.Text>
       </Card.Body>
     </div>
   );
@@ -30,12 +31,11 @@ export function oldBook(currentYear, oldestBook) {
     return (
       <div className="award-card">
         <Card.Body>
-          <Card.Title>Old Timer</Card.Title>
           <Card.Img
             variant="top"
             src={process.env.PUBLIC_URL + "/images/old_timer.png"}
           />
-          <Card.Text>
+          <Card.Text className="award__text">
             You have a book on your shelf from 100 years ago! It was published
             in {oldestBook}, {currentYear - oldestBook} years ago!
           </Card.Text>

@@ -29,7 +29,7 @@ export default function Index(props) {
       <div className="container">
         <section className="sidebar">
           <div className="card-group-awards">
-            <h2>Reading Awards</h2>
+            <h1 className="sidebar__subheading">Reading Awards</h1>
             {numBooksAward(numBooks)}
             {oldBook(currentYear, oldestBook)}
             {newBook(currentYear, newestBook)}
