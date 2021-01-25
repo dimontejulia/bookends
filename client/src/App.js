@@ -161,13 +161,7 @@ function App() {
               path="/clubs/:id"
               render={(props) => {
                 const paramClubId = props.location.pathname.replace(
-                  "/clubs/",
-                  ""
-                );
-                // setCurrClub()
-                {
-                  console.log("adsfasdfa", paramClubId);
-                }
+                  "/clubs/", "");
                 return (
                   <ClubsInfo
                     state={state}
@@ -250,7 +244,6 @@ function App() {
                   "/book/",
                   ""
                 );
-                // setCurrBook(paramBookId)
                 return (
                   <BookDetails
                     state={state}

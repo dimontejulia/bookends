@@ -40,7 +40,12 @@ export default function Index(props) {
       </div>
       <div className='container'>
         <div className='left-main-content'>
-          <Details book={currBook} deleteUserBook={deleteUserBook} />
+          <Details
+            book={currBook}
+            deleteUserBook={deleteUserBook}
+            currBookId={currBook.id}
+            listName={currBook.listName}
+          />
           {currBook.friends_read
             ? currBook.friends_read.length > 1 && (
                 <AlsoReadList
