@@ -12,7 +12,10 @@ module.exports = (db) => {
 
   const getBookReaders = (book_id) => {
     const query = {
-      text: "SELECT user_id FROM users_books WHERE book_id = $1",
+      text: `
+      SELECT user_id 
+      FROM users_books
+      WHERE book_id = $1`,
       values: [book_id],
     };
 

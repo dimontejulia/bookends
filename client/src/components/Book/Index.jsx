@@ -1,24 +1,45 @@
-import React, { useState } from 'react';
-import Details from './Details';
-import Rating from './Rating';
-import UserNotes from './UserNotes';
-import UserActions from './userActions';
-import AlsoReadList from '../List';
-import ButtonClick from '../Button';
-import '../Details.scss';
+import React, { useState } from "react";
+import Details from "./Details";
+import Rating from "./Rating";
+import UserNotes from "./UserNotes";
+import UserActions from "./userActions";
+import AlsoReadList from "../List";
+import ButtonClick from "../Button";
+import "../Details.scss";
 
 export default function Index(props) {
   const { addBookToShelf, saveBookNotes, deleteUserBook } = props;
   const books = props.state.books;
+  const friends = props.state.friends;
   const currBook = props.state.currBook;
+  const peopleWhoReadBook = currBook.friends_read;
+  console.log("people who read", peopleWhoReadBook);
 
   const bookData =
     books && Object.values(books).find((bookObj) => bookObj.id === currBook.id);
   const [bookState, setBookState] = useState(bookData);
 
+  const getFriendNames = () => {
+    if (friends) {
+      const friendIds = friends.map((x) => x.userid);
+      let friendNamesList = [];
+      for (let id of peopleWhoReadBook) {
+        if (friendIds.includes(id)) {
+          friendNamesList.push(
+            friends.map((x) => `${x.firstname} + ${x.lastname}`)
+          );
+        }
+      }
+      console.log("FRIEND NAMES ", friendNamesList);
+      return friendNamesList;
+    }
+  };
+
+  const friendNames = getFriendNames();
+
   return (
-    <div className='container'>
-      <div className='sidebar'>
+    <div className="container">
+      <div className="sidebar">
         <h2>Book Diary</h2>
         <UserActions
           currBookID={currBook.id}
@@ -40,14 +61,14 @@ export default function Index(props) {
         <br></br>
         {/* SAVE BUTTON WILL HAVE TO TRIGGER A SAVE TO DB HOOK */}
         <ButtonClick onClick={() => saveBookNotes(bookState)}>Save</ButtonClick>
-        {currBook.friends ? (
+        {currBook.friends_read ? (
           <AlsoReadList
-            list={currBook.friends}
+            list={friendNames}
             listName={`Friends Who also read ${currBook.title}`}
           />
         ) : null}
       </div>
-      <div className='main-content'>
+      <div className="main-content">
         <Details book={currBook} />
       </div>
     </div>

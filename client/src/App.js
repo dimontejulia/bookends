@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import useApplicationData from "./hooks/useApplicationData";
-import { render } from "react-dom";
 import cvtArrayToObj from "./helpers/helpers";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
@@ -67,7 +66,7 @@ function App() {
       subjects: null,
       works: null,
       coverLink: `https://covers.openlibrary.org/b/olid/${OLBookID}-L.jpg`,
-      friends_read: [],
+      friends_read: null,
     };
 
     if (OLBookID) {
@@ -86,9 +85,8 @@ function App() {
         })
         .then(() => {
           axios.get(`/api/books/${OLBookID}`).then((res) => {
-            console.log("res.data", res.data);
-            console.log("book", book);
-            book.friends_read = res.data;
+            const friendIds = res.data.map((x) => x.user_id);
+            book.friends_read = friendIds;
           });
         })
 
