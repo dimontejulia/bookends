@@ -3,39 +3,18 @@ import Details from "./Details";
 import Rating from "./Rating";
 import UserNotes from "./UserNotes";
 import UserActions from "./userActions";
-import AlsoReadList from "../List";
+import AlsoReadList from "./AlsoReadList";
 import ButtonClick from "../Button";
 import "../Details.scss";
 
 export default function Index(props) {
   const { addBookToShelf, saveBookNotes, deleteUserBook } = props;
   const books = props.state.books;
-  const friends = props.state.friends;
   const currBook = props.state.currBook;
-  const peopleWhoReadBook = currBook.friends_read;
-  console.log("people who read", peopleWhoReadBook);
 
   const bookData =
     books && Object.values(books).find((bookObj) => bookObj.id === currBook.id);
   const [bookState, setBookState] = useState(bookData);
-
-  const getFriendNames = () => {
-    if (friends) {
-      const friendIds = friends.map((x) => x.userid);
-      let friendNamesList = [];
-      for (let id of peopleWhoReadBook) {
-        if (friendIds.includes(id)) {
-          friendNamesList.push(
-            friends.map((x) => `${x.firstname} + ${x.lastname}`)
-          );
-        }
-      }
-      console.log("FRIEND NAMES ", friendNamesList);
-      return friendNamesList;
-    }
-  };
-
-  const friendNames = getFriendNames();
 
   return (
     <div className="container">
@@ -61,12 +40,15 @@ export default function Index(props) {
         <br></br>
         {/* SAVE BUTTON WILL HAVE TO TRIGGER A SAVE TO DB HOOK */}
         <ButtonClick onClick={() => saveBookNotes(bookState)}>Save</ButtonClick>
-        {currBook.friends_read ? (
-          <AlsoReadList
-            list={friendNames}
-            listName={`Friends Who also read ${currBook.title}`}
-          />
-        ) : null}
+        {currBook.friends_read
+          ? currBook.friends_read.length > 1 && (
+              <AlsoReadList
+                list={currBook.friends_read}
+                listName={`Friends who also read ${currBook.title}:`}
+                friends={props.friends}
+              />
+            )
+          : null}
       </div>
       <div className="main-content">
         <Details book={currBook} />

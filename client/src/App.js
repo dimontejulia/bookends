@@ -49,6 +49,16 @@ function App() {
     lastName: "Twain",
   });
 
+  const getUserNames = (id) => {
+    const friends = state.friends;
+    console.log("friends state", friends);
+    for (let friend of friends) {
+      if (friend.userid === id) {
+        return `${friend.firstname}  ${friend.lastname}`;
+      }
+    }
+  };
+
   //==============Functions========
 
   const fetchBookDetails = (OLBookID) => {
@@ -85,8 +95,8 @@ function App() {
         })
         .then(() => {
           axios.get(`/api/books/${OLBookID}`).then((res) => {
-            const friendIds = res.data.map((x) => x.user_id);
-            book.friends_read = friendIds;
+            const friendNames = res.data.map((x) => getUserNames(x.user_id));
+            book.friends_read = friendNames;
           });
         })
 

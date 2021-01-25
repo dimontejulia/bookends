@@ -1,18 +1,39 @@
-// Friends who also read the book
-
 import React from "react";
-import FriendsWhoReadList from "../List";
+import ListGroup from "react-bootstrap/ListGroup";
 
-export default function AlsoReadList(props) {
-  console.log("ALSO READ IT");
-  console.log("people who read", props.friendsWhoRead);
-  //console.log("friends ids", props.friends.user_id);
+export default function List(props) {
+  const { listName, list, friends } = props;
+  console.log("friends", friends);
+  const parsedList =
+    list &&
+    list.map((listItem) => <ListGroup.Item> {listItem} </ListGroup.Item>);
   return (
-    <div>
-      <FriendsWhoReadList
-        list={props.friendsWhoRead}
-        listName="Friends who also read this book..."
-      />
-    </div>
+    <section>
+      <h3>{listName}</h3>
+      <ListGroup variant="flush">{parsedList}</ListGroup>
+      {/* 
+      <ul>{parsedList}</ul> */}
+    </section>
   );
 }
+
+// const parsedList =
+//     friendList &&
+//     friendList.map((friend) => (
+//       <tr key={friend.userid}>
+//         <td>
+//           {" "}
+//           {friend.firstname} {friend.lastname}
+//         </td>
+//         <td className="social__lists-button">
+//           <Button
+//             onClick={() => {
+//               deleteFriend(friend.userid);
+//             }}
+//             variant="primary"
+//           >
+//             <i class="fas fa-user-times"></i>
+//           </Button>
+//         </td>
+//       </tr>
+//     ));
