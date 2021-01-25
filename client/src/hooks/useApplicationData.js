@@ -11,7 +11,7 @@ export default function useApplicationData() {
       lastName: "Twain",
     },
     books: {},
-    wishList: [],
+    wishlist: [],
     friends: [],
     news: [],
     clubNews: [],
@@ -74,8 +74,8 @@ export default function useApplicationData() {
   }, []);
   //Functions to be passed down as Props (Dealing with state);===================================
   //==State Setters==============================================
-  const setWishlist = () => {
-    console.log("Click");
+  const setWishlist = (input) => {
+    console.log("Set wish", input);
   };
   const setCurrBook = (input) => {
     setState((prev) => {
@@ -161,7 +161,9 @@ export default function useApplicationData() {
     });
   };
   //==Books==============================================
-  const addBookToShelf = (bookData) => {
+  const addBookToShelf = (bookData, list) => {
+    console.log("ADD TO SHELF", bookData, list)
+
     const newBook = {
       id: bookData.id,
       title: bookData.title,
@@ -169,7 +171,6 @@ export default function useApplicationData() {
       subject: bookData.subject,
       first_publish_year: bookData.first_publish_year,
     };
-
     const newBookState = {
       ...state.books,
       [bookData.id]: newBook,
@@ -180,7 +181,6 @@ export default function useApplicationData() {
     setState((prev) => {
       return { ...prev, books: newBookState };
     });
-
     axios
       .post(`/api/users/${user.id}/books`, newBook)
       .then((res) => {
@@ -191,6 +191,7 @@ export default function useApplicationData() {
       })
       .catch((err) => console.log(err));
   };
+
   const saveBookNotes = (updatedBook) => {
     console.log("DATA TO SENDBOOK", updatedBook);
     const newBookState = {
@@ -212,18 +213,38 @@ export default function useApplicationData() {
       .catch((err) => console.log("Book Index, Save ERROR:", err));
   };
 
-  const rmvBookFrShelf = (bookId) => {
+  const rmvBookFrShelf = (bookId, list) => {
     const userId = user.id;
-    axios
-      .delete(`/api/users/${userId}/books/${bookId}`)
-      .then((res) => {
-        console.log("book removed from shelf!", res.data);
-        setState((prev) => {
-          return { ...prev, books: res.data };
-        });
-        setShow({ item: "Book removed successfully.", status: true });
-      })
-      .catch((err) => err);
+    console.log("RMB FR", bookId, user.id, list)
+    //List in api route?  if !listname default to shelf
+    if (list === 'Wishlist') {
+      console.log("RMB FR list", bookId, user.id, list)
+      //wishlist
+      axios
+        .delete(`/api/users/${userId}/wishlist/${bookId}`)
+        .then((res) => {
+          console.log("book removed from wishlist!", res.data);
+          setState((prev) => {
+            return { ...prev, books: res.data };
+          });
+          setShow({ item: "Book removed from wishlist.", status: true });
+        })
+        .catch((err) => err);
+    } else {
+
+      console.log("RMB FR SHELF", bookId, user.id, list)
+      //SHELF
+      axios
+        .delete(`/api/users/${userId}/books/${bookId}`)
+        .then((res) => {
+          console.log("book removed from shelf!", res.data);
+          setState((prev) => {
+            return { ...prev, books: res.data };
+          });
+          setShow({ item: "Book removed successfully.", status: true });
+        })
+        .catch((err) => err);
+    }
   };
   //==Club ==============================================
 

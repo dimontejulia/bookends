@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import Details from "./Details";
-import Rating from "./Rating";
-import UserNotes from "./UserNotes";
-import UserActions from "./userActions";
-import AlsoReadList from "./AlsoReadList";
-import ButtonClick from "../Button";
-import Wave from "../Wave";
+import React, { useState, useEffect } from 'react';
+import Details from './Details';
+import Rating from './Rating';
+import UserNotes from './UserNotes';
+import UserActions from './userActions';
+import AlsoReadList from './AlsoReadList';
+import ButtonClick from '../Button';
+import Wave from '../Wave';
 
-import "../Details.scss";
+import '../Details.scss';
 
 export default function Index(props) {
   const { saveBookNotes, deleteUserBook, paramId, setCurrBook } = props;
@@ -16,7 +16,7 @@ export default function Index(props) {
 
   useEffect(() => {
     //Sets currBook if accessed directly by url
-    setCurrBook({ id: paramId });
+    setCurrBook({ ...props.state.currBook, id: paramId });
   }, []);
 
   useEffect(() => {
@@ -32,15 +32,20 @@ export default function Index(props) {
   return (
     <div>
       <Wave />
-      <div className="container">
-        <div className="book__details">
-          <h1 className="page-title">{currBook.title}</h1>
-          <h3 className="book__details-author">{currBook.author}</h3>
+      <div className='container'>
+        <div className='book__details'>
+          <h1 className='page-title'>{currBook.title}</h1>
+          <h3 className='book__details-author'>{currBook.author}</h3>
         </div>
       </div>
-      <div className="container">
-        <div className="left-main-content">
-          <Details book={currBook} deleteUserBook={deleteUserBook} />
+      <div className='container'>
+        <div className='left-main-content'>
+          <Details
+            book={currBook}
+            deleteUserBook={deleteUserBook}
+            currBookId={currBook.id}
+            listName={currBook.listName}
+          />
           {currBook.friends_read
             ? currBook.friends_read.length > 1 && (
                 <AlsoReadList
@@ -51,8 +56,8 @@ export default function Index(props) {
               )
             : null}
         </div>
-        <div className="right-sidebar">
-          <h1 className="sidebar__subheading">Book Diary</h1>
+        <div className='right-sidebar'>
+          <h1 className='sidebar__subheading'>Book Diary</h1>
           <Rating
             currBookID={currBook.id}
             userRating={bookState ? bookState.rating : 0}
