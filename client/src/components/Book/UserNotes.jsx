@@ -15,7 +15,7 @@ export default function UserNotes(props) {
 
   return (
     <div>
-      <h3>Notes</h3>
+      <h1 className="sidebar__subheading">What did you think?</h1>
       <Form className="newsfeed-post">
         <Form.Group controlId="body">
           <Form.Control

@@ -37,16 +37,16 @@ export default function Index(props) {
         </div>
         <div className="right-sidebar">
           <h1 className="sidebar__subheading">Book Diary</h1>
+          <Rating
+            currBookID={currBook.id}
+            userRating={bookData ? bookData.rating : 0}
+            setUserBookData={setUserBookData}
+          />
           <UserActions
             currBookID={currBook.id}
             userBookData={bookData}
             setUserBookData={setUserBookData}
             deleteUserBook={deleteUserBook}
-          />
-          <Rating
-            currBookID={currBook.id}
-            userRating={bookData ? bookData.rating : 0}
-            setUserBookData={setUserBookData}
           />
           <UserNotes
             currBookID={currBook.id}
