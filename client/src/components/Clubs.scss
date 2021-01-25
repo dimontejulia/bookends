@@ -111,46 +111,54 @@
   }
 }
 
-.form__club-post {
-  // background-color: #fff0f5;
+.clubs__post-feed {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  width: 80%;
+  justify-content: flex-start;
+  align-items: center;
 
-  .form__club-post-title {
-    background-color: #fff0f5;
-    border-radius: 10px;
-    border: none;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0;
-    outline: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-    border-bottom: 2px solid #fed5e3;
-    &:focus {
-      transition: all 450ms;
-      background-color: #fff;
-      border-bottom: 2px solid #ff87ac;
+  .form__club-post {
+    // background-color: #fff0f5;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+
+    .form__club-post-title {
+      background-color: #fff0f5;
+      border-radius: 10px;
+      border: none;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: 0;
+      outline: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      border-bottom: 2px solid #fed5e3;
+      &:focus {
+        transition: all 450ms;
+        background-color: #fff;
+        border-bottom: 2px solid #ff87ac;
+      }
     }
-  }
 
-  .form__club-post-body {
-    background-color: #fff0f5;
-    border-radius: 10px;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 0;
-    border: none;
-    border-bottom: 2px solid #fed5e3;
-    outline: none;
-    resize: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
-    &:focus {
-      transition: all 450ms;
-      background-color: #fff;
-      border-bottom: 2px solid #ff87ac;
+    .form__club-post-body {
+      background-color: #fff0f5;
+      border-radius: 10px;
+      border-bottom-left-radius: 0;
+      border-top-right-radius: 0;
+      border: none;
+      border-bottom: 2px solid #fed5e3;
+      outline: none;
+      resize: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      box-shadow: none;
+      &:focus {
+        transition: all 450ms;
+        background-color: #fff;
+        border-bottom: 2px solid #ff87ac;
+      }
     }
   }
 }
