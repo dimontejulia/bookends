@@ -1,35 +1,14 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Popover from 'react-bootstrap/Popover';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import { Link } from 'react-router-dom';
+import React from "react";
+import Button from "react-bootstrap/Button";
+import Popover from "react-bootstrap/Popover";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Form from "react-bootstrap/Form";
+import { Link } from "react-router-dom";
 
 export default function UserActions(props) {
   const { bookData, setBookState, currBookID } = props;
 
   let readDate = null;
-
-  const popover = (
-    <Popover id='popover-basic'>
-      <Popover.Title as='h3'>Confirmation</Popover.Title>
-      <Popover.Content>
-        Are you sure that you would like to <strong>delete</strong> this book?
-        <br />
-        <br />
-        <Button variant='light' onClick={() => document.body.click()}>
-          Cancel
-        </Button>
-        <Link to={`/shelf`}>
-          <Button
-            variant='danger'
-            onClick={() => props.deleteUserBook(props.currBookID)}
-          >
-            Delete
-          </Button>
-        </Link>
-      </Popover.Content>
-    </Popover>
-  );
 
   const handleInput = (event) => {
     setBookState((prev) => ({
@@ -57,42 +36,56 @@ export default function UserActions(props) {
 
   return (
     <div>
-      <Button>Add to list</Button>
-      <OverlayTrigger
-        rootClose={true}
-        trigger='click'
-        placement='right'
-        overlay={popover}
-      >
-        <Button variant='danger'>Delete Book</Button>
-      </OverlayTrigger>
-      <br></br>
       <span>
-        <br></br>
-        <h4>Status: {bookData ? bookData.status : null}</h4>
+        {/* <br></br>
+        <h4>Status: {userBookData ? userBookData.status : null}</h4> */}
 
-        <select
+        {/* <select
           onChange={handleInput}
           name='status'
           id='status'
           value={bookData ? bookData.status : null}
         >
-          <option value='On my list'>On my list</option>
-          <option value='In Progress'>Reading</option>
-          <option value='Finished'>Read</option>
-        </select>
-        {bookData && bookData.status === 'finished' ? (
-          <span>
-            <label htmlFor='read'>Read: </label>
-            <input
+          <option value="onList">On my list</option>
+          <option value="in_progress">Reading</option>
+          <option value="finished">Read</option>
+        </select> */}
+
+        <Form>
+          <Form.Group controlId="status__select">
+            <Form.Control
+              as="select"
+              onChange={handleInput}
+              name="status"
+              id="status"
+              value={userBookData ? userBookData.status : null}
+            >
+              <option value="onList">On my list</option>
+              <option value="in_progress">Reading</option>
+              <option value="finished">Finished Reading</option>
+            </Form.Control>
+          </Form.Group>
+
+          <Form.Group controlId="read__cal">
+            <Form.Control
+              as="date"
               onChange={handleCal}
-              type='date'
-              id='read'
-              name='read-date'
-              value={bookData ? readDate : null}
-            />
-          </span>
-        ) : null}
+              type="date"
+              name="read-date"
+              id="read"
+              value={userBookData ? readDate : null}
+            ></Form.Control>
+          </Form.Group>
+        </Form>
+
+        {/* <label htmlFor="read">Read: </label>
+        <input
+          onChange={handleCal}
+          type="date"
+          id="read"
+          name="read-date"
+          value={userBookData ? readDate : null}
+        /> */}
       </span>
       {/* needs to rerender shelf list */}
     </div>

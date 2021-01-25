@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 
 export default function EditClub(props) {
@@ -33,7 +34,7 @@ export default function EditClub(props) {
 
   return (
     <Form>
-      <h1>Edit Club</h1>
+      {/* <h1>Edit Club</h1> */}
       <Form.Group>
         <Form.Control
           onChange={handleChange}

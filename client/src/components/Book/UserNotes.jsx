@@ -1,5 +1,5 @@
-import React from 'react';
-import Form from 'react-bootstrap/Form';
+import React from "react";
+import Form from "react-bootstrap/Form";
 
 export default function UserNotes(props) {
   const { comments, setBookState } = props;
@@ -12,16 +12,18 @@ export default function UserNotes(props) {
 
   return (
     <div>
-      <h3>Notes</h3>
-      <Form className='newsfeed-post'>
-        <Form.Group controlId='body'>
+      <h1 className="sidebar__subheading">What did you think?</h1>
+      <Form className="book__user-notes-form">
+        <Form.Group controlId="body">
           <Form.Control
             onChange={handleInput}
-            name='userNotes'
-            as='textarea'
-            placeholder='Notes about the book? Write them here, this one is just for you...'
-            rows={3}
-            value={comments ? comments : ''}
+            className="form__user-notes-input"
+            name="userNotes"
+            name="body"
+            as="textarea"
+            placeholder="Any notes about the book? Write them here..."
+            rows={5}
+            value={comments ? comments : ""}
           />
         </Form.Group>
       </Form>

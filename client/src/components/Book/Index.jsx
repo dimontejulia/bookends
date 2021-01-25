@@ -5,6 +5,8 @@ import UserNotes from "./UserNotes";
 import UserActions from "./userActions";
 import AlsoReadList from "./AlsoReadList";
 import ButtonClick from "../Button";
+import Wave from "../Wave";
+
 import "../Details.scss";
 
 export default function Index(props) {
@@ -28,41 +30,53 @@ export default function Index(props) {
   const [bookState, setBookState] = useState();
 
   return (
-    <div className="container">
-      <div className="sidebar">
-        <h2>Book Diary</h2>
-        <UserActions
-          currBookID={currBook.id}
-          bookData={bookState}
-          setBookState={setBookState}
-          deleteUserBook={deleteUserBook}
-        />
-        <UserNotes
-          currBookID={currBook.id}
-          comments={bookState ? bookState.comments : null}
-          setBookState={setBookState}
-        />
-
-        <Rating
-          currBookID={currBook.id}
-          userRating={bookState ? bookState.rating : 0}
-          setBookState={setBookState}
-        />
-        <br></br>
-        {/* SAVE BUTTON WILL HAVE TO TRIGGER A SAVE TO DB HOOK */}
-        <ButtonClick onClick={() => saveBookNotes(bookState)}>Save</ButtonClick>
-        {currBook.friends_read
-          ? currBook.friends_read.length > 1 && (
-              <AlsoReadList
-                list={currBook.friends_read}
-                listName={`Friends who also read ${currBook.title}:`}
-                friends={props.friends}
-              />
-            )
-          : null}
+    <div>
+      <Wave />
+      <div className="container">
+        <div className="book__details">
+          <h1 className="page-title">{currBook.title}</h1>
+          <h3 className="book__details-author">{currBook.author}</h3>
+        </div>
       </div>
-      <div className="main-content">
-        <Details book={currBook} />
+      <div className="container">
+        <div className="left-main-content">
+          <Details book={currBook} deleteUserBook={deleteUserBook} />
+          {currBook.friends_read
+            ? currBook.friends_read.length > 1 && (
+                <AlsoReadList
+                  list={currBook.friends_read}
+                  listName={`Friends who also read ${currBook.title}:`}
+                  friends={props.friends}
+                />
+              )
+            : null}
+        </div>
+        <div className="right-sidebar">
+          <h1 className="sidebar__subheading">Book Diary</h1>
+          <Rating
+            currBookID={currBook.id}
+            userRating={bookState ? bookState.rating : 0}
+            setBookState={setBookState}
+          />
+
+          <UserActions
+            currBookID={currBook.id}
+            bookData={bookState}
+            setBookState={setBookState}
+            deleteUserBook={deleteUserBook}
+          />
+
+          <UserNotes
+            currBookID={currBook.id}
+            comments={bookState ? bookState.comments : null}
+            setBookState={setBookState}
+          />
+
+          {/* SAVE BUTTON WILL HAVE TO TRIGGER A SAVE TO DB HOOK */}
+          <ButtonClick onClick={() => saveBookNotes(bookState)}>
+            Save
+          </ButtonClick>
+        </div>
       </div>
     </div>
   );

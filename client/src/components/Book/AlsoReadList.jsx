@@ -7,12 +7,12 @@ export default function List(props) {
     list &&
     list.map((listItem) => <ListGroup.Item> {listItem} </ListGroup.Item>);
   return (
-    <section>
+    <div className="list__container">
       <h3>{listName}</h3>
       <ListGroup variant="flush">{parsedList}</ListGroup>
       {/* 
       <ul>{parsedList}</ul> */}
-    </section>
+    </div>
   );
 }
 
