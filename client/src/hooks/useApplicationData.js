@@ -254,10 +254,8 @@ export default function useApplicationData() {
   };
 
   const deleteClub = (clubId, clubName) => {
-    console.log("start fo app.js delete", clubId, clubName);
     let newClubsState = state.clubs;
     delete newClubsState[String(clubId)];
-    console.log("clNew State!!!", newClubsState);
     axios
       .delete(`/api/clubs/${clubId}`)
       .then((res) => {
