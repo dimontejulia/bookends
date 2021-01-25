@@ -64,7 +64,7 @@ export default function ClubInfo(props) {
           <List listName={"Members"} list={members} />
         </section>
         <section className="main-content">
-          <div className="book__details">
+          <div className="book__details clubs">
             <h1 className="page-title">
               {props.currBook.id !== null ? props.currBook.title : null}
             </h1>

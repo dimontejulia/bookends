@@ -3,6 +3,19 @@
 }
 
 .main-content {
+  .book__details.clubs {
+    width: 100%;
+    text-align: end;
+
+    h1.page-title {
+      margin: 0;
+    }
+
+    h3.book__details-author {
+      text-align: end;
+    }
+  }
+
   .details-container {
     padding-top: 2em;
     display: flex;
