@@ -78,11 +78,12 @@ export default function useApplicationData() {
     console.log("Click");
   };
   const setCurrBook = (input) => {
-<<<<<<< HEAD
-    setState((prev) => { return { ...prev, currBook: input } });
-  }
+    setState((prev) => {
+      return { ...prev, currBook: input };
+    });
+  };
   const setCurrClub = (clubId) => {
-    console.log("SET CURR CLUB, promises...")
+    console.log("SET CURR CLUB, promises...");
 
     Promise.all([
       axios.get(`/api/clubs/${clubId}`),
@@ -103,25 +104,16 @@ export default function useApplicationData() {
           history: coveryHistoryToArray(history.data),
           members: members.data,
         };
-        setState((prev) => { return { ...prev, currClub: currClubObj } });
+        setState((prev) => {
+          return { ...prev, currClub: currClubObj };
+        });
         // //Set Current Book (for details)
         setCurrBook({ id: clubDetails.data.current_book });
         // //Set Club News
         setClubNews(news.data);
       })
       .catch((err) => err);
-  }
-=======
-    setState((prev) => {
-      return { ...prev, currBook: input };
-    });
   };
-  const setCurrClub = (input) => {
-    setState((prev) => {
-      return { ...prev, currClub: input };
-    });
-  };
->>>>>>> fix/validations
   //==FRIENDS==============================================
 
   const addFriend = (email) => {
@@ -278,7 +270,7 @@ export default function useApplicationData() {
 
     if (newBook !== null) {
       //Updates CLub Book
-      console.log("UPDATING NEW CLUB OBJ w. new BOOK")
+      console.log("UPDATING NEW CLUB OBJ w. new BOOK");
       newClubObj = { ...state.clubs[clubId], current_book: newBook.id };
     }
     const newState = {
@@ -297,7 +289,9 @@ export default function useApplicationData() {
           status: true,
         });
         //Update State on success
-        setState((prev) => { return { ...prev, clubs: newState } });
+        setState((prev) => {
+          return { ...prev, clubs: newState };
+        });
         setShow({ item: "Club info updated successfully.", status: true });
         // setCurrClub(newClubObj);
       })
@@ -342,13 +336,9 @@ export default function useApplicationData() {
     });
   };
   const setClubNews = (posts) => {
-<<<<<<< HEAD
-    setState((prev) => { return { ...prev, clubNews: posts } });
-=======
     setState((prev) => {
       return { ...prev, clubNews: posts };
     });
->>>>>>> fix/validations
   };
 
   //=RETURNs=======================================================
