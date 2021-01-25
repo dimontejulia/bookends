@@ -48,14 +48,19 @@ export default function Index(props) {
             addFriend={props.addFriend}
           />
           <br></br>
-          <ClubList
-            setCurrClub={props.setCurrClub}
-            currClub={currClub}
-            setCurrBook={props.setCurrBook}
-            list={clubsState}
-            listName={'Clubs'}
-            setClubNews={props.setClubNews}
-          />
+
+          {clubsState.length ? (
+            <ClubList
+              setCurrClub={props.setCurrClub}
+              currClub={currClub}
+              setCurrBook={props.setCurrBook}
+              list={clubsState}
+              listName={'Clubs'}
+              setClubNews={props.setClubNews}
+            />
+          ) : (
+            'No Clubs Listed'
+          )}
           <JoinClubForm
             joinClub={props.joinClub}
             show={props.show}
