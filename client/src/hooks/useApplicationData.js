@@ -213,7 +213,7 @@ export default function useApplicationData() {
   const rmvBookFrShelf = (bookId, list) => {
     const userId = user.id;
     console.log("RMB FR", bookId, user.id, list)
-
+    //List in api route?  if !listname default to shelf
     if (list === 'Wishlist') {
       console.log("RMB FR list", bookId, user.id, list)
       //wishlist
@@ -228,6 +228,7 @@ export default function useApplicationData() {
         })
         .catch((err) => err);
     } else {
+
       console.log("RMB FR SHELF", bookId, user.id, list)
       //SHELF
       axios

@@ -19,7 +19,7 @@ export default function UserActions(props) {
         <Button variant='light' onClick={() => document.body.click()}>
           Cancel
         </Button>
-        <Link to={`/shelf`}>
+        <Link to={`/${props.listName}`}>
           <Button
             variant='danger'
             onClick={() =>
