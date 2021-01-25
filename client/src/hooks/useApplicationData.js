@@ -133,6 +133,7 @@ export default function useApplicationData() {
     }
     const dataToSend = { friendsEmail: email };
     axios.post(`/api/users/${user.id}/friends`, dataToSend).then((res) => {
+
       if (typeof res.data === "object") {
         const newFriendState = { ...state.friends, [res.data.id]: res.data };
         setState((prev) => {
@@ -192,8 +193,6 @@ export default function useApplicationData() {
       .catch((err) => console.log(err));
   };
   const addBookToWishlist = (bookData, list) => {
-    console.log("ADD TO SHELF", bookData, list)
-
     const newBook = {
       id: bookData.id,
       title: bookData.title,
@@ -205,17 +204,18 @@ export default function useApplicationData() {
       ...state.wishlist,
       [bookData.id]: newBook,
     };
-
-    setState((prev) => {
-      return { ...prev, wishlist: newWishlistState };
-    });
     axios
       .post(`/api/users/${user.id}/wishlist`, newBook)
       .then((res) => {
-        console.log("Book added to wishlist!");
-        setShow({ item: "Book added to wishlist!", status: true });
-        // Need Saved MSg ELSE Error Message
-        //Update state w. latest copy
+        console.log("Book added to wishlist!", res);
+        if (res.status == '200') {
+          setShow({ item: "Book added to wishlist!", status: true });
+          setState((prev) => {
+            return { ...prev, wishlist: newWishlistState };
+          });
+        } else {
+          setShow({ item: "Error adding to wishlist!", status: true });
+        }
       })
       .catch((err) => console.log(err));
   };

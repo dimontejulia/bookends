@@ -50,6 +50,7 @@ function App() {
     lastName: "Twain",
   });
 
+
   const getUserNames = (id) => {
     const friends = state.friends;
     for (let friend of friends) {
