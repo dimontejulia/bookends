@@ -28,12 +28,12 @@ export default function Index(props) {
       <div className="container">
         <div className="book__details">
           <h1 className="page-title">{currBook.title}</h1>
-          <h3 className="book__details-author">by {currBook.author}</h3>
+          <h3 className="book__details-author">{currBook.author}</h3>
         </div>
       </div>
       <div className="container">
         <div className="left-main-content">
-          <Details book={currBook} />
+          <Details book={currBook} deleteUserBook={deleteUserBook} />
         </div>
         <div className="right-sidebar">
           <h1 className="sidebar__subheading">Book Diary</h1>

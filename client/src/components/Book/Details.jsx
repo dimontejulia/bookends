@@ -1,6 +1,10 @@
 import React from "react";
 import Spinner from "react-bootstrap/Spinner";
 import Badge from "react-bootstrap/Badge";
+import Button from "react-bootstrap/Button";
+import Popover from "react-bootstrap/Popover";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import { Link } from "react-router-dom";
 
 export default function Details(props) {
   const {
@@ -11,6 +15,29 @@ export default function Details(props) {
     published,
     coverLink,
   } = props.book;
+
+  const popover = (
+    <Popover id="popover-basic">
+      <Popover.Title as="h3">Confirmation</Popover.Title>
+      <Popover.Content>
+        Are you sure that you want to <strong>remove</strong> this book from
+        your shelf?
+        <br />
+        <br />
+        <Button variant="light" onClick={() => document.body.click()}>
+          Cancel
+        </Button>
+        <Link to={`/shelf`}>
+          <Button
+            variant="danger"
+            onClick={() => props.deleteUserBook(props.currBookID)}
+          >
+            Delete
+          </Button>
+        </Link>
+      </Popover.Content>
+    </Popover>
+  );
 
   const subjectStr =
     subjects &&
@@ -37,11 +64,24 @@ export default function Details(props) {
           <div className="details-container">
             <img className="book__cover-img" src={coverLink} alt={title} />
             <div className="book__description">
-              <p>{description ? description : null}</p>
-              <p className="book__published">
-                Published: {published ? published : null}
-              </p>
-              <p></p>
+              <div className="description__text">
+                <p>{description ? description : null}</p>
+                <p className="book__published">
+                  Published: {published ? published : null}
+                </p>
+              </div>
+              <div className="delete_container">
+                <OverlayTrigger
+                  rootClose={true}
+                  trigger="click"
+                  placement="right"
+                  overlay={popover}
+                >
+                  <Button className="book__delete" variant="danger">
+                    Delete Book
+                  </Button>
+                </OverlayTrigger>
+              </div>
             </div>
           </div>
         </div>
