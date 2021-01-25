@@ -10,11 +10,18 @@
   justify-content: start;
 
   .book__cover-img {
+    border-radius: 20px;
   }
 
   .book__description {
     text-align: justify;
     padding: 0 2em;
+    font-weight: 600;
+
+    .book__published {
+      font-weight: 400;
+      font-style: italic;
+    }
   }
 }
 

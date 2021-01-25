@@ -38,7 +38,9 @@ export default function Details(props) {
             <img className="book__cover-img" src={coverLink} alt={title} />
             <div className="book__description">
               <p>{description ? description : null}</p>
-              <p>Published: {published ? published : null}</p>
+              <p className="book__published">
+                Published: {published ? published : null}
+              </p>
               <p></p>
             </div>
           </div>
