@@ -1,11 +1,49 @@
 //search bar
 
 .search-shelf-bar {
-  width: 80%;
+  width: 100%;
 }
 
 //awards
 .award-card {
-  text-align: center;
-  width: 80%;
+  text-align: start;
+  width: 50%;
+}
+
+.nav-tabs {
+  width: 100%;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: minmax(200px, auto);
+  grid-gap: 1rem;
+  margin-top: 0.5em;
+
+  .book-card {
+    display: flex;
+    border-radius: 10px;
+    /* -webkit-box-orient: vertical; */
+    /* -webkit-box-direction: normal; */
+    -ms-flex-direction: column;
+    flex-direction: column;
+    position: relative;
+    color: #5d5e5e;
+  }
+
+  img {
+    width: 100%;
+    height: 250px;
+  }
+
+  .card-body {
+    padding: 0;
+  }
+
+  .carousel__subject-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 }
