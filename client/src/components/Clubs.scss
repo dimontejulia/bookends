@@ -27,6 +27,10 @@
 }
 
 .main-content {
+  .book__delete {
+    display: none;
+  }
+
   .subjects-container {
     display: flex;
     flex-direction: row;
