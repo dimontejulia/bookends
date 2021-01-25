@@ -1,5 +1,7 @@
-import React from 'react';
-import Spinner from 'react-bootstrap/Spinner';
+import React from "react";
+import Spinner from "react-bootstrap/Spinner";
+import Badge from "react-bootstrap/Badge";
+
 export default function Details(props) {
   const {
     description,
@@ -13,30 +15,33 @@ export default function Details(props) {
   const subjectStr =
     subjects &&
     subjects.map((subject) => {
-      return ' - ' + subject;
+      return (
+        <Badge className="book__subject-badge" variant="dark">
+          {subject}
+        </Badge>
+      );
     });
 
   return (
     <div>
       {!title ? (
-        <Spinner animation='border' variant='secondary' />
+        <Spinner animation="border" variant="secondary" />
       ) : (
         <div>
-          <h1>
+          {/* <h1>
             {title} by {author}
-          </h1>
-          <div className='details-container'>
-            <div className='details-cover'>
-              <img className='book__cover-img' src={coverLink} alt={title} />
-            </div>
-            <div className='book-details'>
-              <h5>Description:</h5>
+          </h1> */}
+          <div className="subjects-container">
+            {subjects ? subjectStr.splice(0, 6) : null}
+          </div>
+          <div className="details-container">
+            <img className="book__cover-img" src={coverLink} alt={title} />
+            <div className="book__description">
               <p>{description ? description : null}</p>
+              <p>Published: {published ? published : null}</p>
+              <p></p>
             </div>
           </div>
-          Published: {published ? published : null}
-          <br />
-          Subjects: {subjects ? subjectStr.splice(0, 6) : null}
         </div>
       )}
     </div>

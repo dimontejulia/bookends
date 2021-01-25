@@ -32,32 +32,31 @@ export default function Index(props) {
         </div>
       </div>
       <div className="container">
-        <div className="sidebar">
-          <h2>Book Diary</h2>
+        <div className="left-main-content">
+          <Details book={currBook} />
+        </div>
+        <div className="right-sidebar">
+          <h1 className="sidebar__subheading">Book Diary</h1>
           <UserActions
             currBookID={currBook.id}
             userBookData={bookData}
             setUserBookData={setUserBookData}
             deleteUserBook={deleteUserBook}
           />
-          <UserNotes
-            currBookID={currBook.id}
-            comments={bookData ? bookData.comments : null}
-            setUserBookData={setUserBookData}
-          />
-
           <Rating
             currBookID={currBook.id}
             userRating={bookData ? bookData.rating : 0}
+            setUserBookData={setUserBookData}
+          />
+          <UserNotes
+            currBookID={currBook.id}
+            comments={bookData ? bookData.comments : null}
             setUserBookData={setUserBookData}
           />
           <br></br>
           {/* SAVE BUTTON WILL HAVE TO TRIGGER A SAVE TO DB HOOK */}
           <ButtonClick onClick={saveToDB}>Save</ButtonClick>
           <AlsoReadList friendsWhoRead={userBookData.friendsWhoReadIt} />
-        </div>
-        <div className="main-content">
-          <Details book={currBook} />
         </div>
       </div>
     </div>

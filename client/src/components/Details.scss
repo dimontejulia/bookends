@@ -9,9 +9,23 @@
   flex-direction: row;
   justify-content: start;
 
-  // .details-cover {
-  // }
+  .book__cover-img {
+  }
 
-  // .book-details {
-  // }
+  .book__description {
+    text-align: justify;
+    padding: 0 2em;
+  }
+}
+
+.subjects-container {
+  display: flex;
+  flex-direction: row;
+  text-align: start;
+  margin-top: 1.5em;
+
+  .book__subject-badge {
+    margin-right: 5px;
+    text-transform: capitalize;
+  }
 }
