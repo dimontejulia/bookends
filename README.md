@@ -10,32 +10,32 @@ Users can log in/create an account, search by title, author, etc. using OpenLibr
 
 Browse books, add to shelf, share thoughts directly from the home page.
 
-["home_page.png"](https://github.com/dimontejulia/final/blob/master/express_backend/public/screenshots/home_page.png)
+!["home_page.png"](https://github.com/dimontejulia/final/blob/master/express_backend/public/screenshots/home_page.png)
 
 ## Book Shelf
 
 View titles and search by title, keyword or author. Earn badges for different reading accomplishments.
 
-["shelf.png"](https://github.com/dimontejulia/final/blob/master/express_backend/public/screenshots/shelf.png)
+!["shelf.png"](https://github.com/dimontejulia/final/blob/master/express_backend/public/screenshots/shelf.png)
 
 ## Book Details
 
 View book details and add comments, rating and book status for your personal shelf records.
 
-["book-details.png"](https://github.com/dimontejulia/final/blob/master/express_backend/public/screenshots/book-details.png)
+!["book-details.png"](https://github.com/dimontejulia/final/blob/master/express_backend/public/screenshots/book-details.png)
 
 ## Social Page
 
 Add friends, join and create new clubs and write posts about current, past or future reads.
 
-["social.png"](https://github.com/dimontejulia/final/blob/master/express_backend/public/screenshots/social.png)
+!["social.png"](https://github.com/dimontejulia/final/blob/master/express_backend/public/screenshots/social.png)
 
 ## Book Clubs
 
 Create club pages, add friends, choose a title for the month and discuss as you read.
 
-["club1.png"](https://github.com/dimontejulia/final/blob/master/express_backend/public/screenshots/club1.png)
-["club2.png"](https://github.com/dimontejulia/final/blob/master/express_backend/public/screenshots/club2.png)
+!["club1.png"](https://github.com/dimontejulia/final/blob/master/express_backend/public/screenshots/club1.png)
+!["club2.png"](https://github.com/dimontejulia/final/blob/master/express_backend/public/screenshots/club2.png)
 
 # Details
 
