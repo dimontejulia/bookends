@@ -19,6 +19,7 @@ export default function AddList(props) {
       props.addFriend(form.value.toLowerCase());
       setForm((prev) => ({ ...prev, value: "" }));
     } else {
+      props.setShow({ item: "Email cannot be blank.", status: true });
     }
   };
 

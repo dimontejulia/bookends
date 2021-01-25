@@ -18,6 +18,9 @@ export default function JoinClub(props) {
       props.joinClub(form.value);
       //Form resets w/o message and regardless of success or error...
       setForm((prev) => ({ ...prev, value: "" }));
+      props.setShow({ item: `Successfully joined new club.`, status: true });
+    } else {
+      props.setShow({ item: `Club ID cannot be blank.`, status: true });
     }
   };
 

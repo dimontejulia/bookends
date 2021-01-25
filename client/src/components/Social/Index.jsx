@@ -40,7 +40,12 @@ export default function Index(props) {
             friendList={props.friends}
             deleteFriend={props.deleteFriend}
           />
-          <AddFriendForm className="search-bar" addFriend={props.addFriend} />
+          <AddFriendForm
+            className="search-bar"
+            show={props.show}
+            setShow={props.setShow}
+            addFriend={props.addFriend}
+          />
           <br></br>
           <ClubList
             setCurrClub={props.setCurrClub}
@@ -50,9 +55,18 @@ export default function Index(props) {
             listName={"Clubs"}
             setClubNews={props.setClubNews}
           />
-          <JoinClubForm joinClub={props.joinClub} />
+          <JoinClubForm
+            joinClub={props.joinClub}
+            show={props.show}
+            setShow={props.setShow}
+          />
           <br></br>
-          <AddClub className="search-bar" addClub={props.addClub} />
+          <AddClub
+            className="search-bar"
+            addClub={props.addClub}
+            show={props.show}
+            setShow={props.setShow}
+          />
         </div>
         <div className="main-content social__main-content">
           {/* <h1>Book Talk</h1> */}
