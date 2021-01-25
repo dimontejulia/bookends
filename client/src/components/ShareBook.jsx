@@ -15,7 +15,7 @@ export default function ShareBook(props) {
             user={props.user}
             setNews={props.setNews}
             placeholder={{
-              title: `${props.book.title} by, ${props.book.author}`,
+              title: `${props.book.title}, by ${props.book.author}`,
               body: "",
             }}
           />
