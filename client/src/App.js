@@ -32,6 +32,7 @@ function App() {
     deleteFriend,
     addBookToShelf,
     rmvBookFrShelf,
+    saveBookNotes,
     joinClub,
     createClub,
     deleteClub,
@@ -238,9 +239,11 @@ function App() {
                 // setCurrBook(paramBookId)
                 return (
                   <BookDetails
-                    currBook={state.currBook}
-                    userBookData={state.books}
-                    setUserBookData={addBookToShelf}
+                    state={state}
+                    // currBook={state.currBook}
+                    // userBookData={state.books}
+                    addBookToShelf={addBookToShelf}
+                    saveBookNotes={saveBookNotes}
                     deleteUserBook={rmvBookFrShelf}
                   />
                 );

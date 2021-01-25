@@ -73,7 +73,7 @@ export default function useApplicationData() {
       .catch((e) => console.log("Initialization Error", e));
   }, []);
   //Functions to be passed down as Props (Dealing with state);===================================
-  //==Setters==============================================
+  //==State Setters==============================================
   const setWishlist = () => {
     console.log("Click");
   };
@@ -114,6 +114,15 @@ export default function useApplicationData() {
       })
       .catch((err) => err);
   };
+
+
+  // const setBookNotes = (currId) => {
+  //   const newBookObj = state.books.currId
+  //   const newBookState = { ...state, book:}
+  //   setState((prev) => {
+  //     return { ...prev, books: input };
+  //   });
+  // };
   //==FRIENDS==============================================
 
   const addFriend = (email) => {
@@ -183,6 +192,26 @@ export default function useApplicationData() {
       })
       .catch((err) => console.log(err));
   };
+  const saveBookNotes = (updatedBook) => {
+    console.log("DATA TO SENDBOOK", updatedBook)
+    const newBookState = {
+      ...state.books,
+      [updatedBook.id]: updatedBook,
+    };
+    axios
+      .put(`/api/users/${user.id}/books/${state.currBook.id}`, updatedBook)
+      .then((res) => {
+        console.log("SAVE", res)
+        setState((prev) => {
+          return { ...prev, books: newBookState };
+        });
+        setShow({ item: `Book ${updatedBook.title} Notes Updated`, status: true });
+
+      })
+      .catch((err) => console.log("Book Index, Save ERROR:", err));
+  };
+
+
 
   const rmvBookFrShelf = (bookId) => {
     const userId = user.id;
@@ -360,6 +389,7 @@ export default function useApplicationData() {
     addFriend,
     deleteFriend,
     addBookToShelf,
+    saveBookNotes,
     rmvBookFrShelf,
     joinClub,
     createClub,

@@ -4,15 +4,12 @@ import { faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons";
 import { faStar as faStarRegular } from "@fortawesome/free-regular-svg-icons";
 
 export default function Rating(props) {
-  const { userRating, setUserBookData, currBookID } = props;
+  const { userRating, setBookState, currBookID } = props;
 
   const handleInput = (event) => {
     let newRating = event.target.id;
     newRating = newRating.slice(-1);
-    setUserBookData((prev) => ({
-      ...prev,
-      [currBookID]: { ...prev[currBookID], rating: newRating },
-    }));
+    setBookState((prev) => ({ ...prev, rating: newRating }));
   };
 
   const numberToStarRating = (rating) => {

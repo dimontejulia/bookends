@@ -1,30 +1,27 @@
-import React from "react";
-import Form from "react-bootstrap/Form";
+import React from 'react';
+import Form from 'react-bootstrap/Form';
 
 export default function UserNotes(props) {
-  const { comments, setUserBookData, currBookID } = props;
-
-  // [...prev, (comments: event.target.value)]
+  const { comments, setBookState } = props;
   const handleInput = (event) => {
-    setUserBookData((prev) => ({
+    setBookState((prev) => ({
       ...prev,
-      [currBookID]: { ...prev[currBookID], comments: event.target.value },
+      comments: event.target.value,
     }));
   };
 
   return (
     <div>
       <h3>Notes</h3>
-      <Form className="newsfeed-post">
-        <Form.Group controlId="body">
+      <Form className='newsfeed-post'>
+        <Form.Group controlId='body'>
           <Form.Control
             onChange={handleInput}
-            name="userNotes"
-            // name="body"
-            as="textarea"
-            placeholder="Any notes about the book? Write them here..."
+            name='userNotes'
+            as='textarea'
+            placeholder='Notes about the book? Write them here, this one is just for you...'
             rows={3}
-            value={comments ? comments : ""}
+            value={comments ? comments : ''}
           />
         </Form.Group>
       </Form>

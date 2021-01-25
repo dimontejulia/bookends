@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from "react";
-import BookListItem from "./BookListItem";
-import FormControl from "react-bootstrap/FormControl";
-import Form from "react-bootstrap/Form";
+import React, { useState, useEffect } from 'react';
+import BookListItem from './BookListItem';
+import FormControl from 'react-bootstrap/FormControl';
+import Form from 'react-bootstrap/Form';
 
-import "../Shelf.scss";
+import '../Shelf.scss';
 
 export default function BookList(props) {
   const { books, setCurrBook } = props;
   const [results, setResults] = useState();
-  const [form, setForm] = useState("");
+  const [form, setForm] = useState('');
 
   const formatStatus = (inputStatus) => {
     switch (inputStatus) {
-      case "in_progress":
-        return "Reading";
-      case "finished":
-        return "Read it";
+      case 'In Progress':
+        return 'Reading';
+      case 'Finished':
+        return 'Read it';
       default:
-        return "New";
+        return 'New';
     }
   };
 
@@ -88,18 +88,18 @@ export default function BookList(props) {
   const resultsCount = parsedList ? parsedList.length : results;
   return (
     <section>
-      <Form className="search-books-bar">
+      <Form className='search-books-bar'>
         <FormControl
           onChange={handleChange}
-          id="searchBook"
-          name="searchBook"
-          type="text"
-          className="search-bar"
+          id='searchBook'
+          name='searchBook'
+          type='text'
+          className='search-bar'
           value={form}
-          placeholder="Search by title, author, genre etc."
+          placeholder='Search by title, author, genre etc.'
         />
       </Form>
-      <div className="cards">
+      <div className='cards'>
         {resultsCount || form ? parsedList : initList}
       </div>
     </section>
