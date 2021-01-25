@@ -267,6 +267,7 @@ export default function useApplicationData() {
         });
         //Update State on success
         setState((prev) => { return { ...prev, clubs: newState } });
+        setState((prev) => { return { ...prev, currClub: newClubObj } });
         // setCurrClub(newClubObj);
       })
       .catch((err) => console.log(err));
