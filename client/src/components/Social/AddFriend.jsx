@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
+import Tooltip from "react-bootstrap/Tooltip";
+import OverlayTrigger from "react-bootstrap/esm/OverlayTrigger";
 
 export default function AddList(props) {
   const [form, setForm] = useState([]);
@@ -15,14 +17,15 @@ export default function AddList(props) {
   };
 
   const handleClick = (e) => {
-    props.addFriend(form.value.toLowerCase());
-
-    //Form resets w/o message and regardless of success or error...
-    setForm((prev) => ({ ...prev, value: "" }));
+    if (form.value) {
+      props.addFriend(form.value.toLowerCase());
+      setForm((prev) => ({ ...prev, value: "" }));
+    } else {
+    }
   };
 
   return (
-    <Form className="search-social needs-validation">
+    <Form className="search-social">
       <FormControl
         onChange={handleChange}
         id="friendEmailForm"
@@ -32,7 +35,7 @@ export default function AddList(props) {
         placeholder="Search by email"
         className="mr-sm-2"
       />
-      <div class="invalid-feedback">Please provide a valid city.</div>
+
       <Button
         variant="outline-primary"
         onClick={() => {
