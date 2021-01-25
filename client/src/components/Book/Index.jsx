@@ -34,6 +34,7 @@ export default function Index(props) {
       <div className="container">
         <div className="left-main-content">
           <Details book={currBook} deleteUserBook={deleteUserBook} />
+          <AlsoReadList friendsWhoRead={userBookData.friendsWhoReadIt} />
         </div>
         <div className="right-sidebar">
           <h1 className="sidebar__subheading">Book Diary</h1>
@@ -53,10 +54,8 @@ export default function Index(props) {
             comments={bookData ? bookData.comments : null}
             setUserBookData={setUserBookData}
           />
-          <br></br>
           {/* SAVE BUTTON WILL HAVE TO TRIGGER A SAVE TO DB HOOK */}
           <ButtonClick onClick={saveToDB}>Save</ButtonClick>
-          <AlsoReadList friendsWhoRead={userBookData.friendsWhoReadIt} />
         </div>
       </div>
     </div>

@@ -16,15 +16,16 @@ export default function UserNotes(props) {
   return (
     <div>
       <h1 className="sidebar__subheading">What did you think?</h1>
-      <Form className="newsfeed-post">
+      <Form className="book__user-notes-form">
         <Form.Group controlId="body">
           <Form.Control
             onChange={handleInput}
+            className="form__user-notes-input"
             name="userNotes"
             name="body"
             as="textarea"
             placeholder="Any notes about the book? Write them here..."
-            rows={3}
+            rows={5}
             value={comments ? comments : ""}
           />
         </Form.Group>
