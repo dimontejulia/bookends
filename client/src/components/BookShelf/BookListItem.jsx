@@ -16,9 +16,9 @@ export default function BookListItem(props) {
           src={`http://covers.openlibrary.org/b/olid/${bookID}-M.jpg`}
         />
         <Card.Body>
-          <Card.Title>{title}</Card.Title>
-          <Card.Text>By {author}</Card.Text>
-          <Badge className="carousel__subject-badge" variant="secondary">
+          <Card.Title className="card__text card__title">{title}</Card.Title>
+          <Card.Text className="card__text card__author">By {author}</Card.Text>
+          <Badge className="carousel__subject-badge" variant="primary">
             {bookStatus}
           </Badge>
         </Card.Body>

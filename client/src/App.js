@@ -6,6 +6,7 @@ import axios from "axios";
 import "./App.css";
 
 //===========Components Import =============
+import Wave from "./components/Wave";
 import Navbar from "./components/Navbar";
 import MainPage from "./components/Main/Index";
 import UserShelf from "./components/BookShelf/Index";
@@ -19,7 +20,6 @@ import { faUserLock } from "@fortawesome/free-solid-svg-icons";
 import NewsFeed from "./components/Social/NewsFeed";
 //============================================
 function App() {
-
   const {
     state,
     show,
@@ -38,16 +38,15 @@ function App() {
     updateClubInfo,
     postNews,
     postClubNews,
-  } = useApplicationData()
+  } = useApplicationData();
 
-  console.log("MEGA STATE App import", state)
+  console.log("MEGA STATE App import", state);
 
   const [user, setUser] = useState({
     id: 1,
     firstName: "Mark",
     lastName: "Twain",
   });
-
 
   //==============Functions========
 
@@ -114,7 +113,6 @@ function App() {
         .catch((e) => console.log("Error: axios get book details ", e));
     }
   };
-
 
   //==============Watchers that update state =================================
   useEffect(() => {
@@ -192,18 +190,19 @@ function App() {
               {" "}
               <UserShelf
                 books={state.books}
-                setBooks={addBookToShelf}
+                wishlist={state.wishlist}
+                setBooks={setUserBooks}
                 setCurrBook={setCurrBook}
               />
             </Route>
-            <Route path="/wishlist/">
+            {/* <Route path="/wishlist/">
               {" "}
               <UserShelf
                 books={state.wishlist}
                 setBooks={setWishlist}
                 setCurrBook={setCurrBook}
               />
-            </Route>
+            </Route> */}
             <Route
               path="/book/:id"
               //Route is not fully setup

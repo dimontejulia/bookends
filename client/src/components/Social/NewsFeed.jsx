@@ -9,5 +9,5 @@ export default function NewsFeed(props) {
       <NewsFeedItem key={listItem.postid} item={listItem} />
     ));
 
-  return <section className="newsfeed ">{parsedList}</section>;
+  return <section className="newsfeed">{parsedList}</section>;
 }

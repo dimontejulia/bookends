@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
-import Button from 'react-bootstrap/Button';
-
-import '../Social.scss';
+import React, { useState } from "react";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import Button from "react-bootstrap/Button";
 
 export default function JoinClub(props) {
   const [form, setForm] = useState([]);
@@ -19,28 +17,28 @@ export default function JoinClub(props) {
     if (form.value) {
       props.joinClub(form.value);
       //Form resets w/o message and regardless of success or error...
-      setForm((prev) => ({ ...prev, value: '' }));
+      setForm((prev) => ({ ...prev, value: "" }));
     }
   };
 
   return (
-    <Form className='search-social'>
+    <Form className="search-social">
       <FormControl
         onChange={handleChange}
-        id='JoinClubForm'
-        name='clubId'
-        type='text'
+        id="JoinClubForm"
+        name="clubId"
+        type="text"
         value={form.value}
-        placeholder='Enter Book Club ID'
-        className='mr-sm-2'
+        placeholder="Enter Book Club ID"
+        className="mr-sm-2"
       />
       <Button
-        variant='outline-primary'
+        variant="outline-primary"
         onClick={() => {
           handleClick();
         }}
       >
-        <i class='fas fa-users'></i>
+        <i class="fas fa-users"></i>
       </Button>
     </Form>
   );

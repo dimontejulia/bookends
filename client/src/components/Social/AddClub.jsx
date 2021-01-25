@@ -23,7 +23,7 @@ export default function AddClub(props) {
 
   return (
     <Form>
-      <h1>Create New Club</h1>
+      <h1 className="sidebar__subheading">Create New Club</h1>
       <Form.Group>
         <Form.Control
           onChange={handleChange}

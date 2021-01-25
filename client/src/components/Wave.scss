@@ -1,0 +1,18 @@
+.everypage__wave {
+  position: absolute;
+  z-index: -999;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.everypage__wave svg {
+  position: relative;
+  display: block;
+  width: calc(140% + 1.3px);
+  height: 117px;
+}
+
+.everypage__wave .shape-fill {
+  fill: #fff0f5;
+}
