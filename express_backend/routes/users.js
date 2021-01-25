@@ -21,7 +21,8 @@ module.exports = ({
   deleteBookWishList,
   checkDBforBook,
   addBookToDB,
-  addToWishlist
+  addToWishlist,
+  addToShelf
 }) => {
 
 
@@ -34,15 +35,37 @@ module.exports = ({
         })
         .catch((err) => res.json({ msg: err.message }));
     })
+    // .post("/:id/books", (req, res) => {
+    //   addBookToUser(req.params.id, req.body)
+    //     .then((book) => {
+    //       res.json(book);
+    //     })
+    //     .catch((err) => {
+    //       res.json({ msg: err.message });
+    //     });
+    // })
+
     .post("/:id/books", (req, res) => {
-      addBookToUser(req.params.id, req.body)
-        .then((book) => {
-          res.json(book);
+      const bookData = req.body;
+      const bookId = bookData.id;
+      const userId = req.params.id;
+      checkDBforBook(bookId)
+        .then(check => {
+          console.log("check????", check[0].count)
+          if (check[0].count === '0') {
+            console.log("check!!!", check[0].count)
+            return addBookToDB(bookData);
+          }
+          return "Book Exists";
         })
-        .catch((err) => {
-          res.json({ msg: err.message });
-        });
+        .then(() => {
+          console.log("STRT CHECK", bookId, userId, bookData);
+          return addToShelf(userId, bookId);
+        })
+        .then((res) => res.json(res))
+        .catch((err) => res.json({ msg: err.message }));
     })
+
     .delete("/:userId/books/:bookId", (req, res) => {
       const { userId, bookId } = req.params;
       rmvUsersBooks(bookId, userId)

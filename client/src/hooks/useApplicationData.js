@@ -162,9 +162,38 @@ export default function useApplicationData() {
     });
   };
   //==Books==============================================
-  const addBookToShelf = (bookData, list) => {
-    console.log("ADD TO SHELF", bookData, list)
+  // const addBookToShelf = (bookData, list) => {
+  //   console.log("ADD TO SHELF", bookData, list)
 
+  //   const newBook = {
+  //     id: bookData.id,
+  //     title: bookData.title,
+  //     author: bookData.author,
+  //     subject: bookData.subject,
+  //     first_publish_year: bookData.first_publish_year,
+  //   };
+  //   const newBookState = {
+  //     ...state.books,
+  //     [bookData.id]: newBook,
+  //   };
+
+  //   //This should be in the THEN of axios but getting 500 error cause Ukn
+  //   // debug later...
+  //   setState((prev) => {
+  //     return { ...prev, books: newBookState };
+  //   });
+  //   axios
+  //     .post(`/api/users/${user.id}/books`, newBook)
+  //     .then((res) => {
+  //       console.log("Book added to shelf!");
+  //       setShow({ item: "Book added to shelf!", status: true });
+  //       // Need Saved MSg ELSE Error Message
+  //       //Update state w. latest copy
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+  const addBookToShelf = (bookData, list) => {
     const newBook = {
       id: bookData.id,
       title: bookData.title,
@@ -176,19 +205,18 @@ export default function useApplicationData() {
       ...state.books,
       [bookData.id]: newBook,
     };
-
-    //This should be in the THEN of axios but getting 500 error cause Ukn
-    // debug later...
-    setState((prev) => {
-      return { ...prev, books: newBookState };
-    });
     axios
       .post(`/api/users/${user.id}/books`, newBook)
       .then((res) => {
-        console.log("Book added to shelf!");
-        setShow({ item: "Book added to shelf!", status: true });
-        // Need Saved MSg ELSE Error Message
-        //Update state w. latest copy
+        console.log("Book added to shelf!", res);
+        if (res.status == '200') {
+          setShow({ item: "Book added to shelf!", status: true });
+          setState((prev) => {
+            return { ...prev, books: newBookState };
+          });
+        } else {
+          setShow({ item: "Error adding to shelf!", status: true });
+        }
       })
       .catch((err) => console.log(err));
   };

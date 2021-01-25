@@ -250,9 +250,21 @@ module.exports = (db) => {
       })
       .catch((err) => console.log("DBERR", err));
   };
+  const addToShelf = (userId, bookId) => {
+    const query = {
+      text: `INSERT INTO user_books (user_id, book_id) VALUES ($1, $2) RETURNING *`,
+      values: [userId, bookId],
+    };
+    console.log("Add to future BOOKS Q", query);
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERROR from users books:>>>>", err));
+  };
 
   const addToWishlist = (userId, bookId) => {
-    console.log("START????")
     const query = {
       text: `INSERT INTO future_books (user_id, book_id) VALUES ($1, $2) RETURNING *`,
       values: [userId, bookId],
@@ -492,6 +504,7 @@ module.exports = (db) => {
     deleteBookWishList,
     checkDBforBook,
     addBookToDB,
-    addToWishlist
+    addToWishlist,
+    addToShelf
   };
 };
