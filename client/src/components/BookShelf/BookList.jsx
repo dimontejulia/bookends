@@ -6,8 +6,8 @@ import Form from 'react-bootstrap/Form';
 import '../Shelf.scss';
 
 export default function BookList(props) {
-  const { books, setCurrBook } = props;
-  const [results, setResults] = useState();
+  const { books, setCurrBook, wishlist } = props;
+  const [results, setResults] = useState(books);
   const [form, setForm] = useState('');
 
   const formatStatus = (inputStatus) => {
@@ -39,7 +39,7 @@ export default function BookList(props) {
       searchTerm = searchTerm.join();
     }
     searchTerm = searchTerm.toLowerCase();
-    let results = {};
+    let fresults = {};
     //iterate over books obj - values
     Object.values(bookObj).map((iBook) => {
       //Iterate over values of inner obj
@@ -48,13 +48,13 @@ export default function BookList(props) {
           val = val.toString().toLowerCase();
           //Check values for search term (includes
           if (val.includes(searchTerm)) {
-            results = { ...results, [iBook.id]: { ...iBook } };
+            fresults = { ...fresults, [iBook.id]: { ...iBook } };
           }
         }
       });
     });
     //Result is object of objects send to parser
-    return results;
+    return fresults;
   };
 
   useEffect(() => {
@@ -106,7 +106,7 @@ export default function BookList(props) {
         />
       </Form>
       <div className='cards'>
-        {resultsCount || form ? parsedList : initList}
+        {resultsCount || form ? parsedList : parsedList}
       </div>
     </section>
   );

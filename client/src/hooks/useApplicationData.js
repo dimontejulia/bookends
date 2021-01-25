@@ -224,7 +224,7 @@ export default function useApplicationData() {
           setState((prev) => {
             return { ...prev, books: res.data };
           });
-          setShow({ item: "Book removed successfully.", status: true });
+          setShow({ item: "Book removed from wishlist.", status: true });
         })
         .catch((err) => err);
     } else {

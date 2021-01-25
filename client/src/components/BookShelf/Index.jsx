@@ -50,6 +50,7 @@ export default function Index(props) {
                 setUserBooks={setWishlist}
                 setCurrBook={setCurrBook}
                 listName={'Wishlist'}
+                wishlist={wishlist}
               />
             </Tab>
           </Tabs>
