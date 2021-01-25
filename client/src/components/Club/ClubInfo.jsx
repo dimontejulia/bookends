@@ -31,9 +31,17 @@ export default function ClubInfo(props) {
     <section>
       <Wave />
       <div className="container">
-        <h1 className="page-title">
-          {clubInfo ? clubInfo.book_club_name : null}
-        </h1>
+        <div className="club__details">
+          <h1 className="page-title">
+            {clubInfo ? clubInfo.book_club_name : null}
+          </h1>
+          <h3 className="page-sub-title">
+            {clubInfo ? clubInfo.club_description : null}
+          </h3>
+          <span className="page-club-id">
+            Club ID - {clubInfo ? props.currClub.id : null}
+          </span>
+        </div>
       </div>
       <div className="container club-page">
         <section className="sidebar">
@@ -44,9 +52,8 @@ export default function ClubInfo(props) {
             width="20%"
           />
           {/* <h1>{clubInfo ? clubInfo.book_club_name : "null"}</h1> */}
-          <h4>{clubInfo ? clubInfo.club_description : null}</h4>
-          <h5>Club ID: {props.currClub.id}</h5>
-
+          {/* <h4>{clubInfo ? clubInfo.club_description : null}</h4> */}
+          {/* <h5>Club ID: {props.currClub.id}</h5> */}
           {props.user.id === props.admin_id ? (
             <ClubRegular />
           ) : (
@@ -57,9 +64,8 @@ export default function ClubInfo(props) {
               setClubInfo={setClubInfo}
             />
           )}
-          <br></br>
           <List listName={"Book History"} list={props.currClub.history} />
-          <h6 className="text-muted">{`${bookCount} books read`}</h6>
+          <h6 className="text-muted books-read">{`${bookCount} books read`}</h6>
           <br></br>
           <List listName={"Members"} list={members} />
         </section>

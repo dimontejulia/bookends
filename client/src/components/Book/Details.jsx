@@ -20,8 +20,7 @@ export default function Details(props) {
     <Popover id="popover-basic">
       <Popover.Title as="h3">Confirmation</Popover.Title>
       <Popover.Content>
-        Are you sure that you want to <strong>remove</strong> this book from
-        your shelf?
+        Are you sure that you want to <strong>remove</strong> this book?
         <br />
         <br />
         <Button variant="light" onClick={() => document.body.click()}>

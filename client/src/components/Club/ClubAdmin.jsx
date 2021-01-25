@@ -13,11 +13,8 @@ export default function ClubAdmin(props) {
 
   const popover = (
     <Popover id="popover-basic">
-      <Popover.Title as="h3">Club Settings</Popover.Title>
+      <Popover.Title as="h3">Edit Club</Popover.Title>
       <Popover.Content>
-        Edit or Delete your club.
-        <br />
-        <br />
         <div>
           <EditClub
             editClub={editClub}
@@ -38,7 +35,7 @@ export default function ClubAdmin(props) {
   );
 
   return (
-    <div>
+    <div className="club__actions">
       {/* 
           admin buttons and features will probably be where normal user
           actions for the club are, we can switch later and refactor components as we go  
@@ -46,7 +43,7 @@ export default function ClubAdmin(props) {
       {/* <Button>Call Club</Button>
       <Button>Add Post</Button> */}
       <Link to={"/search"}>
-        <Button>Change Book</Button>
+        <Button block>Change Book</Button>
       </Link>
       {/* <Button>Schedule a Meeting</Button> */}
       <OverlayTrigger
@@ -55,7 +52,9 @@ export default function ClubAdmin(props) {
         placement="right"
         overlay={popover}
       >
-        <Button variant="primary">Edit Club</Button>
+        <Button block variant="primary">
+          Edit Club
+        </Button>
       </OverlayTrigger>
     </div>
   );

@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
-import Button from 'react-bootstrap/Button';
+import React, { useState } from "react";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import Button from "react-bootstrap/Button";
 
 export default function EditClub(props) {
   const { editClub, currClub } = props;
   const [form, setForm] = useState(currClub);
 
-  console.log('EDIT CLUB FORM start >', form);
+  console.log("EDIT CLUB FORM start >", form);
   const handleChange = (e) => {
     const { id, value } = e.target;
     setForm((prevState) => ({
@@ -18,7 +18,7 @@ export default function EditClub(props) {
 
   const handleClick = (e) => {
     e.preventDefault();
-    console.log('Form >>>>>>>', form);
+    console.log("Form >>>>>>>", form);
 
     const editedClubObj = {
       ...currClub,
@@ -27,48 +27,48 @@ export default function EditClub(props) {
       avatar: form.avatar,
     };
 
-    console.log('EVENT CLUB >>>>>>>', editedClubObj);
+    console.log("EVENT CLUB >>>>>>>", editedClubObj);
     editClub(editedClubObj, null);
     //Form resets w/o message and regardless of success or error...
     props.setClubInfo(editedClubObj);
-    setForm({ book_club_name: '', club_description: '', avatar: '' });
+    setForm({ book_club_name: "", club_description: "", avatar: "" });
     document.body.click();
   };
 
   return (
     <Form>
-      <h1>Edit Club</h1>
+      {/* <h1>Edit Club</h1> */}
       <Form.Group>
         <Form.Control
           onChange={handleChange}
-          id='book_club_name'
-          type='text'
+          id="book_club_name"
+          type="text"
           value={form.book_club_name}
-          placeholder='Club Name'
+          placeholder="Club Name"
         />
       </Form.Group>
       <Form.Group>
         <Form.Control
           onChange={handleChange}
-          id='club_description'
-          type='text'
+          id="club_description"
+          type="text"
           value={form.club_description}
-          placeholder='Club Description'
+          placeholder="Club Description"
         />
       </Form.Group>
       <Form.Group>
         <Form.Control
           onChange={handleChange}
-          id='avatar'
-          type='url'
+          id="avatar"
+          type="url"
           value={form.avatar}
-          placeholder='Club Avatar Link'
+          placeholder="Club Avatar Link"
         />
-        <Form.Text className='text-muted'>
+        <Form.Text className="text-muted">
           Please use a direct link to the image!
         </Form.Text>
       </Form.Group>
-      <Button variant='outline-primary' type='submit' onClick={handleClick}>
+      <Button variant="outline-primary" type="submit" onClick={handleClick}>
         Edit Club
       </Button>
     </Form>
