@@ -49,7 +49,12 @@
 }
 
 span#rating {
+  cursor: pointer;
   margin: -0.3em 0 1em 0;
+  transition: all 450ms;
+  &:hover {
+    transform: scale(1.02);
+  }
 }
 
 .delete_container {
