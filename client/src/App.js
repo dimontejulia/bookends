@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useApplicationData from "./hooks/useApplicationData";
-import { render } from "react-dom";
+import cvtArrayToObj from "./helpers/helpers";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
@@ -49,12 +49,23 @@ function App() {
     lastName: "Twain",
   });
 
+  const getUserNames = (id) => {
+    const friends = state.friends;
+    console.log("friends state", friends);
+    for (let friend of friends) {
+      if (friend.userid === id) {
+        return `${friend.firstname}  ${friend.lastname}`;
+      }
+    }
+  };
+
   //==============Functions========
 
   const fetchBookDetails = (OLBookID) => {
     if (OLBookID === "initial") {
       return null;
     }
+
     let book = {
       id: OLBookID,
       title: "",
@@ -65,6 +76,7 @@ function App() {
       subjects: null,
       works: null,
       coverLink: `https://covers.openlibrary.org/b/olid/${OLBookID}-L.jpg`,
+      friends_read: null,
     };
 
     if (OLBookID) {
@@ -81,6 +93,13 @@ function App() {
             works: res.data.works[0].key,
           };
         })
+        .then(() => {
+          axios.get(`/api/books/${OLBookID}`).then((res) => {
+            const friendNames = res.data.map((x) => getUserNames(x.user_id));
+            book.friends_read = friendNames;
+          });
+        })
+
         .then(() => {
           //Fetch Works (Description / subjects)
           if (book.works) {

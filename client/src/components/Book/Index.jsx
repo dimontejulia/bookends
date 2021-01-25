@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import Details from './Details';
-import Rating from './Rating';
-import UserNotes from './UserNotes';
-import UserActions from './userActions';
-import AlsoReadList from '../List';
-import ButtonClick from '../Button';
-import '../Details.scss';
+import React, { useState, useEffect } from "react";
+import Details from "./Details";
+import Rating from "./Rating";
+import UserNotes from "./UserNotes";
+import UserActions from "./userActions";
+import AlsoReadList from "./AlsoReadList";
+import ButtonClick from "../Button";
+import "../Details.scss";
 
 export default function Index(props) {
   const { saveBookNotes, deleteUserBook, paramId, setCurrBook } = props;
@@ -28,8 +28,8 @@ export default function Index(props) {
   const [bookState, setBookState] = useState();
 
   return (
-    <div className='container'>
-      <div className='sidebar'>
+    <div className="container">
+      <div className="sidebar">
         <h2>Book Diary</h2>
         <UserActions
           currBookID={currBook.id}
@@ -51,14 +51,17 @@ export default function Index(props) {
         <br></br>
         {/* SAVE BUTTON WILL HAVE TO TRIGGER A SAVE TO DB HOOK */}
         <ButtonClick onClick={() => saveBookNotes(bookState)}>Save</ButtonClick>
-        {currBook.friends ? (
-          <AlsoReadList
-            list={currBook.friends}
-            listName={`Friends Who also read ${currBook.title}`}
-          />
-        ) : null}
+        {currBook.friends_read
+          ? currBook.friends_read.length > 1 && (
+              <AlsoReadList
+                list={currBook.friends_read}
+                listName={`Friends who also read ${currBook.title}:`}
+                friends={props.friends}
+              />
+            )
+          : null}
       </div>
-      <div className='main-content'>
+      <div className="main-content">
         <Details book={currBook} />
       </div>
     </div>
