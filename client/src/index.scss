@@ -204,7 +204,10 @@ code {
     background-color: #332dee;
     color: white;
     padding: 1em;
-    border-radius: 100%;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    transition: all 450ms;
   }
   .scroll-icon:hover {
     background-color: #556aed;
