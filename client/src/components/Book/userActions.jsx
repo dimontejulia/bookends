@@ -62,6 +62,7 @@ export default function UserActions(props) {
               <option value="In Progress">Reading</option>
               <option value="Finished">Finished Reading</option>
             </Form.Control>
+            <Form.Text className="text-muted">Status</Form.Text>
           </Form.Group>
           <input
             onChange={handleCal}
@@ -71,7 +72,6 @@ export default function UserActions(props) {
             name="read-date"
             value={bookData ? readDate : null}
           />
-
           <Form.Text className="text-muted">Date Read</Form.Text>
         </Form>
         {/* <label htmlFor="read">Read: </label>
