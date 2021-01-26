@@ -37,14 +37,13 @@ module.exports = ({
     });
 
   // /api/clubs/:id/members
-  router
-    .get("/:id/members", (req, res) => {
-      getClubMembers(req.params.id)
-        .then((clubMbrs) => {
-          res.json(clubMbrs);
-        })
-        .catch((err) => res.json({ msg: err.message }));
-    });
+  router.get("/:id/members", (req, res) => {
+    getClubMembers(req.params.id)
+      .then((clubMbrs) => {
+        res.json(clubMbrs);
+      })
+      .catch((err) => res.json({ msg: err.message }));
+  });
 
   router
     .get("/:id", (req, res) => {
@@ -89,8 +88,8 @@ module.exports = ({
 
   // /api/clubs/new
   router.post("/new", (req, res) => {
-    const { userId, clubName, avatar } = req.body;
-    addClub(userId, clubName, avatar)
+    const { userId, clubName, clubDescription, avatar } = req.body;
+    addClub(userId, clubName, clubDescription, avatar)
       .then((club) => {
         addClubToUsersClubs(userId, club.id).then((res) => {
           res.json(user);

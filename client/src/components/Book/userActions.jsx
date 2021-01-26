@@ -63,15 +63,17 @@ export default function UserActions(props) {
               <option value="Finished">Finished Reading</option>
             </Form.Control>
           </Form.Group>
+          <input
+            onChange={handleCal}
+            className="book__date-picker"
+            type="date"
+            id="read"
+            name="read-date"
+            value={bookData ? readDate : null}
+          />
+
+          <Form.Text className="text-muted">Date Read</Form.Text>
         </Form>
-        <input
-          onChange={handleCal}
-          className="book__date-picker"
-          type="date"
-          id="read"
-          name="read-date"
-          value={bookData ? readDate : null}
-        />
         {/* <label htmlFor="read">Read: </label>
         <input
           onChange={handleCal}
