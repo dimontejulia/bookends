@@ -32,7 +32,7 @@ export default function AddClub(props) {
           onChange={handleChange}
           id="clubName"
           type="text"
-          maxlength="30"
+          maxLength="30"
           placeholder="Club Name"
         />
       </Form.Group>
@@ -41,7 +41,7 @@ export default function AddClub(props) {
           onChange={handleChange}
           id="clubDescription"
           type="text"
-          maxlength="50"
+          maxLength="50"
           placeholder="Club Description"
         />
       </Form.Group>
