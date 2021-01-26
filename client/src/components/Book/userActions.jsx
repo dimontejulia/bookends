@@ -1,9 +1,9 @@
-import React from 'react';
-import Button from 'react-bootstrap/Button';
-import Popover from 'react-bootstrap/Popover';
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Form from 'react-bootstrap/Form';
-import { Link } from 'react-router-dom';
+import React from "react";
+import Button from "react-bootstrap/Button";
+import Popover from "react-bootstrap/Popover";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Form from "react-bootstrap/Form";
+import { Link } from "react-router-dom";
 
 export default function UserActions(props) {
   const { bookData, setBookState } = props;
@@ -39,7 +39,6 @@ export default function UserActions(props) {
       <span>
         {/* <br></br>
         <h4>Status: {userBookData ? userBookData.status : null}</h4> */}
-
         {/* <select
           onChange={handleInput}
           name='status'
@@ -50,34 +49,31 @@ export default function UserActions(props) {
           <option value="in_progress">Reading</option>
           <option value="finished">Read</option>
         </select> */}
-
         <Form>
-          <Form.Group controlId='status__select'>
+          <Form.Group controlId="status__select">
             <Form.Control
-              as='select'
+              as="select"
               onChange={handleInput}
-              name='status'
-              id='status'
+              name="status"
+              id="status"
               value={bookData ? bookData.status : null}
             >
-              <option value='On my list'>On my list</option>
-              <option value='In Progress'>Reading</option>
-              <option value='Finished'>Finished Reading</option>
+              <option value="On my list">On my list</option>
+              <option value="In Progress">Reading</option>
+              <option value="Finished">Finished Reading</option>
             </Form.Control>
+            <Form.Text className="text-muted">Status</Form.Text>
           </Form.Group>
-
-          <Form.Group controlId='read__cal'>
-            <Form.Control
-              as='date'
-              onChange={handleCal}
-              type='date'
-              name='read-date'
-              id='read'
-              value={bookData ? readDate : null}
-            ></Form.Control>
-          </Form.Group>
+          <input
+            onChange={handleCal}
+            className="book__date-picker"
+            type="date"
+            id="read"
+            name="read-date"
+            value={bookData ? readDate : null}
+          />
+          <Form.Text className="text-muted">Date Read</Form.Text>
         </Form>
-
         {/* <label htmlFor="read">Read: </label>
         <input
           onChange={handleCal}

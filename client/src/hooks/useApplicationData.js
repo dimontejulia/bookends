@@ -161,31 +161,90 @@ export default function useApplicationData() {
     });
   };
   //==Books==============================================
-  const addBookToShelf = (bookData) => {
+  // const addBookToShelf = (bookData, list) => {
+  //   console.log("ADD TO SHELF", bookData, list)
+
+  //   const newBook = {
+  //     id: bookData.id,
+  //     title: bookData.title,
+  //     author: bookData.author,
+  //     subject: bookData.subject,
+  //     first_publish_year: bookData.first_publish_year,
+  //   };
+  //   const newBookState = {
+  //     ...state.books,
+  //     [bookData.id]: newBook,
+  //   };
+
+  //   //This should be in the THEN of axios but getting 500 error cause Ukn
+  //   // debug later...
+  //   setState((prev) => {
+  //     return { ...prev, books: newBookState };
+  //   });
+  //   axios
+  //     .post(`/api/users/${user.id}/books`, newBook)
+  //     .then((res) => {
+  //       console.log("Book added to shelf!");
+  //       setShow({ item: "Book added to shelf!", status: true });
+  //       // Need Saved MSg ELSE Error Message
+  //       //Update state w. latest copy
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
+
+  const addBookToShelf = (bookData, list) => {
+    const newBook = {
+      id: bookData.id,
+      title: bookData.title,
+      author: bookData.author[0],
+      subject: bookData.subject,
+      first_publish_year: bookData.first_publish_year,
+      description: bookData.description,
+    };
+    s;
+    const newBookState = {
+      ...state.books,
+      [bookData.id]: newBook,
+    };
+    axios
+      .post(`/api/users/${user.id}/books`, newBook)
+      .then((res) => {
+        console.log("Book added to shelf!", res);
+        if (res.status == "200") {
+          setShow({ item: "Book added to shelf!", status: true });
+          setState((prev) => {
+            return { ...prev, books: newBookState };
+          });
+        } else {
+          setShow({ item: "Error adding to shelf!", status: true });
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+  const addBookToWishlist = (bookData, list) => {
     const newBook = {
       id: bookData.id,
       title: bookData.title,
       author: bookData.author,
       subject: bookData.subject,
       first_publish_year: bookData.first_publish_year,
-      description: bookData.description,
     };
-    const newBookState = {
-      ...state.books,
+    const newWishlistState = {
+      ...state.wishlist,
       [bookData.id]: newBook,
     };
-    //This should be in the THEN of axios but getting 500 error cause Ukn
-    // debug later...
-    setState((prev) => {
-      return { ...prev, books: newBookState };
-    });
     axios
-      .post(`/api/users/${user.id}/books`, newBook)
+      .post(`/api/users/${user.id}/wishlist`, newBook)
       .then((res) => {
-        console.log("Book added to shelf!");
-        setShow({ item: "Book added to shelf!", status: true });
-        // Need Saved MSg ELSE Error Message
-        //Update state w. latest copy
+        console.log("Book added to wishlist!", res);
+        if (res.status == "200") {
+          setShow({ item: "Book added to wishlist!", status: true });
+          setState((prev) => {
+            return { ...prev, wishlist: newWishlistState };
+          });
+        } else {
+          setShow({ item: "Error adding to wishlist!", status: true });
+        }
       })
       .catch((err) => console.log(err));
   };
@@ -280,10 +339,11 @@ export default function useApplicationData() {
       .catch((e) => setShow({ item: "Error", status: true }));
   };
 
-  const createClub = (clubName, avatar) => {
+  const createClub = (clubName, clubDescription, avatar) => {
     const newClubData = {
       userId: user.id,
       clubName,
+      clubDescription,
       avatar,
     };
     axios
@@ -409,6 +469,7 @@ export default function useApplicationData() {
     addFriend,
     deleteFriend,
     addBookToShelf,
+    addBookToWishlist,
     saveBookNotes,
     rmvBookFrShelf,
     joinClub,
