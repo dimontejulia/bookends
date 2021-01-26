@@ -87,67 +87,74 @@ function App() {
       axios
         .get(`https://openlibrary.org/books/${OLBookID}.json`)
         .then((res) => {
-          console.log("book top", book);
+          const first = 0;
+          const worksID = res.data.works[first].key;
+          console.log("works id", worksID);
           book = {
             ...book,
             title: res.data.title,
             published: res.data.publish_date,
             first_publish_year: res.data.first_publish_year,
-            author: res.data.authors[0].key,
-            works: res.data.works[0].key,
+            author: res.data.author,
+            works: worksID,
           };
+          console.log("books block 1", book);
         })
         .then(() => {
           axios.get(`/api/books/${OLBookID}`).then((res) => {
-            console.log("friends book", book);
             const friendNames = res.data.map((x) => getUserNames(x.user_id));
             book.friends_read = friendNames;
+            console.log("books block 2", book);
           });
         })
         .then(() => {
           axios.get(`/api/books/${OLBookID}/data`).then((res) => {
-            console.log("book first", book);
             const desc = res.data.map((x) => x.description);
-            console.log("done", desc[0]);
-            book.description = desc[0];
-            console.log("book", book);
+            const auth = res.data.map((x) => x.author);
+            console.log("desc", desc);
+            if (desc[0]) {
+              book.description = desc[0];
+              book.author = auth[0];
+              console.log("books block 3", book);
+            } else {
+              // })
+              // .catch(() => {
+              // const descriptionDB =
+              //   state.books[OLBookID] && state.books[OLBookID].description;
+              // // if (state.books.OLBookID.description) {
+              // //Fetch Works (Description / subjects)
+              // if (!descriptionDB) {
+              if (book.works) {
+                console.log("still entered!");
+                axios
+                  .get(`https://openlibrary.org${book.works}.json`)
+                  .then((res) => {
+                    book.subjects = res.data.subjects;
+                    if (res.data.description) {
+                      if (typeof res.data.description !== "string") {
+                        book.description = res.data.description.value;
+                      } else {
+                        book.description = res.data.description;
+                      }
+                    } else {
+                      book.description = "No Description Found";
+                    }
+                  });
+              }
+              console.log("books block 4", book);
+            }
           });
         })
 
         .then(() => {
-          const descriptionDB =
-            state.books[OLBookID] && state.books[OLBookID].description;
-          console.log("description db", descriptionDB);
-          // if (state.books.OLBookID.description) {
-          //Fetch Works (Description / subjects)
-          if (!descriptionDB) {
-            if (book.works) {
-              console.log("still entered!");
-              axios
-                .get(`https://openlibrary.org${book.works}.json`)
-                .then((res) => {
-                  book.subjects = res.data.subjects;
-                  if (res.data.description) {
-                    if (typeof res.data.description !== "string") {
-                      book.description = res.data.description.value;
-                    } else {
-                      book.description = res.data.description;
-                    }
-                  } else {
-                    book.description = "No Description Found";
-                  }
-                });
-            }
-          }
-        })
-        .then(() => {
           //Fetch Author Name
-          if (book.author) {
+          if (!book.author) {
             axios
               .get(`https://openlibrary.org${book.author}.json`)
               .then((res) => {
                 book.author = res.data.name;
                 setCurrBook(book);
+                console.log("books block 5", book);
               });
           }
         })
