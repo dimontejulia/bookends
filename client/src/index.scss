@@ -175,7 +175,7 @@ code {
   bottom: 0;
   right: 0;
   margin: 1em;
-  z-index: 1;
+  z-index: 3;
   padding: 1em;
 }
 
@@ -192,4 +192,22 @@ code {
 
 .popover.share-book-form {
   max-width: 100%;
+}
+
+.scroll-to-top {
+  z-index: 2;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 2em;
+  .scroll-icon {
+    background-color: #332dee;
+    color: white;
+    padding: 1em;
+    border-radius: 100%;
+  }
+  .scroll-icon:hover {
+    background-color: #556aed;
+    cursor: pointer;
+  }
 }

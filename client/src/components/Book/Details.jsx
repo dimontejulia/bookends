@@ -14,6 +14,7 @@ export default function Details(props) {
     author,
     published,
     coverLink,
+    number_of_pages,
   } = props.book;
 
   const popover = (
@@ -72,6 +73,11 @@ export default function Details(props) {
                 <p>{description ? description : null}</p>
                 <p className="book__published">
                   Published: {published ? published : null}
+                </p>
+                <p className="book__published">
+                  {number_of_pages
+                    ? `Number of Pages: ${number_of_pages}`
+                    : null}
                 </p>
               </div>
               <div className="delete_container">

@@ -199,6 +199,7 @@ export default function useApplicationData() {
       author: bookData.author,
       subject: bookData.subject,
       first_publish_year: bookData.first_publish_year,
+      number_of_pages: bookData.number_of_pages,
       description: bookData.description,
     };
 
@@ -228,6 +229,7 @@ export default function useApplicationData() {
       author: bookData.author,
       subject: bookData.subject,
       first_publish_year: bookData.first_publish_year,
+      number_of_pages: bookData.number_of_pages,
     };
     const newWishlistState = {
       ...state.wishlist,

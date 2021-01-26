@@ -29,7 +29,8 @@ module.exports = (db) => {
   const getUserBooks = (userID) => {
     const query = {
       text: `
-          SELECT book_id as id, date_read as dateRead, rating, comments, status, title, author, subject, first_publish_year, description
+          SELECT book_id as id, date_read as dateRead, rating, comments, status, 
+          title, author, subject, first_publish_year, description
           FROM users_books
           JOIN books ON books.id = users_books.book_id
           WHERE user_id = $1
@@ -168,7 +169,8 @@ module.exports = (db) => {
     };
 
     const addBookQuery = {
-      text: `INSERT INTO books (id, title, author, subject, first_publish_year) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+      text: `INSERT INTO books (id, title, author, subject, first_publish_year) 
+      VALUES ($1, $2, $3, $4, $5) RETURNING *`,
       values: [id, title, author[0], subject, first_publish_year],
     };
 
@@ -240,9 +242,11 @@ module.exports = (db) => {
   const addBookToDB = (bookData) => {
     const { id, title, author, subject, first_publish_year } = bookData;
     const addBookQuery = {
-      text: `INSERT INTO books (id, title, author, subject, first_publish_year) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+      text: `INSERT INTO books (id, title, author, subject, first_publish_year) 
+      VALUES ($1, $2, $3, $4, $5) RETURNING *`,
       values: [id, title, author[0], subject, first_publish_year],
     };
+    console.log("line 277");
     return db
       .query(addBookQuery)
       .then((result) => {
@@ -505,6 +509,6 @@ module.exports = (db) => {
     checkDBforBook,
     addBookToDB,
     addToWishlist,
-    addToShelf
+    addToShelf,
   };
 };
