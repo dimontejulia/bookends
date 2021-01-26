@@ -19,6 +19,15 @@ export default function Index(props) {
   const oldestBook = Math.min.apply(Math, years);
   const newestBook = Math.max.apply(Math, years);
 
+  function updateHistory(pageList) {
+    if (pageList.includes('wishlist')) {
+      console.log('UPDATE LIST', pageList);
+      window.history.replaceState('wishlist', 'wishlist', `/wishlist`);
+    } else {
+      window.history.replaceState('shelf', 'shelf', `/shelf`);
+    }
+  }
+
   return (
     <div>
       <Wave />
@@ -35,14 +44,19 @@ export default function Index(props) {
           </div>
         </section>
         <section className='main-content'>
-          <Tabs defaultActiveKey={props.list} id='my-shelf-tabs'>
+          <Tabs
+            defaultActiveKey={props.list}
+            id='my-shelf-tabs'
+            onClick={(e) => {
+              updateHistory(e.target.id);
+            }}
+          >
             <Tab eventKey='mybooks' title='My Books'>
               <BookList
                 books={books}
                 setUserBooks={setUserBooks}
                 setCurrBook={setCurrBook}
                 listName={'Shelf'}
-                wishlist={wishlist}
               />
             </Tab>
             <Tab eventKey='wishlist' title='Wishlist'>
@@ -51,7 +65,6 @@ export default function Index(props) {
                 setUserBooks={setWishlist}
                 setCurrBook={setCurrBook}
                 listName={'Wishlist'}
-                wishlist={wishlist}
               />
             </Tab>
           </Tabs>
