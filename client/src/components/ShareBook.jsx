@@ -12,6 +12,7 @@ export default function ShareBook(props) {
       <Popover.Content>
         <div>
           <ShareBookForm
+            key={`${props.book.id}_share_form`}
             user={props.user}
             setNews={props.setNews}
             placeholder={{
@@ -20,7 +21,12 @@ export default function ShareBook(props) {
             }}
           />
         </div>
-        <Button block variant="light" onClick={() => document.body.click()}>
+        <Button
+          key={`${props.book.id}_cancel_btn`}
+          block
+          variant="light"
+          onClick={() => document.body.click()}
+        >
           Cancel
         </Button>
       </Popover.Content>
@@ -34,7 +40,11 @@ export default function ShareBook(props) {
       placement="right"
       overlay={popover}
     >
-      <Button block variant="outline-primary">
+      <Button
+        key={`${props.book.id}_share_btn`}
+        block
+        variant="outline-primary"
+      >
         Share Book
       </Button>
     </OverlayTrigger>

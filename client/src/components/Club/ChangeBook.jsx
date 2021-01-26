@@ -13,6 +13,7 @@ export default function ChangeBook(props) {
     Object.values(clubs).map((club) => (
       <Dropdown.Item
         id={club.id}
+        key={`club-${club.id}`}
         onClick={(event) => handleClubClick(club, book)}
       >
         {club.book_club_name}
@@ -20,11 +21,18 @@ export default function ChangeBook(props) {
     ));
 
   return (
-    <Dropdown block>
-      <Dropdown.Toggle block variant="primary" id="dropdown-basic">
+    <Dropdown key={`${props.book.id}_dd`} block>
+      <Dropdown.Toggle
+        key={`${props.book.id}_dd_btn`}
+        block
+        variant="primary"
+        id="dropdown-basic"
+      >
         Assign to Club
       </Dropdown.Toggle>
-      <Dropdown.Menu>{parsedList}</Dropdown.Menu>
+      <Dropdown.Menu key={`${props.book.id}_dd_list`}>
+        {parsedList}
+      </Dropdown.Menu>
     </Dropdown>
   );
 }
