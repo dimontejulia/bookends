@@ -13,6 +13,10 @@ VALUES
   (4, 'OL28419977M', '2017-09-01 15:30:26', 5, 'Atwood is a Canadian treasure!', 'Finished'),
   -- harry potter
   (2, 'OL22856696M','2019-09-01 15:30:26', 0, 'Just picked this up. Excited to start it!', 'New'),
-  (3, 'OL22856696M','2019-09-01 15:30:26', 0, 'Just picked this up. Excited to start it!', 'New')
+  (3, 'OL22856696M','2019-09-01 15:30:26', 0, 'Just picked this up. Excited to start it!', 'New'),
+  -- the hobbit
+  (2, 'OL10682512M','2019-09-01 15:30:26', 4, 'A classic.', 'Finished'),
+  (3, 'OL10682512M','2015-10-01 15:30:26', 0, 'Just picked this up. Excited to start it!', 'New'),
+  (4, 'OL10682512M','2003-10-01 15:30:26', 5, 'One of my forever faves', 'Finished')
 
 ;
