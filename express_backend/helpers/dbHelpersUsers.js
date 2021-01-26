@@ -30,7 +30,7 @@ module.exports = (db) => {
     const query = {
       text: `
           SELECT book_id as id, date_read as dateRead, rating, comments, status, 
-          title, author, subject, first_publish_year, description, number_of_pages
+          title, author, subject, first_publish_year, description
           FROM users_books
           JOIN books ON books.id = users_books.book_id
           WHERE user_id = $1
@@ -156,14 +156,7 @@ module.exports = (db) => {
   };
 
   const addBookToUser = (userId, usersNewBook) => {
-    const {
-      id,
-      title,
-      author,
-      subject,
-      first_publish_year,
-      number_of_pages,
-    } = usersNewBook;
+    const { id, title, author, subject, first_publish_year } = usersNewBook;
     console.log(">>>>1", usersNewBook);
     const bookCheckQuery = {
       text: `SELECT count(*) FROM books WHERE id = $1`,
@@ -176,16 +169,9 @@ module.exports = (db) => {
     };
 
     const addBookQuery = {
-      text: `INSERT INTO books (id, title, author, subject, first_publish_year, number_of_pages) 
-      VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-      values: [
-        id,
-        title,
-        author[0],
-        subject,
-        first_publish_year,
-        number_of_pages,
-      ],
+      text: `INSERT INTO books (id, title, author, subject, first_publish_year) 
+      VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+      values: [id, title, author[0], subject, first_publish_year],
     };
 
     // console.log("!!addBookToUser", userId, usersNewBook);
@@ -254,27 +240,13 @@ module.exports = (db) => {
   };
 
   const addBookToDB = (bookData) => {
-    const {
-      id,
-      title,
-      author,
-      subject,
-      first_publish_year,
-      number_of_pages,
-    } = bookData;
+    const { id, title, author, subject, first_publish_year } = bookData;
     const addBookQuery = {
-      text: `INSERT INTO books (id, title, author, subject, first_publish_year, number_of_pages) 
-      VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-      values: [
-        id,
-        title,
-        author[0],
-        subject,
-        first_publish_year,
-        number_of_pages,
-      ],
+      text: `INSERT INTO books (id, title, author, subject, first_publish_year) 
+      VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+      values: [id, title, author[0], subject, first_publish_year],
     };
-    console.log("line 277", number_of_pages);
+    console.log("line 277");
     return db
       .query(addBookQuery)
       .then((result) => {
@@ -356,7 +328,7 @@ module.exports = (db) => {
   const getWishlist = (userId) => {
     const query = {
       text: `
-      SELECT book_id as id, title, author, subject, first_publish_year, description, number_of_pages
+      SELECT book_id as id, title, author, subject, first_publish_year, description
         FROM books
         JOIN future_books fb ON books.id = fb.book_id
         WHERE fb.user_id = $1
