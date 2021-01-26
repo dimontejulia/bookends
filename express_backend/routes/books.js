@@ -1,12 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { getPostsByUsers } = require("../helpers/dataHelpers");
 
 module.exports = ({
   getBooks,
-  addBookToUser,
   getBookReaders,
   getCarouselBooks,
+  getAllBookData,
 }) => {
   // books
   router.get("/", (req, res) => {
@@ -18,6 +17,12 @@ module.exports = ({
   // books/:id
   router.get("/:id", (req, res) => {
     getBookReaders(req.params.id)
+      .then((book) => res.json(book))
+      .catch((err) => res.json({ msg: err.message }));
+  });
+
+  router.get("/:id/data", (req, res) => {
+    getAllBookData(req.params.id)
       .then((book) => res.json(book))
       .catch((err) => res.json({ msg: err.message }));
   });

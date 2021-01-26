@@ -50,7 +50,6 @@ function App() {
     lastName: "Twain",
   });
 
-
   const getUserNames = (id) => {
     const friends = state.friends;
     for (let friend of friends) {
@@ -88,6 +87,7 @@ function App() {
       axios
         .get(`https://openlibrary.org/books/${OLBookID}.json`)
         .then((res) => {
+          console.log("book top", book);
           book = {
             ...book,
             title: res.data.title,
@@ -99,14 +99,25 @@ function App() {
         })
         .then(() => {
           axios.get(`/api/books/${OLBookID}`).then((res) => {
+            console.log("friends book", book);
             const friendNames = res.data.map((x) => getUserNames(x.user_id));
             book.friends_read = friendNames;
           });
         })
+        .then(() => {
+          axios.get(`/api/books/${OLBookID}/data`).then((res) => {
+            console.log("book first", book);
+            const desc = res.data.map((x) => x.description);
+            console.log("done", desc[0]);
+            book.description = desc[0];
+            console.log("book", book);
+          });
+        })
 
         .then(() => {
-          const descriptionDB = state.books[OLBookID].description;
-          console.log(descriptionDB);
+          const descriptionDB =
+            state.books[OLBookID] && state.books[OLBookID].description;
+          console.log("description db", descriptionDB);
           // if (state.books.OLBookID.description) {
           //Fetch Works (Description / subjects)
           if (!descriptionDB) {
@@ -127,8 +138,6 @@ function App() {
                   }
                 });
             }
-          } else {
-            book.description = descriptionDB;
           }
         })
         .then(() => {

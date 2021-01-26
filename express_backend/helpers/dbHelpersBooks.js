@@ -10,6 +10,18 @@ module.exports = (db) => {
       .catch((err) => err);
   };
 
+  const getAllBookData = (book_id) => {
+    const query = {
+      text: "SELECT * FROM books where id = $1",
+      values: [book_id],
+    };
+
+    return db
+      .query(query)
+      .then((result) => result.rows)
+      .catch((err) => err);
+  };
+
   const getBookReaders = (book_id) => {
     const query = {
       text: `
@@ -48,5 +60,6 @@ module.exports = (db) => {
     getBooks,
     getBookReaders,
     getCarouselBooks,
+    getAllBookData,
   };
 };
