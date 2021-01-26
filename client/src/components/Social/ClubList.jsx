@@ -14,7 +14,7 @@ export default function ClubList(props) {
           <td className="club__lists-button">
             <span className="text-dark">{club.book_club_name}</span>
             <Button>
-              <i class="fas fa-arrow-circle-right"></i>
+              <i className="fas fa-arrow-circle-right"></i>
             </Button>
           </td>
         </Link>

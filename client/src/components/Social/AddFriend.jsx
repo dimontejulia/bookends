@@ -40,7 +40,7 @@ export default function AddList(props) {
           handleClick();
         }}
       >
-        <i class="fas fa-user-plus"></i>
+        <i className="fas fa-user-plus"></i>
       </Button>
     </Form>
   );

@@ -19,7 +19,7 @@ export default function FriendsList(props) {
             }}
             variant="primary"
           >
-            <i class="fas fa-user-times"></i>
+            <i className="fas fa-user-times"></i>
           </Button>
         </td>
       </tr>

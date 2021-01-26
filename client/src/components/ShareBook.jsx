@@ -7,7 +7,7 @@ import Button from "react-bootstrap/Button";
 
 export default function ShareBook(props) {
   const popover = (
-    <Popover class="share-book-popover" id="popover-basic">
+    <Popover className="share-book-popover" id="popover-basic">
       <Popover.Title as="h3">Share Book</Popover.Title>
       <Popover.Content>
         <div>
