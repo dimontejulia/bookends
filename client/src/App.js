@@ -61,15 +61,24 @@ function App() {
   };
 
   //==============Functions========
+  const fetchOLBookData = (selBook) => {
 
-  const fetchBookDetails = (selBook) => {
+    function processSelBook(selBook) {
+      //if Last Char is M =   OL12586964M > Pheonix
+      //if Last Char is  W =   /works/OL82537W ? Stone
+    }
+
     const { id, listName } = selBook;
-    const OLBookID = id;
+    const OLBookID = id || selBook;
     if (OLBookID === "initial") {
       return null;
     }
-
-    let book = {
+    if (!OLBookID) {
+      return null;
+    }
+    console.log("SLE", selBook)
+    console.log("OLID", OLBookID)
+    let initBook = {
       id: OLBookID,
       title: "",
       author: "",
@@ -83,72 +92,146 @@ function App() {
       friends_read: null,
     };
 
-    if (OLBookID) {
-      //Fetch Book Details
-      axios
-        .get(`https://openlibrary.org/books/${OLBookID}.json`)
-        .then((res) => {
-          book = {
-            ...book,
-            title: res.data.title,
-            published: res.data.publish_date,
-            first_publish_year: res.data.first_publish_year,
-            author: res.data.authors[0].key,
-            works: res.data.works[0].key,
-          };
-        })
-        .then(() => {
-          axios.get(`/api/books/${OLBookID}`).then((res) => {
-            const friendNames = res.data.map((x) => getUserNames(x.user_id));
-            book.friends_read = friendNames;
-          });
-        })
-
-        .then(() => {
-          const descriptionDB = state.books[OLBookID].description;
-          console.log(descriptionDB);
-          // if (state.books.OLBookID.description) {
-          //Fetch Works (Description / subjects)
-          if (!descriptionDB) {
-            if (book.works) {
-              console.log("still entered!");
-              axios
-                .get(`https://openlibrary.org${book.works}.json`)
-                .then((res) => {
-                  book.subjects = res.data.subjects;
-                  if (res.data.description) {
-                    if (typeof res.data.description !== "string") {
-                      book.description = res.data.description.value;
-                    } else {
-                      book.description = res.data.description;
-                    }
-                  } else {
-                    book.description = "No Description Found";
-                  }
-                });
+    return axios
+      .get(`https://openlibrary.org/books/${OLBookID}.json`)
+      .then((res) => {
+        console.log("FIRST RED".res)
+        //Save book Data
+        return initBook = {
+          ...initBook,
+          title: res.data.title,
+          published: res.data.publish_date,
+          first_publish_year: res.data.first_publish_year || res.data.publish_date,
+          author: res.data.authors && res.data.authors[0].key || null,
+          works: res.data.works[0].key,
+          pages: res.data.number_of_pages,
+          isbn13: res.data.isbn_13,
+        };
+      })
+      .then((book) => {
+        //Fetch Works data (desc & subject)
+        axios.get(`https://openlibrary.org${book.works}.json`)
+          .then((worksData) => {
+            console.log("WD Start", book, worksData)
+            return book = {
+              ...book,
+              subjects: worksData.data.subjects,
+              description: worksData.data.description && worksData.data.description.value || worksData.data.description,
             }
-          } else {
-            book.description = descriptionDB;
-          }
-        })
-        .then(() => {
-          //Fetch Author Name
-          if (book.author) {
-            axios
-              .get(`https://openlibrary.org${book.author}.json`)
-              .then((res) => {
-                book.author = res.data.name;
-                setCurrBook(book);
-              });
-          }
-        })
-        .catch((e) => console.log("Error: axios get book details ", e));
-    }
+          })
+          .then((bookWorks) => {
+            //Fetch Author Name
+            axios.get(`https://openlibrary.org${book.author}.json`)
+              .then((authorData) => {
+                console.log("Aut Start", book)
+                book = {
+                  ...book,
+                  author: authorData.data.name
+                }
+                console.log("end of fetch", book)
+                if (!book.description) {
+                  book = { ...book, description: "Sorry, description found" }
+                }
+                setCurrBook(book)
+                return book;
+              })
+          })
+      })
+      .catch((e) => console.log("OL FETCH ERROR ", e))
   };
+
+  // console.log("REST FESTCH", fetchOLBookData({ id: "OL26455544M" }))
+
+
+
+  // const fetchBookDetails = (selBook) => {
+  //   const { id, listName } = selBook;
+  //   const OLBookID = id;
+  //   if (OLBookID === "initial") {
+  //     return null;
+  //   }
+
+  //   let book = {
+  //     id: OLBookID,
+  //     title: "",
+  //     author: "",
+  //     published: "",
+  //     description: "",
+  //     first_publish_year: "",
+  //     subjects: null,
+  //     works: null,
+  //     listName: listName,
+  //     coverLink: `https://covers.openlibrary.org/b/olid/${OLBookID}-L.jpg`,
+  //     friends_read: null,
+  //   };
+
+  //   if (OLBookID) {
+  //     //Fetch Book Details
+  //     axios
+  //       .get(`https://openlibrary.org/books/${OLBookID}.json`)
+  //       .then((res) => {
+  //         book = {
+  //           ...book,
+  //           title: res.data.title,
+  //           published: res.data.publish_date,
+  //           first_publish_year: res.data.first_publish_year,
+  //           author: res.data.authors[0].key,
+  //           works: res.data.works[0].key,
+  //         };
+  //       })
+  //       .then(() => {
+  //         axios.get(`/api/books/${OLBookID}`).then((res) => {
+  //           const friendNames = res.data.map((x) => getUserNames(x.user_id));
+  //           book.friends_read = friendNames;
+  //         });
+  //       })
+
+  //       .then(() => {
+  //         const descriptionDB = state.books[OLBookID] && state.books[OLBookID].description;
+  //         // if (state.books.OLBookID.description) {
+  //         //Fetch Works (Description / subjects)
+  //         if (!descriptionDB) {
+  //           console.log("MID RUN", descriptionDB);
+  //           if (book.works) {
+  //             console.log("still entered!");
+  //             axios
+  //               .get(`https://openlibrary.org${book.works}.json`)
+  //               .then((res) => {
+  //                 book.subjects = res.data.subjects;
+  //                 if (res.data.description) {
+  //                   if (typeof res.data.description !== "string") {
+  //                     book.description = res.data.description.value;
+  //                   } else {
+  //                     book.description = res.data.description;
+  //                   }
+  //                 } else {
+  //                   book.description = "No Description Found";
+  //                 }
+  //               });
+  //           }
+  //         } else {
+  //           book.description = descriptionDB;
+  //         }
+  //       })
+  //       .then(() => {
+  //         //Fetch Author Name
+  //         if (book.author) {
+  //           axios
+  //             .get(`https://openlibrary.org${book.author}.json`)
+  //             .then((res) => {
+  //               book.author = res.data.name;
+  //               console.log("end of fetch", book)
+  //               setCurrBook(book);
+  //             });
+  //         }
+  //       })
+  //       .catch((e) => console.log("Error: axios get book details ", e));
+  //   }
+  // };
 
   //==============Watchers that update state =================================
   useEffect(() => {
-    fetchBookDetails(state.currBook);
+    fetchOLBookData(state.currBook);
   }, [state.currBook.id]); //The book they are looking at (can be search or their own)
 
   //==================Rendering ======================================================

@@ -36,6 +36,7 @@ const Book = ({ book, addBookToWishlist, ...props }) => {
   };
 
   const handleClick = (input) => {
+    console.log('BUTTON BOOK', buttonBook);
     props.newBook(input, 'Shelf');
     // props.setShow({ item: `${input.title} added to shelf.`, status: true });
   };
@@ -60,7 +61,7 @@ const Book = ({ book, addBookToWishlist, ...props }) => {
             <Button
               variant='outline-secondary'
               onClick={() => {
-                setCurrBook({ id: book.text[0] });
+                setCurrBook({ id: cover_edition_key });
                 setModalShow(true);
               }}
             >
@@ -80,7 +81,7 @@ const Book = ({ book, addBookToWishlist, ...props }) => {
             <Button
               className='search-card-button'
               variant='outline-primary'
-              onClick={() => clickWishlist(buttonBook)}
+              onClick={() => clickWishlist()}
             >
               Wishlist
             </Button>
