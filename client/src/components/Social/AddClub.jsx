@@ -15,9 +15,9 @@ export default function AddClub(props) {
   };
 
   const handleClick = (e) => {
-    if (form.clubName && form.clubAvatar) {
-      addClub(form.clubName, form.clubAvatar);
-      setForm({ clubName: "", avatar: "" });
+    if (form.clubName && form.clubDescription && form.clubAvatar) {
+      addClub(form.clubName, form.clubDescription, form.clubAvatar);
+      setForm({ clubName: "", clubDescription: "", avatar: "" });
       //props.setShow({ item: "Club created successfully.", status: true });
     } else {
       //props.setShow({ item: "Club ID cannot be blank.", status: true });
@@ -32,7 +32,17 @@ export default function AddClub(props) {
           onChange={handleChange}
           id="clubName"
           type="text"
+          maxlength="30"
           placeholder="Club Name"
+        />
+      </Form.Group>
+      <Form.Group>
+        <Form.Control
+          onChange={handleChange}
+          id="clubDescription"
+          type="text"
+          maxlength="50"
+          placeholder="Club Description"
         />
       </Form.Group>
       <Form.Group>

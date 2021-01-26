@@ -133,7 +133,6 @@ export default function useApplicationData() {
     }
     const dataToSend = { friendsEmail: email };
     axios.post(`/api/users/${user.id}/friends`, dataToSend).then((res) => {
-
       if (typeof res.data === "object") {
         const newFriendState = { ...state.friends, [res.data.id]: res.data };
         setState((prev) => {
@@ -209,7 +208,7 @@ export default function useApplicationData() {
       .post(`/api/users/${user.id}/books`, newBook)
       .then((res) => {
         console.log("Book added to shelf!", res);
-        if (res.status == '200') {
+        if (res.status == "200") {
           setShow({ item: "Book added to shelf!", status: true });
           setState((prev) => {
             return { ...prev, books: newBookState };
@@ -236,7 +235,7 @@ export default function useApplicationData() {
       .post(`/api/users/${user.id}/wishlist`, newBook)
       .then((res) => {
         console.log("Book added to wishlist!", res);
-        if (res.status == '200') {
+        if (res.status == "200") {
           setShow({ item: "Book added to wishlist!", status: true });
           setState((prev) => {
             return { ...prev, wishlist: newWishlistState };
@@ -247,7 +246,6 @@ export default function useApplicationData() {
       })
       .catch((err) => console.log(err));
   };
-
 
   const saveBookNotes = (updatedBook) => {
     console.log("DATA TO SENDBOOK", updatedBook);
@@ -272,10 +270,10 @@ export default function useApplicationData() {
 
   const rmvBookFrShelf = (bookId, list) => {
     const userId = user.id;
-    console.log("RMB FR", bookId, user.id, list)
+    console.log("RMB FR", bookId, user.id, list);
     //List in api route?  if !listname default to shelf
-    if (list === 'Wishlist') {
-      console.log("RMB FR list", bookId, user.id, list)
+    if (list === "Wishlist") {
+      console.log("RMB FR list", bookId, user.id, list);
       //wishlist
       axios
         .delete(`/api/users/${userId}/wishlist/${bookId}`)
@@ -288,8 +286,7 @@ export default function useApplicationData() {
         })
         .catch((err) => err);
     } else {
-
-      console.log("RMB FR SHELF", bookId, user.id, list)
+      console.log("RMB FR SHELF", bookId, user.id, list);
       //SHELF
       axios
         .delete(`/api/users/${userId}/books/${bookId}`)
@@ -340,10 +337,11 @@ export default function useApplicationData() {
       .catch((e) => setShow({ item: "Error", status: true }));
   };
 
-  const createClub = (clubName, avatar) => {
+  const createClub = (clubName, clubDescription, avatar) => {
     const newClubData = {
       userId: user.id,
       clubName,
+      clubDescription,
       avatar,
     };
     axios
