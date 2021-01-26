@@ -18,6 +18,7 @@ import SearchIndex from "./components/Search/SearchIndex";
 import Confirmation from "./components/Confirmation";
 import { faUserLock } from "@fortawesome/free-solid-svg-icons";
 import NewsFeed from "./components/Social/NewsFeed";
+import ScrollToTop from "./components/ScrollToTop";
 //============================================
 function App() {
   const {
@@ -248,6 +249,7 @@ function App() {
                 show={show}
                 setShow={setShow}
               />
+              <ScrollToTop />
             </span>
           </nav>
           <Switch>
