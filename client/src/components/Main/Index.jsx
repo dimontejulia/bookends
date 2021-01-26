@@ -13,6 +13,7 @@ export default function Index(props) {
     Object.keys(carouselBooks).map((category) => (
       // Build component w. book list key value
       <Carousel
+        key={category}
         carouselTitle={carouselBooks[category]["catTitle"]}
         carouselBooks={carouselBooks[category]["books"]}
         setUserBooks={props.setUserBooks}

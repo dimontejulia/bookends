@@ -40,13 +40,25 @@ export default function Carousel(props) {
               </span>
               <span className="carousel__book-subjects">
                 {getSubjects(book.subject)}
-                <Badge className="carousel__subject-badge" variant="dark">
+                <Badge
+                  key={`${book.id}_badge_1`}
+                  className="carousel__subject-badge"
+                  variant="dark"
+                >
                   {subjects[0]}
                 </Badge>
-                <Badge className="carousel__subject-badge" variant="dark">
+                <Badge
+                  key={`${book.id}_badge_2`}
+                  className="carousel__subject-badge"
+                  variant="dark"
+                >
                   {subjects[1]}
                 </Badge>
-                <Badge className="carousel__subject-badge" variant="dark">
+                <Badge
+                  key={`${book.id}_badge_3`}
+                  className="carousel__subject-badge"
+                  variant="dark"
+                >
                   {subjects[2]}
                 </Badge>
               </span>
@@ -54,12 +66,14 @@ export default function Carousel(props) {
                 <span className="carousel__buttons-adding">
                   <Button
                     block
+                    key={`${book.id}_add`}
                     className="carousel__book-button"
                     onClick={() => handleClick(book)}
                   >
                     Add to Shelf
                   </Button>
                   <ChangeClubBook
+                    key={`${book.id}_change`}
                     className="carousel__book-button"
                     book={book}
                     setClubBook={props.setClubBook}
@@ -70,6 +84,7 @@ export default function Carousel(props) {
                   Share Book
                 </Button> */}
                 <ShareBook
+                  key={`${book.id}_share`}
                   book={book}
                   user={props.user}
                   setNews={props.setNews}
