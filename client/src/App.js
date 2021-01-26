@@ -63,10 +63,6 @@ function App() {
   //==============Functions========
   const fetchOLBookData = (selBook) => {
 
-    function processSelBook(selBook) {
-      //if Last Char is M =   OL12586964M > Pheonix
-      //if Last Char is  W =   /works/OL82537W ? Stone
-    }
 
     const { id, listName } = selBook;
     const OLBookID = id || selBook;
@@ -130,7 +126,7 @@ function App() {
                 }
                 console.log("end of fetch", book)
                 if (!book.description) {
-                  book = { ...book, description: "Sorry, description found" }
+                  book = { ...book, description: "Sorry, no description found" }
                 }
                 setCurrBook(book)
                 return book;
