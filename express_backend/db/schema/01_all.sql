@@ -32,7 +32,8 @@ CREATE TABLE books (
   "title" VARCHAR(255) NOT NULL, 
   "author" VARCHAR(255) NOT NULL, 
   "subject" VARCHAR,
-  "first_publish_year" VARCHAR(255) 
+  "first_publish_year" VARCHAR(255),
+  "description" TEXT
 );
 
 CREATE TABLE future_books (

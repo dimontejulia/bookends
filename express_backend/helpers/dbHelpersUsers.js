@@ -29,7 +29,7 @@ module.exports = (db) => {
   const getUserBooks = (userID) => {
     const query = {
       text: `
-          SELECT book_id as id, date_read as dateRead, rating, comments, status, title, author, subject, first_publish_year
+          SELECT book_id as id, date_read as dateRead, rating, comments, status, title, author, subject, first_publish_year, description
           FROM users_books
           JOIN books ON books.id = users_books.book_id
           WHERE user_id = $1
@@ -269,7 +269,7 @@ module.exports = (db) => {
   const getWishlist = (userId) => {
     const query = {
       text: `
-      SELECT book_id as id, title, author, subject, first_publish_year
+      SELECT book_id as id, title, author, subject, first_publish_year, description
         FROM books
         JOIN future_books fb ON books.id = fb.book_id
         WHERE fb.user_id = $1
