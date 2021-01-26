@@ -1,17 +1,90 @@
-import React from "react";
-import FriendList from "../List";
-import NewsFeed from "../List";
+import React, { useState, useEffect } from "react";
+import FriendList from "./FriendList";
+import ClubList from "./ClubList";
+import NewsFeed from "./NewsFeed";
+import NewPostForm from "./NewPostForm";
+import AddFriendForm from "./AddFriend";
+import JoinClubForm from "./JoinClubForm";
+import AddClub from "./AddClub";
+import Wave from "../Wave";
+
+import "../Social.scss";
 
 export default function Index(props) {
-  const friends = props.friends;
-  const friendList = friends.map((friend) => {
-    return `${friend.firstname} ${friend.lastname}`;
-  });
-  const test = ["Randi Buzza", "Liuka B..."];
+  const { clubs, news, friends, currClub } = props.state;
+  const [clubsState, setClubState] = useState(clubs);
+  console.log("SOCIAL INDEX PROPS ======", props);
+  useEffect(() => {
+    console.log("FOCUS", clubs, clubsState);
+    setClubState(clubList);
+  }, [clubs]);
+
+  const clubList =
+    clubs &&
+    Object.values(clubs).map((club) => {
+      return club;
+    });
+
+  const newsList =
+    news &&
+    news.map((post) => {
+      return post;
+    });
+
   return (
-    <div>
-      <FriendList list={friendList} listName="Friends" />
-      <NewsFeed list={props.news} listName="News" />
-    </div>
+    <section>
+      <Wave />
+      <div className="container">
+        <h1 className="page-title">Social</h1>
+      </div>
+      <div className="container">
+        <div className="sidebar">
+          {/* <h2>Connect with Fellow Readers!</h2> */}
+          <FriendList friendList={friends} deleteFriend={props.deleteFriend} />
+          <AddFriendForm
+            className="search-bar"
+            show={props.show}
+            setShow={props.setShow}
+            addFriend={props.addFriend}
+          />
+          <br></br>
+
+          {clubsState.length ? (
+            <ClubList
+              setCurrClub={props.setCurrClub}
+              currClub={currClub}
+              setCurrBook={props.setCurrBook}
+              list={clubsState}
+              listName={"Clubs"}
+              setClubNews={props.setClubNews}
+            />
+          ) : (
+            "No Clubs Listed"
+          )}
+          <JoinClubForm
+            joinClub={props.joinClub}
+            show={props.show}
+            setShow={props.setShow}
+          />
+          <br></br>
+          <AddClub
+            className="search-bar"
+            addClub={props.addClub}
+            show={props.show}
+            setShow={props.setShow}
+          />
+        </div>
+        <div className="main-content social__main-content">
+          {/* <h1>Book Talk</h1> */}
+          <NewPostForm
+            user={props.user}
+            setNews={props.setNews}
+            show={props.show}
+            setShow={props.setShow}
+          />
+          <NewsFeed newsList={newsList} />
+        </div>
+      </div>
+    </section>
   );
 }

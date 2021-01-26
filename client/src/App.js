@@ -1,225 +1,283 @@
 import React, { useEffect, useState } from "react";
+import useApplicationData from "./hooks/useApplicationData";
+import cvtArrayToObj from "./helpers/helpers";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
-import useApplicationData from "./hooks/useApplicationData";
-
-// Bootstrap imports & style sheets
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./index.scss";
 
 //===========Components Import =============
+import Wave from "./components/Wave";
 import Navbar from "./components/Navbar";
 import MainPage from "./components/Main/Index";
 import UserShelf from "./components/BookShelf/Index";
 import Social from "./components/Social/Index";
-import ClubsIndex from "./components/Club/Index";
+import ClubsInfo from "./components/Club/ClubInfo";
 import Register from "./components/Register";
 import BookDetails from "./components/Book/Index";
 import SearchIndex from "./components/Search/SearchIndex";
+import Confirmation from "./components/Confirmation";
+import { faUserLock } from "@fortawesome/free-solid-svg-icons";
+import NewsFeed from "./components/Social/NewsFeed";
+import ScrollToTop from "./components/ScrollToTop";
 //============================================
 function App() {
-  const [user, setUser] = useState({ id: 1 });
-  const [userBooks, setUserBooks] = useState([]);
-  // const [search, setSearch] = useState("");
-  const [friends, setFriends] = useState([]);
-  const [news, setNews] = useState("");
-  const [userData, setUserData] = useState({});
-  const [club, setClub] = useState({});
-  const [clubAdmin, setClubAdmin] = useState("");
-  const [currBook, setCurrBook] = useState({ id: "initial" });
-  const [cBooks, setCBooks] = useState([]);
+  const {
+    state,
+    show,
+    setClubNews,
+    setShow,
+    setWishlist,
+    setCurrBook,
+    setCurrClub,
+    addFriend,
+    deleteFriend,
+    addBookToShelf,
+    addBookToWishlist,
+    rmvBookFrShelf,
+    saveBookNotes,
+    joinClub,
+    createClub,
+    deleteClub,
+    updateClubInfo,
+    postNews,
+    postClubNews,
+  } = useApplicationData();
 
-  //  let cBooks = [
+  console.log("MEGA STATE App import", state);
 
-  //     { id: "OL365902M", title: "Rainbow Six", author: "Tom Clancy",  description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL365902M-L.jpg`},
-  //     { id: "OL26455544M", title: "Dangerous Lies", author: "B Fitz", description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL26455544M-L.jpg` },
-  //     { id: "OL24222441M", title: "Trojan Odyssey", author: "C Cussler", description: "No matter your goals, Atomic Habits offers a proven framework for improving--every day...", coverLink: `https://covers.openlibrary.org/b/olid/OL24222441M-L.jpg` },
-  //   ];
+  const [user, setUser] = useState({
+    id: 1,
+    firstName: "Mark",
+    lastName: "Twain",
+  });
 
-  const initialize = () => {
-    //Carousel 1
-    axios.get(`/api/books/category/movie`).then((res) => {
-      setCBooks(res.data);
-    });
-    //GET FRIENDS
-    axios.get(`/api/users/${user.id}/friends`).then((res) => {
-      setFriends(res.data);
-    });
-    // GET BOOKS
-    axios.get(`/api/users/${user.id}/books`).then((res) => {
-      setUserBooks(res.data);
-      setUserData(res.data);
-    });
-    axios
-      .get(`/clubs/1`)
-      .then((res) => {
-        console.log("RES", res.data);
-        setClub(res.data);
-      })
-      .catch((e) => console.log(e));
-
-    //add first name & last name to user id as an object
-    setFriends(["uid100", "uid200"]);
-    //id, post
-    setNews(["News 1", "News 2"]);
-    //userBookData
-
-    // setUserData({
-    //   status: "READ | Reading | On list?",
-    //   readDate: "2019-05-07",
-    //   notes: "These are my notes on this book... I like books",
-    //   rating: 0,
-    //   friendsWhoReadIt: ["uid100", "Carl", "Linda"],
-    // });
-    setClub({
-      name: "John's Club",
-      avatar: "https://image.flaticon.com/icons/png/512/69/69589.png",
-      description: "Basic book club description goes here",
-      currentBook: {
-        cover:
-          "https://dynamic.indigoimages.ca/books/0735211299.jpg?scaleup=true&width=614&maxheight=614&quality=85&lang=en",
-        title: "Atomic Habits",
-        author: "James Clear",
-        published: "October 16, 2018",
-        description:
-          "No matter your goals, Atomic Habits offers a proven framework for improving--every day. James Clear, one of the world''s leading experts on habit formation, reveals practical strategies that will teach you exactly how to form good habits, break bad ones, and master the tiny behaviors that lead to remarkable results.",
-      },
-    });
-    setClubAdmin({
-      user,
-    });
-    // setCurrBook({ ...currBook, id: '1' })
+  const getUserNames = (id) => {
+    const friends = state.friends;
+    for (let friend of friends) {
+      if (friend.userid === id) {
+        return `${friend.firstname}  ${friend.lastname}`;
+      }
+    }
   };
-  //OL365902M  Rainbow Six
-  useEffect(() => {
-    initialize();
-  }, []);
-
-  const everyState = {
-    userBooks,
-    user,
-    friends,
-    news,
-    club,
-    clubAdmin,
-    currBook,
-  };
-
-  console.log(">>>>>>everyState", everyState);
 
   //==============Functions========
-
-  const fetchBookDetails = (OLBookID) => {
-    let book = {
+  const fetchOLBookData = (selBook) => {
+    const { id, listName } = selBook;
+    const OLBookID = id || selBook;
+    if (OLBookID === "initial") {
+      return null;
+    }
+    if (!OLBookID) {
+      return null;
+    }
+    console.log("SLE", selBook);
+    console.log("OLID", OLBookID);
+    let initBook = {
       id: OLBookID,
       title: "",
       author: "",
       published: "",
       description: "",
+      first_publish_year: "",
+      number_of_pages: "",
       subjects: null,
       works: null,
+      listName: listName,
       coverLink: `https://covers.openlibrary.org/b/olid/${OLBookID}-L.jpg`,
+      friends_read: null,
     };
 
-    if (OLBookID) {
-      //Fetch Book Details
-      axios
-        .get(`https://openlibrary.org/books/${OLBookID}.json`)
-        .then((res) => {
-          book = {
-            ...book,
-            title: res.data.title,
-            published: res.data.publish_date,
-            author: res.data.authors[0].key,
-            works: res.data.works[0].key,
-          };
-        })
-        .then(() => {
-          //Fetch Works (Description / subjects)
-          if (book.works) {
-            axios
-              .get(`https://openlibrary.org${book.works}.json`)
-              .then((res) => {
-                book.subjects = res.data.subjects;
-                console.log("RES DESC>>>>", res.data);
-                if (res.data.description) {
-                  if (typeof res.data.description !== "string") {
-                    book.description = res.data.description.value;
-                  } else {
-                    book.description = res.data.description;
-                  }
-                } else {
-                  book.description = "No Description Found";
-                }
-              });
-          }
-        })
-        .then(() => {
-          //Fetch Author Name
-          if (book.author) {
+    return axios
+      .get(`https://openlibrary.org/books/${OLBookID}.json`)
+      .then((res) => {
+        console.log("FIRST RED".res);
+        //Save book Data
+        return (initBook = {
+          ...initBook,
+          title: res.data.title,
+          published: res.data.publish_date,
+          first_publish_year:
+            res.data.first_publish_year || res.data.publish_date,
+          author: (res.data.authors && res.data.authors[0].key) || null,
+          works: res.data.works[0].key,
+          number_of_pages: res.data.number_of_pages,
+          isbn13: res.data.isbn_13,
+        });
+      })
+      .then((book) => {
+        //Fetch Works data (desc & subject)
+        axios
+          .get(`https://openlibrary.org${book.works}.json`)
+          .then((worksData) => {
+            console.log("WD Start", book, worksData);
+            return (book = {
+              ...book,
+              subjects: worksData.data.subjects,
+              description:
+                (worksData.data.description &&
+                  worksData.data.description.value) ||
+                worksData.data.description,
+            });
+          })
+          .then((bookWorks) => {
+            //Fetch Author Name
             axios
               .get(`https://openlibrary.org${book.author}.json`)
-              .then((res) => {
-                book.author = res.data.name;
+              .then((authorData) => {
+                console.log("Aut Start", book);
+                book = {
+                  ...book,
+                  author: authorData.data.name,
+                };
+                console.log("end of fetch", book);
+                if (!book.description) {
+                  book = {
+                    ...book,
+                    description: "Sorry, no description found",
+                  };
+                }
                 setCurrBook(book);
+                return book;
               });
-          }
-        })
-        .catch((e) => console.log("Error: axios get book details ", e));
-    }
-  };
-
-  const updateDBUserBooks = () => {
-    const dataToSend = {
-      userBooks: userBooks,
-      userBookData: userData,
-    };
-    axios
-      .post(`/api/users/${user.id}/books`, dataToSend)
-      .then((res) => {
-        // Need Saved MSg ELSE Error Message
-        console.log("Book added to shelf!");
+          });
       })
-      .catch((err) => console.log(err));
+      .catch((e) => console.log("OL FETCH ERROR ", e));
   };
 
-  //Watch for currBook to change and load Details into state
+  // console.log("REST FESTCH", fetchOLBookData({ id: "OL26455544M" }))
+
+  // const fetchBookDetails = (selBook) => {
+  //   const { id, listName } = selBook;
+  //   const OLBookID = id;
+  //   if (OLBookID === "initial") {
+  //     return null;
+  //   }
+
+  //   let book = {
+  //     id: OLBookID,
+  //     title: "",
+  //     author: "",
+  //     published: "",
+  //     description: "",
+  //     first_publish_year: "",
+  //     subjects: null,
+  //     works: null,
+  //     listName: listName,
+  //     coverLink: `https://covers.openlibrary.org/b/olid/${OLBookID}-L.jpg`,
+  //     friends_read: null,
+  //   };
+
+  //   if (OLBookID) {
+  //     //Fetch Book Details
+  //     axios
+  //       .get(`https://openlibrary.org/books/${OLBookID}.json`)
+  //       .then((res) => {
+  //         book = {
+  //           ...book,
+  //           title: res.data.title,
+  //           published: res.data.publish_date,
+  //           first_publish_year: res.data.first_publish_year,
+  //           author: res.data.authors[0].key,
+  //           works: res.data.works[0].key,
+  //         };
+  //       })
+  //       .then(() => {
+  //         axios.get(`/api/books/${OLBookID}`).then((res) => {
+  //           const friendNames = res.data.map((x) => getUserNames(x.user_id));
+  //           book.friends_read = friendNames;
+  //         });
+  //       })
+
+  //       .then(() => {
+  //         const descriptionDB = state.books[OLBookID] && state.books[OLBookID].description;
+  //         // if (state.books.OLBookID.description) {
+  //         //Fetch Works (Description / subjects)
+  //         if (!descriptionDB) {
+  //           console.log("MID RUN", descriptionDB);
+  //           if (book.works) {
+  //             console.log("still entered!");
+  //             axios
+  //               .get(`https://openlibrary.org${book.works}.json`)
+  //               .then((res) => {
+  //                 book.subjects = res.data.subjects;
+  //                 if (res.data.description) {
+  //                   if (typeof res.data.description !== "string") {
+  //                     book.description = res.data.description.value;
+  //                   } else {
+  //                     book.description = res.data.description;
+  //                   }
+  //                 } else {
+  //                   book.description = "No Description Found";
+  //                 }
+  //               });
+  //           }
+  //         } else {
+  //           book.description = descriptionDB;
+  //         }
+  //       })
+  //       .then(() => {
+  //         //Fetch Author Name
+  //         if (book.author) {
+  //           axios
+  //             .get(`https://openlibrary.org${book.author}.json`)
+  //             .then((res) => {
+  //               book.author = res.data.name;
+  //               console.log("end of fetch", book)
+  //               setCurrBook(book);
+  //             });
+  //         }
+  //       })
+  //       .catch((e) => console.log("Error: axios get book details ", e));
+  //   }
+  // };
+
+  //==============Watchers that update state =================================
   useEffect(() => {
-    console.log("useEffect for Details");
-    fetchBookDetails(currBook.id);
-  }, [currBook.id]);
+    fetchOLBookData(state.currBook);
+  }, [state.currBook.id]); //The book they are looking at (can be search or their own)
 
-  useEffect(() => {
-    console.log("useEffect for UserBooks");
-    updateDBUserBooks(userBooks);
-  }, [userBooks]);
-
-  // useEffect(() => {
-  //   console.log("useEffect for Details");
-  //   // fetchBookDetails(currBook.id);
-  // }, [friends]);
-
-  //==================Rendering =============
+  //==================Rendering ======================================================
   return (
     <Router>
       <div className="App">
         <main>
           <nav className="sidebar__menu">
             <span>
-              <Navbar user={user} setUser={setUser} />
+              <Navbar user={user} setUser={setUser} clubs={state.clubs} />
+              <Confirmation
+                className="confirmation__toast"
+                show={show}
+                setShow={setShow}
+              />
+              <ScrollToTop />
             </span>
           </nav>
           <Switch>
-            <Route path="/clubs">
-              <ClubsIndex
-                user={user}
-                clubAdmin={clubAdmin}
-                setClubAdmin={setClubAdmin}
-                club={club}
-                setClub={setClub}
-              />
-            </Route>
+            <Route
+              path="/clubs/:id"
+              render={(props) => {
+                const paramClubId = props.location.pathname.replace(
+                  "/clubs/",
+                  ""
+                );
+                return (
+                  <ClubsInfo
+                    state={state}
+                    paramId={paramClubId}
+                    clubNews={state.clubNews}
+                    currClub={state.currClub}
+                    currBook={state.currBook}
+                    user={user}
+                    deleteClub={deleteClub}
+                    editClub={updateClubInfo}
+                    postClubNews={postClubNews}
+                    setCurrClub={setCurrClub}
+                  />
+                );
+                // renderClubInfo(state.currClub.id);
+              }}
+            />
+
             <Route
               path="/register"
               render={() => {
@@ -229,19 +287,52 @@ function App() {
             <Route path="/social">
               {" "}
               <Social
-                friends={friends}
-                news={news}
-                setFriends={setFriends}
-              />{" "}
-            </Route>
-            <Route path="/shelf/">
-              {" "}
-              <UserShelf
-                books={userBooks}
-                setBooks={setUserBooks}
+                state={state}
+                user={user}
+                // friends={state.friends}
+                // news={state.news}
+                // currBook={state.currBook}
+                // clubs={state.clubs}
+                addFriend={addFriend}
+                deleteFriend={deleteFriend}
+                addClub={createClub}
+                setCurrClub={setCurrClub}
                 setCurrBook={setCurrBook}
+                setNews={postNews}
+                setClubNews={setClubNews}
+                joinClub={joinClub}
+                show={show}
+                setShow={setShow}
               />
             </Route>
+            <Route path="/shelf/">
+              <UserShelf
+                books={state.books}
+                wishlist={state.wishlist}
+                setBooks={addBookToShelf}
+                setWishlist={setWishlist}
+                setCurrBook={setCurrBook}
+                list={"mybooks"}
+              />
+            </Route>
+            <Route path="/wishlist/">
+              <UserShelf
+                books={state.books}
+                wishlist={state.wishlist}
+                setBooks={addBookToShelf}
+                setWishlist={setWishlist}
+                setCurrBook={setCurrBook}
+                list={"wishlist"}
+              />
+            </Route>
+            {/* <Route path="/wishlist/">
+              {" "}
+              <UserShelf
+                books={state.wishlist}
+                setBooks={setWishlist}
+                setCurrBook={setCurrBook}
+              />
+            </Route> */}
             <Route
               path="/book/:id"
               //Route is not fully setup
@@ -251,10 +342,17 @@ function App() {
                   "/book/",
                   ""
                 );
-                console.log("PARAM", paramBookId);
-                // setCurrBook(paramBookId)
                 return (
-                  <BookDetails currBook={currBook} userBookData={userData} />
+                  <BookDetails
+                    state={state}
+                    paramId={paramBookId}
+                    setCurrBook={setCurrBook}
+                    // currBook={state.currBook}
+                    // userBookData={state.books}
+                    addBookToShelf={addBookToShelf}
+                    saveBookNotes={saveBookNotes}
+                    deleteUserBook={rmvBookFrShelf}
+                  />
                 );
               }}
             />
@@ -264,10 +362,18 @@ function App() {
               render={(props) => {
                 return (
                   <SearchIndex
-                    userBooks={userBooks}
-                    setUserBooks={setUserBooks}
-                    currBook={currBook}
+                    userBooks={state.books}
+                    setUserBooks={addBookToShelf}
+                    addBookToWishlist={addBookToWishlist}
+                    wishlist={state.wishlist}
+                    setWishlist={setWishlist}
+                    currBook={state.currBook}
                     setCurrBook={setCurrBook}
+                    setClubBook={updateClubInfo}
+                    newBook={addBookToShelf}
+                    show={show}
+                    setShow={setShow}
+                    clubs={state.clubs}
                   />
                 );
               }}
@@ -275,9 +381,16 @@ function App() {
 
             <Route path="/" exact>
               <MainPage
-                carouselTitle={"Trending Now"}
-                setUserBooks={setUserBooks}
-                carouselBooks={cBooks}
+                setUserBooks={addBookToShelf}
+                carouselBooks={state.carouselBooks}
+                newBook={addBookToShelf}
+                show={show}
+                setShow={setShow}
+                setClubBook={updateClubInfo}
+                clubs={state.clubs}
+                user={user}
+                setNews={postNews}
+                news={state.news}
               />
             </Route>
           </Switch>

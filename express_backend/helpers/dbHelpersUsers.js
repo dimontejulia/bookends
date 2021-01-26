@@ -1,3 +1,5 @@
+const chalk = require("chalk");
+
 module.exports = (db) => {
   const getUsers = () => {
     const query = {
@@ -15,7 +17,7 @@ module.exports = (db) => {
       text: `SELECT * FROM book_club WHERE id = $1`,
       values: [clubID],
     };
-    
+
     return db
       .query(query)
       .then((result) => {
@@ -25,13 +27,14 @@ module.exports = (db) => {
   };
 
   const getUserBooks = (userID) => {
-    console.log("DB GetUSER BOOKS", userID)
     const query = {
       text: `
-          SELECT book_id as id, date_read as dateRead, rating, comments, status, title, author, subject
+          SELECT book_id as id, date_read as dateRead, rating, comments, status, 
+          title, author, subject, first_publish_year, description
           FROM users_books
           JOIN books ON books.id = users_books.book_id
           WHERE user_id = $1
+          ORDER BY users_books.id desc;
           `,
       values: [userID],
     };
@@ -39,18 +42,39 @@ module.exports = (db) => {
     return db
       .query(query)
       .then((result) => {
-        console.log("result.rows>>>>>>>", result.rows);
         return result.rows;
       })
       .catch((err) => err);
   };
 
   const getUserByEmail = (email) => {
+    const { friendsEmail } = email;
     const query = {
-      text: `SELECT * FROM users WHERE email = $1`,
-      values: [email],
+      text: `SELECT first_name AS firstName, last_name AS lastName, email, id FROM users WHERE email = $1`,
+      values: [friendsEmail],
     };
+    return db
+      .query(query)
+      .then((result) => result.rows[0])
+      .catch((err) => err);
+  };
 
+  const addFriend = (userId, friendId) => {
+    const query = {
+      text: `INSERT INTO friends (user_id, users_friend) VALUES ($1, $2)`,
+      values: [Number(userId), friendId],
+    };
+    return db
+      .query(query)
+      .then((result) => result.rows[0])
+      .catch((err) => err);
+  };
+
+  const deleteFriend = (userId, friendId) => {
+    const query = {
+      text: `DELETE FROM friends WHERE user_id = $1 AND users_friend = $2`,
+      values: [userId, friendId],
+    };
     return db
       .query(query)
       .then((result) => result.rows[0])
@@ -66,7 +90,6 @@ module.exports = (db) => {
     return db
       .query(query)
       .then((result) => {
-        console.log("Add user:", result);
         return result.rows;
       })
       .catch((err) => console.log("SQLError", err));
@@ -120,7 +143,7 @@ module.exports = (db) => {
   const getFriends = (id) => {
     const query = {
       text: `
-          SELECT first_name as firstName, last_name as lastName
+          SELECT first_name AS firstName, last_name AS lastName, email, u.id AS userId
           FROM friends f
           JOIN users u ON f.users_friend = u.id
           WHERE f.user_id =$1;`,
@@ -131,32 +154,69 @@ module.exports = (db) => {
       .then((result) => result.rows)
       .catch((err) => err);
   };
-  const addBook = (user_id, userBooks) => {
-    const { id, title, author, subject } = userBooks;
 
-    const query = {
-      text: `INSERT INTO books (id, title, author, subject) VALUES ($1, $2, $3, $4) RETURNING *`,
-      values: [id, title, author[0], subject],
+  const addBookToUser = (userId, usersNewBook) => {
+    const { id, title, author, subject, first_publish_year } = usersNewBook;
+    console.log(">>>>1", usersNewBook);
+    const bookCheckQuery = {
+      text: `SELECT count(*) FROM books WHERE id = $1`,
+      values: [id],
     };
 
-    return db
-      .query(query)
-      .then((result) => {
-        return result.rows;
+    const userBookCheckQuery = {
+      text: `SELECT count(*) FROM users_books WHERE book_id = $1`,
+      values: [id],
+    };
+
+    const addBookQuery = {
+      text: `INSERT INTO books (id, title, author, subject, first_publish_year) 
+      VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+      values: [id, title, author[0], subject, first_publish_year],
+    };
+
+    // console.log("!!addBookToUser", userId, usersNewBook);
+
+    // check if book user adds is in books table,
+    // if it is in books table, check if book is in user_books table,
+    // if it is not in user_books table add book to user's shelf
+    // if it is in user_books table send message back to userstating that the book is already
+    // on specific users shelf
+    // if book is not in books table or users_books table add book to books table and user_books table
+    console.log(">>>>2");
+    Promise.all([db.query(bookCheckQuery), db.query(userBookCheckQuery)])
+      .then(([bookInDbCheck, userHasBookCheck]) => {
+        const bookCheck = Number(bookInDbCheck.rows[0].count);
+        const userBookCheck = Number(userHasBookCheck.rows[0].count);
+        console.log(
+          "bookCheck ->",
+          bookCheck,
+          "userBookCheck ->",
+          userBookCheck
+        );
+        if (userBookCheck) {
+          console.log("Book Exists and is in shelf");
+        } else if (!userBookCheck && bookCheck) {
+          console.log("Book Exists > NOT in shelf");
+          addToUsersBooks(userId, usersNewBook);
+        } else {
+          return db
+            .query(addBookQuery) //ADDS BOOK TO DB
+            .then(() => {
+              addToUsersBooks(userId, usersNewBook); // ADD BOOK TO USER SHELF
+            });
+        }
       })
-      .then((result) => addToUsersBooks(user_id, userBooks))
-      .catch((err) => console.log("DBERROR:>>>>", err));
+      .catch((err) => console.log("LAST DBERROR:>>>>", err));
   };
 
-  const addToUsersBooks = (user_id, userBooks) => {
+  const addToUsersBooks = (userId, userBooks) => {
     const { id } = userBooks;
 
     const query = {
       text: `INSERT INTO users_books (user_id, book_id) VALUES ($1, $2) RETURNING *`,
-      values: [user_id, id],
+      values: [userId, id],
     };
-
-    console.log("ADD TO DB FUNCTION!!!!!");
+    console.log("Add to USER BOOKS Q", query);
     return db
       .query(query)
       .then((result) => {
@@ -165,16 +225,290 @@ module.exports = (db) => {
       .catch((err) => console.log("DBERROR from users books:>>>>", err));
   };
 
+  const checkDBforBook = (bookId) => {
+    const bookCheckQuery = {
+      text: `SELECT count(*) FROM books WHERE id = $1`,
+      values: [bookId],
+    };
+
+    return db
+      .query(bookCheckQuery)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERR", err));
+  };
+
+  const addBookToDB = (bookData) => {
+    const { id, title, author, subject, first_publish_year } = bookData;
+    const addBookQuery = {
+      text: `INSERT INTO books (id, title, author, subject, first_publish_year) 
+      VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+      values: [id, title, author[0], subject, first_publish_year],
+    };
+    console.log("line 277");
+    return db
+      .query(addBookQuery)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERR", err));
+  };
+  const addToShelf = (userId, bookId) => {
+    const query = {
+      text: `INSERT INTO users_books (user_id, book_id) VALUES ($1, $2) RETURNING *`,
+      values: [userId, bookId],
+    };
+    console.log("Add to future BOOKS Q", query);
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERROR from users books:>>>>", err));
+  };
+
+  const addToWishlist = (userId, bookId) => {
+    const query = {
+      text: `INSERT INTO future_books (user_id, book_id) VALUES ($1, $2) RETURNING *`,
+      values: [userId, bookId],
+    };
+    console.log("Add to future BOOKS Q", query);
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERROR from users books:>>>>", err));
+  };
+
+  const updateUsersBooks = (userId, bookData) => {
+    const { id, dateread, rating, comments, status } = bookData;
+
+    const query = {
+      text: `
+        UPDATE users_books
+        SET date_read= $3,
+        rating= $4,
+        comments = $5,
+        status = $6
+        WHERE user_id = $1 AND book_id = $2
+        RETURNING *;
+      `,
+      values: [userId, id, dateread, rating, comments, status],
+    };
+
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERR", err));
+  };
+
+  const getUserClubs = (userId) => {
+    const query = {
+      text: `
+      SELECT *
+      FROM user_book_clubs 
+      JOIN book_club 
+      ON book_club.id = user_book_clubs.book_club_id
+      WHERE user_id = $1;`,
+      values: [userId],
+    };
+
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERROR from users books:>>>>", err));
+  };
+
+  const getWishlist = (userId) => {
+    const query = {
+      text: `
+      SELECT book_id as id, title, author, subject, first_publish_year, description
+        FROM books
+        JOIN future_books fb ON books.id = fb.book_id
+        WHERE fb.user_id = $1
+      `,
+      values: [userId],
+    };
+
+    console.log("GET WISHLIST");
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERROR from users books:>>>>", err));
+  };
+
+  // const addToWishlist = (userId, bookData) => {
+  //   const query = {
+  //     text: `
+  //     SELECT book_id as id, title, author, subject, first_publish_year
+  //       FROM books
+  //       JOIN future_books fb ON books.id = fb.book_id
+  //       WHERE fb.user_id = $1
+  //     `,
+  //     values: [userId],
+  //   };
+
+  //   console.log("GET WISHLIST");
+  //   return db
+  //     .query(query)
+  //     .then((result) => {
+  //       return result.rows;
+  //     })
+  //     .catch((err) => console.log("DBERROR from users books:>>>>", err));
+  // };
+
+  const deleteBook = (bookId, userId) => {
+    const checkWishList = {
+      text: `SELECT count(*) FROM future_books WHERE book_id = $1 AND user_id = $2`,
+      values: [bookId, userId],
+    };
+
+    const checkUserShelf = {
+      text: `SELECT count(*) FROM users_books WHERE book_id = $1 AND user_id = $2`,
+      values: [bookId, userId],
+    };
+
+    Promise.all([db.query(checkWishList), db.query(checkUserShelf)])
+      .then(([checkWishList, checkUserShelf]) => {
+        const wishListCount = Number(checkWishList.rows[0].count);
+        const userShelfCount = Number(checkUserShelf.rows[0].count);
+        console.log(
+          "wishListCount ->",
+          wishListCount,
+          "userShelfCount ->",
+          userShelfCount
+        );
+        if (!userShelfCount && wishListCount) {
+          console.log(chalk.yellow("WishList Item Delete"));
+          deleteBookWishList(bookId, userId);
+        } else if (userShelfCount) {
+          console.log(chalk.yellow("UserShelf Item Delete"));
+          deleteBookUserShelf(bookId, userId);
+        }
+      })
+      .catch((err) => console.log("DELETE BOOK DB CATCH ->", err));
+  };
+
+  const deleteBookUserShelf = (bookId, userId) => {
+    const query = {
+      text: `DELETE FROM users_books WHERE book_id = $1 AND user_id = $2`,
+      values: [bookId, userId],
+    };
+    console.log("delShelf", query);
+    return db
+      .query(query)
+      .then((res) => res.rows)
+      .catch((err) => err);
+  };
+  const rmvUsersBooks = (bookId, userId) => {
+    const query = {
+      text: `DELETE FROM users_books WHERE book_id = $1 AND user_id = $2`,
+      values: [bookId, userId],
+    };
+    console.log("RMV FR Q", query);
+    return db
+      .query(query)
+      .then((res) => console.log(res.rows, "REMOVED"))
+      .catch((err) => err);
+  };
+
+  const deleteBookWishList = (userId, bookId) => {
+    const query = {
+      text: `DELETE FROM future_books WHERE book_id = $1 AND user_id = $2`,
+      values: [bookId, userId],
+    };
+    return db
+      .query(query)
+      .then((result) => console.log("RMV", result.rows))
+      .catch((err) => console.log("err", err));
+  };
+
+  const getPosts = (userId) => {
+    const query = {
+      text: `
+      SELECT u.id AS userId, first_name AS firstName, last_name AS lastName, news.title, news.body, news.timestamp, news.id AS postId
+      FROM friends f
+      JOIN users u ON f.users_friend = u.id
+      JOIN newsfeed_posts news ON f.users_friend = news.user_id
+      WHERE news.user_id = $1 OR f.user_id = $1
+      GROUP BY news.title, first_name, last_name, body, u.id, news.id
+      ORDER BY news.id desc;
+      `,
+      values: [userId],
+    };
+
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERROR from users books:>>>>", err));
+  };
+
+  const addPost = (post) => {
+    const { user_id, title, body, timestamp } = post;
+
+    const query = {
+      text: `INSERT INTO newsfeed_posts (user_id, title, body, timestamp) VALUES ($1, $2, $3, $4) RETURNING *`,
+      values: [user_id, title, body, timestamp],
+    };
+
+    return db
+      .query(query)
+      .then((result) => {
+        return result.rows;
+      })
+      .catch((err) => console.log("DBERROR:>>>>", err));
+  };
+
+  const joinBookClub = (userId, clubId) => {
+    const joinQuery = {
+      text: `INSERT INTO user_book_clubs (user_id, book_club_id) VALUES ($1,$2) RETURNING *; `,
+      values: [userId, clubId],
+    };
+    console.log("ClubCheck STArt");
+    return db
+      .query(joinQuery)
+      .then((result) => {
+        console.log("ClubCheck", result.rows);
+        return result.rows;
+      })
+
+      .catch((err) => "Whoops, Check that the Club ID exists");
+  };
+
   return {
     getUsers,
+    addFriend,
     getUserByEmail,
+    deleteFriend,
     addUser,
     getUserBooks,
+    getUserClubs,
     authenticateUser,
     getUsersPosts,
     getOneUsersPosts,
     getFriends,
-    addBook,
-    getClubDetails,
+    deleteBook,
+    getWishlist,
+    getPosts,
+    addPost,
+    joinBookClub,
+    updateUsersBooks,
+    addBookToUser,
+    rmvUsersBooks,
+    deleteBookWishList,
+    checkDBforBook,
+    addBookToDB,
+    addToWishlist,
+    addToShelf,
   };
 };

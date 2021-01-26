@@ -8,10 +8,9 @@ import Col from "react-bootstrap/Col";
 import { Redirect } from "react-router-dom";
 
 export default function Register(props) {
-  const { user, setUser } = props;
-  console.log('User>>>', user);
   const handleChange = (e) => {
     const { id, value } = e.target;
+    console.log("e.tartget =======", e.target);
     props.setUser((prevState) => ({
       ...prevState,
       [id]: value,
@@ -19,21 +18,19 @@ export default function Register(props) {
   };
 
   const handleSubmitClick = (e) => {
-    e.preventDefault();
     axios
-      .post('/register',  props.user)
-      .then((res)=>{
-        console.log("AXIOS USER", props.user)
+      .post("/register", props.user)
+      .then((res) => {
+        console.log("register data", res.data[0]);
         const userData = res.data[0];
         //If reseponse good (UserID)
         // update cookie here
         //Update userState
         // Book list friends (Later)
         props.setUser(userData);
-        
       })
       .then(<Redirect to="/" />)
-      .catch(err => console.log(err))
+      .catch((err) => console.log(err));
   };
 
   return (

@@ -6,6 +6,8 @@ DROP TABLE IF EXISTS future_books CASCADE;
 DROP TABLE IF EXISTS book_club CASCADE;
 DROP TABLE IF EXISTS books CASCADE;
 DROP TABLE IF EXISTS home_page_books CASCADE;
+DROP TABLE IF EXISTS newsfeed_posts CASCADE;
+DROP TABLE IF EXISTS club_posts CASCADE;
 
 
 CREATE TABLE users (
@@ -29,7 +31,9 @@ CREATE TABLE books (
   "id" VARCHAR(255) PRIMARY KEY NOT NULL,
   "title" VARCHAR(255) NOT NULL, 
   "author" VARCHAR(255) NOT NULL, 
-  "subject" VARCHAR 
+  "subject" VARCHAR,
+  "first_publish_year" VARCHAR(255),
+  "description" TEXT
 );
 
 CREATE TABLE future_books (
@@ -41,12 +45,9 @@ CREATE TABLE future_books (
 CREATE TABLE book_club (
   "id" SERIAL PRIMARY KEY NOT NULL,
   "current_book" VARCHAR(255) REFERENCES books(id) ON DELETE CASCADE,
-  "admin_id" INTEGER,
+  "admin_id" INTEGER NOT NULL,
   "book_club_name" VARCHAR(255) NOT NULL,
-  "date_read" DATE NOT NULL,
-  "rating" INTEGER,
-  "comments" TEXT,
-  "status" VARCHAR(255) NOT NULL,
+  "club_description" VARCHAR(255),
   "avatar" TEXT
 );
 
@@ -59,6 +60,7 @@ CREATE TABLE user_book_clubs (
 CREATE TABLE users_books (
   "id" SERIAL PRIMARY KEY NOT NULL,
   "user_id" INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  "club_id" INTEGER REFERENCES book_club(id) ON DELETE CASCADE,
   "book_id" VARCHAR(255) REFERENCES books(id) ON DELETE CASCADE,
   "date_read" DATE,
   "rating" INTEGER,
@@ -70,4 +72,21 @@ CREATE TABLE home_page_books (
   "id" SERIAL PRIMARY KEY NOT NULL,
   "category" VARCHAR(255) NOT NULL,
   "book_id" VARCHAR(255) REFERENCES books(id) ON DELETE CASCADE
+);
+
+CREATE TABLE newsfeed_posts (
+  "id" SERIAL PRIMARY KEY NOT NULL,
+  "user_id" INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  "title" VARCHAR(255), 
+  "body" TEXT NOT NULL,
+  "timestamp" VARCHAR(255)
+);
+
+CREATE TABLE club_posts (
+  "id" SERIAL PRIMARY KEY NOT NULL,
+  "user_id" INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  "book_club_id" INTEGER REFERENCES book_club(id) ON DELETE CASCADE,
+  "title" VARCHAR(255), 
+  "body" TEXT NOT NULL,
+  "timestamp" VARCHAR(255)
 );

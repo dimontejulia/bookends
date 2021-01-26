@@ -1,0 +1,31 @@
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.open-library-search {
+  width: 60%;
+  margin: auto;
+}
+
+.search-cards {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  .book-card {
+    width: 15em;
+    margin: 1em;
+  }
+  .book-cover {
+    height: 20em;
+  }
+  .search-card-button {
+    margin: 3px;
+  }
+}
+
+.spinner {
+  margin: 2em;
+}

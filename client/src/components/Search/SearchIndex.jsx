@@ -1,7 +1,10 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect, useCallback } from 'react';
 import * as client from './OpenLibraryClient.jsx';
 import BooksList from './BooksList.jsx';
 import SearchForm from './SearchForm.jsx';
+import useDebounce from '../../hooks/useDebounce';
+import Wave from '../Wave';
+import '../Search.scss';
 
 const SearchIndex = (props) => {
   const [isFetching, setIsFetching] = useState(false);
@@ -10,13 +13,13 @@ const SearchIndex = (props) => {
   const [query, setQuery] = useState('');
 
   const onSearch = async (e) => {
-    e.preventDefault();
-
+    // e.preventDefault();
+    if (!term) {
+      return;
+    }
     setIsFetching(true);
-
-    const result = await client.findBooks(query);
+    const result = await client.findBooks(term);
     const { docs = [], numFound = 0 } = result;
-
     setIsFetching(false);
     setBooks(docs);
     setNumFound(numFound);
@@ -26,18 +29,20 @@ const SearchIndex = (props) => {
     setQuery(value);
   };
 
+  //Live Search
+  const term = useDebounce(query, 1000);
+  useCallback(onSearch, [term]);
+  useEffect(() => {
+    onSearch(term);
+  }, [term]);
+
   return (
     <Fragment>
-      <section className='section'>
-        <div className='container'>
-          <h1 className='title has-text-centered'>Open Library books search</h1>
-        </div>
-      </section>
-      <SearchForm
-        onQueryChange={onQueryChange}
-        onSearch={onSearch}
-        query={query}
-      />
+      <Wave />
+      <div className='container'>
+        <h1 className='page-title'>Search Books</h1>
+      </div>
+      <SearchForm onQueryChange={onQueryChange} query={query} />
       <BooksList
         loading={isFetching}
         books={books}
@@ -46,6 +51,14 @@ const SearchIndex = (props) => {
         setUserBooks={props.setUserBooks}
         currBook={props.currBook}
         setCurrBook={props.setCurrBook}
+        wishlist={props.wishlist}
+        setWishlist={props.setWishlist}
+        newBook={props.newBook}
+        show={props.show}
+        setShow={props.setShow}
+        setClubBook={props.setClubBook}
+        clubs={props.clubs}
+        addBookToWishlist={props.addBookToWishlist}
       />
     </Fragment>
   );

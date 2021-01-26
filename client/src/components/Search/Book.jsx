@@ -1,89 +1,107 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
 
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import MoreInfo from './MoreInfo';
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
+import Badge from "react-bootstrap/Badge";
 
-const Book = ({ book, ...props }) => {
+import MoreInfo from "./MoreInfo";
+import ChangeClubBook from "../Club/ChangeBook";
+
+const Book = ({ book, addBookToWishlist, ...props }) => {
   const {
     title,
     author_name,
-    id_goodreads = [],
-    key,
     first_publish_year,
+    subject,
     cover_edition_key,
+    number_of_pages,
+    description,
   } = book;
+
+  const buttonBook = {
+    id: cover_edition_key,
+    title,
+    author: author_name,
+    description: description,
+    first_publish_year: first_publish_year,
+    subject: subject,
+    number_of_pages: number_of_pages,
+  };
+
   const { currBook, setCurrBook } = props;
   const [modalShow, setModalShow] = useState(false);
 
-  const handleSubmitClick = (e) => {
-    e.preventDefault();
-    const bookKey = key.split('/works/')[1];
-    //props.setUserBooks((prevState) => [...prevState, bookKey]);
-    props.setUserBooks((prevState) => [
-      ...prevState,
-      { id: cover_edition_key, title: title, author: author_name },
-    ]);
-    //addBook();
+  const clickWishlist = (e) => {
+    addBookToWishlist(buttonBook);
   };
 
-  const addBook = () => {
-  
-    // const bookKey = key.split('/works/')[1];
-    // const URL = `/api/books/`;
-    // axios
-    //   .put(`${URL}${bookKey}`, { book_id: bookKey })
-    //   .then(function (response) {
-    //     if (response.status === 200) {
-    //       props.setUserBooks((prevState) => [
-    //         ...prevState,
-    //         { id: cover_edition_key, title: title, author: author_name },
-    //       ]);
-    //       console.log('success', props, cover_edition_key);
-    //       // props.showError(null);
-    //     } else {
-    //       console.log('error');
-    //     }
-    //   })
-    //   .catch(function (error) {
-    //     console.log('Search.Book ERROR: ', error);
-    //   });
+  const handleClick = (input) => {
+    console.log("book @ button book", book);
+    console.log("BUTTON BOOK", buttonBook);
+    props.newBook(input, "Shelf");
+    // props.setShow({ item: `${input.title} added to shelf.`, status: true });
   };
 
   return (
-    <Card style={{ width: '20rem' }}>
-      <Card.Img
-        variant='top'
-        src={`http://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg`}
-      />
-      <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        <Card.Subtitle className='mb-2 text-muted'>
-          {/* {author_name.join(', ')} */}
-          {author_name}
-        </Card.Subtitle>
-
-        <Button onClick={handleSubmitClick}>Add to shelf</Button>
-        <Button
-          variant='primary'
-          onClick={() => {
-            setCurrBook({ id: book.text[0] });
-            setModalShow(true);
-          }}
-        >
-          More Info
-        </Button>
-
-        <MoreInfo
-          book={book}
-          key={book.key}
-          description={currBook.description}
-          show={modalShow}
-          onHide={() => setModalShow(false)}
-        />
-      </Card.Body>
-    </Card>
+    <div>
+      <Card className="book-card">
+        <Card.Body>
+          <Card.Img
+            className="book-cover"
+            variant="top"
+            src={`http://covers.openlibrary.org/b/olid/${cover_edition_key}-M.jpg`}
+          />
+          <Card.Title>{title}</Card.Title>
+          <Card.Subtitle className="mb-2 text-muted">
+            {author_name}
+          </Card.Subtitle>
+          <Badge
+            className="carousel__subject-badge"
+            variant="outline-secondary"
+          >
+            <Button
+              variant="outline-secondary"
+              onClick={() => {
+                setCurrBook({ id: cover_edition_key });
+                setModalShow(true);
+              }}
+            >
+              More Info <i class="fas fa-info-circle"></i>
+            </Button>
+          </Badge>
+          <br></br>
+          Add to:
+          <div>
+            <Button
+              variant="outline-primary"
+              className="search-card-button"
+              onClick={() => handleClick(buttonBook)}
+            >
+              Shelf
+            </Button>
+            <Button
+              className="search-card-button"
+              variant="outline-primary"
+              onClick={() => clickWishlist()}
+            >
+              Wishlist
+            </Button>
+          </div>
+          <ChangeClubBook
+            book={buttonBook}
+            setClubBook={props.setClubBook}
+            clubs={props.clubs}
+          />
+          <MoreInfo
+            book={book}
+            key={book.key}
+            description={currBook.description}
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+          />
+        </Card.Body>
+      </Card>
+    </div>
   );
 };
 

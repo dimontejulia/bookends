@@ -1,69 +1,64 @@
-# Storybook
+# Bookends - Your Favourite Books, One Shelf.
 
-To install
-`npx sb init`
-To Run
-`npm run storybook`
+Stay organized and curious about new books. Displaying book data in a meaningful way to give a clear idea of what they've read and ideas about what they should be reading next.
 
-# Make local PSQL DB
+Users can log in/create an account, search by title, author, etc. using OpenLibrary's Search API. Books can be added to their personal shelf with options to add notes, comments, and ratings. Users are able to share books to their feed and see their friends shelves. Book clubs can also be created, allowing users to connect with their friends and discuss a shared title together.
 
-createdb final -O development
-Might need to psql createdb final -O development
+# Screenshots
 
-# To start both fron and backend
+## Home Page
 
-## to run Client / react
+Browse books, add to shelf, share thoughts directly from the home page.
 
-## ./final-project/client$
+!["home_page.png"](https://github.com/dimontejulia/final/blob/master/express_backend/public/screenshots/home_page.png)
 
-`npm start`
+## Book Shelf
 
-#### Can also run in the backend folder
+View titles and search by title, keyword or author. Earn badges for different reading accomplishments.
 
-< unable to run front end from root ATM >
+!["shelf.png"](https://github.com/dimontejulia/final/blob/master/express_backend/public/screenshots/shelf.png)
 
-## connect to db
+## Book Details
 
-CREATE DATABASE final;
-CREATE ROLE development WITH LOGIN PASSWORD 'development';
-GRANT ALL PRIVILEGES ON DATABASE final TO development;
+View book details and add comments, rating and book status for your personal shelf records.
 
-\c final development;
+!["book-details.png"](https://github.com/dimontejulia/final/blob/master/express_backend/public/screenshots/book-details.png)
 
-### Checklist
+## Social Page
 
-FRONT END
-react router - installed
-axios DONE
-node-sass DONE
+Add friends, join and create new clubs and write posts about current, past or future reads.
 
-BACK END
-nodemon - DONE
-pg-native - DONE
+!["social.png"](https://github.com/dimontejulia/final/blob/master/express_backend/public/screenshots/social.png)
 
-React front-end is running on port 3000
-Rails back-end is running on port 8080 (or any other)
+## Book Clubs
 
-==========================================================
+Create club pages, add friends, choose a title for the month and discuss as you read.
 
-# Boilerplates
+!["club1.png"](https://github.com/dimontejulia/final/blob/master/express_backend/public/screenshots/club1.png)
+!["club2.png"](https://github.com/dimontejulia/final/blob/master/express_backend/public/screenshots/club2.png)
 
-These are the project skeletons we created during the kickoff lecture. You can use these as your boilerplate for your project or simply as a reference.
+# Details
 
-## Express Back-End
+- Application was built using React.
+- Data is persisted by the API server using a PostgreSQL database.
+- The client application communicates with an API server over HTTP, using the JSON format.
+- Book data is fetched from [Open Library](https://openlibrary.org/dev/docs/api/books)
 
-- db folder => db connection and db schema, and seed
-- model folder => helper functions that interact with the db
-- routes folder => router file, use users.js as an example
-- helpers => data helpers to reformat the data before sending it back to the client
+# Technical Specifications
 
-## React Front-End
+Bookends client application created using Create React App. Express is the basis for Bookend's API server application.
 
-The React front-end use a custome hook and a reducer function to load the users in the state.
+Both servers run concurrently; requests are proxied from the Webpack development server to the API server.
 
-- hooks folder => custom hook performing the axios request and updating the state (useApplicationData.js)
-- reducers folder => reducer function to update the state
+- React
+- Webpack, Babel
+- Axios
+- Storybook, Webpack Dev Server
+- React Bootstrap
+- Scss
 
-## Rails Back-End
+# Setup
 
-The rails backend has been setup to be an API. For now, the user model and controller have been added. The route and controller are namespace under api.
+1. Install dependencies with `npm install`.
+2. Running client server `npm start`.
+3. Running backend server `npm start`.

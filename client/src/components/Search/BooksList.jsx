@@ -1,33 +1,37 @@
 import React from 'react';
 import Book from './Book.jsx';
+import Spinner from 'react-bootstrap/Spinner';
 
 const BooksList = ({ loading = false, books = [], count = 0, ...props }) => {
+  // console.log("BOOOOOKS", books);
   return (
-    <section className='section'>
-      <div className='container'>
+    <section>
+      <div className='search-cards'>
         {loading && (
-          <span
-            className='loader'
-            style={{ margin: '0 auto', width: '30px', height: '30px' }}
-          />
+          <Spinner animation='border' variant='primary' className='spinner' />
         )}
-        {books.length > 0 && (
-          <p className='subtitle'>
-            Showing <strong>{books.length}</strong> of <strong>{count}</strong>{' '}
-            results.
-          </p>
-        )}
+
         {/* take out slice operator if we want more than 5 results */}
-        {books.slice(0, 5).map((book) => (
-          <Book
-            book={book}
-            key={book.key}
-            userBooks={props.userBooks}
-            setUserBooks={props.setUserBooks}
-            currBook={props.currBook}
-            setCurrBook={props.setCurrBook}
-          />
-        ))}
+        {books.map((book) =>
+          book.cover_i && book.cover_i !== -1 ? (
+            <Book
+              book={book}
+              key={book.key}
+              userBooks={props.userBooks}
+              setUserBooks={props.setUserBooks}
+              currBook={props.currBook}
+              setCurrBook={props.setCurrBook}
+              wishlist={props.wishlist}
+              setWishlist={props.setWishlist}
+              newBook={props.newBook}
+              show={props.show}
+              setShow={props.setShow}
+              setClubBook={props.setClubBook}
+              clubs={props.clubs}
+              addBookToWishlist={props.addBookToWishlist}
+            />
+          ) : null
+        )}
       </div>
     </section>
   );

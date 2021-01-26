@@ -1,19 +1,35 @@
-import React from 'react';
-import FriendListItem from './FriendListItem';
+import React from "react";
+import { Table, Button } from "react-bootstrap";
 
-export default function FriendList(props) {
-  props = {
-    friends: ['Joe', 'Sara', 'Beth'],
-  };
-  const { friends } = props;
+export default function FriendsList(props) {
+  const { friendList, deleteFriend } = props;
 
   const parsedList =
-    friends && friends.map((friend) => <FriendListItem friend={friend} />);
-
+    friendList &&
+    friendList.map((friend) => (
+      <tr key={friend.userid}>
+        <td className="friends-list__names">
+          {" "}
+          {friend.firstname} {friend.lastname}
+        </td>
+        <td className="social__lists-button">
+          <Button
+            onClick={() => {
+              deleteFriend(friend.userid);
+            }}
+            variant="primary"
+          >
+            <i className="fas fa-user-times"></i>
+          </Button>
+        </td>
+      </tr>
+    ));
   return (
     <section>
-      <h1>FriendList</h1>
-      <ul>{parsedList}</ul>
+      <h1 className="sidebar__subheading">Friends</h1>
+      <Table hover size="sm">
+        <tbody>{parsedList}</tbody>
+      </Table>
     </section>
   );
 }

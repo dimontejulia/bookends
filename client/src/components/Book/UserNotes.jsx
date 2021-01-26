@@ -1,43 +1,32 @@
-import React from 'react';
-import Button from '../Button';
-import Rating from './Rating';
+import React from "react";
+import Form from "react-bootstrap/Form";
 
 export default function UserNotes(props) {
-  let { status, readDate, notes } = props.userBookData;
+  const { comments, setBookState } = props;
+  const handleInput = (event) => {
+    setBookState((prev) => ({
+      ...prev,
+      comments: event.target.value,
+    }));
+  };
+
   return (
     <div>
-      <div>
-        <p>
-          (ref user read date/ reading / Add to List...etc)
-          <br />
-          Status: {status}
-        </p>
-        <span>
-          <Button>Add to list</Button>
-          <Button>Reading</Button>
-          <label htmlFor='read'>Read: </label>
-          <input
-            type='date'
-            id='read'
-            name='read-date'
-            value={readDate ? readDate : '2021-01-01'}
-            max='2021-04-01'
+      <h1 className="sidebar__subheading">What did you think?</h1>
+      <Form className="book__user-notes-form">
+        <Form.Group controlId="body">
+          <Form.Control
+            onChange={handleInput}
+            className="form__user-notes-input"
+            name="userNotes"
+            name="body"
+            as="textarea"
+            placeholder="Any notes about the book? Write them here..."
+            rows={5}
+            value={comments ? comments : ""}
           />
-          <Button>Edit Date</Button>
-          <Button>Send Book to Friend</Button>
-        </span>
-      </div>
-      <h3>Notes</h3>
-      <br />
-      <textarea
-        name='userNotes'
-        rows='15'
-        cols='75'
-        placeholder='Any notes about the book? Write them here...'
-        value={notes ? notes : ''}
-      ></textarea>
-      <br />
-      <Button>Save Notes</Button>
+        </Form.Group>
+      </Form>
     </div>
   );
 }
