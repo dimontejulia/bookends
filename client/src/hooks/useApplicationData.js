@@ -74,8 +74,8 @@ export default function useApplicationData() {
   }, []);
   //Functions to be passed down as Props (Dealing with state);===================================
   //==State Setters==============================================
-  const setWishlist = (input) => {
-    console.log("Set wish", input);
+  const setWishlist = () => {
+    console.log("Click");
   };
   const setCurrBook = (input) => {
     setState((prev) => {
@@ -161,21 +161,19 @@ export default function useApplicationData() {
     });
   };
   //==Books==============================================
-  const addBookToShelf = (bookData, list) => {
-    console.log("ADD TO SHELF", bookData, list)
-
+  const addBookToShelf = (bookData) => {
     const newBook = {
       id: bookData.id,
       title: bookData.title,
       author: bookData.author,
       subject: bookData.subject,
       first_publish_year: bookData.first_publish_year,
+      description: bookData.description,
     };
     const newBookState = {
       ...state.books,
       [bookData.id]: newBook,
     };
-
     //This should be in the THEN of axios but getting 500 error cause Ukn
     // debug later...
     setState((prev) => {
@@ -215,10 +213,10 @@ export default function useApplicationData() {
 
   const rmvBookFrShelf = (bookId, list) => {
     const userId = user.id;
-    console.log("RMB FR", bookId, user.id, list)
+    console.log("RMB FR", bookId, user.id, list);
     //List in api route?  if !listname default to shelf
-    if (list === 'Wishlist') {
-      console.log("RMB FR list", bookId, user.id, list)
+    if (list === "Wishlist") {
+      console.log("RMB FR list", bookId, user.id, list);
       //wishlist
       axios
         .delete(`/api/users/${userId}/wishlist/${bookId}`)
@@ -231,8 +229,7 @@ export default function useApplicationData() {
         })
         .catch((err) => err);
     } else {
-
-      console.log("RMB FR SHELF", bookId, user.id, list)
+      console.log("RMB FR SHELF", bookId, user.id, list);
       //SHELF
       axios
         .delete(`/api/users/${userId}/books/${bookId}`)

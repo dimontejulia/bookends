@@ -31,6 +31,7 @@ function App() {
     addFriend,
     deleteFriend,
     addBookToShelf,
+    addBookToWishlist,
     rmvBookFrShelf,
     saveBookNotes,
     joinClub,
@@ -61,7 +62,7 @@ function App() {
   //==============Functions========
 
   const fetchBookDetails = (selBook) => {
-    const { id, listName } = selBook
+    const { id, listName } = selBook;
     const OLBookID = id;
     if (OLBookID === "initial") {
       return null;
@@ -103,22 +104,30 @@ function App() {
         })
 
         .then(() => {
+          const descriptionDB = state.books[OLBookID].description;
+          console.log(descriptionDB);
+          // if (state.books.OLBookID.description) {
           //Fetch Works (Description / subjects)
-          if (book.works) {
-            axios
-              .get(`https://openlibrary.org${book.works}.json`)
-              .then((res) => {
-                book.subjects = res.data.subjects;
-                if (res.data.description) {
-                  if (typeof res.data.description !== "string") {
-                    book.description = res.data.description.value;
+          if (!descriptionDB) {
+            if (book.works) {
+              console.log("still entered!");
+              axios
+                .get(`https://openlibrary.org${book.works}.json`)
+                .then((res) => {
+                  book.subjects = res.data.subjects;
+                  if (res.data.description) {
+                    if (typeof res.data.description !== "string") {
+                      book.description = res.data.description.value;
+                    } else {
+                      book.description = res.data.description;
+                    }
                   } else {
-                    book.description = res.data.description;
+                    book.description = "No Description Found";
                   }
-                } else {
-                  book.description = "No Description Found";
-                }
-              });
+                });
+            }
+          } else {
+            book.description = descriptionDB;
           }
         })
         .then(() => {
@@ -161,7 +170,9 @@ function App() {
               path="/clubs/:id"
               render={(props) => {
                 const paramClubId = props.location.pathname.replace(
-                  "/clubs/", "");
+                  "/clubs/",
+                  ""
+                );
                 return (
                   <ClubsInfo
                     state={state}
@@ -214,7 +225,7 @@ function App() {
                 setBooks={addBookToShelf}
                 setWishlist={setWishlist}
                 setCurrBook={setCurrBook}
-                list={'mybooks'}
+                list={"mybooks"}
               />
             </Route>
             <Route path="/wishlist/">
@@ -224,7 +235,7 @@ function App() {
                 setBooks={addBookToShelf}
                 setWishlist={setWishlist}
                 setCurrBook={setCurrBook}
-                list={'wishlist'}
+                list={"wishlist"}
               />
             </Route>
             {/* <Route path="/wishlist/">
@@ -266,6 +277,7 @@ function App() {
                   <SearchIndex
                     userBooks={state.books}
                     setUserBooks={addBookToShelf}
+                    addBookToWishlist={addBookToWishlist}
                     wishlist={state.wishlist}
                     setWishlist={setWishlist}
                     currBook={state.currBook}
