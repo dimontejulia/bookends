@@ -201,7 +201,7 @@ export default function useApplicationData() {
       first_publish_year: bookData.first_publish_year,
       description: bookData.description,
     };
-    s;
+
     const newBookState = {
       ...state.books,
       [bookData.id]: newBook,
