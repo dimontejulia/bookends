@@ -40,7 +40,7 @@ export default function JoinClub(props) {
           handleClick();
         }}
       >
-        <i class="fas fa-users"></i>
+        <i className="fas fa-users"></i>
       </Button>
     </Form>
   );
