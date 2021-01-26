@@ -14,6 +14,7 @@ export default function Details(props) {
     author,
     published,
     coverLink,
+    number_of_pages,
   } = props.book;
 
   const popover = (

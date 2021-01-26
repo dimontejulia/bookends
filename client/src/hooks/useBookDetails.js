@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 
 export default function currBookDetails(OLBookId) {
   const [details, setDetails] = useState("");
@@ -15,6 +15,7 @@ export default function currBookDetails(OLBookId) {
       published: "",
       description: "",
       first_publish_year: "",
+      number_of_pages: "",
       subjects: null,
       works: null,
       coverLink: `https://covers.openlibrary.org/b/olid/${OLBookId}-L.jpg`,
@@ -32,6 +33,7 @@ export default function currBookDetails(OLBookId) {
             first_publish_year: res.data.first_publish_year,
             author: res.data.authors[0].key,
             works: res.data.works[0].key,
+            number_of_pages: number_of_pages,
           };
         })
         .then(() => {
@@ -66,8 +68,7 @@ export default function currBookDetails(OLBookId) {
         })
         .catch((e) => console.log("Error: axios get book details ", e));
     }
-
-  }, [OLBookId])
+  }, [OLBookId]);
 
   return details;
 }
