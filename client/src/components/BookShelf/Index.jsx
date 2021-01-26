@@ -21,7 +21,6 @@ export default function Index(props) {
 
   function updateHistory(pageList) {
     if (pageList.includes('wishlist')) {
-      console.log('UPDATE LIST', pageList);
       window.history.replaceState('wishlist', 'wishlist', `/wishlist`);
     } else {
       window.history.replaceState('shelf', 'shelf', `/shelf`);
