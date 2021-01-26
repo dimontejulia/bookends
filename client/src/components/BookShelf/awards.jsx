@@ -50,14 +50,13 @@ export function newBook(currentYear, newestBook) {
     return (
       <div className="award-card">
         <Card.Body>
-          <Card.Title>Millennial Reader</Card.Title>
           <Card.Img
             variant="top"
             src={process.env.PUBLIC_URL + "/images/millennial_reader.png"}
           />
           <Card.Text>
             You've read a book published in the last year. It was published in{" "}
-            {newestBook}. Keep on supporting modern day authors!
+            {newestBook}. Keep on supporting todays authors!
           </Card.Text>
         </Card.Body>
       </div>
