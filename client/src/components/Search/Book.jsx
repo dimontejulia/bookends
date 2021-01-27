@@ -66,7 +66,7 @@ const Book = ({ book, addBookToWishlist, ...props }) => {
                 setModalShow(true);
               }}
             >
-              More Info <i class="fas fa-info-circle"></i>
+              More Info <i className="fas fa-info-circle"></i>
             </Button>
           </Badge>
           <br></br>
@@ -94,7 +94,7 @@ const Book = ({ book, addBookToWishlist, ...props }) => {
           />
           <MoreInfo
             book={book}
-            key={book.key}
+            key={book.id}
             description={currBook.description}
             show={modalShow}
             onHide={() => setModalShow(false)}
