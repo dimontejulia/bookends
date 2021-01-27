@@ -6,7 +6,9 @@ export default function List(props) {
 
   const parsedList =
     list &&
-    list.map((listItem) => <ListGroup.Item> {listItem} </ListGroup.Item>);
+    list.map((listItem) => (
+      <ListGroup.Item key={listItem}> {listItem} </ListGroup.Item>
+    ));
   return (
     <section>
       <h3 className="list__title">{listName}</h3>
