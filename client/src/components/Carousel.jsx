@@ -22,7 +22,7 @@ export default function Carousel(props) {
       <h2 className="carousel__category">{props.carouselTitle}</h2>
       <div className="carousel__covers">
         {books.map((book) => (
-          <div className="carousel__container">
+          <div key={book.id} className="carousel__container">
             <img
               key={book.id}
               className="carousel__book-cover"

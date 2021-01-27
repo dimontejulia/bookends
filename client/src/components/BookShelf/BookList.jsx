@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import BookListItem from './BookListItem';
-import FormControl from 'react-bootstrap/FormControl';
-import Form from 'react-bootstrap/Form';
+import React, { useState, useEffect } from "react";
+import BookListItem from "./BookListItem";
+import FormControl from "react-bootstrap/FormControl";
+import Form from "react-bootstrap/Form";
 
-import '../Shelf.scss';
+import "../Shelf.scss";
 
 export default function BookList(props) {
   const { books, setCurrBook, wishlist } = props;
   const [results, setResults] = useState(books);
-  const [form, setForm] = useState('');
+  const [form, setForm] = useState("");
 
   const formatStatus = (inputStatus) => {
     switch (inputStatus) {
-      case 'In Progress':
-        return 'Reading';
-      case 'Finished':
-        return 'Read it';
-      case 'On my list':
-        return '';
-      case '':
-        return 'New';
+      case "In Progress":
+        return "Reading";
+      case "Finished":
+        return "Read it";
+      case "On my list":
+        return "";
+      case "":
+        return "New";
       default:
-        return 'New';
+        return "New";
     }
   };
 
@@ -80,6 +80,7 @@ export default function BookList(props) {
     results &&
     Object.values(results).map((book) => (
       <BookListItem
+        key={book.id}
         title={book.title}
         author={book.author}
         first_publish_year={book.first_publish_year}
@@ -94,18 +95,18 @@ export default function BookList(props) {
   const resultsCount = parsedList ? parsedList.length : results;
   return (
     <section>
-      <Form className='search-books-bar'>
+      <Form className="search-books-bar">
         <FormControl
           onChange={handleChange}
-          id='searchBook'
-          name='searchBook'
-          type='text'
-          className='search-bar'
+          id="searchBook"
+          name="searchBook"
+          type="text"
+          className="search-bar"
           value={form}
-          placeholder='Search by title, author, genre etc.'
+          placeholder="Search by title, author, genre etc."
         />
       </Form>
-      <div className='cards'>
+      <div className="cards">
         {resultsCount || form ? parsedList : parsedList}
       </div>
     </section>

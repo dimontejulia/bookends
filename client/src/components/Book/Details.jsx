@@ -45,7 +45,7 @@ export default function Details(props) {
     subjects &&
     subjects.map((subject) => {
       return (
-        <Badge className="book__subject-badge" variant="dark">
+        <Badge key={subject} className="book__subject-badge" variant="dark">
           {subject}
         </Badge>
       );
@@ -60,9 +60,6 @@ export default function Details(props) {
         <Spinner animation="border" variant="secondary" />
       ) : (
         <div>
-          {/* <h1>
-            {title} by {author}
-          </h1> */}
           <div className="subjects-container">
             {subjects ? subjectStr.splice(0, 6) : null}
           </div>
