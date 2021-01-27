@@ -21,7 +21,7 @@ export default function ChangeBook(props) {
     ));
 
   return (
-    <Dropdown key={`${props.book.id}_dd`} block>
+    <Dropdown key={`${props.book.id}_dd`} block="block">
       <Dropdown.Toggle
         key={`${props.book.id}_dd_btn`}
         block

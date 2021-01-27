@@ -50,13 +50,13 @@ export default function UserActions(props) {
           <option value="finished">Read</option>
         </select> */}
         <Form>
-          <Form.Group controlId="status__select">
+          <Form.Group>
             <Form.Control
               as="select"
               onChange={handleInput}
               name="status"
               id="status"
-              value={bookData ? bookData.status : null}
+              value={bookData ? bookData.status : ""}
             >
               <option value="On my list">On my list</option>
               <option value="In Progress">Reading</option>
@@ -70,7 +70,7 @@ export default function UserActions(props) {
             type="date"
             id="read"
             name="read-date"
-            value={bookData ? readDate : null}
+            value={bookData ? readDate : ""}
           />
           <Form.Text className="text-muted">Date Read</Form.Text>
         </Form>

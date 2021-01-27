@@ -5,11 +5,15 @@ export default function List(props) {
   const { listName, list, friends } = props;
   const parsedList =
     list &&
-    list.map((listItem) => <ListGroup.Item> {listItem} </ListGroup.Item>);
+    list.map((listItem) => (
+      <ListGroup.Item key={listItem}> {listItem} </ListGroup.Item>
+    ));
   return (
     <div className="list__container">
       <h1 className="sidebar__subheading">{listName}</h1>
-      <ListGroup variant="flush">{parsedList}</ListGroup>
+      <ListGroup key={listName} variant="flush">
+        {parsedList}
+      </ListGroup>
       {/* 
       <ul>{parsedList}</ul> */}
     </div>

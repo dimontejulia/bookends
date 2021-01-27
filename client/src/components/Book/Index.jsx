@@ -41,7 +41,6 @@ export default function Index(props) {
       <div className="container">
         <div className="left-main-content">
           <Details
-            key={currBook.id}
             book={currBook}
             deleteUserBook={deleteUserBook}
             currBookId={currBook.id}
@@ -50,7 +49,7 @@ export default function Index(props) {
           {currBook.friends_read
             ? currBook.friends_read.length > 1 && (
                 <AlsoReadList
-                  key={currBook.id}
+                  key={`${currBook.id}_arl`}
                   list={currBook.friends_read}
                   listName={`Friends who also read ${currBook.title}:`}
                   friends={props.friends}

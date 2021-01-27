@@ -24,6 +24,7 @@ export default function Rating(props) {
       count++;
       starRating.push(
         <FontAwesomeIcon
+          key={`star-${count}_full`}
           icon={faStarSolid}
           value={`star-${count}`}
           onClick={handleInput}
@@ -35,6 +36,7 @@ export default function Rating(props) {
       count++;
       starRating.push(
         <FontAwesomeIcon
+          key={`star-${count}_empty`}
           icon={faStarRegular}
           id={`star-${count}`}
           onClick={handleInput}
