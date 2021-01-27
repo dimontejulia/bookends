@@ -64,12 +64,12 @@ function App() {
   const fetchOLBookData = (selBook) => {
     const { id, listName } = selBook;
     const OLBookID = id || selBook;
-    if (OLBookID === "initial") {
+    if (OLBookID === "initial" || !OLBookID) {
       return null;
     }
-    if (!OLBookID) {
-      return null;
-    }
+    // if (!OLBookID) {
+    //   return null;
+    // }
     console.log("SLE", selBook);
     console.log("OLID", OLBookID);
     let initBook = {
@@ -79,18 +79,16 @@ function App() {
       published: "",
       description: "",
       first_publish_year: "",
-      number_of_pages: "",
       subjects: null,
       works: null,
       listName: listName,
       coverLink: `https://covers.openlibrary.org/b/olid/${OLBookID}-L.jpg`,
       friends_read: null,
     };
-
     return axios
       .get(`https://openlibrary.org/books/${OLBookID}.json`)
       .then((res) => {
-        console.log("FIRST RED".res);
+        // console.log("FIRST RED".res)
         //Save book Data
         return (initBook = {
           ...initBook,
@@ -100,7 +98,7 @@ function App() {
             res.data.first_publish_year || res.data.publish_date,
           author: (res.data.authors && res.data.authors[0].key) || null,
           works: res.data.works[0].key,
-          number_of_pages: res.data.number_of_pages,
+          pages: res.data.number_of_pages,
           isbn13: res.data.isbn_13,
         });
       })
@@ -109,7 +107,7 @@ function App() {
         axios
           .get(`https://openlibrary.org${book.works}.json`)
           .then((worksData) => {
-            console.log("WD Start", book, worksData);
+            // console.log("WD Start", book, worksData)
             return (book = {
               ...book,
               subjects: worksData.data.subjects,
@@ -124,12 +122,12 @@ function App() {
             axios
               .get(`https://openlibrary.org${book.author}.json`)
               .then((authorData) => {
-                console.log("Aut Start", book);
+                // console.log("Aut Start", book);
                 book = {
                   ...book,
                   author: authorData.data.name,
                 };
-                console.log("end of fetch", book);
+                // console.log("end of fetch", book);
                 if (!book.description) {
                   book = {
                     ...book,
@@ -138,12 +136,27 @@ function App() {
                 }
                 setCurrBook(book);
                 return book;
+              })
+              .then((OLBookDets) => {
+                axios.get(`/api/books/${OLBookID}`).then((res) => {
+                  // console.log("FRIEND RED", res)
+                  const friendNames = res.data.map((x) =>
+                    getUserNames(x.user_id)
+                  );
+                  // book.friends_read = friendNames;
+                  book = {
+                    ...book,
+                    friends_read: friendNames,
+                  };
+                  console.log("RETURN", book);
+                  setCurrBook(book);
+                  return book;
+                });
               });
           });
       })
       .catch((e) => console.log("OL FETCH ERROR ", e));
   };
-
   // console.log("REST FESTCH", fetchOLBookData({ id: "OL26455544M" }))
 
   // const fetchBookDetails = (selBook) => {

@@ -10,7 +10,6 @@ export default function Carousel(props) {
 
   const handleClick = (input) => {
     props.newBook(input);
-    props.setShow({ item: `${input.title} added successfully.`, status: true });
   };
 
   let subjects;
